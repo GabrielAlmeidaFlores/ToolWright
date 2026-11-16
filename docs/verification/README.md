@@ -27,7 +27,7 @@ inputs = ["tests", "packages"]
 | `verify.checks.<name>.timeout` | Per-check timeout, overriding the default |
 | `verify.checks.<name>.inputs` | Optional paths used as a cache key |
 
-TOML is used because Python 3.11 provides `tomllib` in the standard library; no runtime dependency is added. See [`docs/decisions/ADR-008-toml-verification-config.md`](../decisions/ADR-008-toml-verification-config.md).
+TOML is used because Python 3.11 provides `tomllib` in the standard library; no runtime dependency is added. See [`docs/decisions/ADR-008-toml-verification-config.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/decisions/ADR-008-toml-verification-config.md).
 
 ## Commands
 
@@ -108,6 +108,6 @@ The `cli` job runs `toolwright verify --only validate --only lint`, and the Ralp
 
 ## References
 
-- [`docs/governance/README.md`](../governance/README.md)
-- [`docs/decisions/ADR-008-toml-verification-config.md`](../decisions/ADR-008-toml-verification-config.md)
-- [`docs/architecture/testing.md`](../architecture/testing.md)
+- [`docs/governance/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/governance/README.md)
+- [`docs/decisions/ADR-008-toml-verification-config.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/decisions/ADR-008-toml-verification-config.md)
+- [`docs/architecture/testing.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md)

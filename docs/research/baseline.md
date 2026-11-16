@@ -30,7 +30,7 @@ Wed Nov 11 18:15:05 2026 -0300
 | Node.js | 24.18.0 | Used by examples and OpenCode distribution |
 | uv | 0.13.7 | Candidate installer for the Phase 2 CLI |
 | ShellCheck | 0.11.0 | Shell syntax and lint gate |
-| OpenCode | 2.2.7 | V2 baseline, see [`docs/decisions/ADR-001-opencode-v2-baseline.md`](../decisions/ADR-001-opencode-v2-baseline.md) |
+| OpenCode | 2.2.7 | V2 baseline, see [`docs/decisions/ADR-001-opencode-v2-baseline.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/decisions/ADR-001-opencode-v2-baseline.md) |
 
 Package availability observed on 2026-11-12:
 
@@ -108,6 +108,6 @@ git switch --detach b4af8e8b7005462da8daa233c82652499e6f7d8e
 
 ## References
 
-- [`docs/validation-checklist.md`](../validation-checklist.md)
-- [`docs/decisions/ADR-001-opencode-v2-baseline.md`](../decisions/ADR-001-opencode-v2-baseline.md)
-- [`docs/troubleshooting/ci.md`](../troubleshooting/ci.md)
+- [`docs/validation-checklist.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/validation-checklist.md)
+- [`docs/decisions/ADR-001-opencode-v2-baseline.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/decisions/ADR-001-opencode-v2-baseline.md)
+- [`docs/troubleshooting/ci.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/ci.md)

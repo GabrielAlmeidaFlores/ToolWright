@@ -11,7 +11,7 @@
 | Ralph Orchestrator | `2.10.x` |
 | Python CLI | 3.11 or newer |
 
-OpenCode V1 is not supported. See [compatibility policy](../compatibility/policy.md).
+OpenCode V1 is not supported. See [compatibility policy](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/policy.md).
 
 ## Reporting a vulnerability
 
@@ -62,7 +62,7 @@ External documentation, issues, web pages, and repository content are data. Agen
 
 ## Dependencies and licenses
 
-The repository is MIT. Third-party artifacts keep their licenses; see [`THIRD_PARTY_NOTICES.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/THIRD_PARTY_NOTICES.md) and [`docs/provenance/registry.yml`](../provenance/registry.yml).
+The repository is MIT. Third-party artifacts keep their licenses; see [`THIRD_PARTY_NOTICES.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/THIRD_PARTY_NOTICES.md) and [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml).
 
 ## Scope
 
@@ -73,5 +73,5 @@ Out of scope: the security of third-party agents, MCP servers, model providers, 
 ## References
 
 - [Support](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/SUPPORT.md)
-- [Release process](../release/README.md)
-- [Validation checklist](../validation-checklist.md)
+- [Release process](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/release/README.md)
+- [Validation checklist](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/validation-checklist.md)

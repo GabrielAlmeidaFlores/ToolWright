@@ -103,10 +103,10 @@ to the orchestrator. The current integration point is `toolwright govern check` 
 
 ## Design reference
 
-The governance concepts follow `DVNghiem/FlowDeck`'s documented contract validator, budgets, and loop/deadlock detection (MIT). The verification cache follows `juanmanueldaza/nerv`'s exec-cache idea (Apache-2.0). The implementation is original Python; see the `verification-and-governance` entry in [`docs/provenance/registry.yml`](../provenance/registry.yml).
+The governance concepts follow `DVNghiem/FlowDeck`'s documented contract validator, budgets, and loop/deadlock detection (MIT). The verification cache follows `juanmanueldaza/nerv`'s exec-cache idea (Apache-2.0). The implementation is original Python; see the `verification-and-governance` entry in [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml).
 
 ## References
 
-- [`docs/verification/README.md`](../verification/README.md)
-- [`docs/orchestration/ralph.md`](../orchestration/ralph.md)
+- [`docs/verification/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md)
+- [`docs/orchestration/ralph.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/orchestration/ralph.md)
 - [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) Sections 2B and 14

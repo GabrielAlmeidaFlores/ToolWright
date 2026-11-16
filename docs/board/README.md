@@ -42,5 +42,5 @@ Stop using the commands and delete `.toolwright/board`. Remove worktrees with `g
 ## References
 
 - [`.toolwright/board/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/board/README.md) (source of truth in the project)
-- [`docs/cli/README.md`](../cli/README.md)
-- [`docs/provenance/registry.yml`](../provenance/registry.yml)
+- [`docs/cli/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md)
+- [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml)

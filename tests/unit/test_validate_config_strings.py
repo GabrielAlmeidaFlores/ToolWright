@@ -151,3 +151,13 @@ TEXT_VALID_SKILL = 'valid-skill'
 TEXT_WORKING_DIRECTORY_DOES_NOT_EXIST = 'working_directory does not exist'
 TEXT_WRONG_MODE_MD = 'wrong-mode.md'
 TEXT_STATUS_BLOCK = '> **Status:** {} · **Last verified:** {} · **Evidence:** verified locally\n\n'
+
+TEXT_ABSOLUTE_GITHUB_URL = 'use an absolute GitHub URL'
+TEXT_RELATIVE_MARKDOWN_LINK_SAMPLE = 'See [plan](../docs/plan.md).\n'
+TEXT_ABSOLUTE_MARKDOWN_LINK_SAMPLE = (
+    'See [plan](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/plan.md).\n'
+)
+TEXT_FENCED_RELATIVE_LINK_SAMPLE = '```markdown\nSee [plan](../docs/plan.md).\n```\n'
+TEXT_INLINE_RELATIVE_LINK_SAMPLE = 'Literal `[plan](../docs/plan.md)` text.\n'
+
+TEXT_NESTED_FENCE_RELATIVE_LINK_SAMPLE = '````markdown\n```\nSee [plan](../docs/plan.md).\n```\n````\n'

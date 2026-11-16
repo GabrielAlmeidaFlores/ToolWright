@@ -12,10 +12,10 @@
 description: Generate API, architecture, code, and user documentation from a codebase and automate keeping it current
 agent: documentation-engineer
 ---
-> **Runtime compatibility (local).** Delegate through the runtime's subagent mechanism when available; otherwise execute the steps inline. Use the runtime's clarification mechanism for checkpoints. Do not assume a specific vendor's plan mode. The specialist names in this command are mapped to the agents in [`docs/agents/roles.md`](../docs/agents/roles.md).
+> **Runtime compatibility (local).** Delegate through the runtime's subagent mechanism when available; otherwise execute the steps inline. Use the runtime's clarification mechanism for checkpoints. Do not assume a specific vendor's plan mode. The specialist names in this command are mapped to the agents in [`docs/agents/roles.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md).
 
 
-> Runtime adaptation: map the specialist names in this command to the agents in [`docs/agents/roles.md`](../docs/agents/roles.md).
+> Runtime adaptation: map the specialist names in this command to the agents in [`docs/agents/roles.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md).
 
 # Automated Documentation Generation
 
@@ -428,7 +428,7 @@ pytest --cov=your_package
 
 ## License
 
-This project is licensed under the ${LICENSE} License - see the [LICENSE](../LICENSE) file for details.
+This project is licensed under the ${LICENSE} License - see the [LICENSE](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/LICENSE) file for details.
 
 ````
 

@@ -13,7 +13,7 @@ Use this checklist before tagging a release. A checked item must have reproducib
 - [ ] `git diff --check` passes.
 - [ ] No credentials or machine-specific paths are committed.
 - [ ] [`THIRD_PARTY_NOTICES.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/THIRD_PARTY_NOTICES.md) matches the current sources.
-- [ ] [`docs/provenance/registry.yml`](provenance/registry.yml) points to existing paths and authors.
+- [ ] [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml) points to existing paths and authors.
 
 ## Configuration
 

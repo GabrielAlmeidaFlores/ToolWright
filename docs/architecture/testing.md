@@ -136,6 +136,6 @@ and require `OPENCODE_BENCH_MODEL`.
 ## References
 
 - [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) Section 12
-- [`docs/validation-checklist.md`](../validation-checklist.md)
-- [`docs/troubleshooting/ci.md`](../troubleshooting/ci.md)
-- [`docs/research/baseline.md`](../research/baseline.md)
+- [`docs/validation-checklist.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/validation-checklist.md)
+- [`docs/troubleshooting/ci.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/ci.md)
+- [`docs/research/baseline.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/baseline.md)

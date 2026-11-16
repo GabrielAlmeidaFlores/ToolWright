@@ -492,11 +492,11 @@ It does **not** prove that:
 
 The harness, tasks, and per-run artifacts are available:
 
-- [Benchmark methodology](methodology.md)
+- [Benchmark methodology](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md)
 - [Harness](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/harness/run.sh)
 - [Task definitions](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/tasks)
 - [Run artifacts](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/results/deepseek-flash-2026-11-13)
-- [Adapter validation record](../installation/adapter-validation.md)
+- [Adapter validation record](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/adapter-validation.md)
 
 ```bash
 OPENCODE_BENCH_MODEL=deepseek/deepseek-flash \

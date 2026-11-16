@@ -4,7 +4,7 @@ Static validation for the ToolWright repository.
 
 The validator checks required files, JSONC and YAML syntax, agent and skill
 frontmatter, provenance metadata, git permission ordering, documentation
-comments, external links, and the invariants described in AGENTS.md Sections 2A, 2B, and 2C. It performs no
+comments, absolute repository links, external links, and the invariants described in AGENTS.md Sections 2A, 2B, and 2C. It performs no
 network access unless --links is passed.
 
 Module constants: ``REQUIRED`` lists files every checkout must contain,
@@ -62,6 +62,8 @@ KEY_DOCS = 'docs'
 KEY_EFFECT = 'effect'
 KEY_EXAMPLES = 'examples'
 KEY_FIXTURES = 'fixtures'
+KEY_GIT = '.git'
+KEY_SITE = 'site'
 KEY_IGNORE = 'ignore'
 KEY_LINENO = 'lineno'
 KEY_MCP = 'mcp'
@@ -212,6 +214,14 @@ TEXT_PURPOSE_2 = '# Purpose:'
 TEXT_PY = '*.py'
 TEXT_PYCACHE = '__pycache__'
 TEXT_README_MD = 'README.md'
+TEXT_MARKDOWN_LINK_PATTERN = r'\]\(([^)\s]+)(?:\s+"[^"]*")?\)'
+TEXT_MARKDOWN_FENCE_PATTERN = r'^\s*(`{3,}|~{3,})'
+TEXT_MARKDOWN_INLINE_CODE_PATTERN = r'`[^`]*`'
+TEXT_LINK_HTTP = 'http://'
+TEXT_LINK_HTTPS = 'https://'
+TEXT_LINK_MAILTO = 'mailto:'
+TEXT_LINK_TEL = 'tel:'
+TEXT_RELATIVE_MARKDOWN_LINK = '{}:{}: use an absolute GitHub URL instead of relative link {}'
 TEXT_REQUESTING_CODE_REVIEW = 'requesting-code-review'
 TEXT_RESOLVES_TO_INSTEAD_OF_DENY_ADD_THE_GIT_DENY_RULES_AT_THE_EN = '{}: `{}` resolves to {} instead of deny; add the git deny rules at the end of permissions'
 TEXT_ROOT_MUST_BE_AN_OBJECT = '{}: root must be an object'
@@ -942,6 +952,60 @@ def check_docstring_form() -> None:
                     )
 
 
+def check_markdown_links() -> None:
+    """
+    Reject repository-relative Markdown links.
+
+    Parameters:
+        None.
+
+    Returns:
+        None.
+
+    Side effects: appends an error for every relative link found in Markdown
+    outside fenced code blocks and inline code spans. Absolute URLs, anchors,
+    and absolute filesystem paths are accepted.
+    """
+    global checked
+    link_pattern = re.compile(TEXT_MARKDOWN_LINK_PATTERN)
+    fence_pattern = re.compile(TEXT_MARKDOWN_FENCE_PATTERN)
+    inline_code_pattern = re.compile(TEXT_MARKDOWN_INLINE_CODE_PATTERN)
+    accepted_prefixes = (
+        TEXT_LINK_HTTP,
+        TEXT_LINK_HTTPS,
+        TEXT_LINK_MAILTO,
+        TEXT_LINK_TEL,
+        TEXT_TEXT_14,
+        TEXT_TEXT_4,
+    )
+    excluded_parts = {KEY_GIT, KEY_NODE_MODULES, KEY_SITE}
+    for path in sorted(ROOT.rglob(TEXT_MD)):
+        relative = path.relative_to(ROOT)
+        if excluded_parts.intersection(relative.parts):
+            continue
+        if KEY_TESTS in relative.parts and KEY_FIXTURES in relative.parts:
+            continue
+        checked += 1
+        fence_marker = EMPTY_STRING
+        for number, line in enumerate(path.read_text(encoding=TEXT_UTF_8, errors=KEY_IGNORE).splitlines(), start=1):
+            match = fence_pattern.match(line)
+            if match:
+                marker = match.group(1)
+                if not fence_marker:
+                    fence_marker = marker
+                elif marker[0] == fence_marker[0] and len(marker) >= len(fence_marker):
+                    fence_marker = EMPTY_STRING
+                continue
+            if fence_marker:
+                continue
+            for segment in inline_code_pattern.split(line):
+                for link_match in link_pattern.finditer(segment):
+                    target = link_match.group(1)
+                    if target.startswith(accepted_prefixes):
+                        continue
+                    record_error(TEXT_RELATIVE_MARKDOWN_LINK.format(relative, number, target))
+
+
 def check_links() -> None:
     global checked
     urls: set[str] = set()
@@ -989,6 +1053,7 @@ def main() -> int:
     check_docstring_form()
     check_docs_status()
 
+    check_markdown_links()
     if args.links:
         check_links()
 

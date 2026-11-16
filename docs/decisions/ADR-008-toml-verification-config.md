@@ -52,6 +52,6 @@ max_iterations = 40
 
 ## References
 
-- [`docs/verification/README.md`](../verification/README.md)
-- [`docs/governance/README.md`](../governance/README.md)
+- [`docs/verification/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md)
+- [`docs/governance/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/governance/README.md)
 - https://docs.python.org/3/library/tomllib.html

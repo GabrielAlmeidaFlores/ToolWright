@@ -4,11 +4,11 @@
 
 ## Compatibility
 
-See [artifact compatibility](compatibility.md) for the runtime status of each agent, command, skill, and Ralph collection.
+See [artifact compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/compatibility.md) for the runtime status of each agent, command, skill, and Ralph collection.
 
 ## Provenance
 
-All twelve role definitions are adapted from maintained MIT-licensed collections. The role-to-source mapping is in [docs/provenance/registry.yml](../provenance/registry.yml). Do not add a role without a source and a registry entry.
+All twelve role definitions are adapted from maintained MIT-licensed collections. The role-to-source mapping is in [docs/provenance/registry.yml](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml). Do not add a role without a source and a registry entry.
 
 ## Custom primary agent
 

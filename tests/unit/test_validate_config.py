@@ -33,6 +33,8 @@ from tests.unit.test_validate_config_strings import (
     TEXT_12_NOVEMBER_2026,
     TEXT_2026_11_12,
     TEXT_ABSENT_SKILL,
+    TEXT_ABSOLUTE_GITHUB_URL,
+    TEXT_ABSOLUTE_MARKDOWN_LINK_SAMPLE,
     TEXT_ADDS_TWO_NUMBERS_EXPORT_FUNCTION_ADD_A_NUMBER_B_NUMBER_NUMBE,
     TEXT_ADR_999_STATUS_ACCEPTED,
     TEXT_AGENTS_COORDINATOR_AGENT_MD,
@@ -64,6 +66,7 @@ from tests.unit.test_validate_config_strings import (
     TEXT_FROM_FUTURE_IMPORT_ANNOTATIONS_DEF_RUN_INT_RETURN_ONE_RETURN,
     TEXT_FULL_LINE,
     TEXT_GITHUB_WORKFLOWS_BAD_YML,
+    TEXT_FENCED_RELATIVE_LINK_SAMPLE,
     TEXT_GIT_ADD,
     TEXT_GIT_ALLOW_LAST_MD,
     TEXT_HEADER_A_NOT_A_COMMENT_BODY_B_1,
@@ -71,6 +74,7 @@ from tests.unit.test_validate_config_strings import (
     TEXT_INLINE_JSONC_COMMENTS_ARE_PROHIBITED,
     TEXT_INLINE_SHELL_COMMENTS_ARE_PROHIBITED,
     TEXT_INSTEAD_OF_DENY,
+    TEXT_INLINE_RELATIVE_LINK_SAMPLE,
     TEXT_INVALID_JSONC,
     TEXT_INVALID_YAML,
     TEXT_KEY_UNTERMINATED,
@@ -83,6 +87,8 @@ from tests.unit.test_validate_config_strings import (
     TEXT_MISSING_AGENT_MD,
     TEXT_MISSING_AUTHOR_ATTRIBUTION,
     TEXT_MISSING_DESCRIPTION,
+    TEXT_NESTED_FENCE_RELATIVE_LINK_SAMPLE,
+    TEXT_RELATIVE_MARKDOWN_LINK_SAMPLE,
     TEXT_MISSING_DESCRIPTION_MD,
     TEXT_MISSING_DOCUMENTATION_STATUS_FIELD,
     TEXT_MISSING_FIELD_JSON,
@@ -517,6 +523,34 @@ class DocsStatusTests(ValidatorTestCase):
     def test_decisions_are_exempt(self) -> None:
         self.write(TEXT_DOCS_DECISIONS_ADR_999_EXAMPLE_MD, TEXT_ADR_999_STATUS_ACCEPTED)
         self.validator.check_docs_status()
+        self.assertEqual(self.validator.errors, [])
+
+
+class MarkdownLinkTests(ValidatorTestCase):
+
+    def test_relative_repository_link_fails(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_RELATIVE_MARKDOWN_LINK_SAMPLE)
+        self.validator.check_markdown_links()
+        self.assert_error(TEXT_ABSOLUTE_GITHUB_URL)
+
+    def test_absolute_repository_link_passes(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_ABSOLUTE_MARKDOWN_LINK_SAMPLE)
+        self.validator.check_markdown_links()
+        self.assertEqual(self.validator.errors, [])
+
+    def test_fenced_relative_link_is_ignored(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_FENCED_RELATIVE_LINK_SAMPLE)
+        self.validator.check_markdown_links()
+        self.assertEqual(self.validator.errors, [])
+
+    def test_nested_fence_relative_link_is_ignored(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_NESTED_FENCE_RELATIVE_LINK_SAMPLE)
+        self.validator.check_markdown_links()
+        self.assertEqual(self.validator.errors, [])
+
+    def test_inline_code_relative_link_is_ignored(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_INLINE_RELATIVE_LINK_SAMPLE)
+        self.validator.check_markdown_links()
         self.assertEqual(self.validator.errors, [])
 
 

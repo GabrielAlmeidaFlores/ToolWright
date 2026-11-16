@@ -90,6 +90,6 @@ Those metrics require the funded pilot runner with `OPENCODE_PILOT_MODEL`. Do no
 
 ## References
 
-- [`docs/pilots/README.md`](../pilots/README.md)
-- [`docs/benchmarks/methodology.md`](../benchmarks/methodology.md)
-- [`docs/installation/toolwright-cli.md`](toolwright-cli.md)
+- [`docs/pilots/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/README.md)
+- [`docs/benchmarks/methodology.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md)
+- [`docs/installation/toolwright-cli.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/toolwright-cli.md)

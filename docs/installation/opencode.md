@@ -4,7 +4,7 @@ Repository: https://github.com/GabrielAlmeidaFlores/ToolWright
 
 > **Status:** Stable · **Last verified:** 2026-11-13 · **Evidence:** verified locally and in CI
 
-This is the OpenCode adapter guide. OpenCode is optional; the core agents and rules are provider-neutral. See [Platform Compatibility](../compatibility/README.md) for the other adapters.
+This is the OpenCode adapter guide. OpenCode is optional; the core agents and rules are provider-neutral. See [Platform Compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md) for the other adapters.
 
 ## Prerequisites
 
@@ -56,7 +56,7 @@ cp -R skills/* .opencode/skills/
 
 The repository config already references Serena and CodeGraph. Install them before starting OpenCode, or set `disabled: true` until they are ready.
 
-See [code-intelligence.md](code-intelligence.md).
+See [code-intelligence.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/code-intelligence.md).
 
 ## 4. Verify
 

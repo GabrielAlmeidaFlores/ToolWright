@@ -2,7 +2,7 @@
 
 ## Principles
 
-1. **Source before writing.** No agent, skill, command, hat, prompt, template, example, or benchmark task may be authored from scratch when a maintained upstream exists. See [`AGENTS.md`](AGENTS.md) Section 2A and [`docs/provenance/registry.yml`](docs/provenance/registry.yml).
+1. **Source before writing.** No agent, skill, command, hat, prompt, template, example, or benchmark task may be authored from scratch when a maintained upstream exists. See [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) Section 2A and [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml).
 2. Every recommendation must be reproducible with a command.
 2. Label vendor claims as vendor claims.
 3. Do not add a tool without documenting its token, runtime, license, and failure modes.
@@ -20,13 +20,13 @@ https://github.com/GabrielAlmeidaFlores/ToolWright
 ./scripts/validation/validate.sh
 ```
 
-The validator checks JSON/JSONC/YAML syntax, required files, schema keys, and documentation links. The manual acceptance list is [docs/validation-checklist.md](docs/validation-checklist.md).
+The validator checks JSON/JSONC/YAML syntax, required files, schema keys, and documentation links. The manual acceptance list is [docs/validation-checklist.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/validation-checklist.md).
 
 ## Adding an agent
 
 1. Create `agents/<role>/AGENT.md` with V2 frontmatter and instructions.
 2. Add the installable copy path in the installer (the installer flattens to `.opencode/agents/<role>.md`).
-3. Update [`docs/agents/roles.md`](docs/agents/roles.md) and the delegation table.
+3. Update [`docs/agents/roles.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md) and the delegation table.
 4. Verify `opencode debug agents` lists it.
 
 ## Adding a skill
@@ -49,11 +49,11 @@ The validator checks JSON/JSONC/YAML syntax, required files, schema keys, and do
 - Use only documented V2 fields. Validate against `https://opencode.ai/config.json`.
 - Do not hardcode model identifiers. Use the routing overlay or environment variables.
 - Run the validator before opening a pull request.
-- Follow [`AGENTS.md`](AGENTS.md) Sections 17–20 for change classification, changelog entries, and release steps.
+- Follow [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) Sections 17–20 for change classification, changelog entries, and release steps.
 
 ## Comment style
 
-Follow [`AGENTS.md`](AGENTS.md) Section 2C.
+Follow [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) Section 2C.
 
 - Use one file header block with purpose, usage, validation, and references.
 - Document every function with the native format: Python docstring, shell function block, JSDoc, or XML documentation.

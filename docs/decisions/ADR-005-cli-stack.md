@@ -66,10 +66,10 @@ and CI keep working unchanged.
 - `pyproject.toml` declares no runtime dependencies; the tests assert this.
 - `toolwright install` wraps [`scripts/installation/install.sh`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/installation/install.sh) instead of reimplementing it.
 - 30 unit tests and 13 integration tests cover the command surface.
-- The `cli` CI job is defined to install the wheel, run `toolwright doctor`, and exercise the install lifecycle; its first green run is recorded in [`docs/troubleshooting/ci.md`](../troubleshooting/ci.md) after the next push.
+- The `cli` CI job is defined to install the wheel, run `toolwright doctor`, and exercise the install lifecycle; its first green run is recorded in [`docs/troubleshooting/ci.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/ci.md) after the next push.
 
 ## References
 
-- [`docs/research/baseline.md`](../research/baseline.md)
+- [`docs/research/baseline.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/baseline.md)
 - [`scripts/validation/validate_config.py`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/validation/validate_config.py)
 - https://docs.astral.sh/uv/

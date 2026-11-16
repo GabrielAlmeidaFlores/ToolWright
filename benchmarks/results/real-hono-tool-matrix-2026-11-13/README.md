@@ -16,7 +16,7 @@ Results:
 - optimized: $0.092539 (+18.3%), 9/9 score 4;
 - full-forced: $0.140033 (+79.1%), 9/9 score 4.
 
-Full analysis, task prompts, tool coverage, and limitations: [Real Hono Tool Matrix](../../../docs/benchmarks/real-hono-tool-matrix.md).
+Full analysis, task prompts, tool coverage, and limitations: [Real Hono Tool Matrix](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/real-hono-tool-matrix.md).
 
 Each matrix run contains `meta.json`, `session.jsonl`, `run-stats.json`, `verification.log`, `status.txt`, and `diff.patch`. Probe runs contain their session and verification artifacts. Ralph artifacts contain the loop log, event stream, handoff, summary, and git log.
 

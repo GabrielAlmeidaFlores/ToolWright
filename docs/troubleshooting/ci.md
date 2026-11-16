@@ -177,5 +177,5 @@ discovery with a pinned version, and benchmark dry-runs. Action majors are `chec
 ## References
 
 - [`.github/workflows/validate.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.github/workflows/validate.yml)
-- [`docs/architecture/testing.md`](../architecture/testing.md)
-- [`docs/validation-checklist.md`](../validation-checklist.md)
+- [`docs/architecture/testing.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md)
+- [`docs/validation-checklist.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/validation-checklist.md)

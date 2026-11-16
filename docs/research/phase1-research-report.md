@@ -26,7 +26,7 @@ The decisive difference for this project is LSP:
 - V1: built-in LSP servers, diagnostics feedback, and an experimental LSP navigation tool.
 - V2: accepts `lsp` configuration but does not run language servers or expose LSP tools.
 
-Decision: target V2 and use Serena for semantic navigation. See [ADR-001](../decisions/ADR-001-opencode-v2-baseline.md).
+Decision: target V2 and use Serena for semantic navigation. See [ADR-001](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/decisions/ADR-001-opencode-v2-baseline.md).
 
 Verified against a standalone 2.2.7 binary:
 
@@ -106,7 +106,7 @@ Classification: independently verified by source reading and documentation, not 
 | Ralph optimizes a "smart zone" at 40-60% context | Project documentation | Design guidance, not a measured result |
 | V2 Code Mode reduces tool-description overhead | OpenCode documentation | Product design; effect size unmeasured here |
 
-No savings figure is published by this repository. See [ADR-004](../decisions/ADR-004-benchmark-scope.md).
+No savings figure is published by this repository. See [ADR-004](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/decisions/ADR-004-benchmark-scope.md).
 
 ## 7. Risks
 

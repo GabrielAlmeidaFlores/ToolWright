@@ -21,7 +21,7 @@ The default stack answers different questions with the cheapest sufficient tool.
 
 ## Optional
 
-Repomix, jCodeMunch, Universal Ctags, Graphify, and Aider repository maps are documented in [optional-tools.md](optional-tools.md). They are not installed by default.
+Repomix, jCodeMunch, Universal Ctags, Graphify, and Aider repository maps are documented in [optional-tools.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/optional-tools.md). They are not installed by default.
 
 ## Overhead rules
 
@@ -33,9 +33,9 @@ Repomix, jCodeMunch, Universal Ctags, Graphify, and Aider repository maps are do
 
 ## Pages
 
-- [ripgrep](ripgrep.md)
-- [ast-grep](ast-grep.md)
-- [Serena](serena.md)
-- [CodeGraph](codegraph.md)
-- [Optional tools](optional-tools.md)
-- [MCP overhead](overhead.md)
+- [ripgrep](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/ripgrep.md)
+- [ast-grep](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/ast-grep.md)
+- [Serena](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/serena.md)
+- [CodeGraph](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/codegraph.md)
+- [Optional tools](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/optional-tools.md)
+- [MCP overhead](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/overhead.md)

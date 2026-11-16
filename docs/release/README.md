@@ -14,7 +14,7 @@ A test fails when [`VERSION`](https://github.com/GabrielAlmeidaFlores/ToolWright
 
 ## Before tagging
 
-1. Complete [`docs/RELEASE_CHECKLIST.md`](../RELEASE_CHECKLIST.md).
+1. Complete [`docs/RELEASE_CHECKLIST.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/RELEASE_CHECKLIST.md).
 2. Run `make ci` and `make lint`.
 3. Run `./scripts/release/local_release_check.sh` to reproduce the wheel and checksum build.
 4. Confirm the CI run for the release commit is green.
@@ -78,6 +78,6 @@ python3 scripts/maintenance/check_upstream_drift.py
 
 ## References
 
-- [`docs/RELEASE_CHECKLIST.md`](../RELEASE_CHECKLIST.md)
-- [`docs/provenance/registry.yml`](../provenance/registry.yml)
+- [`docs/RELEASE_CHECKLIST.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/RELEASE_CHECKLIST.md)
+- [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml)
 - [`CHANGELOG.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/CHANGELOG.md)

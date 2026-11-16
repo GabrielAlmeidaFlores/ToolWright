@@ -46,12 +46,12 @@ Do not claim a platform is verified just because its instruction file exists. Ru
 
 ## Guides
 
-- [OpenCode](opencode.md) — reference adapter installation and verification.
-- [GitHub Copilot](github-copilot.md) — generated instructions, skills, prompts, and [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md).
-- [Claude Code](claude.md) — generated `CLAUDE.md`, agents, commands, and skills.
-- [OpenAI GPT / Codex](openai-gpt.md) — generated [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) and custom agent TOML files.
-- [Adapter validation](../installation/adapter-validation.md) — deterministic install, update, and uninstall evidence.
-- [Compatibility policy](policy.md) — supported targets and change rules.
+- [OpenCode](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/opencode.md) — reference adapter installation and verification.
+- [GitHub Copilot](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md) — generated instructions, skills, prompts, and [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md).
+- [Claude Code](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md) — generated `CLAUDE.md`, agents, commands, and skills.
+- [OpenAI GPT / Codex](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md) — generated [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) and custom agent TOML files.
+- [Adapter validation](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/adapter-validation.md) — deterministic install, update, and uninstall evidence.
+- [Compatibility policy](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/policy.md) — supported targets and change rules.
 
 ## References
 

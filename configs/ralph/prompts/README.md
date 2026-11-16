@@ -6,6 +6,6 @@ Override it per run with `ralph run -p "..."` or `-P path/to/prompt.md`.
 
 ## Notes
 
-- Keep prompts short; put durable rules in [`AGENTS.md`](../../../AGENTS.md) and project config.
+- Keep prompts short; put durable rules in [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) and project config.
 - Do not paste whole files into the prompt. Reference paths.
 - Put acceptance criteria in the prompt; Ralph gates on evidence.

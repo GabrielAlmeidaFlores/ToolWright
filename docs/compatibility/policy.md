@@ -42,7 +42,7 @@ The matrix marks unverified cells as `not verified`. It records supported featur
 | Test suite | `make test` |
 | OpenCode agent discovery | CI `opencode profile` job |
 | OpenCode compatibility matrix | `toolwright compat` |
-| Adapter install, update, and uninstall | [`docs/installation/adapter-validation.md`](../installation/adapter-validation.md) |
+| Adapter install, update, and uninstall | [`docs/installation/adapter-validation.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/adapter-validation.md) |
 | Optional native discovery checks | `./scripts/validation/check_adapter_discovery.sh` |
 | Copilot instruction discovery | `copilot instruction list` in a generated target |
 | Copilot skill discovery | `copilot skill list` in a generated target |

@@ -86,10 +86,10 @@ Session-start injection through an OpenCode plugin is deferred to a later phase.
 
 ## Design reference
 
-The three-partition Markdown-first model follows `aerovato/operator-memory` (BSD-3-Clause): deterministic loading, catalog routing, and no retrieval by similarity. The implementation is original Python; see [`docs/provenance/registry.yml`](../provenance/registry.yml) entry `memory-and-specs`.
+The three-partition Markdown-first model follows `aerovato/operator-memory` (BSD-3-Clause): deterministic loading, catalog routing, and no retrieval by similarity. The implementation is original Python; see [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml) entry `memory-and-specs`.
 
 ## References
 
-- [`docs/specs/README.md`](../specs/README.md)
-- [`docs/decisions/ADR-007-memory-without-rag.md`](../decisions/ADR-007-memory-without-rag.md)
+- [`docs/specs/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/specs/README.md)
+- [`docs/decisions/ADR-007-memory-without-rag.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/decisions/ADR-007-memory-without-rag.md)
 - [`.toolwright/memory/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/memory/README.md)

@@ -71,7 +71,7 @@ used. It never stages or commits in the main repository and never runs Ralph.
 
 Runner capability is not evidence. The Hono smoke run proves the runner executes against a real
 repository, but it is not a pilot result. A pilot is complete only after the five tasks, artifacts,
-and independent verification exist. See [`docs/pilots/results/round-1.md`](results/round-1.md) and [`docs/pilots/results/hono-smoke.md`](results/hono-smoke.md).
+and independent verification exist. See [`docs/pilots/results/round-1.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/results/round-1.md) and [`docs/pilots/results/hono-smoke.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/results/hono-smoke.md).
 
 ## Constraints
 

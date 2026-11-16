@@ -169,7 +169,7 @@ skills:
     author: "Jesse Vincent"
     author_url: "https://github.com/obra"
     retrieved: "2026-11-11"
-    modified: "SKILL.md metadata only; supporting files copied as-is"
+    modified: "SKILL.md metadata and repository link targets; supporting files copied as-is"
   - id: systematic-debugging
     local: "skills/systematic-debugging/SKILL.md"
     source: superpowers
@@ -209,7 +209,7 @@ skills:
     author: "Jesse Vincent"
     author_url: "https://github.com/obra"
     retrieved: "2026-11-11"
-    modified: "SKILL.md metadata only; supporting files copied as-is"
+    modified: "SKILL.md metadata and repository link targets; supporting files copied as-is"
   - id: api-design-principles
     local: "skills/api-design-principles/SKILL.md"
     source: wshobson

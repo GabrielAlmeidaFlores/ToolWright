@@ -2,7 +2,7 @@
 
 > **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
 
-This page records how the sourced artifacts behave in OpenCode 2.2.x. It separates static validation from runtime smoke tests so a passing check is not mistaken for a full evaluation. For GitHub Copilot, Claude Code, and OpenAI GPT/Codex mappings, see [Platform Compatibility](../compatibility/README.md).
+This page records how the sourced artifacts behave in OpenCode 2.2.x. It separates static validation from runtime smoke tests so a passing check is not mistaken for a full evaluation. For GitHub Copilot, Claude Code, and OpenAI GPT/Codex mappings, see [Platform Compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md).
 
 ## Version matrix
 

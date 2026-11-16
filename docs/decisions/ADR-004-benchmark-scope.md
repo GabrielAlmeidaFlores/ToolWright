@@ -39,4 +39,4 @@ Do **not** publish invented numbers, vendor figures presented as independent res
 - The benchmark question is tool-neutral: compare ToolWright against the stock configuration of the same AI coding tool.
 - The first published run uses the OpenCode 2.2.7 reference adapter and `deepseek/deepseek-flash`. It is not a Claude, Copilot, or Codex result.
 - Per-run cost and token values come from `run-stats.json`, not `opencode stats --project .`, because that command can aggregate sessions across runs that share a project identity.
-- The optimized configuration did not reduce cost overall in the first result set. See the [DeepSeek Flash results](../benchmarks/results-deepseek-flash.md).
+- The optimized configuration did not reduce cost overall in the first result set. See the [DeepSeek Flash results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-deepseek-flash.md).

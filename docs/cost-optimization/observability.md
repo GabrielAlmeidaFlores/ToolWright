@@ -56,7 +56,7 @@ The optimized run used fewer steps and fewer tools on this single task. This is 
 - verification exit code
 - baseline/optimized cost and token ratios
 
-The report intentionally excludes correctness scoring and rework, so it must not be used as a standalone quality claim. See [benchmark methodology](../benchmarks/methodology.md).
+The report intentionally excludes correctness scoring and rework, so it must not be used as a standalone quality claim. See [benchmark methodology](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md).
 
 ## Budget control
 

@@ -56,5 +56,5 @@ Ralph Orchestrator is optional and uses its OpenCode backend. Read the auto-comm
 
 - [OpenCode agents](https://opencode.ai/docs/agents)
 - [OpenCode configuration](https://opencode.ai/docs/config)
-- [Installation guide](../installation/opencode.md)
-- [CLI reference](../cli/README.md)
+- [Installation guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/opencode.md)
+- [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md)

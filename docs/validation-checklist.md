@@ -29,11 +29,11 @@ Then complete the manual checks for your environment.
 - [ ] All 12 agent files exist with valid `mode`.
 - [ ] All 10 skills exist with a matching `name` and provenance metadata.
 - [ ] Every agent, command, and hat has a provenance header.
-- [ ] [`docs/provenance/registry.yml`](provenance/registry.yml) points only to existing local paths.
+- [ ] [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml) points only to existing local paths.
 - [ ] Every `docs/` page outside `decisions/` has status, last-verified, and evidence fields.
 - [ ] Comments follow AGENTS.md Section 2C across `scripts/`, `packages/`, `skills/`, and `tests/`: file headers and contract docstrings only, with block-form Python docstrings when present, JSDoc for TypeScript, and XML documentation for C#.
 - [ ] No inline comments or commented-out code in scripts, configs, or examples.
-- [ ] Relative documentation links resolve.
+- [ ] Repository links use absolute GitHub URLs and resolve to an existing file or directory.
 - [ ] External links use maintained sources (run `--links` when useful).
 
 ## CLI
@@ -89,7 +89,7 @@ Then complete the manual checks for your environment.
 - [ ] `toolwright profile verify` exits 0 for every manifest.
 - [ ] `toolwright profile use minimal --target /tmp/check --dry-run` lists files and writes nothing.
 - [ ] `toolwright catalog verify` reports zero failures.
-- [ ] `toolwright catalog verify --check-drift` matches [`docs/provenance/registry.yml`](provenance/registry.yml).
+- [ ] `toolwright catalog verify --check-drift` matches [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml).
 - [ ] `python3 scripts/catalog/build_catalog.py --check` exits 0.
 - [ ] `toolwright compat --json` returns the V1/V2 matrix.
 - [ ] Adding a provenance entry and regenerating changes both catalog files together.

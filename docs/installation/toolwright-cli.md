@@ -129,9 +129,9 @@ in [`packages/toolwright_cli/pyproject.toml`](https://github.com/GabrielAlmeidaF
 
 ## References
 
-- [`docs/cli/README.md`](../cli/README.md)
-- [`docs/installation/adapter-validation.md`](adapter-validation.md)
-- [`docs/compatibility/README.md`](../compatibility/README.md)
-- [`docs/decisions/ADR-005-cli-stack.md`](../decisions/ADR-005-cli-stack.md)
+- [`docs/cli/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md)
+- [`docs/installation/adapter-validation.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/adapter-validation.md)
+- [`docs/compatibility/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md)
+- [`docs/decisions/ADR-005-cli-stack.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/decisions/ADR-005-cli-stack.md)
 - https://docs.astral.sh/uv/
 - https://pipx.pypa.io/

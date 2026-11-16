@@ -48,5 +48,5 @@ The first two attempts failed with `Agent not found: "coordinator"`. The runner 
 
 ## References
 
-- [`docs/pilots/README.md`](../README.md)
+- [`docs/pilots/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/README.md)
 - [`packages/toolwright_cli/toolwright_cli/pilot.py`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/packages/toolwright_cli/toolwright_cli/pilot.py)
