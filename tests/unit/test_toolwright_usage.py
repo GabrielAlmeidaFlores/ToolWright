@@ -8,6 +8,7 @@ Side effects: writes only inside temporary directories.
 from __future__ import annotations
 
 from tests.constants import KEY_COORDINATOR, KEY_TRUE, TEXT_MAIN, TEXT_UTF_8
+from tests import support
 from toolwright_cli.cli import main
 from toolwright_cli.cli.cli_strings import FLAG_JSON
 from toolwright_cli.constants import FLAG_TARGET
