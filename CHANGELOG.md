@@ -15,7 +15,7 @@ All notable changes to this repository are documented here.
 - Real Hono fixtures for cookie, redirect, and request-id tasks under [`benchmarks/real/hono/`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/real/hono/README.md).
 - Every benchmark run now records `status.txt`, `diff.patch`, and `diff-stat.txt` for scope and correctness review.
 - `validate_config.py` rejects repository-relative Markdown links and points to the absolute GitHub URL convention, with code fences and inline code treated as examples.
-- Hono cost A/B result set: 45 isolated runs across five arms, all verified and fully scoped; no arm beat the stock baseline, so no configuration was promoted.
+- Hono cost A/B result set: 45 isolated runs across five arms, all verified and fully scoped; no arm beat the stock baseline, so no configuration was promoted. Three cells were re-executed after review found agent access to the harness directory, and published artifacts are path-sanitized.
 
 ### Fixed
 

@@ -16,7 +16,7 @@ A result is accepted only if it includes:
 - `status.txt`, `diff.patch`, and `diff-stat.txt` with the changed-file scope
 - `notes.md` with correctness, rework, and human interventions
 
-`stats.json` is a raw `opencode stats --project .` snapshot and may aggregate sessions that share a project identity. Use `run-stats.json` for per-run cost and token values.
+`stats.json` is a raw `opencode stats --project .` snapshot and may aggregate sessions that share a project identity. Use `run-stats.json` for per-run cost and token values. Verification logs and patches are kept byte-faithful: the repository `.gitattributes` disables whitespace-error checks for this tree.
 
 Token counts without correctness and rework outcomes are not a result.
 

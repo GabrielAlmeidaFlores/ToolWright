@@ -1,106 +1,49 @@
 diff --git a/src/context.test.ts b/src/context.test.ts
-index 1fa06da..b68b11e 100644
+index 1fa06da..30436c6 100644
 --- a/src/context.test.ts
 +++ b/src/context.test.ts
-@@ -440,8 +440,40 @@ describe('Context header', () => {
+@@ -440,8 +440,24 @@ describe('Context header', () => {
      const newResponse = new Response(null)
      newResponse.headers.append('set-cookie', newCookies[0])
      c.res = newResponse
 -    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
 -    expect(c.res.headers.getSetCookie()).toEqual(cookies)
-+    // Cookies from both sides survive: dropping either one silently loses a
-+    // `Set-Cookie` the application explicitly asked for.
-+    expect(c.res.headers.getSetCookie().length).toBe(cookies.length + newCookies.length)
-+    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
++    const mergedCookies = [...cookies, ...newCookies]
++    expect(c.res.headers.getSetCookie().length).toBe(mergedCookies.length)
++    expect(c.res.headers.getSetCookie()).toEqual(mergedCookies)
 +  })
 +
-+  it('Should merge cookies when a handler returns a new Response with its own Set-Cookie', () => {
-+    // Middleware sets a cookie on `c.res` before the handler runs.
-+    c.res.headers.append('set-cookie', 'middleware=hello; Path=/')
++  it('Should merge cookies set on c.res with cookies from a new Response', () => {
++    const middlewareCookie = 'middleware=1; Path=/'
++    const handlerCookie = 'handler=1; Path=/'
++    c.res.headers.append('set-cookie', middlewareCookie)
 +
-+    // The handler returns a brand new Response carrying its own cookie.
-+    const handlerResponse = new Response('ok', {
-+      headers: { 'set-cookie': 'handler=world; Path=/; HttpOnly' },
++    c.res = new Response('ok', {
++      headers: { 'set-cookie': handlerCookie },
 +    })
-+    c.res = handlerResponse
 +
-+    expect(c.res.headers.getSetCookie()).toEqual([
-+      'middleware=hello; Path=/',
-+      'handler=world; Path=/; HttpOnly',
-+    ])
-+  })
-+
-+  it('Should merge cookies staged via c.header() before assigning a raw Response', () => {
-+    // Mimics middleware that sets a cookie before `c.res` has been read.
-+    c.header('Set-Cookie', 'middleware=hello; Path=/', { append: true })
-+
-+    const handlerResponse = new Response('ok')
-+    handlerResponse.headers.append('set-cookie', 'handler=world; Path=/; HttpOnly')
-+    c.res = handlerResponse
-+
-+    expect(c.res.headers.getSetCookie()).toEqual([
-+      'middleware=hello; Path=/',
-+      'handler=world; Path=/; HttpOnly',
-+    ])
++    const cookies = c.res.headers.getSetCookie()
++    expect(cookies).toHaveLength(2)
++    expect(cookies).toContain(middlewareCookie)
++    expect(cookies).toContain(handlerCookie)
    })
  
    it('Should keep previous cookies in response headers', () => {
 diff --git a/src/context.ts b/src/context.ts
-index 6db8717..191d92f 100644
+index 6db8717..84df7b5 100644
 --- a/src/context.ts
 +++ b/src/context.ts
-@@ -412,22 +412,42 @@ export class Context<
-    * @param _res - The Response object to set.
-    */
-   set res(_res: Response | undefined) {
--    if (this.#res && _res) {
-+    // Headers staged by `c.header()` live in `#preparedHeaders` until something
-+    // reads `c.res` and materializes it. Falling back to them keeps those
-+    // headers from being dropped when nothing has read `c.res` yet.
-+    const preparedHeaders = this.#res ? this.#res.headers : this.#preparedHeaders
-+    if (preparedHeaders && _res) {
-       _res = createResponseInstance(_res.body, _res)
--      for (const [k, v] of this.#res.headers.entries()) {
--        if (k === 'content-type') {
--          continue
--        }
--        if (k === 'set-cookie') {
--          const cookies = this.#res.headers.getSetCookie()
--          _res.headers.delete('set-cookie')
--          for (const cookie of cookies) {
--            _res.headers.append('set-cookie', cookie)
--          }
--        } else {
-+      // `Set-Cookie` is handled after the loop rather than inside it: it is the
-+      // only header that may legitimately appear more than once, so `entries()`
-+      // yields it once per occurrence and would re-merge values it just wrote.
-+      // Captured before any mutation of `_res`.
-+      const incomingCookies = _res.headers.getSetCookie()
-+      const preparedCookies = preparedHeaders.getSetCookie()
-+
-+      for (const [k, v] of preparedHeaders.entries()) {
-+        if (k !== 'content-type' && k !== 'set-cookie') {
-           _res.headers.set(k, v)
+@@ -419,7 +419,12 @@ export class Context<
+           continue
          }
-       }
-+
-+      // Merge cookies from both the already-set response and the incoming one
-+      // so neither side silently loses a `Set-Cookie` the application set.
-+      if (preparedCookies.length > 0) {
-+        _res.headers.delete('set-cookie')
-+        for (const cookie of preparedCookies) {
-+          _res.headers.append('set-cookie', cookie)
-+        }
-+        for (const cookie of incomingCookies) {
-+          _res.headers.append('set-cookie', cookie)
-+        }
-+      }
-+    }
-+    if (!_res) {
-+      // `c.res = undefined` discards the response built so far, so the staged
-+      // headers go with it. Without this they would be re-applied to whatever
-+      // response is assigned next.
-+      this.#preparedHeaders = undefined
-     }
-     this.#res = _res
-     this.finalized = true
+         if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
++          // Merge both sets of cookies. A new Response may already contain the
++          // cookies from the context (e.g. via `c.body()`), so de-duplicate them.
++          const cookies = new Set([
++            ...this.#res.headers.getSetCookie(),
++            ..._res.headers.getSetCookie(),
++          ])
+           _res.headers.delete('set-cookie')
+           for (const cookie of cookies) {
+             _res.headers.append('set-cookie', cookie)

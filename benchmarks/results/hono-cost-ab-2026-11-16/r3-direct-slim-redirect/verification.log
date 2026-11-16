@@ -1,6 +1,6 @@
 note: You are running `vp test` as a Vite+ built-in command. If you meant to run the test npm script, use `vpr test` instead.
 
- RUN  v5.0.1 /private/tmp/bench-full/ab-runs/ab-r3-direct-slim-redirect
+ RUN  v5.0.1 <workspace>
       Coverage enabled with v8
 
 

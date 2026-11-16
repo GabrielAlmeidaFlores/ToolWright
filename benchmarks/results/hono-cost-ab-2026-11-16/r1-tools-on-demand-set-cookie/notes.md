@@ -6,7 +6,7 @@
 - working directory: .
 - run exit: 0
 - verification exit: 0
-- wall time: 189s
+- wall time: 92s
 - wall limit: 900s
 
 ## Fill in

@@ -1,0 +1,7 @@
+# Name: Git attributes
+# Purpose: Keeps generated benchmark evidence byte-faithful without whitespace-error noise.
+# Usage: Applied automatically by Git.
+# Validation: git diff --check
+# References: docs/benchmarks/methodology.md
+
+benchmarks/results/** -whitespace
