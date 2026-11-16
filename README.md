@@ -758,10 +758,11 @@ The tree below shows the main directories and what each one owns. Start with the
 
 ## Documentation index
 
-Use this table as a map. Start with the compatibility guide or the CLI reference, then go deeper into the area you need.
+Use this table as a map. Start with the complete guide for the full narrative, or go directly to the area you need.
 
 | Start with | Then explore |
 |---|---|
+| [Complete guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/complete-guide.md) | [Architecture](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/overview.md) · [Benchmarks](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md) · [Results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md) |
 | [Platform compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md) | [OpenCode](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/opencode.md) · [Copilot](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md) · [Claude](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md) · [GPT/Codex](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md) |
 | [Quick start](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/opencode.md) | [Code intelligence](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/code-intelligence.md) · [Ralph](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/ralph.md) |
 | [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md) | [Profiles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/profiles/README.md) · [Catalog](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/catalog/README.md) |

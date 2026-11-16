@@ -51,6 +51,7 @@ extra_javascript:
 
 nav:
   - Home: index.md
+  - Complete guide: complete-guide.md
   - Install:
       - OpenCode: installation/opencode.md
       - Code intelligence: installation/code-intelligence.md
