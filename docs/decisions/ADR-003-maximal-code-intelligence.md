@@ -33,7 +33,7 @@ Ship a maximal default but enforce these guards:
 ## Consequences
 
 - Initial install and indexing have a real time and disk cost, which is documented.
-- The maximal profile is not recommended for repositories under roughly 50 files; use the minimal profile.
+- The maximal profile is not recommended for repositories under roughly 50 files; use the minimal config.
 - License obligations: Serena is GPL-3.0-or-later and is installed externally; jCodeMunch requires a paid commercial license when used commercially.
 
 ## Vendor-claim policy

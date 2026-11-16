@@ -477,7 +477,7 @@ ToolWright reduces cost by changing **where tokens are spent**, not by truncatin
 | **Bounded context** | Compaction keeps a recent window and reserves headroom before overflow. |
 | **Output caps** | A noisy command cannot flood the context window. |
 | **No recursive fan-out** | Subagents cannot spawn more subagents. |
-| **Optional MCP** | The minimal profile disables MCP when server startup costs more than it saves. |
+| **Optional MCP** | The `configs/opencode/minimal.jsonc` config disables MCP when server startup costs more than it saves. The `minimal` install profile currently installs the full config, so select the no-MCP config explicitly. |
 | **Model routing** | Strong models plan; economical models handle routine work. |
 | **Deterministic checks** | Tests and linters prove correctness without an LLM call. |
 | **Memory and specs** | Decisions and task contracts survive across sessions instead of being re-discovered. |
@@ -799,7 +799,7 @@ No. The OpenCode adapter targets V2.2.x. V2 does not run language servers, so Se
 No. OpenCode is the reference adapter and the only one verified end-to-end in CI. Claude Code, GitHub Copilot, and ChatGPT/Codex install generated native files and are validated at the installer level. Copilot and Codex have additional CLI discovery evidence; Claude Code runtime discovery is still unverified.
 
 **Do I need every MCP server?**  
-No. The default OpenCode profile enables Serena and CodeGraph. The minimal profile disables MCP entirely.
+No. The default OpenCode profile enables Serena and CodeGraph. [`configs/opencode/minimal.jsonc`](configs/opencode/minimal.jsonc) disables MCP entirely. The `minimal` install profile currently installs the full config, so select the no-MCP config explicitly.
 
 **Will agents commit or stage my changes?**  
 No. Git write commands are denied and validated per agent. Ralph is the exception: 2.10.1 auto-commits on landing, so run it in a separate disposable clone.

@@ -19,7 +19,7 @@ The objective is the lowest total cost for a correct result, not the smallest pr
 | Iteration ceiling | `event_loop.max_iterations: 40` | Bounds runaway loops |
 | Deterministic gates | tests, lint, typecheck | No model tokens for verification |
 | Model routing | overlay | Cheap models for mechanical work |
-| Minimal profile | no MCP | Removes server startup and schema cost |
+| Minimal config | no MCP | Removes server startup and schema cost; select `configs/opencode/minimal.jsonc` explicitly |
 
 ## Anti-patterns
 

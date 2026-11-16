@@ -21,7 +21,7 @@ Use this checklist before tagging a release. A checked item must have reproducib
 - [ ] `opencode debug agents` lists the coordinator and eleven subagents.
 - [ ] `opencode mcp list` shows the intended servers connected or disabled.
 - [ ] Git write commands resolve to `deny` for every agent.
-- [ ] The minimal profile loads without MCP servers.
+- [ ] The `configs/opencode/minimal.jsonc` config loads without MCP servers.
 
 ## Examples
 

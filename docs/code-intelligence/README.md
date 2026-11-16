@@ -28,7 +28,7 @@ Repomix, jCodeMunch, Universal Ctags, Graphify, and Aider repository maps are do
 1. One MCP server per concern. Do not add a second symbol server.
 2. Use Code Mode and permission filtering instead of exposing every tool.
 3. Index once; do not re-index on every prompt.
-4. Disable the stack on small repositories; use the minimal profile.
+4. Disable the stack on small repositories; use the minimal config.
 5. Measure startup time before enabling a server in an interactive loop.
 
 ## Pages

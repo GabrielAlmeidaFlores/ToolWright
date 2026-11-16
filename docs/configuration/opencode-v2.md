@@ -108,9 +108,9 @@ Recommended shape:
 | Review, security | reasoning-capable |
 | Documentation, mechanical | economical |
 
-## Minimal profile
+## Minimal config
 
-[`configs/opencode/minimal.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/minimal.jsonc) disables MCP entirely. Use it for small repositories, constrained budgets, or when MCP startup dominates task time.
+[`configs/opencode/minimal.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/minimal.jsonc) disables MCP entirely. Use it for small repositories, constrained budgets, or when MCP startup dominates task time. The `minimal` install profile currently installs the full config; select this file explicitly until profile-specific config selection is implemented.
 
 ## Validate
 
