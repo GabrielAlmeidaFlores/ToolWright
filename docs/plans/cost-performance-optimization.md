@@ -488,7 +488,7 @@ Procedure:
 
 - 5 repeats per task and arm; 5 arms × 5 tasks × 5 repeats = 125 runs;
 - estimate budget and wall time before starting; at benchmark costs this is cheap in dollars but takes hours;
-- fresh clone each run;
+- fresh clone each run, placed in a temporary root that contains no harness files or sibling run artifacts;
 - isolated `XDG_CONFIG_HOME`;
 - `opencode --standalone run`;
 - off-peak DeepSeek pricing;
@@ -499,7 +499,7 @@ Acceptance:
 
 - same verification result as baseline;
 - no worse scope score;
-- at least 15–20% lower cost than `coordinator-current`;
+- at least 15–20% lower cost than `coordinator-current` and never more expensive than the stock baseline;
 - no wall-time regression;
 - no increase in rework;
 - results published with limitations.
@@ -512,17 +512,17 @@ The first screen ran the three existing Hono fixtures with 3 repeats instead of 
 
 | Arm | Total cost | Cost per verified task | Median wall | Verified | Scope 4 |
 |---|---|---|---|---|---|
-| `baseline` | $0.0636 | $0.0071 | 39s | 9/9 | 9/9 |
+| `baseline` | $0.0663 | $0.0074 | 39s | 9/9 | 9/9 |
 | `optimized` | $0.0872 | $0.0097 | 72s | 9/9 | 9/9 |
 | `coordinator-slim` | $0.0772 | $0.0086 | 59s | 9/9 | 9/9 |
-| `direct-slim` | $0.0765 | $0.0085 | 46s | 9/9 | 9/9 |
-| `tools-on-demand` | $0.0919 | $0.0102 | 55s | 9/9 | 9/9 |
+| `direct-slim` | $0.0833 | $0.0093 | 46s | 9/9 | 9/9 |
+| `tools-on-demand` | $0.0783 | $0.0087 | 55s | 9/9 | 9/9 |
 
-No arm met the 15% bar against both `baseline` and `optimized`. `coordinator-slim` and `direct-slim` were 11.5% and 12.3% cheaper than `optimized` but 20% above stock. Production behavior stays unchanged. The screen is published at [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md) with limitations.
+No arm met the 15% bar against both `baseline` and `optimized`. All three new arms were cheaper than `optimized` (11.5%, 10.2%, and 4.5%) but 16–26% above stock. Production behavior stays unchanged. The screen is published at [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md) with limitations.
 
 Two findings move to Phase 3 before another A/B run:
 
-1. Coordinator arms never call `edit`; they edit through `shell` and spend 114–132 shell calls per nine runs. This is a permission/contract problem, not a routing problem.
+1. Coordinator arms never call `edit`; they edit through `shell` and spend 109–132 shell calls per nine runs. This is a permission/contract problem, not a routing problem.
 2. The two no-MCP arms did not use any MCP tools, but they still cost more than baseline. MCP schema weight is not the dominant cost on these tasks.
 
 ### Phase 6 — Documentation and release
