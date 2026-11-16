@@ -113,7 +113,7 @@ The optimized configuration did not reduce cost overall in that OpenCode result 
 
 ## Correctness and rework rubric
 
-Every run is scored against the same rubric. Token and cost savings are only valid when the optimized arm meets or exceeds the baseline.
+The table below defines the correctness and rework rubric used to score every run. Each row is a score from 4 down to 0, with the observable outcome in the correctness column and the expected rework in the last column. Read a score downward only when the verification command or the review shows a real defect; token or cost savings never raise a score. The rubric exists so a cheaper arm cannot win by producing weaker code or more follow-up work.
 
 | Score | Correctness | Rework |
 |---:|---|---|

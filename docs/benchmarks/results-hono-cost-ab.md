@@ -35,7 +35,7 @@ Read the table this way:
 - **Cost per verified task** divides that total by the number of runs that passed verification. All 45 runs passed, so it is the mean cost of a passing run.
 - **Median wall time** is the middle value of the nine wall times. It answers "how long does a typical run take?" and is less sensitive to one slow outlier than a mean.
 
-The ranking is unambiguous at the top: **the stock agent was cheapest**, both in total and per verified task. Relative to `baseline`, the ToolWright arms cost **16.4% to 31.6% more**:
+The comparison table below restates the main differences against the stock baseline. Each row is an arm, and the columns give its total cost change and, for the current profile, its median wall-time change. Positive percentages mean the arm spent more than baseline; a negative value would mean a saving. Read it as a quick sanity check before the detailed tables, not as a substitute for the per-task evidence.
 
 | Comparison | Result |
 |---|---|

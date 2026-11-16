@@ -20,7 +20,7 @@ The run has three parts:
 
 The benchmark clones `honojs/hono` at commit `f6fbaf0299c48eea9e656e03e2ffe7ac755e8823`. Every run starts from the same prepared template, containing the repository and installed Node dependencies. Both arms receive the same prompt, working directory, and verification command.
 
-The next table defines the three real tasks. **Task** identifies the run; **What the AI was asked to do** is the user-facing change; **Verification** is the command that must pass; **Allowed files** is the scope used to score unrelated changes.
+The table below defines the three tasks used in the matrix. Task is the run identifier, What the AI was asked to do is the user-facing change, Verification is the command that must pass, and Allowed files defines the scope used to flag unrelated edits. The tasks are real changes with known failing behavior, not synthetic prompts. Read the allowed-files column alongside the results, because a passing test with extra edits is not a clean success.
 
 | Task | What the AI was asked to do | Verification | Allowed files |
 |---|---|---|---|
@@ -61,7 +61,7 @@ The `full-forced` arm appends this instruction:
 
 The next table defines the three arms. **Arm** is the label; **Configuration** is what the run loaded; **Agent** is the primary agent; **Tool policy** explains what the arm was allowed or instructed to use.
 
-The columns are **Arm** (comparison label), **Configuration** (loaded OpenCode/project configuration), **Agent** (primary agent), and **Tool policy** (what the arm was allowed or told to use).
+The table below defines the arms compared in the matrix. Arm is the comparison label used in every result table, Configuration is the OpenCode and project config the run loaded, Agent is the primary agent, and Tool policy records what the arm was allowed or instructed to use. The arms differ in configuration and tool policy, not in task or model. Read this table before a result table so the labels are unambiguous.
 
 | Arm | Configuration | Agent | Tool policy |
 |---|---|---|---|
@@ -75,7 +75,7 @@ The columns are **Arm** (comparison label), **Configuration** (loaded OpenCode/p
 
 The next table reports median cost and median wall time for each task and arm. A median is the middle value of three runs. **Cost** is API spend from the per-run session log; **Wall** is elapsed seconds; **Score** is the correctness score defined below; **Verify** is passing runs out of three.
 
-The columns are **Task** (benchmark identifier), **Arm** (comparison label), **Cost** (median API spend across three runs), **Wall** (median elapsed seconds), **Score** (correctness score below), and **Verify** (passing runs out of three).
+The table below is the per-task result matrix. Task identifies the run, Arm is the comparison label, Cost is the median API spend across three runs, Wall is the median elapsed time, Score is the correctness score, and Verify is the number of passing runs out of three. Medians are used because one slow or expensive run can distort a mean. Read across a task to compare arms, and check Verify before treating a cost difference as meaningful.
 
 | Task | Arm | Cost | Wall | Score | Verify |
 |---|---|---:|---:|---:|---:|
@@ -91,7 +91,7 @@ The columns are **Task** (benchmark identifier), **Arm** (comparison label), **C
 
 The next table aggregates all nine runs per arm. **Cost** and **wall** are sums across nine runs. **Tokens** is input plus output. **Change** compares each arm with baseline.
 
-The columns are **Arm**, **Runs** (number of executions), **Total cost** and **Cost change** (sum and percentage versus baseline), **Total wall** and **Wall change** (sum and percentage), **Tokens** and **Token change** (input plus output), and **Score 4** (runs with the maximum correctness score).
+The table below aggregates each arm across all nine runs. Runs is the number of executions, Total cost and Cost change are the sum and the percentage versus baseline, Total wall and Wall change are the same for elapsed time, Tokens and Token change cover input plus output, and Score 4 counts runs with the maximum correctness score. Percentages are relative to the baseline arm, so a negative change is a saving and a positive change is an increase. Read it after the per-task table to see whether a task-level pattern survives aggregation.
 
 | Arm | Runs | Total cost | Cost change | Total wall | Wall change | Tokens | Token change | Score 4 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -127,7 +127,7 @@ xychart-beta
 
 The next table records what was actually observed in the matrix, not what was merely installed. **Capability** names the tool or feature; **How it was exercised** describes the run or probe; **Observed evidence** is the session-level count or output.
 
-The columns are **Capability** (tool or feature), **How it was exercised** (matrix or probe), and **Observed evidence** (session-level count or output).
+The table below lists each capability and how the matrix exercised it. Capability is the tool or feature under test, How it was exercised says whether it appeared in a matrix run or a dedicated probe, and Observed evidence records the session-level count or output that proves it was used. A capability that never appears in a session is not evidence that it helps. Read this table when a total cost difference needs a behavioral explanation.
 
 | Capability | How it was exercised | Observed evidence |
 |---|---|---|
@@ -149,7 +149,7 @@ The columns are **Capability** (tool or feature), **How it was exercised** (matr
 
 Tool probes are capability checks, not repeated cost benchmarks. Each probe runs once and records whether the tool was actually invoked and produced a usable result.
 
-The columns are **Probe** (capability tested), **Cost** (API spend for the single probe run), **Steps** (model/tool iterations), and **Evidence** (what the session shows was actually used).
+The table below lists the dedicated capability probes. Probe is the capability tested, Cost is the API spend for the single probe run, Steps is the number of model and tool iterations, and Evidence records what the session shows was actually used. Probes are small experiments, not performance benchmarks, so their costs are not comparable to the task runs. Read them to confirm whether a tool can work at all, not to estimate task cost.
 
 | Probe | Cost | Steps | Evidence |
 |---|---:|---:|---|

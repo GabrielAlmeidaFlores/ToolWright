@@ -182,7 +182,7 @@ This matters for interpretation. The published result measures **the coordinator
 
 ## Experiment setup
 
-Before reading any result, this table defines the experiment. The **Parameter** column names the fixed input to the experiment, the **Value** column records the exact setting, and the **Why it matters** column explains how that setting affects interpretation.
+Before reading any result, the table below defines the experiment fixed inputs. Parameter names each setting, Value records the exact choice, and Why it matters explains how that choice limits interpretation. The parameters are shared by every run, so a difference between arms cannot come from the model, repository commit, or task set. Read it first when comparing this page with a later benchmark.
 
 | Parameter | Value | Why it matters |
 |---|---|---|
@@ -338,7 +338,7 @@ Column definitions:
 - **Cost change** is the optimized median divided by the baseline median, minus one.
 - **Baseline tokens in/out** and **Optimized tokens in/out** are medians of uncached input tokens and output tokens. They do not include reasoning or cache reads.
 - **Baseline wall** and **Optimized wall** are median elapsed seconds.
-- **Score baseline/optimized** is the median correctness score for each arm, using the rubric later on this page.
+The table below is the per-task comparison for the DeepSeek Flash example runs. Each row is one task, and the columns pair baseline and optimized cost, tokens, and wall time, then add the cost change and the correctness scores. Cost change is relative to baseline, so a negative value is a saving; the score column shows whether that saving preserved correctness. Read the score before accepting any cost difference, and use the token columns when the cost move needs an explanation.
 
 | Task | Baseline cost | Optimized cost | Cost change | Baseline tokens in/out | Optimized tokens in/out | Baseline wall | Optimized wall | Score baseline/optimized |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -374,7 +374,7 @@ Column definitions:
 
 - **Cost component** names the billed category.
 - **Baseline USD** and **Optimized USD** are the total dollars spent on that component across 15 runs.
-- **Baseline share** and **Optimized share** are that component's percentage of the arm's total cost.
+The table below decomposes total cost into input, cache, and output-plus-reasoning components. Each row is a cost component, and the columns give the USD amount and the share of total for each arm. Shares show whether an arm shifted cost from one category to another even when the total moved little. Read it with the token table when you need to explain why one arm was cheaper.
 
 | Cost component | Baseline USD | Baseline share | Optimized USD | Optimized share |
 |---|---:|---:|---:|---:|

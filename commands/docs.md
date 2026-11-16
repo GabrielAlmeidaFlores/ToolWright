@@ -249,6 +249,8 @@ components:
 
 **System Architecture (Mermaid)**
 
+The diagram below shows the system architecture described by this command. It maps the major components and the data flow between them so the generated documentation can be reviewed at a glance. Read it after the component list, because the arrows assume the responsibilities described there. The diagram is a summary; the component sections remain authoritative.
+
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, system-ui, sans-serif","lineColor":"#06B6D4","edgeLabelBackground":"#E2E8F0"}}}%%
 graph TB

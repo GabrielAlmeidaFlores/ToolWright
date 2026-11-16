@@ -91,7 +91,7 @@ The goal is not the smallest prompt. The goal is the **lowest total cost for a c
 
 ## How it works
 
-The diagram below follows one request from start to finish. It shows where your task enters, how the adapter hands it to the coordinator, which specialist groups do the work, and where the quality gates decide whether the result is ready.
+The diagram below follows one request from start to finish. It shows where your task enters, how the adapter hands it to the coordinator, which specialist groups do the work, and where the quality gates decide whether the result is ready. Read it from top to bottom: each arrow is a handoff, and each diamond is a decision that can send work back. The point is that no single agent owns the whole task.
 
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, system-ui, sans-serif","lineColor":"#06B6D4","edgeLabelBackground":"#E2E8F0"}}}%%
@@ -161,7 +161,7 @@ The reusable content is the same everywhere. Only the adapter files and permissi
 
 ## What you get
 
-The chart below shows the reusable artifact mix in the repository. It is a composition overview, not a performance metric.
+The chart below shows the reusable artifact mix in the repository. It is a composition overview, not a performance metric: each slice counts files of one kind, and the labels report the totals. Read it to see how much of the toolkit is reusable across platforms versus adapter-specific. It does not imply that more artifacts are better.
 
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"pie1":"#67E8F9","pie2":"#C4B5FD","pie3":"#F9A8D4","pie4":"#BEF264","pieTitleTextSize":"18px","pieTitleTextColor":"#64748B","pieSectionTextColor":"#0F172A","pieStrokeColor":"#FFFFFF","pieOuterStrokeColor":"#06B6D4","pieLegendTextColor":"#64748B"}}}%%
@@ -298,7 +298,7 @@ With another adapter, open the repository in that platform and invoke the genera
 
 ## Choose the right workflow
 
-The decision tree below helps you pick an entry point from the kind of work you have. Follow one branch; the detailed versions are in [Daily workflows](#daily-workflows).
+The decision tree below helps you pick an entry point from the kind of work you have. Follow one branch from the question at the top; each leaf names the workflow or agent set to use. The tree is a routing aid, not a permission model, so the detailed workflow pages remain authoritative. Read it when you are unsure whether to start with planning, implementation, or review.
 
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, system-ui, sans-serif","lineColor":"#06B6D4","edgeLabelBackground":"#E2E8F0"}}}%%
@@ -337,7 +337,7 @@ The detailed versions are in [Daily workflows](#daily-workflows).
 
 ## Meet the agent team
 
-The diagram below is the team structure for one task. The coordinator delegates to a specialist group, and every branch returns evidence to the coordinator rather than editing outside its role.
+The diagram below is the team structure for one task. The coordinator delegates to a specialist group, and every branch returns evidence to the coordinator rather than editing outside its role. Read the labels as responsibilities, not as a reporting hierarchy: a specialist may be skipped when its expertise is not needed. The structure exists to keep context small and review independent.
 
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, system-ui, sans-serif","lineColor":"#06B6D4","edgeLabelBackground":"#E2E8F0"}}}%%
@@ -399,7 +399,7 @@ Read the delegation rules in [Agent roles](https://github.com/GabrielAlmeidaFlor
 
 ## A typical task, step by step
 
-The sequence diagram below shows the normal lifecycle of a task, including the specialist handoff, the narrow checks, the independent review, and the evidence you receive at the end.
+The sequence diagram below shows the normal lifecycle of a task, including the specialist handoff, the narrow checks, the independent review, and the evidence you receive at the end. Time runs downward, and each arrow is a message or handoff between the human, the coordinator, and a specialist. The diagram is intentionally linear; real work may loop back when a gate fails. Read it to see where a human decision is required.
 
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"actorBkg":"#F5F3FF","actorBorder":"#8B5CF6","actorTextColor":"#4C1D95","signalColor":"#0891B2","signalTextColor":"#475569","labelBoxBkgColor":"#FDF2F8","labelBoxBorderColor":"#EC4899","labelTextColor":"#831843","loopTextColor":"#475569","noteBkgColor":"#FEF3C7","noteBorderColor":"#F59E0B","noteTextColor":"#78350F","activationBkgColor":"#CFFAFE","activationBorderColor":"#06B6D4"}}}%%
@@ -437,7 +437,7 @@ You always get:
 
 ## Quality gates
 
-The flowchart below shows the checks a change passes through before a human sees it. A failed gate returns the work for another attempt instead of being reported as success.
+The flowchart below shows the checks a change passes through before a human sees it. A failed gate returns the work for another attempt instead of being reported as success. Read the branches to see which failures are recoverable and which stop the change. The human still decides whether to commit; the gates only decide whether the result is ready to review.
 
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, system-ui, sans-serif","lineColor":"#06B6D4","edgeLabelBackground":"#E2E8F0"}}}%%

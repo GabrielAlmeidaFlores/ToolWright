@@ -18,7 +18,7 @@ The task files are under `benchmarks/real/hono/tasks/`. Each task has `working_d
 
 ## Tasks
 
-The next table lists the fixtures. **Task** is the fixture id; **What it tests** is the behavior under change; **Verification** is the command that decides whether the run passed.
+The table below lists the Hono fixtures used by the real-repository benchmarks. Task is the fixture identifier used in run directories and result tables, What it tests describes the behavior the agent must change, and Verification is the command that decides whether the change is correct. All three fixtures run against the same pinned Hono commit and use the repository own test suite. Read the verification column before comparing results, because it defines what passed means for each task.
 
 | Task | What it tests | Verification |
 |---|---|---|
