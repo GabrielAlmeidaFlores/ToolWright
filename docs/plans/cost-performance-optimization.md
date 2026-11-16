@@ -8,7 +8,7 @@
 - A baseline smoke run on Hono passed verification with no global MCP leakage.
 - Phase 1 benchmark-only arms are implemented under `benchmarks/arms/`.
 - The initial A/B is complete: 45 isolated runs (5 arms, 3 Hono tasks, 3 repeats), all verified, all scope score 4. No arm met the promotion bar; stock `baseline` was cheapest. See [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md).
-- Production defaults, agent prompts, and profiles remain unchanged. The 125-run Phase 5 matrix is still required before any production change.
+- Production defaults, profiles, and agent prompts remain unchanged. A delegation/edit contract was tested in a 90-run screen and reverted: it fixed delegation but increased cost by about 31% and wall time by about 2.8×. The 125-run Phase 5 matrix is still required before any production cost claim.
 
 ## 1. Purpose
 
@@ -522,12 +522,30 @@ The first screen ran the three existing Hono fixtures with 3 repeats instead of 
 | `direct-slim` | $0.0833 | $0.0093 | 46s | 9/9 | 9/9 |
 | `tools-on-demand` | $0.0783 | $0.0087 | 55s | 9/9 | 9/9 |
 
-No arm met the 15% bar against both `baseline` and `optimized`. All three new arms were cheaper than `optimized` (11.5%, 10.2%, and 4.5%) but 16–26% above stock. Production behavior stays unchanged. The screen is published at [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md) with limitations.
+No arm met the 15% bar against both `baseline` and `optimized`. All three new arms were cheaper than `optimized` (11.5%, 10.2%, and 4.5%) but 16–26% above stock. No arm was promoted. A delegation/edit contract was tested and reverted after a 90-run screen; see below. The screen is published at [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md) with limitations.
 
 Two findings move to Phase 3 before another A/B run:
 
 1. Coordinator arms never call `edit`; they edit through `shell` and spend 109–132 shell calls per nine runs. This is a permission/contract problem, not a routing problem.
 2. The two no-MCP arms did not use any MCP tools, but they still cost more than baseline. MCP schema weight is not the dominant cost on these tasks.
+
+#### Evaluated and reverted after the screen
+
+The delegation/edit contract was implemented and tested:
+
+- a paid probe on `hono-set-cookie` made 3 subagent calls and the child used 5 `edit` calls;
+- a 90-run, five-repeat screen kept 90/90 verification and 90/90 scope 4;
+- the contract fixed delegation, but `optimized` cost 31% more than baseline and wall time rose from 36s to 101s;
+- the earlier 12.5% cost win disappeared once repeats 4–5 were included, so it was variance.
+
+The contract was reverted under the plan rule: if `coordinator-slim` does not win, keep current behavior and document the negative result. Production prompts remain unchanged.
+
+The measurement support remains:
+
+- `run-stats.json` records `cache_hit_ratio`, which makes prompt-cache effectiveness visible per run;
+- the `slim-uncapped` arm uses `configs/opencode/minimal.jsonc` with the default 2,000-line cap, completing the MCP × output-cap 2×2 matrix.
+
+Still pending and requiring paid runs: a scoped delegation variant for multi-file tasks, the lean-prompt variant, model routing with escalation, and the five-task matrix.
 
 ### Phase 6 — Documentation and release
 

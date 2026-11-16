@@ -16,7 +16,13 @@ All notable changes to this repository are documented here.
 - Every benchmark run now records `status.txt`, `diff.patch`, and `diff-stat.txt` for scope and correctness review.
 - `validate_config.py` rejects repository-relative Markdown links and points to the absolute GitHub URL convention, with code fences and inline code treated as examples.
 - Hono cost A/B result set: 45 isolated runs across five arms, all verified and fully scoped; no arm beat the stock baseline, so no configuration was promoted. Three cells were re-executed after review found agent access to the harness directory, and published artifacts are path-sanitized.
-- [Complete guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/complete-guide.md): one end-to-end explanation of the repository, agents, commands, skills, orchestration, MCP, adapters, safety, testing, benchmarks, and results.
+- Benchmark summaries now record `cache_hit_ratio`, and the `slim-uncapped` arm completes the 2×2 MCP/tool-output matrix.
+- [Cost-reduction tool candidates](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/cost-tool-candidates.md): evaluated watchlist for routing, caching, output filtering, and AST navigation tools, with verdicts and experiment gates.
+- Local `toolwright usage` ledger: records one session into `.toolwright/usage/`, reports task-level cost, tokens, verification, and rework, and prunes old entries; no telemetry or database.
+
+### Removed
+
+- Removed the standalone complete-guide page; canonical documentation remains the source of truth.
 
 ### Fixed
 
@@ -29,7 +35,7 @@ All notable changes to this repository are documented here.
 - Documentation links now use absolute GitHub URLs in every Markdown file, including pages under `docs/`, instead of relative paths that break when a file moves or the page is read outside the repository.
 - Benchmark result charts and documentation now use per-run session metrics and state the aggregation limitation.
 - The harness enforces each task's `max_wall_time_seconds` through [`scripts/benchmarking/run_with_timeout.py`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/benchmarking/run_with_timeout.py) and terminates the run process group afterwards, so MCP servers cannot outlive a run. A timed-out run reports exit `124`.
-- Production profiles, agents, and defaults remain unchanged after the A/B. The next planned change is an editing/permission fix for the coordinator path before the full five-task matrix.
+- Production profiles, defaults, and agent prompts remain unchanged after the A/B. A delegation/edit contract was tested in a 90-run screen and reverted: delegation worked, but cost rose about 31% and wall time about 2.8×.
 
 ## [0.4.0] - 2026-11-13
 

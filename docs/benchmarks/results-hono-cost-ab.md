@@ -46,7 +46,7 @@ The comparison table below restates the main differences against the stock basel
 
 Against the current `optimized` arm, every new arm was cheaper: `coordinator-slim` by 11.5%, `tools-on-demand` by 10.2%, and `direct-slim` by 4.5%. That is real but not enough: all three remain 16–26% more expensive than stock.
 
-The decision rule applied in this evaluation was: an arm had to be at least **15% cheaper than both `baseline` and `optimized`**, with equal correctness and no wall-time regression. The 15% threshold comes from the [plan](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/plans/cost-performance-optimization.md); the baseline condition keeps a cheaper-than-ToolWright configuration from being labeled a win. No arm met it. The decision is to keep production profiles, agents, and defaults unchanged.
+The decision rule applied in this evaluation was: an arm had to be at least **15% cheaper than both `baseline` and `optimized`**, with equal correctness and no wall-time regression. The 15% threshold comes from the [plan](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/plans/cost-performance-optimization.md); the baseline condition keeps a cheaper-than-ToolWright configuration from being labeled a win. No arm met it. The decision was not to promote an arm. A later delegation/edit contract was tested in a 90-run screen and reverted: delegation worked, but cost rose about 31% and wall time rose about 2.8×.
 
 > **Verdict:** on these three Hono tasks and this model, reducing the MCP surface and capping tool output lowered cost relative to the current ToolWright profile, but not enough to beat the stock agent. The coordinator path stayed more expensive than stock because it edited through `shell` and never delegated to a specialist.
 
@@ -210,7 +210,7 @@ The decision rule was:
 
 **No arm met the bar.** Therefore:
 
-- production profiles, agents, and defaults are unchanged;
+- no benchmark arm was promoted; a later delegation/edit contract was tested and reverted after a 90-run screen;
 - the benchmark arms remain benchmark-only;
 - the negative result is published rather than reframed as a win.
 

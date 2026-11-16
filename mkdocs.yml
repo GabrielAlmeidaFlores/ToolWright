@@ -51,7 +51,6 @@ extra_javascript:
 
 nav:
   - Home: index.md
-  - Complete guide: complete-guide.md
   - Install:
       - OpenCode: installation/opencode.md
       - Code intelligence: installation/code-intelligence.md
@@ -111,6 +110,7 @@ nav:
       - Phase 1 report: research/phase1-research-report.md
       - Orchestration comparison: research/orchestration-comparison.md
       - Compatibility matrix: research/compatibility-matrix.md
+      - Cost tool candidates: research/cost-tool-candidates.md
       - Decisions:
           - ADR-001 baseline: decisions/ADR-001-opencode-v2-baseline.md
           - ADR-002 orchestration: decisions/ADR-002-ralph-primary-orchestrator.md

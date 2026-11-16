@@ -82,7 +82,7 @@ The adapter generates the files. Edit installed files only when you need reposit
 ## Limits
 
 - Copilot does not enforce OpenCode's per-agent edit/shell permissions.
-- Copilot does not provide Ralph orchestration or ToolWright's subagent tree.
+- Copilot does not provide Ralph orchestration or ToolWright's subagent tree. The coordinator and specialist files are installed as reference instructions, not as an executable agent tree. Do not apply the coordinator stop rule to Copilot; use the role instructions directly.
 - Runtime availability of prompt files and path instructions varies by Copilot client and plan.
 - The Copilot CLI listed `.github/copilot-instructions.md` and every `.github/instructions/*.instructions.md` file. It did not list [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) while the repository instruction file was present, even though the adapter writes both.
 - The CLI has no inspection command for `.github/prompts/`; prompt-file discovery remains unverified.

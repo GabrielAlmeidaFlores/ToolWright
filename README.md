@@ -17,7 +17,7 @@
 
 <p align="center">
   <img alt="CI green" src="https://img.shields.io/badge/CI-green-22C55E?style=flat-square">
-  <img alt="321 tests" src="https://img.shields.io/badge/tests-321-4F46E5?style=flat-square">
+  <img alt="331 tests" src="https://img.shields.io/badge/tests-331-4F46E5?style=flat-square">
   <img alt="12 agents" src="https://img.shields.io/badge/agents-12-06B6D4?style=flat-square">
   <img alt="10 skills" src="https://img.shields.io/badge/skills-10-D97757?style=flat-square">
   <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0F172A?style=flat-square">
@@ -721,7 +721,7 @@ This repository distinguishes **verified**, **documented**, and **not yet measur
 | Benchmarks | Three published result sets: DeepSeek Flash examples, a real Hono tool matrix, and a 45-run Hono cost A/B; none shows a cost win for the optimized configuration, and stock was cheapest in the A/B |
 | Real-repository pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
 | CI | Green on Ubuntu and macOS for run [43402329992](https://github.com/GabrielAlmeidaFlores/ToolWright/actions/runs/43402329992); nine jobs |
-| Repository tests | 321 unit and integration tests |
+| Repository tests | 331 unit and integration tests |
 | `toolwright` CLI | Install, uninstall, update check, rollback, doctor verified locally and in the `cli` job |
 | Profiles and catalog | Three manifests and 34 catalog entries verified locally and in CI |
 | Verification and governance | `toolwright verify` and `toolwright govern contracts` verified locally; CI runs both |
@@ -758,11 +758,10 @@ The tree below shows the main directories and what each one owns. Start with the
 
 ## Documentation index
 
-Use this table as a map. Start with the complete guide for the full narrative, or go directly to the area you need.
+Use this table as a map. Start with the compatibility guide or the CLI reference, then go deeper into the area you need.
 
 | Start with | Then explore |
 |---|---|
-| [Complete guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/complete-guide.md) | [Architecture](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/overview.md) · [Benchmarks](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md) · [Results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md) |
 | [Platform compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md) | [OpenCode](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/opencode.md) · [Copilot](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md) · [Claude](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md) · [GPT/Codex](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md) |
 | [Quick start](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/opencode.md) | [Code intelligence](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/code-intelligence.md) · [Ralph](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/ralph.md) |
 | [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md) | [Profiles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/profiles/README.md) · [Catalog](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/catalog/README.md) |
