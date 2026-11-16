@@ -822,6 +822,8 @@ make ci          # validate + test, the default gate
 make toolwright ARGS="doctor"   # run the CLI from the checkout
 ```
 
+The table below separates the two test layers so you know what each command protects. Unit tests cover fast invariants, parsers, fixtures, the lock file, and the installer plan. Integration tests execute the real CLI and shell entry points, including installer safety and adapter discovery. Run `make ci` to execute both layers; run `make test` when you only need the suites.
+
 | Layer | Covers |
 |---|---|
 | Unit | Validator rules, fixtures, repository invariants, version file, docs status, CLI parser, lock file, installer plan |

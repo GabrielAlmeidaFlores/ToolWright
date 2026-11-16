@@ -70,6 +70,8 @@ The plan is ready for Phase 0 and Phase 1 implementation. Production defaults re
 
 ### 2.1 Published benchmark evidence
 
+The table below summarizes the published evidence that motivated this plan. Each row is a measured change against the baseline, so a positive cost percentage means the optimized configuration spent more. The baseline column is the reference, the optimized column is the current ToolWright profile, and the full-forced column is the aggressive tool-encouragement arm. Read the rows together: a token reduction that comes with a cost or wall-time increase is not a saving.
+
 | Benchmark | Baseline | Optimized | Full-forced |
 |---|---:|---:|---:|
 | Example tasks: cost change | — | +14.2% | not run |
@@ -260,6 +262,8 @@ Implementation options:
 - stop at the requested depth.
 
 ### 5.4 Reasoning and output policy
+
+The table below sets the planned reasoning and step budgets per agent for the first experiment. Read it as a starting hypothesis, not a production rule: each row names a role, the reasoning level to try, a step range to try, and the intended behavior. The budgets exist to stop a role from looping or over-explaining, and they must be calibrated against correctness before any of them is promoted.
 
 | Agent | Reasoning target | Max steps | Notes |
 |---|---|---:|---|
@@ -560,6 +564,8 @@ The plan page must carry a status block in the first eight lines. In Plan mode, 
 
 ## 8. Metrics and success criteria
 
+The table below defines the success criteria for the whole plan. Each row names a metric, the artifact that measures it, and the target the change must meet. The primary metric is cost per verified task; the remaining rows are guardrails that prevent a cheaper configuration from winning by producing worse code, more rework, or more human intervention. A result that misses a guardrail is not a success even if cost falls.
+
 | Metric | Source | Target |
 |---|---|---|
 | Cost per verified task | `run-stats.json` | −15–20% versus coordinator-current |
@@ -574,6 +580,8 @@ The plan page must carry a status block in the first eight lines. In Plan mode, 
 | Human intervention | manual log | no increase |
 
 ## 9. Risks and mitigations
+
+The table below lists the main ways this plan could fail and the mitigation for each. Each row pairs a concrete risk, such as a step cap truncating valid work or a token saving hiding a correctness loss, with the check that keeps it honest. Read it before changing budgets or routing, and treat an unmitigated risk as a reason to stop rather than to proceed.
 
 | Risk | Mitigation |
 |---|---|

@@ -66,6 +66,8 @@ A change is done only when all applicable items are true:
 
 ## Repository Orientation
 
+The table below maps each path to what it owns.
+
 | Path | Owns |
 |---|---|
 | `agents/` | Specialized agent prompts and contracts |
@@ -734,6 +736,8 @@ Create a validation checklist and automate what can reasonably be automated.
 
 ## Automated entry points
 
+The table below lists each command and the scope it covers.
+
 | Command | Scope |
 |---|---|
 | `make validate` | Files, JSONC, YAML, frontmatter, provenance, permissions, comments, docs status |
@@ -1287,6 +1291,7 @@ Rules:
 
 ## Documentation change rules
 
+- Put a complete paragraph before every table, image, or flowchart. It must explain what the block presents, how to read it, and the takeaway; one sentence or a heading alone is not enough.
 - Update the page that owns the behavior, not only the README.
 - Keep README claims short and link to the detailed page.
 - Update every generated example and path when an adapter changes.
@@ -1305,6 +1310,7 @@ Before claiming a change is complete, confirm:
 - [ ] `make lint` passes.
 - [ ] `git diff --check` passes.
 - [ ] Documentation and status blocks are current.
+- [ ] Every table, image, and flowchart has an explanatory paragraph before it.
 - [ ] [`CHANGELOG.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/CHANGELOG.md) has the correct entry.
 - [ ] Provenance is current for artifacts.
 - [ ] Adapter discovery and validation records are current for adapter changes.

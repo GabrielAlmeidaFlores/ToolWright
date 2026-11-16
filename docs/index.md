@@ -34,6 +34,8 @@ toolwright install --profile minimal --target /path/to/project --apply
 
 ## What is verified
 
+The table below summarizes what has been verified and which evidence supports it. Each row is a capability area, and the state column records the strongest label the repository can currently claim. Read it as a confidence map rather than a feature list: a row marked verified has a command or run behind it, while an unverified row says so explicitly. The linked pages and result sets carry the underlying commands and artifacts.
+
 | Area | State |
 |---|---|
 | Static validation | 676 checks, including provenance, permissions, comments, absolute links, and docs status |

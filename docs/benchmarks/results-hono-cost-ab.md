@@ -19,6 +19,8 @@ This page covers one model (`deepseek/deepseek-flash`), one AI tool (OpenCode `2
 
 ## Result at a glance
 
+The table below is the headline comparison. Each row is one arm: what it is (configuration and agent), what it cost across nine runs, what it cost per verified task, and how long a typical run took. Read total cost as the batch price, cost per verified task as the comparable unit, and median wall time as the typical latency; bold values mark the best result in each column. The table is the fastest way to see the main finding: the stock agent is the cheapest row.
+
 | Arm | Configuration | Agent | Total cost | Cost per verified task | Median wall time |
 |---|---|---|---|---|---|
 | `baseline` | stock OpenCode | `build` | **$0.0663** | **$0.0074** | **39s** |
@@ -58,7 +60,7 @@ The experiment tests that hypothesis directly, one variable per arm.
 
 ### What each arm is
 
-All arms share the same checkout, model, prompts, verification commands, and repeat count. Only the listed differences change.
+All arms share the same checkout, model, prompts, verification commands, and repeat count; only the differences listed below change. The table makes the experimental design auditable: it names the config file and agent for each arm, states whether MCP servers are loaded and what tool-output cap applies, and explains which hypothesis the arm tests. If a result surprises you, this table shows which variable could have caused it.
 
 | Arm | Configuration file | Agent | MCP servers | Tool output cap | What it tests |
 |---|---|---|---|---|---|
@@ -83,7 +85,7 @@ The arm configs are **benchmark-only**. They are copies of production configs wi
 
 ## The tasks
 
-Each task is a real change to Hono with a failing behavior, a requested fix, and a test command that decides success.
+Each task is a real change to Hono with a failing behavior, a requested fix, and a test command that decides success. The table lists the three tasks, summarizes what the agent had to do, and gives the exact verification command used to score it. The full prompts and acceptance criteria live in the task files linked below; the table is the short map from task name to expected behavior.
 
 | Task | What the agent had to do | Verification command |
 |---|---|---|
@@ -94,6 +96,8 @@ Each task is a real change to Hono with a failing behavior, a requested fix, and
 The full prompts and acceptance criteria are in [`benchmarks/real/hono/tasks/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/real/hono/tasks). `hono-set-cookie` is the largest task and, as shown below, dominates the cost result.
 
 ## Metrics
+
+The table below defines every measurement used on this page, so later numbers can be read without guessing. Each row gives the metric, how it is calculated, and the artifact that holds the underlying value. Two definitions matter most: a run is verified when the task test command exits 0, and cost per verified task divides an arm total by its number of passing runs. Cost and tokens are recomputed from the session log rather than taken from a cumulative stats snapshot.
 
 | Metric | Definition | Source |
 |---|---|---|
@@ -112,7 +116,7 @@ Cost and tokens are recomputed from each run's `session.jsonl`. The raw `opencod
 
 ## Results by arm
 
-The table adds per-run medians to the totals. **Median cost**, **median steps**, and **median tools** are the middle values of the nine runs, so they describe a typical run; **total cost** describes the batch.
+The table adds per-run medians to the totals. **Total cost** answers what the batch cost; **cost per verified** normalizes for correctness; **median cost**, **median steps**, and **median tools** describe a typical run; **median wall** describes typical latency. Read medians when one expensive run could distort the total, and read totals when budget is the question. Both are shown because they can disagree: `direct-slim` has the lowest median run cost but a higher total than baseline.
 
 | Arm | Runs | Verified | Scope 4 | Total cost | Cost per verified | Median cost | Median wall | Median steps | Median tools |
 |---|---|---|---|---|---|---|---|---|---|
@@ -129,7 +133,7 @@ Two medians are worth reading carefully:
 
 ## Results by task
 
-Median cost per task over three repeats:
+Median cost per task over three repeats, grouped so each task can be compared across arms. The table shows where an arm wins and where it loses; it is the evidence behind the claim that the aggregate is not uniform. Read across a row to compare arms on the same task, and down a column to see whether an arm is consistently cheap or expensive. The largest task, `hono-set-cookie`, dominates the total.
 
 | Task | `baseline` | `optimized` | `coordinator-slim` | `direct-slim` | `tools-on-demand` |
 |---|---|---|---|---|---|
@@ -145,7 +149,7 @@ The result is not uniform:
 
 ## Tokens and tool use
 
-Totals across nine runs per arm:
+Totals across the nine runs of each arm, split into the token categories the provider bills and the tool categories that explain behavior. Input and output are visible prompt and response tokens; reasoning is billed separately; cache read is prompt text served from the provider cache; shell and edit calls show how the agent changed files. Read this table with the cost table: reasoning growth and shell-based editing are the two largest behavioral differences between the arms.
 
 | Arm | Input | Output | Reasoning | Cache read | Tool calls | Shell calls | `edit` calls |
 |---|---|---|---|---|---|---|---|
@@ -169,7 +173,7 @@ MCP observations:
 
 ## Correctness and scope
 
-Every run was scored with the same rubric:
+Every run is scored with the same rubric before cost is considered, so a cheap but wrong run cannot look like a win. The table defines the four scores: 4 is a verified change limited to expected files, 3 is a verified change with a scope problem, 1 is a failed verification, and 0 is a failed run. The score is derived from the verification exit code and the changed-file set recorded after the agent finished.
 
 | Score | Meaning |
 |---|---|
@@ -184,7 +188,7 @@ Outcome:
 - No run timed out; the slowest run was 229s against a 900s limit.
 - No run edited files outside the task's expected set.
 
-Cost ranges overlap heavily, which is why medians and repeats matter:
+Cost ranges show the spread behind each median, because a single number can hide large run-to-run variation. The table lists the cheapest and most expensive run for each arm; overlapping ranges mean the medians should be read as descriptive rather than decisive. The spread also explains why this screen uses three repeats and why the full plan calls for more.
 
 | Arm | Cheapest run | Most expensive run |
 |---|---|---|
@@ -254,7 +258,7 @@ The profile install is required for every ToolWright arm, because the harness ch
 
 ## Artifacts
 
-Each `r<repeat>-<arm>-<task>/` directory contains:
+Each run directory is self-contained so a reviewer can audit the numbers without rerunning the model. The table lists each file and what it contains, from run metadata and derived statistics to the raw session stream, the verification output, and the workspace diff. Start with `meta.json` and `run-stats.json` for the headline values, then use `session.jsonl` and the diff files when you need to check what the agent actually did.
 
 | File | Contents |
 |---|---|

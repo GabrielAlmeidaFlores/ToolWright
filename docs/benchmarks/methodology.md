@@ -14,6 +14,8 @@ The question is tool-neutral. It applies to OpenCode, Claude Code, GitHub Copilo
 
 ## Configurations
 
+The table below defines the two arms every benchmark compares. The baseline is the control: the stock configuration of the tool under test, with no ToolWright instructions or custom MCP servers. The optimized arm is the ToolWright configuration for that same tool. Both arms must use the same tool, repository commit, model, and task definitions; comparing different tools requires a separate experiment with each tool's own baseline.
+
 | Arm | Definition |
 | --- | --- |
 | Baseline | Stock configuration of the tool under test; in the current harness, OpenCode with the default `build` agent and no custom MCP servers |
@@ -46,6 +48,8 @@ Start with 5 tasks covering: a small bug fix, a feature with tests, a refactor, 
 7. Repeat each task at least three times to expose variance.
 
 ## Scoring
+
+The table below maps every scored metric to the artifact that supplies it. Token, cost, step, and wall-time values are derived per run so a cumulative statistics snapshot cannot distort them. The verification command decides whether a run counts as correct, and the harness timer measures elapsed time independently of the model's own reporting. Use this table when you need to reproduce a number rather than trust a summary.
 
 | Metric | Source |
 | --- | --- |
