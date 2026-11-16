@@ -255,7 +255,7 @@ If you catch yourself thinking:
 
 ## Common Rationalizations
 
-| Excuse | Reality |
+The table below describes Common Rationalizations. It has 8 rows and 2 columns: Excuse and Reality. Each row is one excuse, and the other column records Reality. Read it to compare rows or to find a specific excuse.
 |--------|---------|
 | "Issue is simple, don't need process" | Simple issues have root causes too. Process is fast for simple bugs. |
 | "Emergency, no time for process" | Systematic debugging is FASTER than guess-and-check thrashing. |
@@ -268,7 +268,7 @@ If you catch yourself thinking:
 
 ## Quick Reference
 
-| Phase | Key Activities | Success Criteria |
+The table below describes Quick Reference. It has 4 rows and 3 columns: Phase, Key Activities, and Success Criteria. Each row is one phase, and the other columns record Key Activities and Success Criteria. Read it to compare rows or to find a specific phase.
 |-------|---------------|------------------|
 | **1. Root Cause** | Read errors, reproduce, check changes, gather evidence | Understand WHAT and WHY |
 | **2. Pattern** | Find working examples, compare | Identify differences |

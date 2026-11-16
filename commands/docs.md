@@ -385,7 +385,7 @@ ${QUICK_START_CODE}
 
 ### Environment Variables
 
-| Variable     | Description                  | Default | Required |
+The table below describes Environment Variables. It has 3 rows and 4 columns: Variable, Description, Default, and Required. Each row is one variable, and the other columns record Description, Default, and Required. Read it to compare rows or to find a specific variable.
 | ------------ | ---------------------------- | ------- | -------- |
 | DATABASE_URL | PostgreSQL connection string | -       | Yes      |
 | REDIS_URL    | Redis connection string      | -       | Yes      |
@@ -522,7 +522,7 @@ def {func.__name__}({", ".join(params)}){return_type}:
 
 ### Troubleshooting
 
-| Error               | Meaning                 | Solution        |
+The table below describes Troubleshooting. It has 3 rows and 3 columns: Error, Meaning, and Solution. Each row is one error, and the other columns record Meaning and Solution. Read it to compare rows or to find a specific error.
 | ------------------- | ----------------------- | --------------- |
 | "Name required"     | The name field is empty | Enter a name    |
 | "Permission denied" | You don't have access   | Contact admin   |

@@ -29,7 +29,7 @@ The module is internal (not a package entry point), mirroring the existing
 
 ## 2. Evidence of duplication
 
-The two duplicated regions were compared with `diff` and hashed:
+The two duplicated regions were compared with `diff` and hashed. It has 2 rows and 4 columns: Region, jwt, jwk, and Result. Each row is one region, and the other columns record jwt, jwk, and Result. Read it to compare rows or to find a specific region.
 
 | Region | jwt | jwk | Result |
 | --- | --- | --- | --- |
@@ -324,7 +324,7 @@ Relevant behavior-pinning assertions:
 
 ## 8. Files affected
 
-| Action | File |
+The table below describes Files affected. It has 4 rows and 2 columns: Action and File. Each row is one action, and the other column records File. Read it to compare rows or to find a specific action.
 | --- | --- |
 | Create | `src/utils/bearer-auth.ts` (internal, no export-map entry) |
 | Modify | `src/middleware/jwt/jwt.ts` |

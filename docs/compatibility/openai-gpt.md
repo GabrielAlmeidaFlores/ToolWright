@@ -20,7 +20,7 @@ The lock records each generated path, its generator, and its digest. Existing de
 
 ## Generated files
 
-| Path | Source |
+The table below describes Generated files. It has 2 rows and 2 columns: Path and Source. Each row is one path, and the other column records Source. Read it to compare rows or to find a specific path.
 |---|---|
 | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) |
 | `.codex/agents/<role>.toml` | `agents/<role>/AGENT.md` |
@@ -37,7 +37,7 @@ Write-capable roles omit `sandbox_mode` and inherit the parent session's setting
 
 ## Files
 
-| Path | Purpose |
+The table below describes Files. It has 6 rows and 2 columns: Path and Purpose. Each row is one path, and the other column records Purpose. Read it to compare rows or to find a specific path.
 |---|---|
 | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) | Repository guidance read by Codex |
 | `AGENTS.override.md` | Optional override at the same directory level |
@@ -63,7 +63,7 @@ Place the file at `.codex/agents/code_reviewer.toml`. Codex identifies the agent
 
 ## Role mapping
 
-| ToolWright agent | Codex representation |
+The table below describes Role mapping. It has 8 rows and 2 columns: ToolWright agent and Codex representation. Each row is one ToolWright agent, and the other column records Codex representation. Read it to compare rows or to find a specific ToolWright agent.
 |---|---|
 | `coordinator` | Main session plus [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) delegation rules |
 | `planner` | Custom agent whose instructions request planning only |

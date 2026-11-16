@@ -47,7 +47,7 @@ expect(result).toBeDefined();
 
 ## Quick Patterns
 
-| Scenario | Pattern |
+The table below describes Quick Patterns. It has 5 rows and 2 columns: Scenario and Pattern. Each row is one scenario, and the other column records Pattern. Read it to compare rows or to find a specific scenario.
 |----------|---------|
 | Wait for event | `waitFor(() => events.find(e => e.type === 'DONE'))` |
 | Wait for state | `waitFor(() => machine.state === 'ready')` |

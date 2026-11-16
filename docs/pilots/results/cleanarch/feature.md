@@ -1,6 +1,6 @@
 # Pilot Feature: Expose Contributor Status in Contributor Responses
 
-> **Status:** Experimental · **Last verified:** 2026-11-12 · **Evidence:** pilot output, structurally verified, not independently reviewed
+> **Status:** Experimental · **Last verified:** 2026-11-12 · **Evidence:** pilot output, structurally verified, not independently reviewed. It has 4 rows and 2 columns:  and . Each row is one , and the other column records . Read it to compare rows or to find a specific .
 
 | | |
 |---|---|

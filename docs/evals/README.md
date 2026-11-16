@@ -6,7 +6,7 @@
 
 ## Cases
 
-Cases live in [`tests/evals/cases.json`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/tests/evals/cases.json):
+Cases live in [`tests/evals/cases.json`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/tests/evals/cases.json). It has 4 rows and 2 columns: Case and What it proves. Each row is one case, and the other column records What it proves. Read it to compare rows or to find a specific case.
 
 | Case | What it proves |
 |---|---|

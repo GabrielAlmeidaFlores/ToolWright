@@ -6,7 +6,7 @@ Five TypeScript tasks in `packages/turbo-ignore` on `vercel/turborepo` at `4e3bd
 
 ## Results
 
-| Task | Change | Verification | Cost | Tokens in/out | Final verdict |
+The table below describes Results. It has 5 rows and 6 columns: Task, Change, Verification, Cost, Tokens in/out, and Final verdict. Each row is one task, and the other columns record Change, Verification, Cost, Tokens in/out, and Final verdict. Read it to compare rows or to find a specific task.
 |---|---|---|---|---|---|
 | Feature | Add `--dry-run` to turbo-ignore | Jest: 77 tests, 100% coverage | $0.000000 (free) | 62,784 / 5,351 | Production-ready |
 | Feature | Add machine-readable `--json` output | Jest: 80 tests, 100% coverage; `tsc`, `oxfmt`, `oxlint` clean | $0.000000 (free) | 196,801 / 13,699 | Production-ready |
@@ -18,7 +18,7 @@ The published task runs had `opencode_exit = 0` except task 4's third run, which
 
 ## Independent review
 
-A reviewer agent read every diff, ran the Jest suites, and checked the changed behavior. A final reviewer verified the last task 4 revision.
+A reviewer agent read every diff, ran the Jest suites, and checked the changed behavior. A final reviewer verified the last task 4 revision. It has 5 rows and 4 columns: Task, First verdict, Issue, and Final result. Each row is one task, and the other columns record First verdict, Issue, and Final result. Read it to compare rows or to find a specific task.
 
 | Task | First verdict | Issue | Final result |
 |---|---|---|---|

@@ -89,7 +89,7 @@ The real Hono matrix shows the central problem:
 
 ### 2.2 Cost structure
 
-Using DeepSeek Flash off-peak prices:
+Using DeepSeek Flash off-peak prices. It has 3 rows and 5 columns: Component, Example baseline, Example optimized, Hono baseline, and Hono optimized. Each row is one component, and the other columns record Example baseline, Example optimized, Hono baseline, and Hono optimized. Read it to compare rows or to find a specific component.
 
 | Component | Example baseline | Example optimized | Hono baseline | Hono optimized |
 |---|---:|---:|---:|---:|
@@ -185,7 +185,7 @@ Implication: direct specialist plus narrow scope is the default for small work.
 
 ### 5.1 Routing policy
 
-Add a deterministic routing table to the coordinator and documentation.
+Add a deterministic routing table to the coordinator and documentation. It has 8 rows and 4 columns: Task signal, Default agent, Coordinator, and Tool profile. Each row is one task signal, and the other columns record Default agent, Coordinator, and Tool profile. Read it to compare rows or to find a specific task signal.
 
 | Task signal | Default agent | Coordinator | Tool profile |
 |---|---|---|---|
@@ -202,7 +202,7 @@ The router must be deterministic based on the request and repository paths, not 
 
 ### 5.2 Tool profiles
 
-Do not expose every MCP server in every session.
+Do not expose every MCP server in every session. It has 5 rows and 3 columns: Profile, MCP/tool surface, and Use. Each row is one profile, and the other columns record MCP/tool surface and Use. Read it to compare rows or to find a specific profile.
 
 | Profile | MCP/tool surface | Use |
 |---|---|---|
@@ -356,7 +356,7 @@ Acceptance:
 
 #### Implemented in Phase 1
 
-The routing decision is expressed only in benchmark configuration; no production agent prompt, default agent, permission, profile, or step budget changed.
+The routing decision is expressed only in benchmark configuration; no production agent prompt, default agent, permission, profile, or step budget changed. It has 3 rows and 4 columns: Arm, Config, Agent, and Difference from the current optimized arm. Each row is one arm, and the other columns record Config, Agent, and Difference from the current optimized arm. Read it to compare rows or to find a specific arm.
 
 | Arm | Config | Agent | Difference from the current optimized arm |
 |---|---|---|---|
@@ -468,7 +468,7 @@ Acceptance:
 
 ### Phase 5 — Benchmark A/B
 
-Arms:
+Arms. It has 5 rows and 2 columns: Arm and Description. Each row is one arm, and the other column records Description. Read it to compare rows or to find a specific arm.
 
 | Arm | Description |
 |---|---|
@@ -512,7 +512,7 @@ If `coordinator-slim` does not win, keep the current behavior and document the n
 
 #### Implemented: initial 3-task screen
 
-The first screen ran the three existing Hono fixtures with 3 repeats instead of the full 125-run matrix. Result:
+The first screen ran the three existing Hono fixtures with 3 repeats instead of the full 125-run matrix. Result. It has 5 rows and 6 columns: Arm, Total cost, Cost per verified task, Median wall, Verified, and Scope 4. Each row is one arm, and the other columns record Total cost, Cost per verified task, Median wall, Verified, and Scope 4. Read it to compare rows or to find a specific arm.
 
 | Arm | Total cost | Cost per verified task | Median wall | Verified | Scope 4 |
 |---|---|---|---|---|---|

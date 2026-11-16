@@ -33,6 +33,8 @@ All notable changes to this repository are documented here.
 
 ### Changed
 
+- Documentation tables and diagrams now have a complete explanatory paragraph before them across the repository; the validator rejects a heading or a single sentence as the only lead-in.
+
 - Documentation links now use absolute GitHub URLs in every Markdown file, including pages under `docs/`, instead of relative paths that break when a file moves or the page is read outside the repository.
 - Benchmark result charts and documentation now use per-run session metrics and state the aggregation limitation.
 - The harness enforces each task's `max_wall_time_seconds` through [`scripts/benchmarking/run_with_timeout.py`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/benchmarking/run_with_timeout.py) and terminates the run process group afterwards, so MCP servers cannot outlive a run. A timed-out run reports exit `124`.

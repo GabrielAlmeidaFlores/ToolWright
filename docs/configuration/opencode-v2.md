@@ -17,7 +17,7 @@ The repository uses `<project>/.opencode/opencode.jsonc` so the setup is project
 
 ## Top-level settings used
 
-| Key | Value | Reason |
+The table below describes Top-level settings used. It has 8 rows and 3 columns: Key, Value, and Reason. Each row is one key, and the other columns record Value and Reason. Read it to compare rows or to find a specific key.
 | --- | --- | --- |
 | `default_agent` | `coordinator` | Avoid relying on the default Build agent |
 | `permissions` | ordered rules | Least privilege and destructive-command approval |
@@ -99,7 +99,7 @@ No model is hardcoded. OpenCode uses the user's selected model by default.
 
 For per-agent routing, merge [`configs/opencode/model-routing.example.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/model-routing.example.jsonc) after setting every referenced environment variable. Unset `{env:...}` becomes an empty string, which is invalid.
 
-Recommended shape:
+Recommended shape. It has 4 rows and 2 columns: Work and Model class. Each row is one type of work, and the other column records Model class. Read it to compare rows or to find a specific type of work.
 
 | Work | Model class |
 | --- | --- |

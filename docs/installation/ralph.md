@@ -54,7 +54,7 @@ ralph run \
 
 ## Configuration options that matter
 
-| Option | Value | Why |
+The table below describes Configuration options that matter. It has 5 rows and 3 columns: Option, Value, and Why. Each row is one option, and the other columns record Value and Why. Read it to compare rows or to find a specific option.
 | --- | --- | --- |
 | `cli.backend` | `opencode` | Use OpenCode as the runtime |
 | `adapters.opencode.timeout` | `900` | MCP and language-server startup |
@@ -64,7 +64,7 @@ ralph run \
 
 ## Common problems
 
-| Symptom | Fix |
+The table below describes Common problems. It has 5 rows and 2 columns: Symptom and Fix. Each row is one symptom, and the other column records Fix. Read it to compare rows or to find a specific symptom.
 | --- | --- |
 | Backend not found | `which opencode`; it must be on `PATH` |
 | Auth failure | Run OpenCode directly once |

@@ -4,7 +4,7 @@
 
 ## Supported versions
 
-| Component | Supported |
+The table below describes Supported versions. It has 4 rows and 2 columns: Component and Supported. Each row is one component, and the other column records Supported. Read it to compare rows or to find a specific component.
 |---|---|
 | This repository | `0.1.x` |
 | OpenCode | `2.2.x` |
@@ -23,7 +23,7 @@ Do not open a public issue for a suspected vulnerability. Include reproduction s
 
 ## Threat model
 
-| Asset | Risk | Control |
+The table below describes Threat model. It has 6 rows and 3 columns: Asset, Risk, and Control. Each row is one asset, and the other columns record Risk and Control. Read it to compare rows or to find a specific asset.
 |---|---|---|
 | OpenCode configuration and agent prompts | A malicious prompt or instruction changes agent behaviour | Content is reviewed, sourced, and pinned; external text is treated as untrusted data |
 | MCP servers | A server executes local commands with the user's privileges | Trust levels below; optional servers disabled by default |
@@ -36,7 +36,7 @@ This is **not** a sandbox. OpenCode permissions and this repository's deny rules
 
 ## MCP trust levels
 
-| Level | Meaning | Default |
+The table below describes MCP trust levels. It has 3 rows and 3 columns: Level, Meaning, and Default. Each row is one level, and the other columns record Meaning and Default. Read it to compare rows or to find a specific level.
 |---|---|---|
 | `reviewed` | Source and command reviewed; enabled in the profile | Serena, CodeGraph |
 | `local` | Runs a binary the user installed and trusts | Allowed when explicitly enabled |

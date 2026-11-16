@@ -28,7 +28,7 @@ The package requires Python 3.11 or newer and has no runtime dependencies.
 
 ## Command status
 
-| Command | Status | Purpose |
+The table below describes Command status. It has 17 rows and 3 columns: Command, Status, and Purpose. Each row is one command, and the other columns record Status and Purpose. Read it to compare rows or to find a specific command.
 |---|---|---|
 | `toolwright doctor` | Available | Repository, dependency, validator, lock, and MCP diagnostics |
 | `toolwright install` | Available | Plan an installation; `--apply` writes it |
@@ -214,7 +214,7 @@ toolwright doctor --json
 toolwright doctor --no-mcp
 ```
 
-Checks:
+Checks. It has 10 rows and 2 columns: Check and Fails when. Each row is one check, and the other column records Fails when. Read it to compare rows or to find a specific check.
 
 | Check | Fails when |
 |---|---|
@@ -238,7 +238,7 @@ toolwright install --profile standard --platform opencode --target ../my-project
 toolwright install --profile standard --platform claude   --target ../my-project --apply
 ```
 
-Default behavior is a **plan**: it prints every destination path and writes nothing.
+Default behavior is a **plan**: it prints every destination path and writes nothing. It has 10 rows and 2 columns: Flag and Effect. Each row is one flag, and the other column records Effect. Read it to compare rows or to find a specific flag.
 
 | Flag | Effect |
 |---|---|
@@ -253,7 +253,7 @@ Default behavior is a **plan**: it prints every destination path and writes noth
 | `--clean` | Back up and replace managed directories before copying |
 | `--json` | Machine-readable result |
 
-Component selection is shared, but each adapter supports a subset:
+Component selection is shared, but each adapter supports a subset. It has 4 rows and 3 columns: Adapter, Selectable components, and Always written. Each row is one adapter, and the other columns record Selectable components and Always written. Read it to compare rows or to find a specific adapter.
 
 | Adapter | Selectable components | Always written |
 |---|---|---|
@@ -308,6 +308,8 @@ there.
 toolwright update --check
 toolwright update --check --remote --json
 ```
+
+The table below describes `toolwright update --check`. It has 5 rows and 3 columns: Status, Exit code, and Meaning. Each row is one status, and the other columns record Exit code and Meaning. Read it to compare rows or to find a specific status.
 
 | Status | Exit code | Meaning |
 |---|---|---|
@@ -385,7 +387,7 @@ lock is upgraded in memory on read and written as schema 2 on the next successfu
 
 ## Exit codes
 
-| Code | Meaning |
+The table below describes Exit codes. It has 3 rows and 2 columns: Code and Meaning. Each row is one code, and the other column records Meaning. Read it to compare rows or to find a specific code.
 |---|---|
 | 0 | Success, including a no-op plan |
 | 1 | Diagnostics failed, or update drift detected |

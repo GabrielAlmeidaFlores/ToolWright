@@ -10,7 +10,7 @@ Run `toolwright compat` for the OpenCode V1/V2 feature matrix. Cells that were n
 
 ## Agents
 
-All twelve custom agents are discovered by `opencode debug agents`. The coordinator is primary; the other eleven are subagents.
+All twelve custom agents are discovered by `opencode debug agents`. The coordinator is primary; the other eleven are subagents. It has 12 rows and 4 columns: Agent, Mode, Edit permission, and Runtime status. Each row is one agent, and the other columns record Mode, Edit permission, and Runtime status. Read it to compare rows or to find a specific agent.
 
 | Agent | Mode | Edit permission | Runtime status |
 | --- | --- | --- | --- |
@@ -29,7 +29,7 @@ All twelve custom agents are discovered by `opencode debug agents`. The coordina
 
 ## Commands
 
-All commands have a valid `description` and target an existing agent. File installation is verified by the installer test.
+All commands have a valid `description` and target an existing agent. File installation is verified by the installer test. It has 8 rows and 4 columns: Command, Target agent, Static validation, and Runtime smoke. Each row is one command, and the other columns record Target agent, Static validation, and Runtime smoke. Read it to compare rows or to find a specific command.
 
 | Command | Target agent | Static validation | Runtime smoke |
 | --- | --- | --- | --- |
@@ -46,7 +46,7 @@ The commands are sourced from `wshobson/agents`. Their Claude-specific task and 
 
 ## Skills
 
-All skills have valid frontmatter, a matching directory name, author attribution, and supporting files where the upstream skill requires them.
+All skills have valid frontmatter, a matching directory name, author attribution, and supporting files where the upstream skill requires them. It has 10 rows and 3 columns: Skill, Supporting files, and Status. Each row is one skill, and the other columns record Supporting files and Status. Read it to compare rows or to find a specific skill.
 
 | Skill | Supporting files | Status |
 | --- | --- | --- |
@@ -65,7 +65,7 @@ Runtime skill loading was verified for all ten skills: each smoke run called the
 
 ## Ralph collections
 
-| Collection | Static validation | Runtime |
+The table below describes Ralph collections. It has 4 rows and 3 columns: Collection, Static validation, and Runtime. Each row is one collection, and the other columns record Static validation and Runtime. Read it to compare rows or to find a specific collection.
 | --- | --- | --- |
 | `research` | YAML valid, preflight pass | Completed in 2 iterations with `RESEARCH_COMPLETE` |
 | `code-assist` | YAML valid, preflight pass | Longer multi-wave flow; needs a larger iteration budget |
@@ -74,7 +74,7 @@ Runtime skill loading was verified for all ten skills: each smoke run called the
 
 ## MCP servers
 
-| Server | Runtime status |
+The table below describes MCP servers. It has 4 rows and 2 columns: Server and Runtime status. Each row is one server, and the other column records Runtime status. Read it to compare rows or to find a specific server.
 | --- | --- |
 | `serena` | Connected in the test environment |
 | `codegraph` | Connected in the test environment after `codegraph init` |

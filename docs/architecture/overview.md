@@ -32,7 +32,7 @@ This page describes the OpenCode reference adapter. The provider-neutral core is
 
 ## Responsibilities
 
-| Layer | Owns | Does not own |
+The table below describes Responsibilities. It has 4 rows and 3 columns: Layer, Owns, and Does not own. Each row is one layer, and the other columns record Owns and Does not own. Read it to compare rows or to find a specific layer.
 | --- | --- | --- |
 | Ralph | Task loop, gates, iteration limits, memories, worktrees | Tool permissions, model credentials |
 | OpenCode | Agent prompts, permissions, tool execution, context compaction | Cross-session persistence |
@@ -51,7 +51,7 @@ This page describes the OpenCode reference adapter. The provider-neutral core is
 
 ## Data and state
 
-| State | Location | Owner |
+The table below describes Data and state. It has 6 rows and 3 columns: State, Location, and Owner. Each row is one state, and the other columns record Location and Owner. Read it to compare rows or to find a specific state.
 | --- | --- | --- |
 | Ralph memories/tasks/scratchpad | `.agent/` (or configured `.ralph/agent/`) | Ralph |
 | Ralph specs | `.ralph/specs/` | Human/Ralph |
@@ -70,7 +70,7 @@ This page describes the OpenCode reference adapter. The provider-neutral core is
 
 ## Failure modes
 
-| Failure | Detection | Response |
+The table below describes Failure modes. It has 5 rows and 3 columns: Failure, Detection, and Response. Each row is one failure, and the other columns record Detection and Response. Read it to compare rows or to find a specific failure.
 | --- | --- | --- |
 | Model loops without progress | Iteration limit | Stop, report, preserve state |
 | Tests fail | Non-zero exit | Gate blocks completion |

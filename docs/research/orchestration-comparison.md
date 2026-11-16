@@ -2,7 +2,7 @@
 
 > **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
 
-Compared on 2026-11-11. Weights reflect this project's priorities: OpenCode fit, quality gates, and maintainability.
+Compared on 2026-11-11. Weights reflect this project's priorities: OpenCode fit, quality gates, and maintainability. It has 11 rows and 5 columns: Criterion, Ralph Orchestrator, OpenCode native, oh-my-opencode(-slim), and Claude Squad. Each row is one criterion, and the other columns record Ralph Orchestrator, OpenCode native, oh-my-opencode(-slim), and Claude Squad. Read it to compare rows or to find a specific criterion.
 
 | Criterion | Ralph Orchestrator | OpenCode native | oh-my-opencode(-slim) | Claude Squad |
 | --- | --- | --- | --- | --- |

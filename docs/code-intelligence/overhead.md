@@ -14,7 +14,7 @@ This page records a narrow startup measurement performed on 2026-11-11 with Open
 
 ## Results
 
-| Profile | `debug agents` run 1 | `debug agents` run 2 | `--standalone mcp list` |
+The table below describes Results. It has 2 rows and 4 columns: Profile, debug agents run 1, debug agents run 2, and --standalone mcp list. Each row is one profile, and the other columns record debug agents run 1, debug agents run 2, and --standalone mcp list. Read it to compare rows or to find a specific profile.
 | --- | ---: | ---: | ---: |
 | Full profile | 2.04 s | 1.48 s | 0.15 s |
 | Minimal profile | 1.46 s | 1.44 s | 0.16 s |

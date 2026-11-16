@@ -50,7 +50,7 @@ Validation runs in this order:
 
 ## Fields required per artifact
 
-| Field | Purpose |
+The table below describes Fields required per artifact. It has 10 rows and 2 columns: Field and Purpose. Each row is one field, and the other column records Purpose. Read it to compare rows or to find a specific field.
 |---|---|
 | `id` | Stable identifier used by commands |
 | `type` | `agent`, `skill`, `command`, `hat`, `mcp`, `plugin` |

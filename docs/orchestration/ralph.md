@@ -59,7 +59,7 @@ hats:
       args: ["--agent", "planner", "--auto"]
 ```
 
-Ralph launches `opencode run --agent <role> "<prompt>"`. OpenCode applies that agent's prompt, permissions, steps, and tools.
+Ralph launches `opencode run --agent <role> "<prompt>"`. OpenCode applies that agent's prompt, permissions, steps, and tools. It has 4 rows and 3 columns: Collection, Hats, and OpenCode agents. Each row is one collection, and the other columns record Hats and OpenCode agents. Read it to compare rows or to find a specific collection.
 
 | Collection | Hats | OpenCode agents |
 | --- | --- | --- |
@@ -156,7 +156,7 @@ Do not use a linked worktree as a substitute; it shares `.git` and writes commit
 
 ## Troubleshooting
 
-| Symptom | Check |
+The table below describes Troubleshooting. It has 5 rows and 2 columns: Symptom and Check. Each row is one symptom, and the other column records Check. Read it to compare rows or to find a specific symptom.
 | --- | --- |
 | `No AI agents detected` | `opencode --version`; ensure it is on `PATH` |
 | Hangs on first iteration | Run `opencode run --agent planner "test"` directly |

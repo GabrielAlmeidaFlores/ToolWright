@@ -1,6 +1,6 @@
 # Specs
 
-Spec-driven development artifacts managed by `toolwright spec`. Each feature gets a directory with four files:
+Spec-driven development artifacts managed by `toolwright spec`. Each feature gets a directory with four files. It has 4 rows and 2 columns: File and Purpose. Each row is one file, and the other column records Purpose. Read it to compare rows or to find a specific file.
 
 | File | Purpose |
 |---|---|
@@ -34,7 +34,7 @@ Checked boxes (`- [x]`) are accepted. Angle-bracket placeholders from the templa
 
 ## Ownership
 
-| Agent | Responsibility |
+The table below describes Ownership. It has 4 rows and 2 columns: Agent and Responsibility. Each row is one agent, and the other column records Responsibility. Read it to compare rows or to find a specific agent.
 |---|---|
 | `planner` | Requirements and tasks |
 | `architect` | Design and decisions |

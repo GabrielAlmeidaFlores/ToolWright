@@ -14,6 +14,8 @@ specs/<feature>/
 └── evidence.md
 ```
 
+The table below describes Artifacts. It has 4 rows and 3 columns: File, Owner, and Contents. Each row is one file, and the other columns record Owner and Contents. Read it to compare rows or to find a specific file.
+
 | File | Owner | Contents |
 |---|---|---|
 | `requirements.md` | `planner` | Goals, testable criteria, non-goals |

@@ -74,6 +74,7 @@ TEXT_GIT_WORKTREE_ADD_FAILED = 'git worktree add failed: {}'
 
 TEXT_GIT_WORKTREE_REMOVE_FAILED = 'git worktree remove failed: {}'
 
+TEXT_BOARD_TABLE_INTRO = 'The table below lists each task, its status, its worktree, and its verification command. Read the status column first to find active work, then use the verify column as the acceptance check. Empty cells mean the field is not set for that task.'
 TEXT_ID_TITLE_STATUS_WORKTREE_VERIFY = '| ID | Title | Status | Worktree | Verify |'
 
 

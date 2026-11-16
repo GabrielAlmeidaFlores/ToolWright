@@ -20,7 +20,7 @@ The lock records each generated path, its generator, and its digest. Existing de
 
 ## Generated files
 
-| Path | Source |
+The table below describes Generated files. It has 5 rows and 2 columns: Path and Source. Each row is one path, and the other column records Source. Read it to compare rows or to find a specific path.
 |---|---|
 | `.github/copilot-instructions.md` | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) |
 | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) |
@@ -30,7 +30,7 @@ The lock records each generated path, its generator, and its digest. Existing de
 
 ## Files
 
-| File | Scope |
+The table below describes Files. It has 4 rows and 2 columns: File and Scope. Each row is one file, and the other column records Scope. Read it to compare rows or to find a specific file.
 |---|---|
 | `.github/copilot-instructions.md` | Repository-wide rules |
 | `.github/instructions/<name>.instructions.md` | Rules for matching paths; requires `applyTo` frontmatter |
@@ -39,7 +39,7 @@ The lock records each generated path, its generator, and its digest. Existing de
 
 ## Role mapping
 
-The adapter writes one `.github/instructions/<role>.instructions.md` file per agent.
+The adapter writes one `.github/instructions/<role>.instructions.md` file per agent. It has 6 rows and 2 columns: ToolWright role and Copilot representation. Each row is one ToolWright role, and the other column records Copilot representation. Read it to compare rows or to find a specific ToolWright role.
 
 | ToolWright role | Copilot representation |
 |---|---|

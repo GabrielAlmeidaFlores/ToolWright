@@ -34,7 +34,7 @@ Why it is worth doing (low risk, real payoff):
 
 ## 2. Behavior contract (must not change)
 
-| Observable | Current behavior | Invariant for the refactor |
+The table below describes Behavior contract (must not change). It has 6 rows and 3 columns: Observable, Current behavior, and Invariant for the refactor. Each row is one observable, and the other columns record Current behavior and Invariant for the refactor. Read it to compare rows or to find a specific observable.
 |---|---|---|
 | `DeleteContributorRequest.Route`, `GetContributorByIdRequest.Route`, `UpdateContributorRequest.Route` | compile-time `const` values, all `/Contributors/{ContributorId:int}` | keep `const`, keep same value |
 | `BuildRoute(int)` for each DTO | `/Contributors/` + `contributorId.ToString()` | identical string, same culture-sensitive `int.ToString()` |

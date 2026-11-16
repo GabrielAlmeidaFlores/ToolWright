@@ -26,7 +26,7 @@ The coordinator cannot edit files. This is deliberate: it prevents the orchestra
 
 ## Subagents
 
-| Agent | Invoke when | Do not invoke when |
+The table below describes Subagents. It has 11 rows and 3 columns: Agent, Invoke when, and Do not invoke when. Each row is one agent, and the other columns record Invoke when and Do not invoke when. Read it to compare rows or to find a specific agent.
 | --- | --- | --- |
 | `planner` | More than one verifiable step, or unclear order | Single-file, obvious change |
 | `researcher` | Unknown library behavior, architecture discovery | The answer is already in the diff |
@@ -59,7 +59,7 @@ implementation -> code-reviewer -> test-engineer -> (security-reviewer) -> coord
 
 ## Ralph mapping
 
-The official Ralph collections route to these agents with `backend.args`:
+The official Ralph collections route to these agents with `backend.args`. It has 13 rows and 3 columns: Collection, Hat, and Agent. Each row is one collection, and the other columns record Hat and Agent. Read it to compare rows or to find a specific collection.
 
 | Collection | Hat | Agent |
 | --- | --- | --- |

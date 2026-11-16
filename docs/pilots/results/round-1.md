@@ -15,7 +15,7 @@ Read-only discovery tasks across the three selected repositories. These are **no
 
 ## Results
 
-| Repository | Task | Category | Agent | Result | Input | Output | Tools | Wall | Cost |
+The table below describes Results. It has 15 rows and 10 columns: Repository, Task, Category, Agent, Result, Input, Output, Tools, Wall, and Cost. Each row is one repository, and the other columns record Task, Category, Agent, Result, Input, Output, Tools, Wall, and Cost. Read it to compare rows or to find a specific repository.
 | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
 | honojs/hono | T1 | Bug analysis | backend-developer | pass | 39441 | 2965 | 31 | 153.06s | $0.020911 |
 | honojs/hono | T2 | Feature proposal | backend-developer | pass | 8028 | 956 | 6 | 25.57s | $0.002582 |
@@ -46,7 +46,7 @@ Read-only discovery tasks across the three selected repositories. These are **no
 
 ## Rework and failure history
 
-| Initial failure | Count | Resolution |
+The table below describes Rework and failure history. It has 4 rows and 3 columns: Initial failure, Count, and Resolution. Each row is one initial failure, and the other columns record Count and Resolution. Read it to compare rows or to find a specific initial failure.
 | --- | ---: | --- |
 | `artifact-missing` | 2 | Rerun with a bounded prompt and the backend agent |
 | `unsupported-input` | 1 | Rerun without the Web Search request |

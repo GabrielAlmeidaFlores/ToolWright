@@ -4,7 +4,7 @@
 
 ## OpenCode
 
-| Symptom | Cause | Fix |
+The table below describes OpenCode. It has 6 rows and 3 columns: Symptom, Cause, and Fix. Each row is one symptom, and the other columns record Cause and Fix. Read it to compare rows or to find a specific symptom.
 | --- | --- | --- |
 | `default_agent` ignored, Build starts | Coordinator agent not discovered | Copy [`agents/coordinator/AGENT.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/agents/coordinator/AGENT.md) to `.opencode/agents/coordinator.md`; run `opencode debug agents` |
 | Agent can edit when it should not | A later permission rule allows it | Rules are ordered, last match wins. Inspect with `opencode debug agent <name>` |
@@ -15,7 +15,7 @@
 
 ## MCP
 
-| Symptom | Cause | Fix |
+The table below describes MCP. It has 6 rows and 3 columns: Symptom, Cause, and Fix. Each row is one symptom, and the other columns record Cause and Fix. Read it to compare rows or to find a specific symptom.
 | --- | --- | --- |
 | `mcp list` says "No MCP servers configured" but `.opencode/opencode.jsonc` exists | The directory is not a Git repository, so project discovery did not start there | Run from a Git worktree, or pass `OPENCODE_CONFIG=/abs/path/.opencode/opencode.jsonc` |
 | Server stays `needs authentication` | OAuth not completed | Run `opencode mcp auth <name>` |
@@ -26,7 +26,7 @@
 
 ## Serena
 
-| Symptom | Cause | Fix |
+The table below describes Serena. It has 3 rows and 3 columns: Symptom, Cause, and Fix. Each row is one symptom, and the other columns record Cause and Fix. Read it to compare rows or to find a specific symptom.
 | --- | --- | --- |
 | `serena: command not found` | `uv tool` bin directory not on `PATH` | Add `~/.local/bin` or use the absolute path |
 | Symbol search fails | Language server missing | Install the language server for your stack |
@@ -34,7 +34,7 @@
 
 ## ast-grep
 
-| Symptom | Cause | Fix |
+The table below describes ast-grep. It has 3 rows and 3 columns: Symptom, Cause, and Fix. Each row is one symptom, and the other columns record Cause and Fix. Read it to compare rows or to find a specific symptom.
 | --- | --- | --- |
 | Pattern does not match | Wrong language flag | Add `-l ts`, `-l py`, etc. |
 | Parse error on file | Unsupported syntax version | Update ast-grep |
@@ -42,7 +42,7 @@
 
 ## Ralph
 
-| Symptom | Cause | Fix |
+The table below describes Ralph. It has 5 rows and 3 columns: Symptom, Cause, and Fix. Each row is one symptom, and the other columns record Cause and Fix. Read it to compare rows or to find a specific symptom.
 | --- | --- | --- |
 | `No AI agents detected` | OpenCode not on `PATH` | `which opencode` |
 | Loop never completes | Finalizer did not emit the promise | Inspect `.ralph/agent/scratchpad.md`; check the finalizer instruction |
@@ -52,7 +52,7 @@
 
 ## Repository tooling
 
-| Symptom | Cause | Fix |
+The table below describes Repository tooling. It has 16 rows and 3 columns: Symptom, Cause, and Fix. Each row is one symptom, and the other columns record Cause and Fix. Read it to compare rows or to find a specific symptom.
 | --- | --- | --- |
 | `toolwright: command not found` | `~/.local/bin` is not on `PATH` | Export it, or run `PYTHONPATH=packages/toolwright_cli python3 -m toolwright_cli` |
 | `toolwright install` says `already up to date` but files look old | Source digest still matches | Use `--force`, or change the artifact and re-run |

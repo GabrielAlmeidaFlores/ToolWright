@@ -7,7 +7,7 @@
 
 The requested default is maximal coverage: ast-grep, Serena, and CodeGraph in addition to native tools and ripgrep. MCP servers and large tool catalogs consume context, so enabling everything without controls contradicts the project's cost objective.
 
-Verified facts:
+Verified facts. It has 7 rows and 4 columns: Tool, Version, License, and Integration. Each row is one tool, and the other columns record Version, License, and Integration. Read it to compare rows or to find a specific tool.
 
 | Tool | Version | License | Integration |
 | --- | --- | --- | --- |

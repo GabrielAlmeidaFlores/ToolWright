@@ -6,7 +6,7 @@ The objective is the lowest total cost for a correct result, not the smallest pr
 
 ## Levers in this repository
 
-| Lever | Setting | Effect |
+The table below describes Levers in this repository. It has 12 rows and 3 columns: Lever, Setting, and Effect. Each row is one lever, and the other columns record Setting and Effect. Read it to compare rows or to find a specific lever.
 | --- | --- | --- |
 | Bounded retention | `compaction.keep.tokens: 12000` | Keeps recent context without replaying the session |
 | Reserve | `compaction.buffer: 15%` | Leaves room before overflow |

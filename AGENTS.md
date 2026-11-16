@@ -66,7 +66,7 @@ A change is done only when all applicable items are true:
 
 ## Repository Orientation
 
-The table below maps each path to what it owns.
+The table below maps each path to what it owns. It has 15 rows and 2 columns: Path and Owns. Each row is one path, and the other column records Owns. Read it to compare rows or to find a specific path.
 
 | Path | Owns |
 |---|---|
@@ -736,7 +736,7 @@ Create a validation checklist and automate what can reasonably be automated.
 
 ## Automated entry points
 
-The table below lists each command and the scope it covers.
+The table below lists each command and the scope it covers. It has 5 rows and 2 columns: Command and Scope. Each row is one command, and the other column records Scope. Read it to compare rows or to find a specific command.
 
 | Command | Scope |
 |---|---|
@@ -893,7 +893,7 @@ After presenting the plan, proceed with implementation in small, verifiable stag
 
 # 17. Change Intake and Classification
 
-Before editing, state the requested outcome in one sentence and classify the change. If the classification or release impact is unclear, ask instead of guessing.
+Before editing, state the requested outcome in one sentence and classify the change. If the classification or release impact is unclear, ask instead of guessing. It has 8 rows and 5 columns: Change type, Examples, Version impact, Changelog, and Release. Each row is one change type, and the other columns record Examples, Version impact, Changelog, and Release. Read it to compare rows or to find a specific change type.
 
 | Change type | Examples | Version impact | Changelog | Release |
 |---|---|---|---|---|
@@ -972,7 +972,7 @@ Adapter discovery checks skip cleanly when a vendor CLI is absent. A skip is not
 
 ## Step 6: Update documentation
 
-Update every page whose claims the change invalidates.
+Update every page whose claims the change invalidates. It has 7 rows and 2 columns: Change affects and Update. Each row is one change, and the other column records Update. Read it to compare rows or to find a specific change.
 
 | Change affects | Update |
 |---|---|
@@ -1090,7 +1090,7 @@ Use Section 17. A published wheel change normally requires a release. Documentat
 
 ## Step 2: Update version sources
 
-Update all of these together:
+Update all of these together. It has 4 rows and 2 columns: File and Purpose. Each row is one file, and the other column records Purpose. Read it to compare rows or to find a specific file.
 
 | File | Purpose |
 |---|---|
@@ -1248,7 +1248,7 @@ Allowed status values: `Stable`, `Experimental`, `Planned`, `Deprecated`.
 
 ## Evidence levels
 
-Use the weakest accurate label:
+Use the weakest accurate label. It has 6 rows and 2 columns: Label and Meaning. Each row is one label, and the other column records Meaning. Read it to compare rows or to find a specific label.
 
 | Label | Meaning |
 |---|---|

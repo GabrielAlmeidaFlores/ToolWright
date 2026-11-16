@@ -59,7 +59,7 @@ Remove the plugin file entirely with `toolwright uninstall` or by deleting `.ope
 
 ## Verification
 
-On 2026-11-12 the plugin was loaded by a private OpenCode V2 server against a temporary project:
+On 2026-11-12 the plugin was loaded by a private OpenCode V2 server against a temporary project. It has 2 rows and 2 columns: Case and Observation. Each row is one case, and the other column records Observation. Read it to compare rows or to find a specific case.
 
 | Case | Observation |
 |---|---|

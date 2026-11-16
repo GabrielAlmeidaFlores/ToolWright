@@ -6,7 +6,7 @@ Governance makes long agent runs auditable without adding a daemon or a second r
 
 ## What is enforced
 
-| Area | Mechanism |
+The table below describes What is enforced. It has 6 rows and 2 columns: Area and Mechanism. Each row is one area, and the other column records Mechanism. Read it to compare rows or to find a specific area.
 |---|---|
 | Agent contracts | Derived from `agents/*/AGENT.md` mode and permissions |
 | Budgets | `[governance]` limits in [`.toolwright/config.toml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/config.toml) |
@@ -77,6 +77,8 @@ toolwright govern gate --risk low
 toolwright govern gate --risk medium
 toolwright govern gate --risk high
 ```
+
+The table below describes Risk gates. It has 3 rows and 2 columns: Risk and Required gates. Each row is one risk, and the other column records Required gates. Read it to compare rows or to find a specific risk.
 
 | Risk | Required gates |
 |---|---|

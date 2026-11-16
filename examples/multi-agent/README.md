@@ -60,7 +60,7 @@ It is a multi-wave workflow. For a first run, use `--max-iterations 20` or try t
 
 ## If it fails
 
-| Point | Action |
+The table below describes If it fails. It has 5 rows and 2 columns: Point and Action. Each row is one point, and the other column records Action. Read it to compare rows or to find a specific point.
 | --- | --- |
 | No `tasks.ready` | Check that the planner created a runtime task and emitted the event |
 | `review.ready` loops | Inspect the builder output; it may be blocked |

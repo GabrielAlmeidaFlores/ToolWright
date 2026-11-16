@@ -20,7 +20,7 @@ The `sample/` and `MinimalClean/` trees contain near-duplicates of the same patt
 
 ## Severity scale
 
-| Severity | Meaning |
+The table below describes Severity scale. It has 4 rows and 2 columns: Severity and Meaning. Each row is one severity, and the other column records Meaning. Read it to compare rows or to find a specific severity.
 |---|---|
 | Critical | Directly exploitable by an unauthenticated network attacker with high impact (data destruction/exfiltration, full bypass of a security control). |
 | High | Exploitable misconfiguration that undermines a core security property (transport security, access control) or enables broad abuse. |
@@ -29,7 +29,7 @@ The `sample/` and `MinimalClean/` trees contain near-duplicates of the same patt
 
 ## Risk summary
 
-| # | Risk | Severity |
+The table below describes Risk summary. It has 10 rows and 3 columns: #, Risk, and Severity. Each row is one entry, and the other columns record Risk and Severity. Read it to compare rows or to find a specific entry.
 |---|---|---|
 | 1 | Every contributor endpoint is anonymous; no authentication/authorization is configured at all | **Critical** |
 | 2 | HTTPS redirection is registered after endpoint execution, so plaintext requests can be served | **High** |

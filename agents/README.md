@@ -6,7 +6,7 @@ The Markdown body is the portable system prompt. The current frontmatter include
 
 ## Roles
 
-| Role | Mode | Can edit | Purpose |
+The table below describes Roles. It has 12 rows and 4 columns: Role, Mode, Can edit, and Purpose. Each row is one role, and the other columns record Mode, Can edit, and Purpose. Read it to compare rows or to find a specific role.
 | --- | --- | --- | --- |
 | `coordinator` | primary | no | Plan, delegate, verify |
 | `planner` | subagent | no | Ordered task plan |

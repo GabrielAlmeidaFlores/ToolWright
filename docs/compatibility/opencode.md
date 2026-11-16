@@ -15,7 +15,7 @@ toolwright doctor
 toolwright install --profile minimal --target /path/to/project --apply
 ```
 
-Profiles:
+Profiles. It has 3 rows and 2 columns: Profile and Components. Each row is one profile, and the other column records Components. Read it to compare rows or to find a specific profile.
 
 | Profile | Components |
 |---|---|
@@ -25,7 +25,7 @@ Profiles:
 
 ## Files installed
 
-| Path | Purpose |
+The table below describes Files installed. It has 6 rows and 2 columns: Path and Purpose. Each row is one path, and the other column records Purpose. Read it to compare rows or to find a specific path.
 |---|---|
 | `.opencode/opencode.jsonc` | OpenCode configuration |
 | `.opencode/agents/*.md` | Primary and subagent definitions |

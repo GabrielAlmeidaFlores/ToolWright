@@ -6,7 +6,7 @@ An optional Markdown task board for parallel work. It is never enabled by a defa
 
 ## Model
 
-| Path | Purpose |
+The table below describes Model. It has 3 rows and 2 columns: Path and Purpose. Each row is one path, and the other column records Purpose. Read it to compare rows or to find a specific path.
 |---|---|
 | `.toolwright/board/tasks/T-001.md` | One task per file; frontmatter is the state |
 | [`.toolwright/board/BOARD.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/board/BOARD.md) | Generated table and WIP count |

@@ -532,7 +532,7 @@ let userEmail = new Email("test@example.com"); // Validation automatic
 
 ### 5. Decision Frameworks
 
-**Code Quality Metrics Interpretation Matrix**
+**Code Quality Metrics Interpretation Matrix**. It has 7 rows and 5 columns: Metric, Good, Warning, Critical, and Action. Each row is one metric, and the other columns record Good, Warning, Critical, and Action. Read it to compare rows or to find a specific metric.
 
 | Metric                | Good   | Warning      | Critical | Action                          |
 | --------------------- | ------ | ------------ | -------- | ------------------------------- |

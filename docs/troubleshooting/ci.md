@@ -93,7 +93,7 @@ discovery behaviour.
 
 ## Failure: ShellCheck
 
-ShellCheck runs on Linux only, against `scripts/**`. Two common causes:
+ShellCheck runs on Linux only, against `scripts/**`. Two common causes. It has 2 rows and 3 columns: Message, Cause, and Fix. Each row is one message, and the other columns record Cause and Fix. Read it to compare rows or to find a specific message.
 
 | Message | Cause | Fix |
 |---|---|---|
@@ -136,7 +136,7 @@ HOME="$(mktemp -d)" OPENCODE_CONFIG="/abs/path/.opencode/opencode.jsonc" \
 ## Confirmed green
 
 Run [`43277080347`](https://github.com/GabrielAlmeidaFlores/ToolWright/actions/runs/43277080347)
-completed on 2026-11-12 with every job successful:
+completed on 2026-11-12 with every job successful. It has 8 rows and 2 columns: Job and Result. Each row is one job, and the other column records Result. Read it to compare rows or to find a specific job.
 
 | Job | Result |
 |---|---|
@@ -157,14 +157,14 @@ discovery with a pinned version, and benchmark dry-runs. Action majors are `chec
 
 ## Scheduled and tag workflows
 
-| Workflow | Trigger | Purpose |
+The table below describes Scheduled and tag workflows. It has 2 rows and 3 columns: Workflow, Trigger, and Purpose. Each row is one workflow, and the other columns record Trigger and Purpose. Read it to compare rows or to find a specific workflow.
 |---|---|---|
 | `release` | `v*` tag | Verifies the tag, builds the wheel, writes `SHA256SUMS`, publishes the release |
 | `upstream-drift` | Weekly schedule, manual | Reports pinned provenance commits versus remote HEAD in the job summary |
 
 ## Job map
 
-| Job | Purpose | Needs |
+The table below describes Job map. It has 7 rows and 3 columns: Job, Purpose, and Needs. Each row is one job, and the other columns record Purpose and Needs. Read it to compare rows or to find a specific job.
 |---|---|---|
 | `static` | Validator, shell syntax, ShellCheck | Python, PyYAML |
 | `test` | Unit and integration suites | Python, PyYAML |

@@ -17,7 +17,7 @@ Phase 2 introduces `toolwright` as a single command surface. The implementation 
 chosen before the first line of CLI code is written, because the choice affects packaging,
 test strategy, and contributor requirements.
 
-Candidates:
+Candidates. It has 3 rows and 3 columns: Option, Strengths, and Weaknesses. Each row is one option, and the other columns record Strengths and Weaknesses. Read it to compare rows or to find a specific option.
 
 | Option | Strengths | Weaknesses |
 |---|---|---|

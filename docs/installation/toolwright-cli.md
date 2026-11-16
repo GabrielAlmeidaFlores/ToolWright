@@ -60,6 +60,8 @@ toolwright install --platform copilot  --profile minimal --target /path/to/proje
 toolwright install --platform codex    --profile minimal --target /path/to/project --apply
 ```
 
+The table below describes Choose a platform adapter. It has 4 rows and 2 columns: Platform and Generated files. Each row is one platform, and the other column records Generated files. Read it to compare rows or to find a specific platform.
+
 | Platform | Generated files |
 |---|---|
 | `opencode` | `.opencode/`, `.ralph/`, and the selected tool components via the shell installer |
@@ -104,7 +106,7 @@ as Serena or CodeGraph are normal.
 
 ## Common problems
 
-| Symptom | Cause | Fix |
+The table below describes Common problems. It has 8 rows and 3 columns: Symptom, Cause, and Fix. Each row is one symptom, and the other columns record Cause and Fix. Read it to compare rows or to find a specific symptom.
 |---|---|---|
 | `toolwright: command not found` | `~/.local/bin` is not on `PATH` | Export it or reinstall with `pipx` |
 | `cannot locate the ToolWright repository` | Running outside a checkout | Run from the checkout or set `TOOLWRIGHT_REPO=/path/to/checkout` |

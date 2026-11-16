@@ -9,7 +9,7 @@
 
 ## Where to ask
 
-| Topic | Channel |
+The table below describes Where to ask. It has 6 rows and 2 columns: Topic and Channel. Each row is one topic, and the other column records Channel. Read it to compare rows or to find a specific topic.
 |---|---|
 | Bug in this repository | GitHub issue with reproduction steps |
 | Security vulnerability | Private advisory, see [`SECURITY.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/SECURITY.md) |

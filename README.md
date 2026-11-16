@@ -17,7 +17,7 @@
 
 <p align="center">
   <img alt="CI green" src="https://img.shields.io/badge/CI-green-22C55E?style=flat-square">
-  <img alt="331 tests" src="https://img.shields.io/badge/tests-331-4F46E5?style=flat-square">
+  <img alt="337 tests" src="https://img.shields.io/badge/tests-337-4F46E5?style=flat-square">
   <img alt="12 agents" src="https://img.shields.io/badge/agents-12-06B6D4?style=flat-square">
   <img alt="10 skills" src="https://img.shields.io/badge/skills-10-D97757?style=flat-square">
   <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0F172A?style=flat-square">
@@ -56,7 +56,7 @@ The core is plain Markdown and configuration. It is not tied to one vendor, and 
 
 ### Glossary
 
-The terms below are used throughout this README.
+The terms below are used throughout this README. It has 6 rows and 2 columns: Term and What it means here. Each row is one term, and the other column records What it means here. Read it to compare rows or to find a specific term.
 
 | Term | What it means here |
 |---|---|
@@ -77,7 +77,7 @@ A default coding agent is convenient, but on a real repository it tends to:
 - claim success without running the relevant checks;
 - consume context on tool output instead of the actual task.
 
-ToolWright changes the operating model:
+ToolWright changes the operating model. It has 5 rows and 2 columns: Without a structured team and With ToolWright. Each row is one comparison, and the other column records With ToolWright. Read it to compare rows or to find a specific comparison.
 
 | Without a structured team | With ToolWright |
 |---|---|
@@ -126,7 +126,7 @@ flowchart TB
     linkStyle default stroke:#06B6D4,stroke-width:1.5px
 ```
 
-Every diagram uses the same glass-neon pattern: a light translucent fill, a bright neon outline, and a dark readable label. The colors keep the same meaning everywhere:
+Every diagram uses the same glass-neon pattern: a light translucent fill, a bright neon outline, and a dark readable label. The colors keep the same meaning everywhere. It has 6 rows and 2 columns: Colour and Meaning. Each row is one colour, and the other column records Meaning. Read it to compare rows or to find a specific colour.
 
 | Colour | Meaning |
 |---|---|
@@ -148,7 +148,7 @@ Every diagram uses the same glass-neon pattern: a light translucent fill, a brig
 
 ## Platform compatibility
 
-The table below shows what is verified, what is installer-generated, and where to start on each platform.
+The table below shows what is verified, what is installer-generated, and where to start on each platform. It has 4 rows and 4 columns: Platform, Support level, What ToolWright installs, and Best entry point. Each row is one platform, and the other columns record Support level, What ToolWright installs, and Best entry point. Read it to compare rows or to find a specific platform.
 
 | Platform | Support level | What ToolWright installs | Best entry point |
 |---|---|---|---|
@@ -173,7 +173,7 @@ pie showData
     "Ralph hat collections" : 4
 ```
 
-*Artifact counts, not a performance claim.*
+*Artifact counts, not a performance claim.* It has 12 rows and 3 columns: Area, What it gives you, and Start here. Each row is one area, and the other columns record What it gives you and Start here. Read it to compare rows or to find a specific area.
 
 | Area | What it gives you | Start here |
 |---|---|---|
@@ -378,7 +378,7 @@ flowchart LR
     linkStyle default stroke:#06B6D4,stroke-width:1.5px
 ```
 
-The table below is the quick reference for responsibilities and edit access.
+The table below is the quick reference for responsibilities and edit access. It has 12 rows and 3 columns: Agent, Edits files?, and Responsibility. Each row is one agent, and the other columns record Edits files? and Responsibility. Read it to compare rows or to find a specific agent.
 
 | Agent | Edits files? | Responsibility |
 |---|---|---|
@@ -468,7 +468,7 @@ The gates are intentionally boring: run the checks, read the diff, and let a hum
 
 ## Cost optimization
 
-ToolWright reduces cost by changing **where tokens are spent**, not by truncating important context.
+ToolWright reduces cost by changing **where tokens are spent**, not by truncating important context. It has 9 rows and 2 columns: Lever and What it does. Each row is one lever, and the other column records What it does. Read it to compare rows or to find a specific lever.
 
 | Lever | What it does |
 |---|---|
@@ -486,7 +486,7 @@ Read the full cost model in [Cost optimization](https://github.com/GabrielAlmeid
 
 ## Configuration
 
-All OpenCode adapter configuration lives in [docs/configuration/opencode-v2.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/configuration/opencode-v2.md).
+All OpenCode adapter configuration lives in [docs/configuration/opencode-v2.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/configuration/opencode-v2.md). It has 8 rows and 2 columns: File and Purpose. Each row is one file, and the other column records Purpose. Read it to compare rows or to find a specific file.
 
 | File | Purpose |
 |---|---|
@@ -499,7 +499,7 @@ All OpenCode adapter configuration lives in [docs/configuration/opencode-v2.md](
 | [`commands/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/commands) | Slash commands |
 | [`skills/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/skills) | Skills and supporting files |
 
-Important defaults:
+Important defaults. It has 6 rows and 3 columns: Setting, Value, and Why. Each row is one setting, and the other columns record Value and Why. Read it to compare rows or to find a specific setting.
 
 | Setting | Value | Why |
 |---|---|---|
@@ -576,7 +576,7 @@ The coordinator delegates to a developer, then sends the diff to review and test
 
 ### Review, debug, secure, refactor, document, measure
 
-The table below is the quick command picker for day-to-day work.
+The table below is the quick command picker for day-to-day work. It has 7 rows and 2 columns: Command and Use it for. Each row is one command, and the other column records Use it for. Read it to compare rows or to find a specific command.
 
 | Command | Use it for |
 |---|---|
@@ -599,7 +599,7 @@ ralph run \
   -p "Research <question>"
 ```
 
-Ralph collections:
+Ralph collections. It has 4 rows and 3 columns: Collection, Hats, and Best for. Each row is one collection, and the other columns record Hats and Best for. Read it to compare rows or to find a specific collection.
 
 | Collection | Hats | Best for |
 |---|---|---|
@@ -625,7 +625,7 @@ See [Ralph orchestration](https://github.com/GabrielAlmeidaFlores/ToolWright/blo
 
 ### Skills
 
-The table below lists the sourced skills and what each one is best at.
+The table below lists the sourced skills and what each one is best at. It has 10 rows and 3 columns: Skill, Author, and Use it for. Each row is one skill, and the other columns record Author and Use it for. Read it to compare rows or to find a specific skill.
 
 | Skill | Author | Use it for |
 |---|---|---|
@@ -642,7 +642,7 @@ The table below lists the sourced skills and what each one is best at.
 
 ### Commands
 
-The table below maps each command to the agent that owns it.
+The table below maps each command to the agent that owns it. It has 8 rows and 3 columns: Command, Agent, and Purpose. Each row is one command, and the other columns record Agent and Purpose. Read it to compare rows or to find a specific command.
 
 | Command | Agent | Purpose |
 |---|---|---|
@@ -657,7 +657,7 @@ The table below maps each command to the agent that owns it.
 
 ### Code intelligence
 
-The table below shows the retrieval tools, how they integrate, and whether they are enabled by default.
+The table below shows the retrieval tools, how they integrate, and whether they are enabled by default. It has 7 rows and 4 columns: Tool, Integration, Role, and Default. Each row is one tool, and the other columns record Integration, Role, and Default. Read it to compare rows or to find a specific tool.
 
 | Tool | Integration | Role | Default |
 |---|---|---|---|
@@ -694,7 +694,7 @@ Read [AGENTS.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AG
 
 ### Provenance
 
-No skill or agent is original work. Each is adapted from a maintained MIT-licensed collection.
+No skill or agent is original work. Each is adapted from a maintained MIT-licensed collection. It has 4 rows and 3 columns: Source, Author, and Used for. Each row is one source, and the other columns record Author and Used for. Read it to compare rows or to find a specific source.
 
 | Source | Author | Used for |
 |---|---|---|
@@ -707,7 +707,7 @@ Every artifact records its source path, commit, license, author, and local modif
 
 ## Evidence status
 
-This repository distinguishes **verified**, **documented**, and **not yet measured**.
+This repository distinguishes **verified**, **documented**, and **not yet measured**. It has 15 rows and 2 columns: Area and Status. Each row is one area, and the other column records Status. Read it to compare rows or to find a specific area.
 
 | Area | Status |
 |---|---|
@@ -721,7 +721,7 @@ This repository distinguishes **verified**, **documented**, and **not yet measur
 | Benchmarks | Four published result sets: DeepSeek Flash examples, a real Hono tool matrix, a 45-run cost A/B, and a 90-run delegation screen; no arm beat stock, and the delegation contract was reverted |
 | Real-repository pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
 | CI | Green on Ubuntu and macOS for run [43402329992](https://github.com/GabrielAlmeidaFlores/ToolWright/actions/runs/43402329992); nine jobs |
-| Repository tests | 331 unit and integration tests |
+| Repository tests | 337 unit and integration tests |
 | `toolwright` CLI | Install, uninstall, update check, rollback, doctor verified locally and in the `cli` job |
 | Profiles and catalog | Three manifests and 34 catalog entries verified locally and in CI |
 | Verification and governance | `toolwright verify` and `toolwright govern contracts` verified locally; CI runs both |
@@ -758,7 +758,7 @@ The tree below shows the main directories and what each one owns. Start with the
 
 ## Documentation index
 
-Use this table as a map. Start with the compatibility guide or the CLI reference, then go deeper into the area you need.
+Use this table as a map. Start with the compatibility guide or the CLI reference, then go deeper into the area you need. It has 10 rows and 2 columns: Start with and Then explore. Each row is one entry, and the other column records Then explore. Read it to compare rows or to find a specific entry.
 
 | Start with | Then explore |
 |---|---|
@@ -775,7 +775,7 @@ Use this table as a map. Start with the compatibility guide or the CLI reference
 
 ## Troubleshooting
 
-The table below covers the most common symptoms. The full guide has the detailed diagnosis paths.
+The table below covers the most common symptoms. The full guide has the detailed diagnosis paths. It has 8 rows and 2 columns: Symptom and Fix. Each row is one symptom, and the other column records Fix. Read it to compare rows or to find a specific symptom.
 
 | Symptom | Fix |
 |---|---|

@@ -6,7 +6,7 @@ The catalog turns the provenance registry into a validated, searchable artifact 
 
 ## Files
 
-| Path | Purpose |
+The table below describes Files. It has 4 rows and 2 columns: Path and Purpose. Each row is one path, and the other column records Purpose. Read it to compare rows or to find a specific path.
 |---|---|
 | [`catalog/registry.json`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/catalog/registry.json) | Machine-readable catalog read by `toolwright` |
 | [`catalog/index.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/catalog/index.md) | Human-readable table |
@@ -41,7 +41,7 @@ pipx inject toolwright-cli pyyaml
 
 ## Schema
 
-Each artifact requires:
+Each artifact requires. It has 11 rows and 2 columns: Field and Meaning. Each row is one field, and the other column records Meaning. Read it to compare rows or to find a specific field.
 
 | Field | Meaning |
 |---|---|

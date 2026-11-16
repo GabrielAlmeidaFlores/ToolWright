@@ -20,6 +20,8 @@ timeout = 900
 inputs = ["tests", "packages"]
 ```
 
+The table below describes Configuration. It has 4 rows and 2 columns: Field and Meaning. Each row is one field, and the other column records Meaning. Read it to compare rows or to find a specific field.
+
 | Field | Meaning |
 |---|---|
 | `verify.timeout` | Default timeout in seconds |
@@ -39,7 +41,7 @@ toolwright verify --no-cache
 toolwright verify --json
 ```
 
-Exit codes:
+Exit codes. It has 3 rows and 2 columns: Code and Meaning. Each row is one code, and the other column records Meaning. Read it to compare rows or to find a specific code.
 
 | Code | Meaning |
 |---|---|
@@ -55,7 +57,7 @@ A check with `inputs` caches a **passing** result under `.toolwright/cache/verif
 
 ## Failure classes
 
-| Class | Condition |
+The table below describes Failure classes. It has 9 rows and 2 columns: Class and Condition. Each row is one class, and the other column records Condition. Read it to compare rows or to find a specific class.
 |---|---|
 | `timeout` | The check exceeded its timeout |
 | `missing-command` | Exit 127 |

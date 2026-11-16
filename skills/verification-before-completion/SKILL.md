@@ -49,7 +49,7 @@ Skip any step = lying, not verifying
 
 ## Common Failures
 
-| Claim | Requires | Not Sufficient |
+The table below describes Common Failures. It has 7 rows and 3 columns: Claim, Requires, and Not Sufficient. Each row is one claim, and the other columns record Requires and Not Sufficient. Read it to compare rows or to find a specific claim.
 |-------|----------|----------------|
 | Tests pass | Test command output: 0 failures | Previous run, "should pass" |
 | Linter clean | Linter output: 0 errors | Partial check, extrapolation |
@@ -72,7 +72,7 @@ Skip any step = lying, not verifying
 
 ## Rationalization Prevention
 
-| Excuse | Reality |
+The table below describes Rationalization Prevention. It has 8 rows and 2 columns: Excuse and Reality. Each row is one excuse, and the other column records Reality. Read it to compare rows or to find a specific excuse.
 |--------|---------|
 | "Should work now" | RUN the verification |
 | "I'm confident" | Confidence ≠ evidence |

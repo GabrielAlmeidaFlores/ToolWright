@@ -2,7 +2,7 @@
 
 These configurations are benchmark-only. They do not change production profiles or defaults.
 
-The table columns are the arm label, the config loaded by the harness, the primary agent, and the purpose of that arm.
+The table columns are the arm label, the config loaded by the harness, the primary agent, and the purpose of that arm. It has 6 rows and 4 columns: Arm, Config, Agent, and Purpose. Each row is one arm, and the other columns record Config, Agent, and Purpose. Read it to compare rows or to find a specific arm.
 
 | Arm | Config | Agent | Purpose |
 |---|---|---|---|

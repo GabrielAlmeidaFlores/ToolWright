@@ -12,7 +12,7 @@ The functional-test project did not compile under the .NET 11 SDK: transitive pr
 
 ## Results
 
-| Task | Change | Verification | Cost | Tokens in/out |
+The table below describes Results. It has 5 rows and 5 columns: Task, Change, Verification, Cost, and Tokens in/out. Each row is one task, and the other columns record Change, Verification, Cost, and Tokens in/out. Read it to compare rows or to find a specific task.
 |---|---|---|---|---|
 | Bug | Fix bracketed `sp_rename` names in `UseDbGeneratedIds` Up/Down | Infrastructure build | $0.008579 | 19,458 / 3,611 |
 | Feature | Expose `ContributorStatus` in list/get/update responses | Solution build + 14 unit tests | $0.000000 (free) | 67,729 / 8,019 |
@@ -24,7 +24,7 @@ All five published runs had `opencode_exit = 0` and `verification_exit = 0`.
 
 ## Functional tests
 
-The SQL Server and SQLite functional suite was executed separately on each task clone with the .NET 11 GA SDK and a running Docker daemon:
+The SQL Server and SQLite functional suite was executed separately on each task clone with the .NET 11 GA SDK and a running Docker daemon. It has 5 rows and 3 columns: Task, Functional tests, and Result. Each row is one task, and the other columns record Functional tests and Result. Read it to compare rows or to find a specific task.
 
 | Task | Functional tests | Result |
 |---|---|---|
@@ -38,7 +38,7 @@ The suite includes `Testcontainers.MsSql` SQL Server tests, SQLite fallback test
 
 ## Independent review
 
-A separate reviewer agent read each diff and built the solution. Verdicts:
+A separate reviewer agent read each diff and built the solution. Verdicts. It has 5 rows and 3 columns: Task, Verdict, and Main finding. Each row is one task, and the other columns record Verdict and Main finding. Read it to compare rows or to find a specific task.
 
 | Task | Verdict | Main finding |
 |---|---|---|

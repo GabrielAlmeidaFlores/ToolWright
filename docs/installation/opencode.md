@@ -78,7 +78,7 @@ opencode run --agent coordinator "Summarize this repository and propose the next
 
 ## Configuration options
 
-| Option | Default | Change when |
+The table below describes Configuration options. It has 5 rows and 3 columns: Option, Default, and Change when. Each row is one option, and the other columns record Default and Change when. Read it to compare rows or to find a specific option.
 | --- | --- | --- |
 | `default_agent` | `coordinator` | You want a different primary agent |
 | `compaction.keep.tokens` | `12000` | Your model has a small or very large window |
@@ -88,7 +88,7 @@ opencode run --agent coordinator "Summarize this repository and propose the next
 
 ## Common problems
 
-| Problem | Fix |
+The table below describes Common problems. It has 4 rows and 2 columns: Problem and Fix. Each row is one problem, and the other column records Fix. Read it to compare rows or to find a specific problem.
 | --- | --- |
 | `default_agent` falls back to `build` | The `coordinator` file is missing from `.opencode/agents/` |
 | MCP server shows disconnected | Check the binary is on `PATH` and raise `startup` timeout |

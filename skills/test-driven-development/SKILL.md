@@ -219,7 +219,7 @@ Next failing test for next feature.
 
 ## Good Tests
 
-| Quality | Good | Bad |
+The table below describes Good Tests. It has 3 rows and 3 columns: Quality, Good, and Bad. Each row is one quality, and the other columns record Good and Bad. Read it to compare rows or to find a specific quality.
 |---------|------|-----|
 | **Minimal** | One thing. "and" in name? Split it. | `test('validates email and domain and whitespace')` |
 | **Clear** | Name describes behavior | `test('test1')` |
@@ -233,7 +233,7 @@ When writing or changing any test, read [writing-good-tests.md](https://github.c
 
 ## Common Rationalizations
 
-| Excuse | Reality |
+The table below describes Common Rationalizations. It has 11 rows and 2 columns: Excuse and Reality. Each row is one excuse, and the other column records Reality. Read it to compare rows or to find a specific excuse.
 |--------|---------|
 | "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
 | "I'll test after" | Tests written after pass immediately — which proves nothing. They may test the wrong thing, test the implementation instead of the behavior, or miss the edge case you forgot. You never watched it fail, so you never proved it can catch the bug. Test-first forces that failure. |
@@ -319,7 +319,7 @@ Can't check all boxes? You skipped TDD. Start over.
 
 ## When Stuck
 
-| Problem | Solution |
+The table below describes When Stuck. It has 4 rows and 2 columns: Problem and Solution. Each row is one problem, and the other column records Solution. Read it to compare rows or to find a specific problem.
 |---------|----------|
 | Don't know how to test | Write wished-for API. Write assertion first. Ask your human partner. |
 | Test too complicated | Design too complicated. Simplify interface. |

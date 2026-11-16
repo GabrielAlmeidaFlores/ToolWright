@@ -6,7 +6,7 @@ Verified on 2026-11-11 against a standalone OpenCode 2.2.7 binary and repository
 
 ## OpenCode V2 CLI contract
 
-| Capability | Verified | Notes |
+The table below describes OpenCode V2 CLI contract. It has 9 rows and 3 columns: Capability, Verified, and Notes. Each row is one capability, and the other columns record Verified and Notes. Read it to compare rows or to find a specific capability.
 | --- | --- | --- |
 | `opencode run` | Yes | Positional message still supported |
 | `--agent` | Yes | Used for per-hat routing |
@@ -20,7 +20,7 @@ Verified on 2026-11-11 against a standalone OpenCode 2.2.7 binary and repository
 
 ## Ralph ↔ OpenCode
 
-| Item | Status | Evidence |
+The table below describes Ralph ↔ OpenCode. It has 6 rows and 3 columns: Item, Status, and Evidence. Each row is one item, and the other columns record Status and Evidence. Read it to compare rows or to find a specific item.
 | --- | --- | --- |
 | Backend name | `opencode` | Backend docs |
 | Invocation | `opencode run "<prompt>"` | `crates/ralph-adapters/src/cli_backend.rs` |
@@ -31,7 +31,7 @@ Verified on 2026-11-11 against a standalone OpenCode 2.2.7 binary and repository
 
 ## Tool compatibility
 
-| Tool | Integration | Requires | License | Default |
+The table below describes Tool compatibility. It has 7 rows and 5 columns: Tool, Integration, Requires, License, and Default. Each row is one tool, and the other columns record Integration, Requires, License, and Default. Read it to compare rows or to find a specific tool.
 | --- | --- | --- | --- | --- |
 | ripgrep | CLI/native search | none | MIT/Unlicense | Yes |
 | ast-grep 0.51.1 | CLI | `ast-grep` binary | MIT | Yes |

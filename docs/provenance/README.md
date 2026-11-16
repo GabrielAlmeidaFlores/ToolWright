@@ -36,7 +36,7 @@ Every artifact records its author in three places:
 - retrieval date
 - modification summary
 
-`original_artifacts` records the only permitted local work: configuration composition, glue scripts, test/benchmark fixtures, and project documentation. Each entry states why no upstream artifact applies.
+`original_artifacts` records the only permitted local work: configuration composition, glue scripts, test/benchmark fixtures, and project documentation. Each entry states why no upstream artifact applies. It has 15 rows and 3 columns: ID, Kind, and Scope. Each row is one entry, and the other columns record Kind and Scope. Read it to compare rows or to find a specific entry.
 
 | ID | Kind | Scope |
 |---|---|---|
@@ -58,7 +58,7 @@ Every artifact records its author in three places:
 
 ## Artifact mapping
 
-| Local | Upstream | Modification |
+The table below describes Artifact mapping. It has 15 rows and 3 columns: Local, Upstream, and Modification. Each row is one local, and the other columns record Upstream and Modification. Read it to compare rows or to find a specific local.
 | --- | --- | --- |
 | `agents/coordinator` | `wshobson/plugins/agent-teams/agents/team-lead.md` | OpenCode frontmatter, permissions, local harness note |
 | `agents/planner` | `volt/categories/08-business-product/project-manager.md` | OpenCode frontmatter, planning focus note |

@@ -169,7 +169,7 @@ skills:
     author: "Jesse Vincent"
     author_url: "https://github.com/obra"
     retrieved: "2026-11-11"
-    modified: "SKILL.md metadata and repository link targets; supporting files copied as-is"
+    modified: "SKILL.md metadata, repository link targets, and table lead-ins; supporting files copied as-is"
   - id: systematic-debugging
     local: "skills/systematic-debugging/SKILL.md"
     source: superpowers
@@ -179,7 +179,7 @@ skills:
     author: "Jesse Vincent"
     author_url: "https://github.com/obra"
     retrieved: "2026-11-11"
-    modified: "SKILL.md metadata only; find-polluter.sh uses documented functions and a standardized header, and condition-based-waiting-example.ts uses JSDoc instead of line comments, per AGENTS.md Section 2C"
+    modified: "SKILL.md metadata and table lead-ins; find-polluter.sh uses documented functions and a standardized header, and condition-based-waiting-example.ts uses JSDoc instead of line comments, per AGENTS.md Section 2C"
   - id: writing-plans
     local: "skills/writing-plans/SKILL.md"
     source: superpowers
@@ -199,7 +199,7 @@ skills:
     author: "Jesse Vincent"
     author_url: "https://github.com/obra"
     retrieved: "2026-11-11"
-    modified: "SKILL.md metadata only; supporting files copied as-is"
+    modified: "SKILL.md metadata and table lead-ins; supporting files copied as-is"
   - id: requesting-code-review
     local: "skills/requesting-code-review/SKILL.md"
     source: superpowers
@@ -209,7 +209,7 @@ skills:
     author: "Jesse Vincent"
     author_url: "https://github.com/obra"
     retrieved: "2026-11-11"
-    modified: "SKILL.md metadata and repository link targets; supporting files copied as-is"
+    modified: "SKILL.md metadata, repository link targets, and table lead-ins; supporting files copied as-is"
   - id: api-design-principles
     local: "skills/api-design-principles/SKILL.md"
     source: wshobson
@@ -310,7 +310,7 @@ commands:
     author: "Seth Hobson"
     author_url: "https://github.com/wshobson"
     retrieved: "2026-11-11"
-    modified: "minimal adaptation for OpenCode/Ralph format; see file header"
+    modified: "minimal adaptation for OpenCode/Ralph format, including table lead-ins; see file header"
   - id: refactor
     local: "commands/refactor.md"
     source: wshobson
@@ -320,7 +320,7 @@ commands:
     author: "Seth Hobson"
     author_url: "https://github.com/wshobson"
     retrieved: "2026-11-11"
-    modified: "minimal adaptation for OpenCode/Ralph format; see file header"
+    modified: "minimal adaptation for OpenCode/Ralph format, including table lead-ins; see file header"
   - id: db
     local: "commands/db.md"
     source: wshobson

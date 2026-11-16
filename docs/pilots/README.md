@@ -6,7 +6,7 @@ The pilots validate the profile on real codebases instead of only the bundled fi
 
 ## Selected repositories
 
-| Repository | Stack | Pinned commit | License | Pilot focus |
+The table below describes Selected repositories. It has 3 rows and 5 columns: Repository, Stack, Pinned commit, License, and Pilot focus. Each row is one repository, and the other columns record Stack, Pinned commit, License, and Pilot focus. Read it to compare rows or to find a specific repository.
 | --- | --- | --- | --- | --- |
 | [honojs/hono](https://github.com/honojs/hono) | TypeScript | `f6fbaf0299c48eea9e656e03e2ffe7ac755e8823` | MIT | Routing, middleware, tests |
 | [ardalis/CleanArchitecture](https://github.com/ardalis/CleanArchitecture) | C# | `302e8ac4d631f45f015413950dcb97d0d146169b` | MIT | Validation, endpoints, tests |
@@ -63,7 +63,7 @@ used. It never stages or commits in the main repository and never runs Ralph.
 
 ## Current status
 
-| Pilot | Status |
+The table below describes Current status. It has 3 rows and 2 columns: Pilot and Status. Each row is one pilot, and the other column records Status. Read it to compare rows or to find a specific pilot.
 | --- | --- |
 | `honojs/hono` | Discovery 5/5; code-change 5/5; independently reviewed and production-ready |
 | `ardalis/CleanArchitecture` | Discovery 5/5; code-change 5/5 production-ready (build, unit, SQL Server functional, reviewed) |

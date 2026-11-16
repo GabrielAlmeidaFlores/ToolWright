@@ -112,7 +112,7 @@ Notably:
 
 ### 1. Use the existing harnesses first
 
-| Harness | Command | What it covers |
+The table below describes Use the existing harnesses first. It has 10 rows and 3 columns: Harness, Command, and What it covers. Each row is one harness, and the other columns record Command and What it covers. Read it to compare rows or to find a specific harness.
 |---|---|---|
 | Core fetch | `cd benchmarks/fetch && node bench.mts` (or `bun bench.mts`) | `ping`, dynamic+query, JSON response, middleware, JSON body |
 | A/B vs a ref | `cd benchmarks/fetch && ./compare.sh <ref>` | Isolates a change from machine drift; `ROUNDS=5` |

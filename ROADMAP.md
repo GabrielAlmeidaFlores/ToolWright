@@ -1,6 +1,6 @@
 # Roadmap
 
-Status reflects the repository, not intentions. All planned phases are complete.
+Status reflects the repository, not intentions. All planned phases are complete. It has 9 rows and 3 columns: Phase, Scope, and Status. Each row is one phase, and the other columns record Scope and Status. Read it to compare rows or to find a specific phase.
 
 | Phase | Scope | Status |
 |---|---|---|

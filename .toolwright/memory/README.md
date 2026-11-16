@@ -4,7 +4,7 @@ This directory holds plain Markdown memory managed by `toolwright memory`. There
 
 ## Scopes
 
-| Scope | Tracked in Git | Purpose |
+The table below describes Scopes. It has 3 rows and 3 columns: Scope, Tracked in Git, and Purpose. Each row is one scope, and the other columns record Tracked in Git and Purpose. Read it to compare rows or to find a specific scope.
 |---|---|---|
 | `project/` | Yes | Repository decisions, constraints, conventions, failures, open questions |
 | `shared/` | Yes | Knowledge published with the repository |

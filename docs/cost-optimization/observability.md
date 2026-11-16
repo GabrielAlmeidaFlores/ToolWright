@@ -43,7 +43,7 @@ arms exist. CSV output is generated with the standard `csv` module, so commas ar
 
 ## Example local smoke observation
 
-The following numbers came from one task on a disposable TypeScript fixture. They are **not** a published benchmark result.
+The following numbers came from one task on a disposable TypeScript fixture. They are **not** a published benchmark result. It has 3 rows and 9 columns: Run, Arm, Cost, Input, Output, Steps, Tools, Wall, and Verify. Each row is one run, and the other columns record Arm, Cost, Input, Output, Steps, Tools, Wall, and Verify. Read it to compare rows or to find a specific run.
 
 | Run | Arm | Cost | Input | Output | Steps | Tools | Wall | Verify |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |

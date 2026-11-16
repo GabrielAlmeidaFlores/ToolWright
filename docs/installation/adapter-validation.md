@@ -6,7 +6,7 @@ This record validates installation mechanics on a real repository and documents 
 
 ## Scope
 
-| Item | Value |
+The table below describes Scope. It has 6 rows and 2 columns: Item and Value. Each row is one item, and the other column records Value. Read it to compare rows or to find a specific item.
 |---|---|
 | Repository | `https://github.com/honojs/hono` |
 | Commit | `f6fbaf0299c48eea9e656e03e2ffe7ac755e8823` |
@@ -30,7 +30,7 @@ toolwright uninstall --target /tmp/tw-realrepo-hono/clone --apply --yes
 
 ## Results
 
-| Adapter | Files written | Reinstall | Update check | Uninstall |
+The table below describes Results. It has 3 rows and 5 columns: Adapter, Files written, Reinstall, Update check, and Uninstall. Each row is one adapter, and the other columns record Files written, Reinstall, Update check, and Uninstall. Read it to compare rows or to find a specific adapter.
 |---|---:|---|---|---|
 | `claude` | 48 | 0 new, 0 updated, 48 unchanged | up to date | removed all managed files |
 | `copilot` | 49 | not rerun for this adapter | up to date after the Claude run | exit 0 |
@@ -62,6 +62,8 @@ The generated files were inspected with the available platform CLIs. No model ca
 ./scripts/validation/check_adapter_discovery.sh
 ```
 
+The table below describes Native discovery checks. It has 4 rows and 4 columns: Client, Version, Command, and Result. Each row is one client, and the other columns record Version, Command, and Result. Read it to compare rows or to find a specific client.
+
 | Client | Version | Command | Result |
 |---|---|---|---|
 | GitHub Copilot CLI | `1.0.105` | `copilot instruction list` | Found `.github/copilot-instructions.md` and all 12 `.github/instructions/*.instructions.md` files |
@@ -79,7 +81,7 @@ Observed limits:
 
 ## Not measured
 
-| Metric | Reason |
+The table below describes Not measured. It has 4 rows and 2 columns: Metric and Reason. Each row is one metric, and the other column records Reason. Read it to compare rows or to find a specific metric.
 |---|---|
 | Input and output tokens | No model call was executed. |
 | API cost | No model call was executed. |

@@ -8,7 +8,7 @@
 
 ## 1. Environment observed
 
-| Item | Value |
+The table below describes Environment observed. It has 6 rows and 2 columns: Item and Value. Each row is one item, and the other column records Value. Read it to compare rows or to find a specific item.
 | --- | --- |
 | Installed OpenCode | 1.19.5 (V1 line) |
 | npm `latest` | 2.2.7 |
@@ -55,7 +55,7 @@ Classification: independently verified by source reading and documentation, not 
 
 ## 4. Orchestration comparison
 
-| Framework | OpenCode fit | Multi-agent | Parallel | Gates/memory | Maturity | Decision |
+The table below describes Orchestration comparison. It has 4 rows and 7 columns: Framework, OpenCode fit, Multi-agent, Parallel, Gates/memory, Maturity, and Decision. Each row is one framework, and the other columns record OpenCode fit, Multi-agent, Parallel, Gates/memory, Maturity, and Decision. Read it to compare rows or to find a specific framework.
 | --- | --- | --- | --- | --- | --- | --- |
 | Ralph Orchestrator | Backend exists, plain text | Hats + events | Worktrees | Strong | Active, 3.2k stars | Primary |
 | OpenCode native | Native | Primary + subagents | Child sessions | Permissions only | Shipped | Fallback/baseline |
@@ -99,7 +99,7 @@ Classification: independently verified by source reading and documentation, not 
 
 ## 6. Cost evidence
 
-| Claim | Source | Classification |
+The table below describes Cost evidence. It has 4 rows and 3 columns: Claim, Source, and Classification. Each row is one claim, and the other columns record Source and Classification. Read it to compare rows or to find a specific claim.
 | --- | --- | --- |
 | jCodeMunch reduces tokens 96.2% per lookup | Vendor benchmark in its README | Vendor claim, not independently verified |
 | Graphify cuts agent token spend by 80% | Marketing copy | Vendor claim, not independently verified |

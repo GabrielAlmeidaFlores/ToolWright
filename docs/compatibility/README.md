@@ -6,7 +6,7 @@ ToolWright includes a fully verified OpenCode adapter. OpenCode is optional: the
 
 ## Support levels
 
-| Platform | Level | What ToolWright provides | Verified here |
+The table below describes Support levels. It has 4 rows and 4 columns: Platform, Level, What ToolWright provides, and Verified here. Each row is one platform, and the other columns record Level, What ToolWright provides, and Verified here. Read it to compare rows or to find a specific platform.
 |---|---|---|---|
 | OpenCode 2.2.x | Native adapter (reference) | Configuration, agents, commands, skills, MCP servers, Ralph integration, installer | Yes, CI and local runs |
 | GitHub Copilot | Installer-generated adapter | `.github/copilot-instructions.md`, `.github/instructions/`, `.github/skills/`, `.github/prompts/`, [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) | Copilot CLI `1.0.105` discovers repository instructions, all 12 role instructions, and 10 project skills; prompt-file behavior not inspected |

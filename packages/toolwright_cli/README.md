@@ -22,7 +22,7 @@ PYTHONPATH=packages/toolwright_cli python3 -m toolwright_cli --help
 
 ## Commands
 
-| Command | Purpose |
+The table below describes Commands. It has 5 rows and 2 columns: Command and Purpose. Each row is one command, and the other column records Purpose. Read it to compare rows or to find a specific command.
 |---|---|
 | `toolwright doctor` | Repository, dependency, validator, lock, and MCP diagnostics |
 | `toolwright install` | Plan an installation; `--apply` writes it |

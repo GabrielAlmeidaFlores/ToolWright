@@ -114,6 +114,7 @@ TEXT_LINK = 'link {}'
 TEXT_MD_2 = '{}-{}.md'
 
 
+TEXT_MEMORY_TABLE_INTRO = 'The table below lists each memory entry, its scope, type, title, dates, and source. Read the scope column first, then the expiry column, to decide whether an entry applies. Entries marked expired should be pruned rather than reused.'
 TEXT_MEMORY_CATALOG = '# Memory Catalog'
 
 TEXT_MEMORY_EXPORT = '# Memory Export'

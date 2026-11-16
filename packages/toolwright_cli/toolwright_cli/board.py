@@ -74,6 +74,7 @@ from .board_strings import (
     TEXT_UNKNOWN_TASK,
     TEXT_UNTERMINATED_FRONTMATTER,
     TEXT_VERIFICATION_COMMAND_MUST_BE_A_SINGLE_LINE,
+    TEXT_BOARD_TABLE_INTRO,
     TEXT_WIP,
     TEXT_WIP_LIMIT_REACHED,
 )
@@ -177,6 +178,8 @@ def _write_board(root: Path) -> None:
         TEXT_TASK_BOARD,
         EMPTY_STRING,
         TEXT_WIP.format(in_progress, limit),
+        EMPTY_STRING,
+        TEXT_BOARD_TABLE_INTRO,
         EMPTY_STRING,
         TEXT_ID_TITLE_STATUS_WORKTREE_VERIFY,
         TEXT_TEXT_4,

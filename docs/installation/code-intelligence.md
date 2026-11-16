@@ -79,7 +79,7 @@ codegraph  connected
 
 ## Resource expectations
 
-| Tool | Startup | Disk | Notes |
+The table below describes Resource expectations. It has 4 rows and 4 columns: Tool, Startup, Disk, and Notes. Each row is one tool, and the other columns record Startup, Disk, and Notes. Read it to compare rows or to find a specific tool.
 | --- | --- | --- | --- |
 | ripgrep | instant | none | — |
 | ast-grep | instant | none | — |
@@ -88,7 +88,7 @@ codegraph  connected
 
 ## Troubleshooting
 
-| Symptom | Fix |
+The table below describes Troubleshooting. It has 5 rows and 2 columns: Symptom and Fix. Each row is one symptom, and the other column records Fix. Read it to compare rows or to find a specific symptom.
 | --- | --- |
 | `serena: command not found` in OpenCode | Use the absolute path in the MCP `command` |
 | Serena startup timeout | Raise `mcp.servers.serena.timeout.startup` to 90000 |

@@ -170,7 +170,7 @@ test as tautological.
 
 ## Quick Reference
 
-| When you... | Do |
+The table below describes Quick Reference. It has 10 rows and 2 columns: When you... and Do. Each row is one situation, and the other column records Do. Read it to compare rows or to find a specific situation.
 |-------------|-----|
 | Write any test | Name the break it catches — a bug, not a decision |
 | Build an expected value | Derive it by hand; never with the code under test |

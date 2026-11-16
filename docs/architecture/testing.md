@@ -15,7 +15,7 @@ smoke checks were performed manually.
 
 ## Test layers
 
-| Layer | Location | Runs in CI | Needs network | Needs a model |
+The table below describes Test layers. It has 5 rows and 5 columns: Layer, Location, Runs in CI, Needs network, and Needs a model. Each row is one layer, and the other columns record Location, Runs in CI, Needs network, and Needs a model. Read it to compare rows or to find a specific layer.
 |---|---|---|---|---|
 | Unit | `tests/unit/` | Yes | No | No |
 | Integration | `tests/integration/` | Yes | No | No |
@@ -62,7 +62,7 @@ fixture can exercise one rule without satisfying the other eleven roles.
 
 ## Fixtures
 
-`tests/fixtures/` contains deliberately broken artifacts:
+`tests/fixtures/` contains deliberately broken artifacts. It has 12 rows and 2 columns: Fixture and Rule exercised. Each row is one fixture, and the other column records Rule exercised. Read it to compare rows or to find a specific fixture.
 
 | Fixture | Rule exercised |
 |---|---|

@@ -4,7 +4,7 @@
 
 ## Supported targets
 
-| Target | Level | Notes |
+The table below describes Supported targets. It has 8 rows and 3 columns: Target, Level, and Notes. Each row is one target, and the other columns record Level and Notes. Read it to compare rows or to find a specific target.
 |---|---|---|
 | OpenCode `2.2.x` | Native adapter (optional) | Reference adapter; CI pins `@opencode/cli@2.2.7` |
 | OpenCode `1.x` | No | Configuration shape differs; migration only |
@@ -36,7 +36,7 @@ The matrix marks unverified cells as `not verified`. It records supported featur
 
 ## Verification
 
-| Check | Command |
+The table below describes Verification. It has 10 rows and 2 columns: Check and Command. Each row is one check, and the other column records Command. Read it to compare rows or to find a specific check.
 |---|---|
 | Static validation | `make validate` |
 | Test suite | `make test` |

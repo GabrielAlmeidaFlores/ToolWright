@@ -14,7 +14,7 @@ The Claude adapter always writes `CLAUDE.md` and writes agents, commands, and sk
 
 ## Generated files
 
-| Path | Purpose | Source |
+The table below describes Generated files. It has 4 rows and 3 columns: Path, Purpose, and Source. Each row is one path, and the other columns record Purpose and Source. Read it to compare rows or to find a specific path.
 |---|---|---|
 | `CLAUDE.md` | Project memory and working agreements | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) |
 | `.claude/agents/<role>.md` | Project-scoped subagent with `name`, `description`, and `tools` frontmatter | `agents/<role>/AGENT.md` |
@@ -31,7 +31,7 @@ The lock records each generated path, its generator, and its digest. Existing de
 
 ## Files
 
-| Path | Purpose |
+The table below describes Files. It has 5 rows and 2 columns: Path and Purpose. Each row is one path, and the other column records Purpose. Read it to compare rows or to find a specific path.
 |---|---|
 | `CLAUDE.md` | Project memory and working agreements |
 | `.claude/agents/<name>.md` | Project-scoped subagent |
@@ -62,7 +62,7 @@ Use the body of [`agents/code-reviewer/AGENT.md`](https://github.com/GabrielAlme
 
 ## Role mapping
 
-| ToolWright agent | Claude representation | Generated tools |
+The table below describes Role mapping. It has 12 rows and 3 columns: ToolWright agent, Claude representation, and Generated tools. Each row is one ToolWright agent, and the other columns record Claude representation and Generated tools. Read it to compare rows or to find a specific ToolWright agent.
 |---|---|---|
 | `coordinator` | Project subagent | `Read`, `Grep`, `Glob` |
 | `planner` | Project subagent | `Read`, `Grep`, `Glob` |

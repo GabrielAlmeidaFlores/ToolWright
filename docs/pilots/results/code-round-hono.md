@@ -6,7 +6,7 @@ Five code-change tasks on `honojs/hono` at `f6fbaf029a`. Each ran in a disposabl
 
 ## Results
 
-| Task | Change | Files | Verification | Cost | Tokens in/out |
+The table below describes Results. It has 5 rows and 6 columns: Task, Change, Files, Verification, Cost, and Tokens in/out. Each row is one task, and the other columns record Change, Files, Verification, Cost, and Tokens in/out. Read it to compare rows or to find a specific task.
 |---|---|---|---|---|---|
 | Bug | Merge old and new `Set-Cookie` headers in `Context.res` | `src/context.ts`, `src/context.test.ts` | `vp test --run src/context.test.ts` | $0.028110 | 50,809 / 6,209 |
 | Feature | Add `trustIncoming` option to `requestId` | `src/middleware/request-id/request-id.ts`, test | targeted request-id test | $0.004882 | 13,233 / 2,998 |
@@ -23,7 +23,7 @@ All five had `opencode_exit = 0` and `verification_exit = 0` on the published ru
 
 ## Independent review
 
-A separate reviewer agent read each diff and ran targeted tests. Verdicts:
+A separate reviewer agent read each diff and ran targeted tests. Verdicts. It has 5 rows and 3 columns: Task, Verdict, and Notes. Each row is one task, and the other columns record Verdict and Notes. Read it to compare rows or to find a specific task.
 
 | Task | Verdict | Notes |
 |---|---|---|

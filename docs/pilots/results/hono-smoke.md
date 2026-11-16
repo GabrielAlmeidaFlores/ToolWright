@@ -6,7 +6,7 @@ This run proves the pilot runner executes end to end against a real repository. 
 
 ## Run
 
-| Field | Value |
+The table below describes Run. It has 14 rows and 2 columns: Field and Value. Each row is one field, and the other column records Value. Read it to compare rows or to find a specific field.
 |---|---|
 | Repository | `https://github.com/honojs/hono` |
 | Commit | `f6fbaf0299c48eea9e656e03e2ffe7ac755e8823` |

@@ -17,7 +17,7 @@
 - Targeted runtime checks of the CSRF media-type regex and of URL decoding semantics (Node) to confirm the behavior described below.
 - No application code was reviewed. Several findings are *risky defaults / footguns* that become exploitable under stated preconditions. Those preconditions are called out explicitly.
 
-**Severity scale**
+**Severity scale**. It has 5 rows and 2 columns: Severity and Meaning. Each row is one severity, and the other column records Meaning. Read it to compare rows or to find a specific severity.
 
 | Severity | Meaning |
 | --- | --- |
@@ -31,7 +31,7 @@
 
 ## 2. Summary
 
-| ID | Risk | Severity | Primary location |
+The table below describes Summary. It has 6 rows and 4 columns: ID, Risk, Severity, and Primary location. Each row is one entry, and the other columns record Risk, Severity, and Primary location. Read it to compare rows or to find a specific entry.
 | --- | --- | --- | --- |
 | SEC-01 | Cache middleware can cache and serve cookie-authenticated, personalized responses to other users | **High** | `src/middleware/cache/index.ts:266-273`, `:72-80`, `:301-304` |
 | SEC-02 | CSRF middleware silently skips every non-"simple" content type (notably `application/json`) | **Medium** | `src/middleware/csrf/index.ts:28-30`, `:138-147` |
@@ -362,7 +362,7 @@ The only transformation is `encodeURI` for non-Latin-1 characters. ASCII control
 
 ## 4. Lower-priority observations
 
-These are worth noting but did not meet the bar for a standalone finding.
+These are worth noting but did not meet the bar for a standalone finding. It has 6 rows and 4 columns: #, Observation, Location, and Severity. Each row is one entry, and the other columns record Observation, Location, and Severity. Read it to compare rows or to find a specific entry.
 
 | # | Observation | Location | Severity |
 | --- | --- | --- | --- |

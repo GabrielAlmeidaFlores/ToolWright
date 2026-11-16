@@ -22,7 +22,7 @@ Wed Nov 11 18:15:05 2026 -0300
 
 ## Local environment
 
-| Component | Version | Notes |
+The table below describes Local environment. It has 7 rows and 3 columns: Component, Version, and Notes. Each row is one component, and the other columns record Version and Notes. Read it to compare rows or to find a specific component.
 |---|---|---|
 | macOS | 26.5.2 (build 25F84) | Primary development host, Apple Silicon |
 | Git | 2.56.0 | |
@@ -79,7 +79,7 @@ The project configuration is validated separately by the validator.
 
 ## Known gaps at baseline
 
-| Gap | Consequence | Addressed in |
+The table below describes Known gaps at baseline. It has 6 rows and 3 columns: Gap, Consequence, and Addressed in. Each row is one gap, and the other columns record Consequence and Addressed in. Read it to compare rows or to find a specific gap.
 |---|---|---|
 | CI had a failed run for `harness dry-run` | No reliable remote signal | Phase 1 |
 | No unit tests for `validate_config.py` | Regressions reach `main` | Phase 1 |
@@ -90,7 +90,7 @@ The project configuration is validated separately by the validator.
 
 ## Evidence classification used in this document
 
-| Label | Meaning |
+The table below describes Evidence classification used in this document. It has 4 rows and 2 columns: Label and Meaning. Each row is one label, and the other column records Meaning. Read it to compare rows or to find a specific label.
 |---|---|
 | Verified locally | Run on the reference host and observed directly |
 | Verified in CI | Reproduced by a GitHub Actions job |

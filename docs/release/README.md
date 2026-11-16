@@ -4,7 +4,7 @@
 
 ## Version sources
 
-| File | Purpose |
+The table below describes Version sources. It has 3 rows and 2 columns: File and Purpose. Each row is one file, and the other column records Purpose. Read it to compare rows or to find a specific file.
 |---|---|
 | [`VERSION`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/VERSION) | Human-readable release version |
 | [`packages/toolwright_cli/pyproject.toml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/packages/toolwright_cli/pyproject.toml) | Wheel version; must match [`VERSION`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/VERSION) |
@@ -39,7 +39,7 @@ The workflow never stages or commits. It only publishes artifacts for the tag.
 
 ## Release history
 
-| Version | Date | Assets | Verification |
+The table below describes Release history. It has 7 rows and 4 columns: Version, Date, Assets, and Verification. Each row is one version, and the other columns record Date, Assets, and Verification. Read it to compare rows or to find a specific version.
 |---|---|---|---|
 | `v0.1.0` | 2026-11-12 | `ote_cli-0.1.0-py3-none-any.whl`, `SHA256SUMS` | Checksum verified; wheel installed in a clean venv and reports `0.1.0` |
 | `v0.1.1` | 2026-11-12 | `ote_cli-0.1.1-py3-none-any.whl`, `SHA256SUMS` | Checksum verified |

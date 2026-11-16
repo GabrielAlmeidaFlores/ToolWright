@@ -21,7 +21,7 @@ which conflicts with the repository's evidence requirements.
 
 ## Decision
 
-Adopt **Markdown-first memory** under `.toolwright/memory/` with three partitions:
+Adopt **Markdown-first memory** under `.toolwright/memory/` with three partitions. It has 3 rows and 3 columns: Partition, Scope, and Tracked in Git. Each row is one partition, and the other columns record Scope and Tracked in Git. Read it to compare rows or to find a specific partition.
 
 | Partition | Scope | Tracked in Git |
 |---|---|---|
@@ -50,7 +50,7 @@ embeddings, no vector database, and no background service.
 
 ## Mitigations
 
-| Risk | Mitigation |
+The table below describes Mitigations. It has 5 rows and 2 columns: Risk and Mitigation. Each row is one risk, and the other column records Mitigation. Read it to compare rows or to find a specific risk.
 |---|---|
 | Stale entries | 30-day TTL and `toolwright memory prune` |
 | Duplicate entries | Normalized-title check before write |

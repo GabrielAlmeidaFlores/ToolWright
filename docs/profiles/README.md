@@ -6,7 +6,7 @@ Profiles are declarative manifests under `profiles/`. They replace the provision
 
 ## Available profiles
 
-| Profile | Contents | Use when |
+The table below describes Available profiles. It has 3 rows and 3 columns: Profile, Contents, and Use when. Each row is one profile, and the other columns record Contents and Use when. Read it to compare rows or to find a specific profile.
 |---|---|---|
 | `minimal` | OpenCode config, agents, commands, skills, Ralph | You want no global tool installation |
 | `standard` | Minimal plus `ast-grep` | Default; structural search is useful |

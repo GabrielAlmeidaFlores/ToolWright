@@ -49,6 +49,8 @@ toolwright memory export --format json
 toolwright memory preamble --budget 1500
 ```
 
+The table below describes Commands. It has 5 rows and 2 columns: Command and Behavior. Each row is one command, and the other column records Behavior. Read it to compare rows or to find a specific command.
+
 | Command | Behavior |
 |---|---|
 | `add` | Writes one entry, rejects duplicate titles per scope, and refuses credential patterns |
