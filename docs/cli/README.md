@@ -43,6 +43,7 @@ The package requires Python 3.11 or newer and has no runtime dependencies.
 | `toolwright memory` | Available | Markdown project memory |
 | `toolwright spec` | Available | Spec-driven development artifacts |
 | `toolwright stats` | Available | Cost, token, failure, and arm comparison reports |
+| `toolwright usage` | Available | Local session ledger and task-level usage reports |
 | `toolwright eval` | Available | Deterministic repository evaluations |
 | `toolwright pilot` | Available | Real-repository pilot runner |
 | `toolwright task` | Experimental | Optional Markdown task board and worktrees |
@@ -162,6 +163,26 @@ toolwright stats --budget 5.00
 
 Aggregates `meta.json` and `session.jsonl` artifacts by run, agent, model, and tool. `--budget`
 exits 1 when the recorded total exceeds the ceiling. See [`docs/cost-optimization/observability.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cost-optimization/observability.md).
+
+## `toolwright usage`
+
+```bash
+# Record a session captured with a provider's JSON output.
+toolwright usage record --task "fix login redirect" --session session.jsonl \
+  --agent coordinator --model provider/model --verify "npm test -- login"
+
+# Run a wrapper command and record it automatically.
+toolwright usage record --task "fix login redirect" --verify "npm test -- login" \
+  -- opencode run --format json "Fix the login redirect"
+
+toolwright usage report
+toolwright usage report --json
+toolwright usage prune --older-than-days 30 --apply --yes
+```
+
+The wrapped command must emit JSONL, for example with `--format json`; the recorder rejects output with no parseable JSON object. It writes `meta.json` and `session.jsonl` under `.toolwright/usage/<run-id>/` and reuses the
+same artifact schema as benchmark runs. It is local, has no telemetry, and is gitignored by default.
+`report` groups by task, agent, and model and shows runs, verified runs, cost, tokens, and rework. On Windows, the wrapper does not have POSIX process-group cleanup, so a command that spawns background children may leave them running; prefer `--session` capture or a wrapper that terminates its own children.
 
 ## `toolwright eval`
 

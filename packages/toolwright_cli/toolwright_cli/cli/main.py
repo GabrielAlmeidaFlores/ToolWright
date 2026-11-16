@@ -23,6 +23,7 @@ import sys
 from typing import Sequence
 
 from ..constants import EMPTY_STRING
+from ..usage_strings import KEY_USAGE
 from ..cli_constants import (
     COMMAND_DOCTOR, COMMAND_INSTALL, COMMAND_PILOT, COMMAND_ROLLBACK,
     COMMAND_UNINSTALL, COMMAND_UPDATE, COMMAND_VERIFY, KEY_PROFILE,
@@ -30,6 +31,7 @@ from ..cli_constants import (
 from ..paths import ToolWrightError
 from .common import resolve_repository_root
 from .commands.analytics import _command_pilot, _command_stats
+from .commands.usage import _command_usage
 from .commands.lifecycle import (
     _command_doctor, _command_install, _command_rollback, _command_uninstall,
     _command_update,
@@ -61,6 +63,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         KEY_EVAL: _command_eval,
         COMMAND_PILOT: _command_pilot,
         KEY_TASK: _command_task,
+        KEY_USAGE: _command_usage,
     }
     try:
         return handlers[args.command](args)

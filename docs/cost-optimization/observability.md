@@ -1,8 +1,14 @@
 # Observability and Cost Reporting
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-16 · **Evidence:** `toolwright usage` tests and `make ci` pass locally
 
 The harness stores raw artifacts under `benchmarks/results/<run-id>/`. The cost report aggregates those artifacts without calling a model.
+
+## Ongoing project usage
+
+Benchmark artifacts are not the only source of cost data. `toolwright usage` records ordinary sessions under `.toolwright/usage/<run-id>/` with the same `meta.json` and `session.jsonl` shape used by the benchmark harness. It can record a captured session or run a wrapper command and capture its JSON output, then report cost, tokens, verification, and rework by task, agent, and model.
+
+The ledger is local, gitignored, and telemetry-free. Prune old entries with `toolwright usage prune --older-than-days <n> --apply --yes`. See the [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md).
 
 ## Generate a report
 

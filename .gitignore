@@ -51,5 +51,9 @@ repomix-output.*
 .toolwright/state.json
 .toolwright/backups/
 .toolwright/cache/
+.toolwright/usage/
+
+benchmarks/results/ab-*/
+benchmarks/results/screen*/
 .toolwright/memory/user/
 .toolwright/worktrees/

@@ -189,6 +189,36 @@ from ..cli_constants import (
 from ..constants import EMPTY_STRING, KEY_FEATURE, KEY_NAME, KEY_TITLE, PLATFORM_CHOICES
 from .. import board as board_module
 from .. import memory as memory_module
+from ..usage_strings import (
+    COMMAND_RECORD,
+    COMMAND_REPORT,
+    FLAG_MODEL,
+    FLAG_OLDER_THAN_DAYS,
+    FLAG_REWORK,
+    FLAG_RUN_ID,
+    FLAG_SESSION,
+    FLAG_TASK,
+    FLAG_TIMEOUT,
+    KEY_COMMAND_ARGS,
+    KEY_OLDER_THAN_DAYS,
+    KEY_REWORK,
+    KEY_RUN_ID,
+    KEY_USAGE,
+    KEY_USAGE_COMMAND,
+    TEXT_OPTIONAL_REWORK_COUNT,
+    TEXT_OPTIONAL_RUN_ID,
+    TEXT_OPTIONAL_TIMEOUT,
+    TEXT_OPTIONAL_VERIFICATION_COMMAND,
+    TEXT_PRUNE_USAGE,
+    TEXT_RECORD_ONE_SESSION,
+    TEXT_REPORT_USAGE,
+    TEXT_SESSION_JSONL_TO_RECORD,
+    TEXT_TASK_NAME_FOR_USAGE,
+    TEXT_USAGE_OLD_DAYS,
+    TEXT_USAGE_PRUNE_APPLY,
+    TEXT_USAGE_PRUNE_YES,
+)
+
 from ..profiles import DEFAULT_PROFILE
 
 def build_argument_parser() -> argparse.ArgumentParser:
@@ -378,5 +408,25 @@ def build_argument_parser() -> argparse.ArgumentParser:
     pilot_run.add_argument(FLAG_SETUP, help=TEXT_DEPENDENCY_SETUP_COMMAND_RUN_IN_THE_CLONE)
     pilot_run.add_argument(FLAG_KEEP, action=ARG_STORE_TRUE, help=TEXT_KEEP_THE_DISPOSABLE_CLONE)
     pilot_run.add_argument(FLAG_DRY_RUN, action=ARG_STORE_TRUE, help=TEXT_PRINT_THE_PLAN_WITHOUT_CLONING)
+
+    usage_parser = subparsers.add_parser(
+        KEY_USAGE, parents=[common], help=TEXT_REPORT_USAGE
+    )
+    usage_commands = usage_parser.add_subparsers(dest=KEY_USAGE_COMMAND, required=True)
+    record = usage_commands.add_parser(COMMAND_RECORD, parents=[common], help=TEXT_RECORD_ONE_SESSION)
+    record.add_argument(FLAG_TASK, required=True, help=TEXT_TASK_NAME_FOR_USAGE)
+    record.add_argument(FLAG_SESSION, help=TEXT_SESSION_JSONL_TO_RECORD)
+    record.add_argument(FLAG_VERIFY, help=TEXT_OPTIONAL_VERIFICATION_COMMAND)
+    record.add_argument(FLAG_AGENT, default=EMPTY_STRING)
+    record.add_argument(FLAG_MODEL, default=EMPTY_STRING)
+    record.add_argument(FLAG_REWORK, type=int, default=0, help=TEXT_OPTIONAL_REWORK_COUNT)
+    record.add_argument(FLAG_RUN_ID, help=TEXT_OPTIONAL_RUN_ID)
+    record.add_argument(FLAG_TIMEOUT, type=int, default=3600, help=TEXT_OPTIONAL_TIMEOUT)
+    record.add_argument(KEY_COMMAND_ARGS, nargs=argparse.REMAINDER)
+    report = usage_commands.add_parser(COMMAND_REPORT, parents=[common], help=TEXT_REPORT_USAGE)
+    prune = usage_commands.add_parser(KEY_PRUNE, parents=[common], help=TEXT_PRUNE_USAGE)
+    prune.add_argument(FLAG_OLDER_THAN_DAYS, type=int, required=True, help=TEXT_USAGE_OLD_DAYS)
+    prune.add_argument(FLAG_APPLY, action=ARG_STORE_TRUE, help=TEXT_USAGE_PRUNE_APPLY)
+    prune.add_argument(FLAG_YES, action=ARG_STORE_TRUE, help=TEXT_USAGE_PRUNE_YES)
 
     return parser

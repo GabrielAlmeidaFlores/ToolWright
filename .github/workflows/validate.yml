@@ -78,6 +78,26 @@ jobs:
       - name: Run unit and integration tests
         run: python -m unittest discover -s tests -t . -v
 
+  windows-usage:
+    timeout-minutes: 15
+    name: windows-usage
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Run portable unit tests
+        run: >
+          python -m unittest
+          tests.unit.test_toolwright_usage.UsageRecordTests.test_session_roundtrip_without_verification
+          tests.unit.test_toolwright_usage.UsageRecordTests.test_rejects_path_traversal_run_id
+          tests.unit.test_toolwright_usage.UsageRecordTests.test_prune_requires_confirmation
+          tests.unit.test_benchmark_session
+          tests.unit.test_benchmark_arms
+          tests.unit.test_string_literals
+          -v
+
   cli:
     timeout-minutes: 15
     name: cli
