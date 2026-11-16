@@ -161,3 +161,12 @@ TEXT_FENCED_RELATIVE_LINK_SAMPLE = '```markdown\nSee [plan](../docs/plan.md).\n`
 TEXT_INLINE_RELATIVE_LINK_SAMPLE = 'Literal `[plan](../docs/plan.md)` text.\n'
 
 TEXT_NESTED_FENCE_RELATIVE_LINK_SAMPLE = '````markdown\n```\nSee [plan](../docs/plan.md).\n```\n````\n'
+
+TEXT_TABLE_HEADING_ONLY = '## Results\n\n| A | B |\n|---|---|\n| 1 | 2 |\n'
+TEXT_TABLE_ONE_SENTENCE = '## Results\n\nThe table below lists one row.\n\n| A | B |\n|---|---|\n| 1 | 2 |\n'
+TEXT_TABLE_TWO_SENTENCES = '## Results\n\nThe table below lists one row. It has two columns.\n\n| A | B |\n|---|---|\n| 1 | 2 |\n'
+TEXT_TABLE_FENCED = '```markdown\n## Results\n\n| A | B |\n|---|---|\n| 1 | 2 |\n```\n'
+TEXT_MERMAID_HEADING_ONLY = '## Flow\n\n```mermaid\nflowchart LR\nA --> B\n```\n'
+TEXT_MERMAID_TWO_SENTENCES = '## Flow\n\nThe diagram below shows the flow. It has two nodes.\n\n```mermaid\nflowchart LR\nA --> B\n```\n'
+TEXT_ADD_A_PARAGRAPH_BEFORE_TABLE = 'add a paragraph of at least two sentences before the table'
+TEXT_ADD_A_PARAGRAPH_BEFORE_DIAGRAM = 'add a paragraph of at least two sentences before the diagram'

@@ -217,6 +217,16 @@ TEXT_README_MD = 'README.md'
 TEXT_MARKDOWN_LINK_PATTERN = r'\]\(([^)\s]+)(?:\s+"[^"]*")?\)'
 TEXT_MARKDOWN_FENCE_PATTERN = r'^\s*(`{3,}|~{3,})'
 TEXT_MARKDOWN_INLINE_CODE_PATTERN = r'`[^`]*`'
+TEXT_MARKDOWN_TABLE_SEPARATOR_PATTERN = r'^\s*\|[\s:|-]+\|\s*$'
+TEXT_MARKDOWN_TABLE_ROW_PATTERN = r'^\s*\|'
+TEXT_MERMAID_FENCE = 'mermaid'
+TEXT_MISSING_TABLE_INTRO = '{}:{}: add a paragraph of at least two sentences before the table explaining what it presents'
+TEXT_MISSING_DIAGRAM_INTRO = '{}:{}: add a paragraph of at least two sentences before the diagram explaining what it presents'
+TEXT_TABLE_ROW_PREFIX = '|'
+TEXT_FENCE_BACKTICK = '```'
+TEXT_FENCE_TILDE = '~~~'
+TEXT_SENTENCE_BOUNDARY_PATTERN = r'(?<=[.!?])\s+'
+
 TEXT_LINK_HTTP = 'http://'
 TEXT_LINK_HTTPS = 'https://'
 TEXT_LINK_MAILTO = 'mailto:'
@@ -1006,6 +1016,77 @@ def check_markdown_links() -> None:
                     record_error(TEXT_RELATIVE_MARKDOWN_LINK.format(relative, number, target))
 
 
+def _has_table_intro(lines: list[str], index: int) -> bool:
+    """
+    Report whether the nearest non-empty line before a block is a paragraph.
+
+    Parameters:
+        lines: document lines.
+        index: zero-based index of the table header or diagram fence.
+
+    Returns:
+        ``True`` when the preceding prose has at least two sentences.
+    """
+    cursor = index - 1
+    while cursor >= 0 and not lines[cursor].strip():
+        cursor -= 1
+    if cursor < 0:
+        return False
+    candidate = lines[cursor].strip()
+    if candidate.startswith((TEXT_TEXT_14, TEXT_TABLE_ROW_PREFIX, TEXT_FENCE_BACKTICK, TEXT_FENCE_TILDE)):
+        return False
+    sentences = [part for part in re.split(TEXT_SENTENCE_BOUNDARY_PATTERN, candidate) if part.strip()]
+    return len(sentences) >= 2
+
+
+def check_table_intros() -> None:
+    """
+    Reject tables and diagrams without a preceding explanatory paragraph.
+
+    Parameters:
+        None.
+
+    Returns:
+        None.
+
+    Side effects: appends an error for every table or Mermaid diagram whose
+    nearest preceding prose has fewer than two sentences.
+    """
+    global checked
+    fence_pattern = re.compile(TEXT_MARKDOWN_FENCE_PATTERN)
+    separator_pattern = re.compile(TEXT_MARKDOWN_TABLE_SEPARATOR_PATTERN)
+    row_pattern = re.compile(TEXT_MARKDOWN_TABLE_ROW_PATTERN)
+    excluded_parts = {KEY_GIT, KEY_NODE_MODULES, KEY_SITE}
+    for path in sorted(ROOT.rglob(TEXT_MD)):
+        relative = path.relative_to(ROOT)
+        if excluded_parts.intersection(relative.parts):
+            continue
+        if KEY_TESTS in relative.parts and KEY_FIXTURES in relative.parts:
+            continue
+        checked += 1
+        lines = path.read_text(encoding=TEXT_UTF_8, errors=KEY_IGNORE).splitlines()
+        fence_marker = EMPTY_STRING
+        for index, line in enumerate(lines):
+            match = fence_pattern.match(line)
+            if match:
+                marker = match.group(1)
+                if not fence_marker:
+                    if TEXT_MERMAID_FENCE in line and not _has_table_intro(lines, index):
+                        record_error(TEXT_MISSING_DIAGRAM_INTRO.format(relative, index + 1))
+                    fence_marker = marker
+                elif marker[0] == fence_marker[0] and len(marker) >= len(fence_marker):
+                    fence_marker = EMPTY_STRING
+                continue
+            if fence_marker:
+                continue
+            if not separator_pattern.match(line) or index == 0:
+                continue
+            if not row_pattern.match(lines[index - 1]):
+                continue
+            if not _has_table_intro(lines, index - 1):
+                record_error(TEXT_MISSING_TABLE_INTRO.format(relative, index + 1))
+
+
 def check_links() -> None:
     global checked
     urls: set[str] = set()
@@ -1054,6 +1135,7 @@ def main() -> int:
     check_docs_status()
 
     check_markdown_links()
+    check_table_intros()
     if args.links:
         check_links()
 

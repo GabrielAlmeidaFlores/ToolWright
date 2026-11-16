@@ -33,6 +33,8 @@ from tests.unit.test_validate_config_strings import (
     TEXT_12_NOVEMBER_2026,
     TEXT_2026_11_12,
     TEXT_ABSENT_SKILL,
+    TEXT_ADD_A_PARAGRAPH_BEFORE_DIAGRAM,
+    TEXT_ADD_A_PARAGRAPH_BEFORE_TABLE,
     TEXT_ABSOLUTE_GITHUB_URL,
     TEXT_ABSOLUTE_MARKDOWN_LINK_SAMPLE,
     TEXT_ADDS_TWO_NUMBERS_EXPORT_FUNCTION_ADD_A_NUMBER_B_NUMBER_NUMBE,
@@ -67,6 +69,10 @@ from tests.unit.test_validate_config_strings import (
     TEXT_FULL_LINE,
     TEXT_GITHUB_WORKFLOWS_BAD_YML,
     TEXT_FENCED_RELATIVE_LINK_SAMPLE,
+    TEXT_TABLE_FENCED,
+    TEXT_TABLE_HEADING_ONLY,
+    TEXT_TABLE_ONE_SENTENCE,
+    TEXT_TABLE_TWO_SENTENCES,
     TEXT_GIT_ADD,
     TEXT_GIT_ALLOW_LAST_MD,
     TEXT_HEADER_A_NOT_A_COMMENT_BODY_B_1,
@@ -86,6 +92,8 @@ from tests.unit.test_validate_config_strings import (
     TEXT_MISSING_AGENT,
     TEXT_MISSING_AGENT_MD,
     TEXT_MISSING_AUTHOR_ATTRIBUTION,
+    TEXT_MERMAID_HEADING_ONLY,
+    TEXT_MERMAID_TWO_SENTENCES,
     TEXT_MISSING_DESCRIPTION,
     TEXT_NESTED_FENCE_RELATIVE_LINK_SAMPLE,
     TEXT_RELATIVE_MARKDOWN_LINK_SAMPLE,
@@ -551,6 +559,39 @@ class MarkdownLinkTests(ValidatorTestCase):
     def test_inline_code_relative_link_is_ignored(self) -> None:
         self.write(TEXT_DOC_MD, TEXT_INLINE_RELATIVE_LINK_SAMPLE)
         self.validator.check_markdown_links()
+        self.assertEqual(self.validator.errors, [])
+
+
+class TableIntroTests(ValidatorTestCase):
+
+    def test_table_after_heading_fails(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_TABLE_HEADING_ONLY)
+        self.validator.check_table_intros()
+        self.assert_error(TEXT_ADD_A_PARAGRAPH_BEFORE_TABLE)
+
+    def test_table_after_one_sentence_fails(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_TABLE_ONE_SENTENCE)
+        self.validator.check_table_intros()
+        self.assert_error(TEXT_ADD_A_PARAGRAPH_BEFORE_TABLE)
+
+    def test_table_after_two_sentences_passes(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_TABLE_TWO_SENTENCES)
+        self.validator.check_table_intros()
+        self.assertEqual(self.validator.errors, [])
+
+    def test_fenced_table_is_ignored(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_TABLE_FENCED)
+        self.validator.check_table_intros()
+        self.assertEqual(self.validator.errors, [])
+
+    def test_mermaid_after_heading_fails(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_MERMAID_HEADING_ONLY)
+        self.validator.check_table_intros()
+        self.assert_error(TEXT_ADD_A_PARAGRAPH_BEFORE_DIAGRAM)
+
+    def test_mermaid_after_two_sentences_passes(self) -> None:
+        self.write(TEXT_DOC_MD, TEXT_MERMAID_TWO_SENTENCES)
+        self.validator.check_table_intros()
         self.assertEqual(self.validator.errors, [])
 
 
