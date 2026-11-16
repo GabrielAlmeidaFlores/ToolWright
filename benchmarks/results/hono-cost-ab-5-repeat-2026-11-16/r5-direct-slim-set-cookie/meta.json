@@ -1,0 +1,21 @@
+{
+  "run_id": "screen3-r5-direct-slim-set-cookie",
+  "arm": "direct-slim",
+  "task_file": "<repo>/benchmarks/real/hono/tasks/set-cookie.json",
+  "task_id": "hono-set-cookie",
+  "working_directory": ".",
+  "workspace": "<workspace>",
+  "commit": "caf40898bc4be8e93b584e761d996f794e50dbec",
+  "target_commit": "f6fbaf0299c48eea9e656e03e2ffe7ac755e8823",
+  "model": "deepseek/deepseek-flash",
+  "agent": "backend-developer",
+  "max_wall_time_seconds": 900,
+  "started_at": "2026-11-16T20:07:02.722181+00:00",
+  "opencode_version": "opencode v2.2.7",
+  "run_exit": 0,
+  "stats_exit": 0,
+  "export_exit": 0,
+  "verification_exit": 0,
+  "wall_time_seconds": 95,
+  "finished_at": "2026-11-16T20:08:38.276250+00:00"
+}

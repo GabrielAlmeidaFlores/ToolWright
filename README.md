@@ -718,7 +718,7 @@ This repository distinguishes **verified**, **documented**, and **not yet measur
 | Command runtime | All eight commands verified on the TypeScript fixture through the reference adapter |
 | Skill runtime | All ten skills verified through the `skill` tool |
 | MCP startup overhead | Narrow `debug agents` measurement recorded |
-| Benchmarks | Three published result sets: DeepSeek Flash examples, a real Hono tool matrix, and a 45-run Hono cost A/B; none shows a cost win for the optimized configuration, and stock was cheapest in the A/B |
+| Benchmarks | Four published result sets: DeepSeek Flash examples, a real Hono tool matrix, a 45-run cost A/B, and a 90-run delegation screen; no arm beat stock, and the delegation contract was reverted |
 | Real-repository pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
 | CI | Green on Ubuntu and macOS for run [43402329992](https://github.com/GabrielAlmeidaFlores/ToolWright/actions/runs/43402329992); nine jobs |
 | Repository tests | 331 unit and integration tests |
@@ -833,12 +833,13 @@ See [testing the repository](https://github.com/GabrielAlmeidaFlores/ToolWright/
 
 ## Benchmarks
 
-The benchmark harness is reproducible and the question is tool-neutral. Three result sets are published: 30 example runs, 27 real-repository Hono matrix runs, and a 45-run Hono cost A/B, all on the OpenCode reference adapter with `deepseek/deepseek-flash`. The optimized configuration did not reduce cost in any set. In the A/B, the stock agent was cheapest and none of the three new arms met the 15% promotion bar. The real-repository matrix also measures Serena, CodeGraph, ast-grep, skills, subagents, memory, commands, and Ralph. This is not a Claude, Copilot, or Codex result. See the results and limitations before reusing the claim.
+The benchmark harness is reproducible and the question is tool-neutral. Four result sets are published: 30 example runs, 27 real-repository Hono matrix runs, a 45-run Hono cost A/B, and a 90-run delegation screen, all on the OpenCode reference adapter with `deepseek/deepseek-flash`. The optimized configuration did not reduce cost in any set. Stock was cheapest in the A/B, and the 90-run screen reverted the delegation contract after it raised cost and wall time. The real-repository matrix also measures Serena, CodeGraph, ast-grep, skills, subagents, memory, commands, and Ralph. This is not a Claude, Copilot, or Codex result. See the results and limitations before reusing the claim.
 
 - [Methodology](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md)
 - [DeepSeek Flash results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-deepseek-flash.md)
 - [Real Hono tool matrix](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/real-hono-tool-matrix.md)
 - [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md)
+- [Hono delegation contract screen](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-delegation-screen.md)
 - [Benchmark arms](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/arms/README.md)
 - [Tasks](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/tasks)
 - [Harness](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/harness)

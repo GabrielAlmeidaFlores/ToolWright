@@ -1,0 +1,670 @@
+{
+  "info": {
+    "id": "ses_e1a7ea94effehvaWmkEkLtqWRs",
+    "projectID": "8bbf308db2b4a27f72a69b74570538cfc8c125c3",
+    "agent": "coordinator",
+    "model": {
+      "id": "deepseek-flash",
+      "providerID": "deepseek",
+      "variant": "default"
+    },
+    "cost": 0.003824256,
+    "tokens": {
+      "input": 10524,
+      "output": 2124,
+      "reasoning": 1213,
+      "cache": {
+        "read": 81152,
+        "write": 0
+      }
+    },
+    "outcome": "succeeded",
+    "time": {
+      "created": 1794851821412,
+      "updated": 1794851894051,
+      "busy": 1794851822022,
+      "idle": 1794851894053
+    },
+    "title": "[redacted:session-title:ses_e1a7ea94effehvaWmkEkLtqWRs]",
+    "location": {
+      "directory": "/[redacted:session-directory:ses_e1a7ea94effehvaWmkEkLtqWRs]"
+    }
+  },
+  "messages": [
+    {
+      "id": "msg_1e5815799001HtZi30gv0651IT",
+      "time": {
+        "created": 1794851821465
+      },
+      "type": "agent-switched",
+      "agent": "coordinator",
+      "previous": "coordinator"
+    },
+    {
+      "id": "msg_1e581578d001tlWGuumJobUH5S",
+      "time": {
+        "created": 1794851822029
+      },
+      "text": "[redacted:text:msg_1e581578d001tlWGuumJobUH5S]",
+      "files": [],
+      "type": "user"
+    },
+    {
+      "id": "msg_1e58159d4001GFAd3lJuJofBAi",
+      "time": {
+        "created": 1794851822039,
+        "streamed": 1794851823521,
+        "completed": 1794851823560
+      },
+      "type": "assistant",
+      "agent": "coordinator",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e58159d4001GFAd3lJuJofBAi]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e58159d4001GFAd3lJuJofBAi"
+          },
+          "time": {
+            "created": 1794851822996,
+            "completed": 1794851823506
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_VvWDbQeCkF3Dbm6w9iHx5248",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e58159d4001GFAd3lJuJofBAi"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e58159d4001GFAd3lJuJofBAi]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e58159d4001GFAd3lJuJofBAi"
+            }
+          },
+          "time": {
+            "created": 1794851823155,
+            "ran": 1794851823516,
+            "completed": 1794851823543
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_NlhrIJQtfOnZ4dRu2rT75042",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e58159d4001GFAd3lJuJofBAi"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e58159d4001GFAd3lJuJofBAi]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e58159d4001GFAd3lJuJofBAi"
+            }
+          },
+          "time": {
+            "created": 1794851823275,
+            "ran": 1794851823520,
+            "completed": 1794851823548
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "05ac4a9ba48c689885bcf6697045c8244dafaa71",
+        "end": "05ac4a9ba48c689885bcf6697045c8244dafaa71",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0006959819999999999,
+      "tokens": {
+        "input": 4097,
+        "output": 113,
+        "reasoning": 8,
+        "cache": {
+          "read": 2944,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e5815fcd001g1aidskC5otz73",
+      "time": {
+        "created": 1794851823567,
+        "streamed": 1794851825548,
+        "completed": 1794851825577
+      },
+      "type": "assistant",
+      "agent": "coordinator",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e5815fcd001g1aidskC5otz73]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e5815fcd001g1aidskC5otz73"
+          },
+          "time": {
+            "created": 1794851825140,
+            "completed": 1794851825543
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_12DisNpuZGs81FHV6vvY6566",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e5815fcd001g1aidskC5otz73"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e5815fcd001g1aidskC5otz73]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e5815fcd001g1aidskC5otz73"
+            }
+          },
+          "time": {
+            "created": 1794851825303,
+            "ran": 1794851825546,
+            "completed": 1794851825564
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_6npFy8NWeQlHX0oMd7tt5197",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e5815fcd001g1aidskC5otz73"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e5815fcd001g1aidskC5otz73]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e5815fcd001g1aidskC5otz73"
+            }
+          },
+          "time": {
+            "created": 1794851825423,
+            "ran": 1794851825548,
+            "completed": 1794851825563
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "05ac4a9ba48c689885bcf6697045c8244dafaa71",
+        "end": "05ac4a9ba48c689885bcf6697045c8244dafaa71",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00027642000000000004,
+      "tokens": {
+        "input": 1246,
+        "output": 105,
+        "reasoning": 9,
+        "cache": {
+          "read": 7040,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e58167ae001yXuK1DdcLQNH5f",
+      "time": {
+        "created": 1794851825584,
+        "streamed": 1794851827156,
+        "completed": 1794851827191
+      },
+      "type": "assistant",
+      "agent": "coordinator",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "tool",
+          "id": "call_00_ET_tvclfJbZERG3cVWqJ01o2343",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e58167ae001yXuK1DdcLQNH5f"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e58167ae001yXuK1DdcLQNH5f]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e58167ae001yXuK1DdcLQNH5f"
+            }
+          },
+          "time": {
+            "created": 1794851826837,
+            "ran": 1794851827152,
+            "completed": 1794851827174
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_ET_3ah9mfWS2dywip6kobz64404",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e58167ae001yXuK1DdcLQNH5f"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e58167ae001yXuK1DdcLQNH5f]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e58167ae001yXuK1DdcLQNH5f"
+            }
+          },
+          "time": {
+            "created": 1794851827002,
+            "ran": 1794851827154,
+            "completed": 1794851827172
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "05ac4a9ba48c689885bcf6697045c8244dafaa71",
+        "end": "05ac4a9ba48c689885bcf6697045c8244dafaa71",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00019760999999999997,
+      "tokens": {
+        "input": 611,
+        "output": 135,
+        "reasoning": 0,
+        "cache": {
+          "read": 8320,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e5816dfc0013OZBD5ozRpmozM",
+      "time": {
+        "created": 1794851827198,
+        "streamed": 1794851831812,
+        "completed": 1794851831884
+      },
+      "type": "assistant",
+      "agent": "coordinator",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e5816dfc0013OZBD5ozRpmozM]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e5816dfc0013OZBD5ozRpmozM"
+          },
+          "time": {
+            "created": 1794851827946,
+            "completed": 1794851831805
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_N8aeiHXWHBiT2eVIO7mh3414",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e5816dfc0013OZBD5ozRpmozM"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e5816dfc0013OZBD5ozRpmozM]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e5816dfc0013OZBD5ozRpmozM"
+            }
+          },
+          "time": {
+            "created": 1794851831526,
+            "ran": 1794851831810,
+            "completed": 1794851831872
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "05ac4a9ba48c689885bcf6697045c8244dafaa71",
+        "end": "05ac4a9ba48c689885bcf6697045c8244dafaa71",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0006985800000000001,
+      "tokens": {
+        "input": 1606,
+        "output": 91,
+        "reasoning": 627,
+        "cache": {
+          "read": 8960,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e5818052001ts7L6E42kLEJFd",
+      "time": {
+        "created": 1794851831892,
+        "streamed": 1794851840649,
+        "completed": 1794851886299
+      },
+      "type": "assistant",
+      "agent": "coordinator",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e5818052001ts7L6E42kLEJFd]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e5818052001ts7L6E42kLEJFd"
+          },
+          "time": {
+            "created": 1794851833111,
+            "completed": 1794851840641
+          }
+        },
+        {
+          "type": "text",
+          "text": "[redacted:text:msg_1e5818052001ts7L6E42kLEJFd]"
+        },
+        {
+          "type": "tool",
+          "id": "call_00_VAd90xyLsOHp8nx4kNcv8232",
+          "name": "subagent",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e5818052001ts7L6E42kLEJFd"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e5818052001ts7L6E42kLEJFd]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e5818052001ts7L6E42kLEJFd"
+            }
+          },
+          "time": {
+            "created": 1794851836362,
+            "ran": 1794851840646,
+            "completed": 1794851886269
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "05ac4a9ba48c689885bcf6697045c8244dafaa71",
+        "end": "1140e0f2c94471f6d2b84438f3b1266b194986da",
+        "files": [
+          "src/context.test.ts",
+          "src/context.ts"
+        ]
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0010248419999999998,
+      "tokens": {
+        "input": 223,
+        "output": 1071,
+        "reasoning": 525,
+        "cache": {
+          "read": 11264,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e58254e1001GHWL5tyAwFsf3C",
+      "time": {
+        "created": 1794851886307,
+        "streamed": 1794851888079,
+        "completed": 1794851888788
+      },
+      "type": "assistant",
+      "agent": "coordinator",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e58254e1001GHWL5tyAwFsf3C]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e58254e1001GHWL5tyAwFsf3C"
+          },
+          "time": {
+            "created": 1794851887533,
+            "completed": 1794851888074
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_sV0TVTCcqGpWdGX7Wn0S9007",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e58254e1001GHWL5tyAwFsf3C"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e58254e1001GHWL5tyAwFsf3C]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e58254e1001GHWL5tyAwFsf3C"
+            }
+          },
+          "time": {
+            "created": 1794851887833,
+            "ran": 1794851888077,
+            "completed": 1794851888777
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1140e0f2c94471f6d2b84438f3b1266b194986da",
+        "end": "1140e0f2c94471f6d2b84438f3b1266b194986da",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000263568,
+      "tokens": {
+        "input": 984,
+        "output": 99,
+        "reasoning": 29,
+        "cache": {
+          "read": 13056,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e5825e98001f483fAwsQIDUhD",
+      "time": {
+        "created": 1794851888794,
+        "streamed": 1794851890603,
+        "completed": 1794851891174
+      },
+      "type": "assistant",
+      "agent": "coordinator",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e5825e98001f483fAwsQIDUhD]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e5825e98001f483fAwsQIDUhD"
+          },
+          "time": {
+            "created": 1794851890159,
+            "completed": 1794851890598
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_pUEfAvMaULGoYBHzkGke1910",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e5825e98001f483fAwsQIDUhD"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e5825e98001f483fAwsQIDUhD]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e5825e98001f483fAwsQIDUhD"
+            }
+          },
+          "time": {
+            "created": 1794851890352,
+            "ran": 1794851890602,
+            "completed": 1794851891163
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1140e0f2c94471f6d2b84438f3b1266b194986da",
+        "end": "1140e0f2c94471f6d2b84438f3b1266b194986da",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00029379000000000005,
+      "tokens": {
+        "input": 1265,
+        "output": 88,
+        "reasoning": 15,
+        "cache": {
+          "read": 14080,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e58267e9001IZLQPEC3FvOqaG",
+      "time": {
+        "created": 1794851891178,
+        "streamed": 1794851894033,
+        "completed": 1794851894051
+      },
+      "type": "assistant",
+      "agent": "coordinator",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "[redacted:text:msg_1e58267e9001IZLQPEC3FvOqaG]"
+        }
+      ],
+      "snapshot": {
+        "start": "1140e0f2c94471f6d2b84438f3b1266b194986da",
+        "end": "1140e0f2c94471f6d2b84438f3b1266b194986da",
+        "files": []
+      },
+      "finish": "stop",
+      "rawFinish": "stop",
+      "cost": 0.0003312960000000001,
+      "tokens": {
+        "input": 244,
+        "output": 415,
+        "reasoning": 0,
+        "cache": {
+          "read": 15232,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e5827325001gGjqs4mkyDxkUo",
+      "time": {
+        "created": 1794851894053
+      },
+      "type": "idle",
+      "outcome": "succeeded"
+    }
+  ]
+}

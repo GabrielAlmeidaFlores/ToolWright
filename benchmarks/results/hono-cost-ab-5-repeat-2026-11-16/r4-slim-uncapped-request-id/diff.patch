@@ -1,0 +1,106 @@
+diff --git a/src/middleware/request-id/index.test.ts b/src/middleware/request-id/index.test.ts
+index b00a0e6..94530a0 100644
+--- a/src/middleware/request-id/index.test.ts
++++ b/src/middleware/request-id/index.test.ts
+@@ -1,3 +1,4 @@
++import { vi } from 'vitest'
+ import { requestId } from '.'
+ import type { Context } from '../../context'
+ import { Hono } from '../../hono'
+@@ -166,3 +167,63 @@ describe('Request ID Middleware with custom header', () => {
+     expect(await res.text()).toMatch(regexUUIDv4)
+   })
+ })
++
++describe('Request ID Middleware with trustIncoming', () => {
++  const generatedId = 'generated-request-id'
++
++  it('Should ignore the incoming request id when trustIncoming is false', async () => {
++    const generator = vi.fn(() => generatedId)
++    const app = new Hono()
++    app.use('/requestId', requestId({ generator, trustIncoming: false }))
++    app.get('/requestId', (c) => c.text(c.get('requestId') ?? 'No Request ID'))
++
++    const res = await app.request('http://localhost/requestId', {
++      headers: {
++        'X-Request-Id': 'incoming-request-id',
++      },
++    })
++    expect(res).not.toBeNull()
++    expect(res.status).toBe(200)
++    expect(res.headers.get('X-Request-Id')).toBe(generatedId)
++    expect(res.headers.get('X-Request-Id')).not.toBe('incoming-request-id')
++    expect(await res.text()).toBe(generatedId)
++    expect(generator).toHaveBeenCalledTimes(1)
++  })
++
++  it('Should use the incoming request id when trustIncoming is true', async () => {
++    const generator = vi.fn(() => generatedId)
++    const app = new Hono()
++    app.use('/requestId', requestId({ generator, trustIncoming: true }))
++    app.get('/requestId', (c) => c.text(c.get('requestId') ?? 'No Request ID'))
++
++    const res = await app.request('http://localhost/requestId', {
++      headers: {
++        'X-Request-Id': 'incoming-request-id',
++      },
++    })
++    expect(res).not.toBeNull()
++    expect(res.status).toBe(200)
++    expect(res.headers.get('X-Request-Id')).toBe('incoming-request-id')
++    expect(res.headers.get('X-Request-Id')).not.toBe(generatedId)
++    expect(await res.text()).toBe('incoming-request-id')
++    expect(generator).not.toHaveBeenCalled()
++  })
++
++  it('Should keep generating and not set a header with an empty headerName when trustIncoming is false', async () => {
++    const generator = vi.fn(() => generatedId)
++    const app = new Hono()
++    app.use('/requestId', requestId({ generator, headerName: '', trustIncoming: false }))
++    app.get('/requestId', (c) => c.text(c.get('requestId') ?? 'No Request ID'))
++
++    const res = await app.request('http://localhost/requestId', {
++      headers: {
++        'X-Request-Id': 'incoming-request-id',
++      },
++    })
++    expect(res).not.toBeNull()
++    expect(res.status).toBe(200)
++    expect(res.headers.get('X-Request-Id')).toBeNull()
++    expect(await res.text()).toBe(generatedId)
++    expect(generator).toHaveBeenCalledTimes(1)
++  })
++})
+diff --git a/src/middleware/request-id/request-id.ts b/src/middleware/request-id/request-id.ts
+index 04d7896..8f56d72 100644
+--- a/src/middleware/request-id/request-id.ts
++++ b/src/middleware/request-id/request-id.ts
+@@ -14,6 +14,7 @@ export type RequestIdOptions = {
+   limitLength?: number
+   headerName?: string
+   generator?: (c: Context) => string
++  trustIncoming?: boolean
+ }
+ 
+ /**
+@@ -23,6 +24,7 @@ export type RequestIdOptions = {
+  * @param {number} [options.limitLength=255] - The maximum length of request id.
+  * @param {string} [options.headerName=X-Request-Id] - The header name used in request id.
+  * @param {generator} [options.generator=() => crypto.randomUUID()] - The request id generation function.
++ * @param {boolean} [options.trustIncoming=true] - Whether to reuse a valid incoming request id header. When `false`, the incoming header is ignored and an id is always generated.
+  *
+  * @returns {MiddlewareHandler} The middleware handler function.
+  *
+@@ -42,10 +44,11 @@ export const requestId = ({
+   limitLength = 255,
+   headerName = 'X-Request-Id',
+   generator = () => crypto.randomUUID(),
++  trustIncoming = true,
+ }: RequestIdOptions = {}): MiddlewareHandler => {
+   return async function requestId(c, next) {
+     // If `headerName` is empty string, req.header will return the object
+-    let reqId = headerName ? c.req.header(headerName) : undefined
++    let reqId = headerName && trustIncoming ? c.req.header(headerName) : undefined
+     if (!reqId || reqId.length > limitLength || /[^\w\-=]/.test(reqId)) {
+       reqId = generator(c)
+     }

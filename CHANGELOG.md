@@ -18,6 +18,7 @@ All notable changes to this repository are documented here.
 - Hono cost A/B result set: 45 isolated runs across five arms, all verified and fully scoped; no arm beat the stock baseline, so no configuration was promoted. Three cells were re-executed after review found agent access to the harness directory, and published artifacts are path-sanitized.
 - Benchmark summaries now record `cache_hit_ratio`, and the `slim-uncapped` arm completes the 2×2 MCP/tool-output matrix.
 - [Cost-reduction tool candidates](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/cost-tool-candidates.md): evaluated watchlist for routing, caching, output filtering, and AST navigation tools, with verdicts and experiment gates.
+- [Hono delegation contract screen](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-delegation-screen.md): 90-run, five-repeat confirmation of the delegation prompt; no cost win, so the contract was reverted.
 - Local `toolwright usage` ledger: records one session into `.toolwright/usage/`, reports task-level cost, tokens, verification, and rework, and prunes old entries; no telemetry or database.
 
 ### Removed

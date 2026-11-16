@@ -1,0 +1,92 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..ace1e17 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -427,7 +427,7 @@ describe('Context header', () => {
+     expect(res.headers.get('foo')).toBe('bar')
+   })
+ 
+-  it('Should set cookie headers when re-assigning Response to `c.res`', () => {
++  it('Should keep cookie headers when re-assigning Response to `c.res`', () => {
+     const cookies = ['foo=bar; Path=/', 'foo2=bar2; Path=/']
+     const res = new Response(null)
+     res.headers.append('set-cookie', cookies[0])
+@@ -440,8 +440,31 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie().length).toBe(3)
++    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
++  })
++
++  it('Should keep middleware and handler cookies when assigning a new Response', () => {
++    c.res.headers.set('X-Something', 'true')
++    setCookie(c, 'middleware', 'value', { path: '/' })
++    const res = new Response('ok')
++    res.headers.append('set-cookie', 'handler=value; Path=/; HttpOnly')
++    c.res = res
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'middleware=value; Path=/',
++      'handler=value; Path=/; HttpOnly',
++    ])
++  })
++
++  it('Should keep prepared and handler cookies when assigning a new Response', () => {
++    setCookie(c, 'middleware', 'value', { path: '/' })
++    const res = new Response('ok')
++    res.headers.append('set-cookie', 'handler=value; Path=/; HttpOnly')
++    c.res = res
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'middleware=value; Path=/',
++      'handler=value; Path=/; HttpOnly',
++    ])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..0ee5a61 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -412,22 +412,29 @@ export class Context<
+    * @param _res - The Response object to set.
+    */
+   set res(_res: Response | undefined) {
+-    if (this.#res && _res) {
++    const headers = this.#res?.headers ?? this.#preparedHeaders
++    if (headers && _res) {
+       _res = createResponseInstance(_res.body, _res)
+-      for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
+-          continue
+-        }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
+-            _res.headers.append('set-cookie', cookie)
++      const cookies = headers.getSetCookie()
++      if (this.#res) {
++        for (const [k, v] of headers.entries()) {
++          if (k === 'content-type' || k === 'set-cookie') {
++            continue
+           }
+-        } else {
+           _res.headers.set(k, v)
+         }
+       }
++      if (cookies.length) {
++        const newCookies = _res.headers.getSetCookie()
++        _res.headers.delete('set-cookie')
++        for (const cookie of cookies) {
++          _res.headers.append('set-cookie', cookie)
++        }
++        for (const cookie of newCookies) {
++          _res.headers.append('set-cookie', cookie)
++        }
++      }
++      this.#preparedHeaders = undefined
+     }
+     this.#res = _res
+     this.finalized = true

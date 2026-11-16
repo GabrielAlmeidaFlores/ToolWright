@@ -1,0 +1,198 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..72462fc 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -1,5 +1,6 @@
+ import { Context } from './context'
+ import { setCookie } from './helper/cookie'
++import { Hono } from './hono'
+ 
+ const makeResponseHeaderImmutable = (res: Response) => {
+   Object.defineProperty(res, 'headers', {
+@@ -427,7 +428,7 @@ describe('Context header', () => {
+     expect(res.headers.get('foo')).toBe('bar')
+   })
+ 
+-  it('Should set cookie headers when re-assigning Response to `c.res`', () => {
++  it('Should merge cookie headers when re-assigning Response to `c.res`', () => {
+     const cookies = ['foo=bar; Path=/', 'foo2=bar2; Path=/']
+     const res = new Response(null)
+     res.headers.append('set-cookie', cookies[0])
+@@ -440,8 +441,28 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie().length).toBe(cookies.length + newCookies.length)
++    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
++  })
++
++  it('Should keep all cookies from both responses when re-assigning `c.res`', () => {
++    const cookies = ['foo=bar; Path=/', 'foo2=bar2; Path=/']
++    c.res = new Response(null, {
++      headers: [
++        ['set-cookie', cookies[0]],
++        ['set-cookie', cookies[1]],
++      ],
++    })
++
++    const newCookies = ['foo3=bar3; Path=/', 'foo4=bar4; Path=/']
++    c.res = new Response(null, {
++      headers: [
++        ['set-cookie', newCookies[0]],
++        ['set-cookie', newCookies[1]],
++      ],
++    })
++
++    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+@@ -535,6 +556,84 @@ describe('Context header', () => {
+   })
+ })
+ 
++describe('Set-Cookie merging', () => {
++  it('Should keep the middleware cookie when the handler returns its own Set-Cookie header', async () => {
++    const app = new Hono()
++    app.use('*', async (_c, next) => {
++      _c.res.headers.append('set-cookie', 'middleware=1; Path=/')
++      await next()
++    })
++    app.get('/', () => new Response('ok', { headers: { 'set-cookie': 'handler=1; Path=/' } }))
++
++    const res = await app.request('/')
++    expect(res.headers.getSetCookie()).toEqual(['middleware=1; Path=/', 'handler=1; Path=/'])
++  })
++
++  it('Should keep the cookie set by `setCookie()` when the handler returns its own Set-Cookie header', async () => {
++    const app = new Hono()
++    app.use('*', async (c, next) => {
++      setCookie(c, 'middleware', '1', { path: '/' })
++      await next()
++    })
++    app.get('/', () => new Response('ok', { headers: { 'set-cookie': 'handler=1; Path=/' } }))
++
++    const res = await app.request('/')
++    expect(res.headers.getSetCookie()).toEqual(['middleware=1; Path=/', 'handler=1; Path=/'])
++  })
++
++  it('Should not duplicate cookies when the new response is derived from the current response', () => {
++    const c = new Context(new Request('http://localhost/'))
++    c.res = new Response(null, { headers: { 'set-cookie': 'foo=bar; Path=/' } })
++
++    // `c.text()` derives its headers from the current `c.res`, cookies included
++    c.res = c.text('hi')
++    expect(c.res.headers.getSetCookie()).toEqual(['foo=bar; Path=/'])
++  })
++
++  it('Should keep cookies once when assigning `c.res` to itself', () => {
++    const c = new Context(new Request('http://localhost/'))
++    c.res = new Response(null, {
++      headers: [
++        ['set-cookie', 'foo=bar; Path=/'],
++        ['set-cookie', 'foo2=bar2; Path=/'],
++      ],
++    })
++
++    // Self-assignment keeps each cookie once
++    const res = c.res
++    c.res = res
++    expect(c.res.headers.getSetCookie()).toEqual(['foo=bar; Path=/', 'foo2=bar2; Path=/'])
++  })
++
++  it('Should not duplicate the handler cookie when middleware overwrites the response after `next()`', async () => {
++    const app = new Hono()
++    app.use('*', async (c, next) => {
++      await next()
++      c.res = c.text('overwritten')
++    })
++    app.get('/', (c) => {
++      setCookie(c, 'handler', '1', { path: '/' })
++      return c.text('hi')
++    })
++
++    const res = await app.request('/')
++    expect(res.headers.getSetCookie()).toEqual(['handler=1; Path=/'])
++  })
++
++  it('Should keep the middleware and handler cookies once when overwriting after `next()`', async () => {
++    const app = new Hono()
++    app.use('*', async (c, next) => {
++      c.res.headers.append('set-cookie', 'middleware=1; Path=/')
++      await next()
++      c.res = c.text('overwritten')
++    })
++    app.get('/', () => new Response('ok', { headers: { 'set-cookie': 'handler=1; Path=/' } }))
++
++    const res = await app.request('/')
++    expect(res.headers.getSetCookie()).toEqual(['middleware=1; Path=/', 'handler=1; Path=/'])
++  })
++})
++
+ describe('Pass a ResponseInit to respond methods', () => {
+   const req = new Request('http://localhost/')
+   let c: Context
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..53999d2 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -290,6 +290,21 @@ const createResponseInstance = (
+   init?: globalThis.ResponseInit
+ ): Response => new Response(body, init)
+ 
++// `Set-Cookie` is the only multi-value header, so it must be merged, not set.
++// The earlier cookies come first so the later, more specific ones can override them.
++const mergeSetCookieHeaders = (headers: Headers, earlier: string[], later: string[]) => {
++  headers.delete('set-cookie')
++  for (const cookie of earlier) {
++    // A response derived from the current one already carries its cookies
++    if (!later.includes(cookie)) {
++      headers.append('set-cookie', cookie)
++    }
++  }
++  for (const cookie of later) {
++    headers.append('set-cookie', cookie)
++  }
++}
++
+ export class Context<
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   E extends Env = any,
+@@ -415,18 +430,25 @@ export class Context<
+     if (this.#res && _res) {
+       _res = createResponseInstance(_res.body, _res)
+       for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
++        // `set-cookie` is multi-value and is merged once, outside this loop
++        if (k === 'content-type' || k === 'set-cookie') {
+           continue
+         }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
+-            _res.headers.append('set-cookie', cookie)
+-          }
+-        } else {
+-          _res.headers.set(k, v)
+-        }
++        _res.headers.set(k, v)
++      }
++      const resCookies = _res.headers.getSetCookie()
++      mergeSetCookieHeaders(_res.headers, this.#res.headers.getSetCookie(), resCookies)
++    } else if (_res && this.#preparedHeaders && !this.finalized) {
++      // `c.header()`/`setCookie()` calls made before a Response existed are kept
++      // in `#preparedHeaders`. They may already have been copied into `_res` by
++      // `c.newResponse()`, so only recover the cookies that are missing.
++      const resCookies = _res.headers.getSetCookie()
++      const missingCookies = this.#preparedHeaders
++        .getSetCookie()
++        .filter((cookie) => !resCookies.includes(cookie))
++      if (missingCookies.length) {
++        _res = createResponseInstance(_res.body, _res)
++        mergeSetCookieHeaders(_res.headers, missingCookies, resCookies)
+       }
+     }
+     this.#res = _res

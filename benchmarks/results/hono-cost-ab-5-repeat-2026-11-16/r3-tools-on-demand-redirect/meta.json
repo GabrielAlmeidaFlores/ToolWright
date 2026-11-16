@@ -1,0 +1,21 @@
+{
+  "run_id": "screen2-r3-tools-on-demand-redirect",
+  "arm": "tools-on-demand",
+  "task_file": "<repo>/benchmarks/real/hono/tasks/redirect.json",
+  "task_id": "hono-redirect",
+  "working_directory": ".",
+  "workspace": "<workspace>",
+  "commit": "caf40898bc4be8e93b584e761d996f794e50dbec",
+  "target_commit": "f6fbaf0299c48eea9e656e03e2ffe7ac755e8823",
+  "model": "deepseek/deepseek-flash",
+  "agent": "coordinator",
+  "max_wall_time_seconds": 900,
+  "started_at": "2026-11-16T19:00:41.271100+00:00",
+  "opencode_version": "opencode v2.2.7",
+  "run_exit": 0,
+  "stats_exit": 0,
+  "export_exit": 0,
+  "verification_exit": 0,
+  "wall_time_seconds": 79,
+  "finished_at": "2026-11-16T19:02:02.393453+00:00"
+}

@@ -1,0 +1,222 @@
+{
+  "range": {
+    "from": 1767236400000,
+    "to": 1794855596964
+  },
+  "sessions": 206,
+  "subagents": 57,
+  "prompts": 206,
+  "steps": 4421,
+  "tokens": {
+    "input": 7416086,
+    "output": 980804,
+    "reasoning": 1381582,
+    "cache": {
+      "read": 117034624,
+      "write": 0
+    }
+  },
+  "cost": 2.670995567999988,
+  "tools": {
+    "mode": "detail",
+    "totals": {
+      "calls": 5624,
+      "succeeded": 5590,
+      "failed": 34,
+      "unfinished": 0
+    },
+    "usage": [
+      {
+        "name": "shell",
+        "calls": 2901,
+        "succeeded": 2886,
+        "failed": 15,
+        "unfinished": 0,
+        "durationP50": 59
+      },
+      {
+        "name": "read",
+        "calls": 1114,
+        "succeeded": 1105,
+        "failed": 9,
+        "unfinished": 0,
+        "durationP50": 11
+      },
+      {
+        "name": "execute",
+        "calls": 499,
+        "succeeded": 499,
+        "failed": 0,
+        "unfinished": 0,
+        "durationP50": 107
+      },
+      {
+        "name": "edit",
+        "calls": 342,
+        "succeeded": 339,
+        "failed": 3,
+        "unfinished": 0,
+        "durationP50": 9
+      },
+      {
+        "name": "grep",
+        "calls": 316,
+        "succeeded": 314,
+        "failed": 2,
+        "unfinished": 0,
+        "durationP50": 26.5
+      },
+      {
+        "name": "webfetch",
+        "calls": 128,
+        "succeeded": 126,
+        "failed": 2,
+        "unfinished": 0,
+        "durationP50": 302.5
+      },
+      {
+        "name": "glob",
+        "calls": 85,
+        "succeeded": 85,
+        "failed": 0,
+        "unfinished": 0,
+        "durationP50": 33
+      },
+      {
+        "name": "subagent",
+        "calls": 72,
+        "succeeded": 72,
+        "failed": 0,
+        "unfinished": 0,
+        "durationP50": 47154
+      },
+      {
+        "name": "websearch",
+        "calls": 51,
+        "succeeded": 50,
+        "failed": 1,
+        "unfinished": 0,
+        "durationP50": 1754
+      },
+      {
+        "name": "todowrite",
+        "calls": 48,
+        "succeeded": 48,
+        "failed": 0,
+        "unfinished": 0,
+        "durationP50": 4.5
+      },
+      {
+        "name": "bash",
+        "calls": 40,
+        "succeeded": 39,
+        "failed": 1,
+        "unfinished": 0,
+        "durationP50": 61
+      },
+      {
+        "name": "skill",
+        "calls": 21,
+        "succeeded": 21,
+        "failed": 0,
+        "unfinished": 0,
+        "durationP50": 20
+      },
+      {
+        "name": "write",
+        "calls": 5,
+        "succeeded": 5,
+        "failed": 0,
+        "unfinished": 0,
+        "durationP50": 8
+      },
+      {
+        "name": "experimental_image_generate",
+        "calls": 1,
+        "succeeded": 1,
+        "failed": 0,
+        "unfinished": 0,
+        "durationP50": 9
+      },
+      {
+        "name": "question",
+        "calls": 1,
+        "succeeded": 0,
+        "failed": 1,
+        "unfinished": 0,
+        "durationP50": 9
+      }
+    ]
+  },
+  "activeDays": 3,
+  "streak": 2,
+  "activity": [
+    {
+      "date": "2026-11-12",
+      "steps": 411
+    },
+    {
+      "date": "2026-11-13",
+      "steps": 1670
+    },
+    {
+      "date": "2026-11-16",
+      "steps": 2340
+    }
+  ],
+  "models": [
+    {
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "steps": 4267,
+      "tokens": {
+        "input": 6537720,
+        "output": 943292,
+        "reasoning": 1314160,
+        "cache": {
+          "read": 111955456,
+          "write": 0
+        }
+      },
+      "cost": 2.670995567999988
+    },
+    {
+      "model": {
+        "id": "deepseek-v4.1-flash-free",
+        "providerID": "opencode",
+        "variant": "default"
+      },
+      "steps": 127,
+      "tokens": {
+        "input": 604988,
+        "output": 32278,
+        "reasoning": 59283,
+        "cache": {
+          "read": 4769920,
+          "write": 0
+        }
+      },
+      "cost": 0
+    },
+    {
+      "model": {
+        "id": "iceman-free",
+        "providerID": "opencode"
+      },
+      "steps": 27,
+      "tokens": {
+        "input": 273378,
+        "output": 5234,
+        "reasoning": 8139,
+        "cache": {
+          "read": 309248,
+          "write": 0
+        }
+      },
+      "cost": 0
+    }
+  ]
+}

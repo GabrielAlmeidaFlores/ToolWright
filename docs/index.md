@@ -1,6 +1,6 @@
 # ToolWright
 
-> **Status:** Stable · **Last verified:** 2026-11-16 · **Evidence:** `make ci` green locally with 734 static checks and 331 tests
+> **Status:** Stable · **Last verified:** 2026-11-16 · **Evidence:** `make ci` green locally with 827 static checks and 331 tests
 
 A provider-neutral multi-agent development toolkit with a fully verified OpenCode adapter and installer-generated adapters for GitHub Copilot, Claude Code, and OpenAI GPT/Codex. OpenCode is optional. It is built around four pillars:
 
@@ -38,11 +38,11 @@ The table below summarizes what has been verified and which evidence supports it
 
 | Area | State |
 |---|---|
-| Static validation | 734 checks, including provenance, permissions, comments, absolute links, and docs status |
+| Static validation | 827 checks, including provenance, permissions, comments, absolute links, and docs status |
 | Test suite | 331 offline tests on Ubuntu and macOS |
 | CLI | Wheel build, install lifecycle, profile/catalog verification, verification gates |
 | Catalog | 34 generated artifacts with drift enforcement |
-| Benchmarks | Three published result sets; the Hono cost A/B found no arm cheaper than stock |
+| Benchmarks | Four published result sets; no Hono arm beat stock, and the delegation contract was reverted |
 | Pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
 
 Claims link to local evidence or a CI run. Vendor claims are labelled; no benchmark result is published without correctness and rework data.

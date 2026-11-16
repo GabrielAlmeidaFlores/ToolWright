@@ -1,0 +1,81 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..5686c80 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -440,8 +440,33 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie().length).toBe(cookies.length + newCookies.length)
++    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
++  })
++
++  it('Should merge Set-Cookie headers set by middleware and by the handler', async () => {
++    c.res.headers.append('set-cookie', 'middleware=1; Path=/')
++    c.res = new Response('ok', {
++      headers: {
++        'set-cookie': 'handler=1; Path=/; HttpOnly',
++      },
++    })
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'middleware=1; Path=/',
++      'handler=1; Path=/; HttpOnly',
++    ])
++    expect(await c.res.text()).toBe('ok')
++  })
++
++  it('Should not duplicate Set-Cookie headers when the new response is built from `c.res`', async () => {
++    c.res = new Response('first', {
++      headers: {
++        'set-cookie': 'foo=bar; Path=/',
++      },
++    })
++    c.res = new Response('second', c.res)
++    expect(c.res.headers.getSetCookie()).toEqual(['foo=bar; Path=/'])
++    expect(await c.res.text()).toBe('second')
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..bf9282b 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -414,18 +414,29 @@ export class Context<
+   set res(_res: Response | undefined) {
+     if (this.#res && _res) {
+       _res = createResponseInstance(_res.body, _res)
++      // `Headers.entries()` yields one entry per `set-cookie`, so handle them
++      // once, outside the loop, and merge both sides instead of overwriting.
++      const currentCookies = this.#res.headers.getSetCookie()
+       for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
++        if (k === 'content-type' || k === 'set-cookie') {
+           continue
+         }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
++        _res.headers.set(k, v)
++      }
++      if (currentCookies.length > 0) {
++        const incomingCookies = _res.headers.getSetCookie()
++        _res.headers.delete('set-cookie')
++        const seen = new Set(currentCookies)
++        for (const cookie of currentCookies) {
++          _res.headers.append('set-cookie', cookie)
++        }
++        for (const cookie of incomingCookies) {
++          // Avoid duplicating cookies when `_res` was built from `this.#res`
++          // (e.g. `c.res = new Response(body, c.res)`).
++          if (!seen.has(cookie)) {
++            seen.add(cookie)
+             _res.headers.append('set-cookie', cookie)
+           }
+-        } else {
+-          _res.headers.set(k, v)
+         }
+       }
+     }

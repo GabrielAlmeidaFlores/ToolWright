@@ -1,0 +1,51 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..943bfc4 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -440,8 +440,23 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
++  })
++
++  it('Should preserve both middleware and handler Set-Cookie headers when reassigning c.res', () => {
++    const middlewareResponse = new Response(null)
++    middlewareResponse.headers.append('set-cookie', 'middleware=1; Path=/')
++    c.res = middlewareResponse
++
++    const handlerResponse = new Response('ok', {
++      headers: { 'set-cookie': 'handler=2; Path=/' },
++    })
++    c.res = handlerResponse
++
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'middleware=1; Path=/',
++      'handler=2; Path=/',
++    ])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..660f647 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -414,6 +414,7 @@ export class Context<
+   set res(_res: Response | undefined) {
+     if (this.#res && _res) {
+       _res = createResponseInstance(_res.body, _res)
++      const newCookies = _res.headers.getSetCookie()
+       for (const [k, v] of this.#res.headers.entries()) {
+         if (k === 'content-type') {
+           continue
+@@ -421,7 +422,7 @@ export class Context<
+         if (k === 'set-cookie') {
+           const cookies = this.#res.headers.getSetCookie()
+           _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
++          for (const cookie of [...cookies, ...newCookies]) {
+             _res.headers.append('set-cookie', cookie)
+           }
+         } else {

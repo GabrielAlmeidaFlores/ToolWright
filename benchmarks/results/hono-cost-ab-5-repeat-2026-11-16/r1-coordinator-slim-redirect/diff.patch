@@ -1,0 +1,57 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..1482f50 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -115,6 +115,36 @@ describe('Context', () => {
+     )
+   })
+ 
++  it('c.redirect() w/ CR', async () => {
++    const res = c.redirect('/destination\rX')
++    expect(res.headers.get('Location')).toBe('/destination%0DX')
++  })
++
++  it('c.redirect() w/ LF', async () => {
++    const res = c.redirect('/destination\nX')
++    expect(res.headers.get('Location')).toBe('/destination%0AX')
++  })
++
++  it('c.redirect() w/ CRLF injection attempt', async () => {
++    const res = c.redirect('/destination\r\nSet-Cookie: evil=1')
++    expect(res.headers.get('Location')).toBe('/destination%0D%0ASet-Cookie: evil=1')
++    expect(res.headers.get('Set-Cookie')).toBeNull()
++  })
++
++  it('c.redirect() preserves already percent-encoded CRLF', async () => {
++    const upper = 'https://example.com/%0D%0A'
++    const lower = 'https://example.com/?next=%0d%0a'
++    expect(c.redirect(upper).headers.get('Location')).toBe(upper)
++    expect(c.redirect(lower).headers.get('Location')).toBe(lower)
++  })
++
++  it('c.redirect() w/ multibytes and CRLF', async () => {
++    const res = c.redirect('https://example.com/こんにちは\r\nX')
++    expect(res.headers.get('Location')).toBe(
++      'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%0D%0AX'
++    )
++  })
++
+   const unchangedURLString = [
+     'https://example.com/%hello', // invalid ASCII chars
+     'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF?abc',
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..1c7e85e 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -774,7 +774,10 @@ export class Context<
+       'Location',
+       // Multibytes should be encoded
+       // eslint-disable-next-line no-control-regex
+-      !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
++      !/[^\x00-\xFF]/.test(locationString)
++        ? // CR and LF must be percent-encoded to prevent HTTP header injection (response splitting)
++          locationString.replace(/[\r\n]/g, (char) => (char === '\r' ? '%0D' : '%0A'))
++        : encodeURI(locationString)
+     )
+     return this.newResponse(null, status ?? 302) as any
+   }

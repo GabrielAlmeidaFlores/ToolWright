@@ -1,0 +1,85 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..4f548f3 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -440,8 +440,25 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    // Cookies from both responses must survive. Dropping either one silently
++    // loses a `Set-Cookie` header that was explicitly set.
++    expect(c.res.headers.getSetCookie().length).toBe(cookies.length + newCookies.length)
++    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
++  })
++
++  it('Should keep both cookies when a new Response has its own Set-Cookie header', () => {
++    // Middleware has already set a cookie on the context response.
++    c.res.headers.append('set-cookie', 'middleware=1; Path=/')
++
++    // The handler replaces it with a Response carrying its own cookie.
++    const handlerResponse = new Response('ok')
++    handlerResponse.headers.append('set-cookie', 'handler=1; Path=/; HttpOnly')
++    c.res = handlerResponse
++
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'middleware=1; Path=/',
++      'handler=1; Path=/; HttpOnly',
++    ])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..335b497 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -412,22 +412,38 @@ export class Context<
+    * @param _res - The Response object to set.
+    */
+   set res(_res: Response | undefined) {
+-    if (this.#res && _res) {
++    // Headers set by `c.header()` may still be staged in `#preparedHeaders`
++    // until something reads `c.res`, so fall back to them when `#res` is absent.
++    const headers = this.#res?.headers ?? this.#preparedHeaders
++    if (headers && _res) {
+       _res = createResponseInstance(_res.body, _res)
+-      for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
+-          continue
++
++      // `Set-Cookie` is the only header that can legitimately appear more than
++      // once. Merge both sides instead of replacing the new response's cookies.
++      const contextCookies = headers.getSetCookie()
++      const responseCookies = _res.headers.getSetCookie()
++
++      for (const [k, v] of headers.entries()) {
++        if (k !== 'content-type' && k !== 'set-cookie') {
++          _res.headers.set(k, v)
++        }
++      }
++
++      if (contextCookies.length > 0) {
++        const cookies = new Set(contextCookies)
++        _res.headers.delete('set-cookie')
++        for (const cookie of contextCookies) {
++          _res.headers.append('set-cookie', cookie)
+         }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
++        for (const cookie of responseCookies) {
++          if (!cookies.has(cookie)) {
+             _res.headers.append('set-cookie', cookie)
+           }
+-        } else {
+-          _res.headers.set(k, v)
+         }
+       }
++    } else if (!_res) {
++      // Discarding the response also discards headers that were never applied.
++      this.#preparedHeaders = undefined
+     }
+     this.#res = _res
+     this.finalized = true

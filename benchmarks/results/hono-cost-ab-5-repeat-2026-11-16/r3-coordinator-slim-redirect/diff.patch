@@ -1,0 +1,86 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..6c605f7 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -115,6 +115,59 @@ describe('Context', () => {
+     )
+   })
+ 
++  it('c.redirect() encodes raw CR', () => {
++    const res = c.redirect('/foo\rbar')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/foo%0Dbar')
++  })
++
++  it('c.redirect() encodes raw LF', () => {
++    const res = c.redirect('/foo\nbar')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/foo%0Abar')
++  })
++
++  it('c.redirect() encodes raw CRLF (header injection attempt)', () => {
++    const res = c.redirect('/destination\r\nSet-Cookie: injected=1')
++    expect(res.status).toBe(302)
++    const location = res.headers.get('Location')
++    expect(location).toBe('/destination%0D%0ASet-Cookie: injected=1')
++    expect(location).not.toMatch(/[\r\n]/)
++  })
++
++  it('c.redirect() does not double-encode percent-encoded CRLF', () => {
++    const res = c.redirect('https://example.com/%0d%0a')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('https://example.com/%0d%0a')
++  })
++
++  it('c.redirect() does not double-encode percent-encoded URL components', () => {
++    const location = 'https://example.com/redirect?url=https%3A%2F%2Fexample.com&q=a%20b'
++    const res = c.redirect(location)
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe(location)
++  })
++
++  it('c.redirect() encodes raw CRLF after multibyte encoding without double-encoding', () => {
++    const res = c.redirect('/こんにちは\r\n')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%0D%0A')
++  })
++
++  it('c.redirect() encodes raw CRLF in an absolute URL', () => {
++    const res = c.redirect('https://example.com/a\r\nb')
++    expect(res.status).toBe(302)
++    const location = res.headers.get('Location')
++    expect(location).toBe('https://example.com/a%0D%0Ab')
++    expect(location).not.toMatch(/[\r\n]/)
++  })
++
++  it('c.redirect() preserves uppercase percent-encoded CRLF', () => {
++    const res = c.redirect('https://example.com/%0D%0A')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('https://example.com/%0D%0A')
++  })
++
+   const unchangedURLString = [
+     'https://example.com/%hello', // invalid ASCII chars
+     'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF?abc',
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..f894c8e 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -770,12 +770,13 @@ export class Context<
+     status?: T
+   ): Response & TypedResponse<undefined, T, 'redirect'> => {
+     const locationString = String(location)
+-    this.header(
+-      'Location',
+-      // Multibytes should be encoded
++    // Multibytes should be encoded
++    const encodedLocation =
+       // eslint-disable-next-line no-control-regex
+       !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
+-    )
++    // Raw CR and LF must be encoded to prevent header injection.
++    // This has to run after `encodeURI`, otherwise the `%0D`/`%0A` it produces would become `%250D`/`%250A`.
++    this.header('Location', encodedLocation.replace(/\r/g, '%0D').replace(/\n/g, '%0A'))
+     return this.newResponse(null, status ?? 302) as any
+   }
+ 

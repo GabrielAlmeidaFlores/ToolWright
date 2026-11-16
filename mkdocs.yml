@@ -103,6 +103,7 @@ nav:
       - DeepSeek Flash results: benchmarks/results-deepseek-flash.md
       - Real Hono tool matrix: benchmarks/real-hono-tool-matrix.md
       - Hono cost A/B results: benchmarks/results-hono-cost-ab.md
+      - Hono delegation screen: benchmarks/results-hono-delegation-screen.md
       - Real Hono fixtures: benchmarks/real-hono-fixtures.md
       - Cost and performance plan: plans/cost-performance-optimization.md
   - Research:

@@ -1,0 +1,74 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..34224a6 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -115,6 +115,44 @@ describe('Context', () => {
+     )
+   })
+ 
++  it('c.redirect() encodes raw CR to prevent header injection', () => {
++    const res = c.redirect('/destination\rX-Injected: 1')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0DX-Injected: 1')
++    expect(res.headers.get('X-Injected')).toBeNull()
++  })
++
++  it('c.redirect() encodes raw LF to prevent header injection', () => {
++    const res = c.redirect('/destination\nX-Injected: 1')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0AX-Injected: 1')
++    expect(res.headers.get('X-Injected')).toBeNull()
++  })
++
++  it('c.redirect() encodes raw CRLF to prevent header injection', () => {
++    const res = c.redirect('/destination\r\nX-Injected: 1')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0D%0AX-Injected: 1')
++    expect(res.headers.get('X-Injected')).toBeNull()
++  })
++
++  it('c.redirect() does not double-encode percent-encoded CRLF', () => {
++    const res = c.redirect('/destination%0D%0AX-Injected: 1')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0D%0AX-Injected: 1')
++    expect(res.headers.get('X-Injected')).toBeNull()
++  })
++
++  it('c.redirect() encodes raw CRLF in multibyte locations', () => {
++    const res = c.redirect('https://example.com/こんにちは\r\nX-Injected: 1')
++    expect(res.status).toBe(302)
++    // `encodeURI` (multibyte branch) also turns the space into `%20`.
++    expect(res.headers.get('Location')).toBe(
++      'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%0D%0AX-Injected:%201'
++    )
++    expect(res.headers.get('X-Injected')).toBeNull()
++  })
++
+   const unchangedURLString = [
+     'https://example.com/%hello', // invalid ASCII chars
+     'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF?abc',
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..ee81be0 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -770,12 +770,17 @@ export class Context<
+     status?: T
+   ): Response & TypedResponse<undefined, T, 'redirect'> => {
+     const locationString = String(location)
+-    this.header(
+-      'Location',
++    const encodedLocation =
+       // Multibytes should be encoded
+       // eslint-disable-next-line no-control-regex
+       !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
+-    )
++    // Raw CR/LF must never reach the `Location` header: depending on the runtime
++    // `Headers.set()` either throws or allows header injection. The latin1 fast
++    // path above passes the string through unchanged, so percent-encode CR/LF
++    // here. This runs after the branch so already percent-encoded input
++    // (e.g. `%0D%0A`) is not double-encoded (`encodeURI` already encodes CR/LF).
++    const safeLocation = encodedLocation.replace(/\r/g, '%0D').replace(/\n/g, '%0A')
++    this.header('Location', safeLocation)
+     return this.newResponse(null, status ?? 302) as any
+   }
+ 

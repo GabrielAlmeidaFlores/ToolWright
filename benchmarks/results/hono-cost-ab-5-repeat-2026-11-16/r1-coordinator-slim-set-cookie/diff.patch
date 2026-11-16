@@ -1,0 +1,91 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..46663cf 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -440,8 +440,33 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    const setCookies = c.res.headers.getSetCookie()
++    expect(setCookies.length).toBe(cookies.length + newCookies.length)
++    expect(setCookies).toEqual(expect.arrayContaining([...cookies, ...newCookies]))
++  })
++
++  it('Should keep cookies from both the previous and the new Response', () => {
++    // Middleware sets a cookie on `c.res`
++    c.res = new Response(null, {
++      headers: {
++        'set-cookie': 'old=old-value; Path=/',
++      },
++    })
++
++    // Handler assigns a new Response with its own, different cookie
++    c.res = new Response('body', {
++      headers: {
++        'set-cookie': 'new=new-value; Path=/',
++      },
++    })
++
++    const setCookies = c.res.headers.getSetCookie()
++    expect(setCookies.length).toBe(2)
++    expect(setCookies).toEqual(
++      expect.arrayContaining(['old=old-value; Path=/', 'new=new-value; Path=/'])
++    )
++    expect(setCookies.filter((cookie) => cookie === 'old=old-value; Path=/').length).toBe(1)
++    expect(setCookies.filter((cookie) => cookie === 'new=new-value; Path=/').length).toBe(1)
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..1c94146 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -290,6 +290,15 @@ const createResponseInstance = (
+   init?: globalThis.ResponseInit
+ ): Response => new Response(body, init)
+ 
++const getSetCookieValues = (headers: Headers): string[] => {
++  if (typeof headers.getSetCookie === 'function') {
++    return headers.getSetCookie()
++  }
++  return Array.from(headers.entries())
++    .filter(([k]) => k === 'set-cookie')
++    .map(([, v]) => v)
++}
++
+ export class Context<
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   E extends Env = any,
+@@ -414,18 +423,21 @@ export class Context<
+   set res(_res: Response | undefined) {
+     if (this.#res && _res) {
+       _res = createResponseInstance(_res.body, _res)
++      const cookies = this.#res.headers.has('set-cookie')
++        ? getSetCookieValues(this.#res.headers)
++        : []
++      const newCookies = _res.headers.has('set-cookie') ? getSetCookieValues(_res.headers) : []
+       for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
++        // `entries()` may coalesce multiple `set-cookie` values, so they are handled below
++        if (k === 'content-type' || k === 'set-cookie') {
+           continue
+         }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
+-            _res.headers.append('set-cookie', cookie)
+-          }
+-        } else {
+-          _res.headers.set(k, v)
++        _res.headers.set(k, v)
++      }
++      if (cookies.length) {
++        _res.headers.delete('set-cookie')
++        for (const cookie of new Set([...newCookies, ...cookies])) {
++          _res.headers.append('set-cookie', cookie)
+         }
+       }
+     }

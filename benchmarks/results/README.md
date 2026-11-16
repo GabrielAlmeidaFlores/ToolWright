@@ -6,6 +6,8 @@ The real-repository tool matrix is [`real-hono-tool-matrix-2026-11-13/`](https:/
 
 The benchmark-arm A/B is [`hono-cost-ab-2026-11-16/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/results/hono-cost-ab-2026-11-16), summarized in the [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md).
 
+The five-repeat confirmation is [`hono-cost-ab-5-repeat-2026-11-16/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/results/hono-cost-ab-5-repeat-2026-11-16), summarized in the [Hono delegation contract screen](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-delegation-screen.md).
+
 A result is accepted only if it includes:
 
 - `meta.json` with commit, model ID and variant, arm, and task

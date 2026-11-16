@@ -1,0 +1,77 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..a6133ac 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -440,8 +440,35 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie().length).toBe(cookies.length + newCookies.length)
++    expect(c.res.headers.getSetCookie()).toEqual(
++      expect.arrayContaining([...cookies, ...newCookies])
++    )
++  })
++
++  it('Should keep both existing and new Set-Cookie headers when re-assigning Response to `c.res`', () => {
++    c.res.headers.append('set-cookie', 'middleware=1; Path=/')
++
++    const newResponse = new Response(null, {
++      headers: {
++        'set-cookie': 'handler=1; Path=/',
++      },
++    })
++    c.res = newResponse
++
++    const actual = c.res.headers.getSetCookie()
++    expect(actual.length).toBe(2)
++    expect(actual).toEqual(expect.arrayContaining(['middleware=1; Path=/', 'handler=1; Path=/']))
++  })
++
++  it('Should not duplicate Set-Cookie headers when assigning the same Response to `c.res`', () => {
++    const res = new Response(null)
++    res.headers.append('set-cookie', 'foo=bar; Path=/')
++    res.headers.append('set-cookie', 'foo2=bar2; Path=/')
++    c.res = res
++    c.res = c.res
++    expect(c.res).toBe(res)
++    expect(c.res.headers.getSetCookie()).toEqual(['foo=bar; Path=/', 'foo2=bar2; Path=/'])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..3df1b02 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -413,20 +413,19 @@ export class Context<
+    */
+   set res(_res: Response | undefined) {
+     if (this.#res && _res) {
+-      _res = createResponseInstance(_res.body, _res)
+-      for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
+-          continue
+-        }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
+-            _res.headers.append('set-cookie', cookie)
++      const existingResponse = this.#res
++      if (existingResponse !== _res) {
++        const existingCookies = existingResponse.headers.getSetCookie()
++        _res = createResponseInstance(_res.body, _res)
++        for (const [k, v] of existingResponse.headers.entries()) {
++          if (k === 'content-type' || k === 'set-cookie') {
++            continue
+           }
+-        } else {
+           _res.headers.set(k, v)
+         }
++        for (const cookie of existingCookies) {
++          _res.headers.append('set-cookie', cookie)
++        }
+       }
+     }
+     this.#res = _res

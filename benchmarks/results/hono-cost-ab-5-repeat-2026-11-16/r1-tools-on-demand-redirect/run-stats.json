@@ -1,0 +1,18 @@
+{
+  "steps": 9,
+  "tokens": {
+    "input": 14485,
+    "output": 2332,
+    "reasoning": 4290,
+    "cache": {
+      "read": 158080,
+      "write": 0
+    }
+  },
+  "cost": 0.00662019,
+  "tools": {
+    "calls": 11
+  },
+  "prompts": 1,
+  "cache_hit_ratio": 0.9161
+}

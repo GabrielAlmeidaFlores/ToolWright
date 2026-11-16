@@ -1,0 +1,80 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..165414a 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -435,13 +435,39 @@ describe('Context header', () => {
+     c.res = res
+     expect(c.res.headers.getSetCookie().length).toBe(2)
+ 
+-    // Re-assign
++    // Re-assign: both the previous cookies and the new one must survive
+     const newCookies = ['foo3=bar3; Path=/']
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie()).toEqual([...newCookies, ...cookies])
++  })
++
++  it('Should keep both middleware and handler cookies when re-assigning `c.res`', () => {
++    // Simulate middleware setting a cookie on `c.res` before the handler runs
++    c.res.headers.append('set-cookie', 'middleware=1; Path=/')
++
++    // Simulate a handler returning a new Response with its own cookie
++    const handlerResponse = new Response('ok', {
++      headers: {
++        'set-cookie': 'handler=1; Path=/',
++      },
++    })
++    c.res = handlerResponse
++
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'handler=1; Path=/',
++      'middleware=1; Path=/',
++    ])
++  })
++
++  it('Should not duplicate cookies already copied to the new response', () => {
++    c.res.headers.append('set-cookie', 'foo=bar; Path=/')
++
++    const res = c.json({ message: 'Hello' })
++    c.res = res
++
++    expect(c.res.headers.getSetCookie()).toEqual(['foo=bar; Path=/'])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..a1aaac5 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -414,18 +414,19 @@ export class Context<
+   set res(_res: Response | undefined) {
+     if (this.#res && _res) {
+       _res = createResponseInstance(_res.body, _res)
++      const cookies = this.#res.headers.getSetCookie()
+       for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
++        if (k === 'content-type' || k === 'set-cookie') {
+           continue
+         }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
+-            _res.headers.append('set-cookie', cookie)
+-          }
+-        } else {
+-          _res.headers.set(k, v)
++        _res.headers.set(k, v)
++      }
++      // Keep the cookies set on the new response and merge in the ones that
++      // were already set on `c.res` (e.g. by middleware) without duplicates.
++      const existingCookies = new Set(_res.headers.getSetCookie())
++      for (const cookie of cookies) {
++        if (!existingCookies.has(cookie)) {
++          _res.headers.append('set-cookie', cookie)
+         }
+       }
+     }
