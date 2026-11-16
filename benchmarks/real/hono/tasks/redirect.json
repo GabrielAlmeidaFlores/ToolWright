@@ -1,0 +1,18 @@
+{
+  "id": "hono-redirect",
+  "title": "Harden c.redirect against header injection",
+  "commit": "f6fbaf0299c48eea9e656e03e2ffe7ac755e8823",
+  "prompt": "Fix the header injection risk in Hono's c.redirect. Percent-encode CR and LF in the Location header while preserving valid redirect responses. Add regression tests for raw CR/LF and percent-encoded inputs in src/context.test.ts. Run pnpm exec vp test --run src/context.test.ts.",
+  "acceptance": [
+    "CR and LF are encoded or rejected",
+    "Valid redirects preserve their Location",
+    "Tests cover raw and encoded inputs",
+    "pnpm exec vp test --run src/context.test.ts passes"
+  ],
+  "verification": "pnpm exec vp test --run src/context.test.ts",
+  "areas": ["src/context.ts", "src/context.test.ts"],
+  "max_wall_time_seconds": 900,
+  "working_directory": ".",
+  "source": "docs/pilots/results/code-round-hono.md",
+  "license": "MIT"
+}

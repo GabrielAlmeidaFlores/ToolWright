@@ -5,6 +5,7 @@ Side effects: none.
 """
 from __future__ import annotations
 from tests.constants import (
+    KEY_OPTIMIZED,
     KEY_A,
     KEY_AGENT,
     KEY_ARM,
@@ -47,7 +48,6 @@ KEY_COMPLETED = 'completed'
 KEY_COST_RATIO = 'cost_ratio'
 KEY_ERROR = 'error'
 KEY_INPUT_TOKENS = 'input_tokens'
-KEY_OPTIMIZED = 'optimized'
 KEY_OPTIMIZED_COST = 'optimized_cost'
 KEY_OPTIMIZED_RUNS = 'optimized_runs'
 KEY_OUTPUT_TOKENS = 'output_tokens'

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Name: Benchmark runner
 # Purpose: Runs one baseline or optimized benchmark arm, records session and statistics artifacts, and executes the task verification command.
-# Usage: ./benchmarks/harness/run.sh --arm baseline|optimized --task <file.json> [--run-id ID] [--dry-run]
-# Arguments: --arm selects the configuration, --task selects the task definition, --run-id sets the output directory name, --dry-run prints the command.
+# Usage: ./benchmarks/harness/run.sh --arm baseline|optimized --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]
+# Arguments: --arm selects the configuration, --task selects the task definition, --workspace sets the target repository root, --run-id sets the output directory name, --dry-run prints the command.
 # Environment: Requires bash, python3, and git. opencode is required to execute a run but not for --dry-run. OPENCODE_BENCH_MODEL must be a provider/model#variant identifier for execution.
 # Outputs: Writes meta.json, session.jsonl, stats.json, run-stats.json, export.json, verification.log, and notes.md under benchmarks/results/<run-id>.
 # Side effects: Executes opencode with --auto in a non-interactive session; use a disposable checkout.
@@ -12,6 +12,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 ARM=""
 TASK=""
+WORKSPACE=""
 RUN_ID=""
 DRY=0
 
@@ -21,7 +22,7 @@ DRY=0
 # Returns: None.
 # Side effects: Writes to standard output.
 usage() {
-  echo "usage: $0 --arm baseline|optimized --task <file.json> [--run-id ID] [--dry-run]"
+  echo "usage: $0 --arm baseline|optimized --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]"
   echo "environment: OPENCODE_BENCH_MODEL=provider/model#variant is required for execution"
 }
 
@@ -29,6 +30,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --arm) ARM="${2:-}"; shift 2 ;;
     --task) TASK="${2:-}"; shift 2 ;;
+    --workspace) WORKSPACE="${2:-}"; shift 2 ;;
     --run-id) RUN_ID="${2:-}"; shift 2 ;;
     --dry-run) DRY=1; shift ;;
     -h|--help) usage; exit 0 ;;
@@ -63,7 +65,9 @@ print(
 PY
 )
 
-PROJECT_DIR="$ROOT/$WORKDIR"
+WORKSPACE="${WORKSPACE:-$ROOT}"
+[[ -d "$WORKSPACE" ]] || { echo "working directory not found: $WORKSPACE"; exit 2; }
+PROJECT_DIR="$WORKSPACE/$WORKDIR"
 [[ -d "$PROJECT_DIR" ]] || { echo "working directory not found: $PROJECT_DIR"; exit 2; }
 
 RUN_ID="${RUN_ID:-$ARM-$TASK_ID-$(date +%Y%m%d-%H%M%S)}"
@@ -79,10 +83,14 @@ case "$ARM" in
     AGENT="build"
     ;;
   optimized)
-    CONFIG="$ROOT/configs/opencode/opencode.jsonc"
+    CONFIG="$WORKSPACE/.opencode/opencode.jsonc"
     AGENT="coordinator"
-    if [[ ! -f "$ROOT/.opencode/agents/coordinator.md" ]]; then
-      echo "optimized arm requires .opencode/agents/coordinator.md (run the installer)"
+    if [[ ! -f "$CONFIG" ]]; then
+      echo "optimized arm requires $CONFIG (run the installer)"
+      exit 2
+    fi
+    if [[ ! -f "$WORKSPACE/.opencode/agents/coordinator.md" ]]; then
+      echo "optimized arm requires $WORKSPACE/.opencode/agents/coordinator.md (run the installer)"
       exit 2
     fi
     ;;
@@ -90,6 +98,7 @@ case "$ARM" in
 esac
 
 COMMIT="$(git -C "$ROOT" rev-parse HEAD 2>/dev/null || echo unknown)"
+TARGET_COMMIT="$(git -C "$WORKSPACE" rev-parse HEAD 2>/dev/null || echo unknown)"
 MODEL="${OPENCODE_BENCH_MODEL:-}"
 if [[ "$DRY" != "1" && -z "$MODEL" ]]; then
   echo "OPENCODE_BENCH_MODEL is required, for example provider/model or provider/model#variant"
@@ -100,19 +109,24 @@ echo "arm=$ARM task=$TASK_ID run=$RUN_ID"
 echo "config=$CONFIG agent=$AGENT commit=$COMMIT workdir=$WORKDIR max_wall=${MAX_WALL}s"
 
 if [[ "$DRY" == "1" ]]; then
-  echo "would run: OPENCODE_CONFIG=$CONFIG opencode run --agent $AGENT --model ${MODEL:-<provider/model>} --auto --format json <prompt>"
+  echo "would run: XDG_CONFIG_HOME=<temp> PWD=$PROJECT_DIR OPENCODE_CONFIG=$CONFIG opencode --standalone run --agent $AGENT --model ${MODEL:-<provider/model>} --auto --format json <prompt>"
   exit 0
 fi
 
 mkdir -p "$OUT"
 
-python3 - "$OUT/meta.json" "$RUN_ID" "$ARM" "$TASK" "$TASK_ID" "$COMMIT" "$MODEL" "$AGENT" "$MAX_WALL" "$WORKDIR" <<'PY'
+BENCH_HOME="$(mktemp -d "${TMPDIR:-/tmp}/toolwright-bench.XXXXXX")"
+trap 'rm -rf "$BENCH_HOME"' EXIT
+export XDG_CONFIG_HOME="$BENCH_HOME/config"
+mkdir -p "$XDG_CONFIG_HOME"
+
+python3 - "$OUT/meta.json" "$RUN_ID" "$ARM" "$TASK" "$TASK_ID" "$COMMIT" "$MODEL" "$AGENT" "$MAX_WALL" "$WORKDIR" "$WORKSPACE" "$TARGET_COMMIT" <<'PY'
 import datetime
 import json
 import subprocess
 import sys
 
-out, run_id, arm, task, task_id, commit, model, agent, max_wall, workdir = sys.argv[1:]
+out, run_id, arm, task, task_id, commit, model, agent, max_wall, workdir, workspace, target_commit = sys.argv[1:]
 json.dump(
     {
         "run_id": run_id,
@@ -120,7 +134,9 @@ json.dump(
         "task_file": task,
         "task_id": task_id,
         "working_directory": workdir,
+        "workspace": workspace,
         "commit": commit,
+        "target_commit": target_commit,
         "model": model,
         "agent": agent,
         "max_wall_time_seconds": int(max_wall),
@@ -138,7 +154,7 @@ cd "$PROJECT_DIR"
 
 START=$(date +%s)
 set +e
-OPENCODE_CONFIG="$CONFIG" opencode run --agent "$AGENT" --model "$MODEL" --auto --format json "$PROMPT" \
+XDG_CONFIG_HOME="$XDG_CONFIG_HOME" PWD="$PROJECT_DIR" OPENCODE_CONFIG="$CONFIG" opencode --standalone run --agent "$AGENT" --model "$MODEL" --auto --format json "$PROMPT" \
   > "$OUT/session.jsonl" 2> "$OUT/session.err"
 RUN_RC=$?
 set -e

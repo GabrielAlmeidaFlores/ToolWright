@@ -74,6 +74,8 @@ OPENCODE_BENCH_MODEL=provider/model ./benchmarks/harness/run.sh --arm baseline -
 OPENCODE_BENCH_MODEL=provider/model ./benchmarks/harness/run.sh --arm optimized --task benchmarks/tasks/ts-validation.json
 ```
 
+Real Hono fixtures are documented in [real Hono fixtures](real-hono-fixtures.md); the task files live under `benchmarks/real/hono/`. For a real repository, add `--workspace /path/to/checkout`. The harness runs `opencode --standalone` with a temporary `XDG_CONFIG_HOME`, so global MCP servers do not leak into the run. The target repository's commit is recorded as `target_commit`.
+
 For an agent-assisted run, use the sourced `perf` command ([`commands/perf.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/commands/perf.md)) or run the harness directly.
 
 

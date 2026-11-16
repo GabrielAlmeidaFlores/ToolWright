@@ -9,6 +9,8 @@ All notable changes to this repository are documented here.
 ### Added
 
 - Real-repository tool matrix on `honojs/hono`: 27 code-change runs, 9 capability probes, and one Ralph research run, with per-tool coverage and limitations.
+- Cost and performance optimization plan covering task routing, direct-agent defaults, tool policies, reasoning/output budgets, selective verification gates, and an A/B validation matrix.
+- [Cost and performance optimization plan](docs/plans/cost-performance-optimization.md).
 
 ### Fixed
 

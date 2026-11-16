@@ -15,14 +15,17 @@ from tests.integration.test_entrypoints_strings import (
     FLAG_ONLY,
     FLAG_TARGET,
     FLAG_TASK,
+    FLAG_WORKSPACE,
     KEY_AGENTS,
     KEY_BASELINE,
     KEY_BASH,
     KEY_NONSENSE,
+    KEY_OPTIMIZED,
     KEY_PROJECT,
     KEY_PYTHON3,
     TEXT_BENCHMARKS_HARNESS_RUN_SH,
     TEXT_ADAPTER_DISCOVERY_HEADER,
+    TEXT_BENCHMARKS_REAL_HONO_SET_COOKIE,
     TEXT_BENCHMARKS_TASKS,
     TEXT_CHECKED_D,
     TEXT_DEFAULT_MODE_MUST_NOT_CREATE_THE_TARGET,
@@ -48,6 +51,8 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+
+from tests.constants import EMPTY_STRING, TEXT_OPENCODE, TEXT_OPENCODE_AGENTS_COORDINATOR_MD, TEXT_OPENCODE_JSONC, TEXT_UTF_8
 
 from tests import support
 
@@ -122,6 +127,58 @@ class BenchmarkHarnessTests(unittest.TestCase):
             )
             self.assertEqual(result.returncode, 0, TEXT_TASK_ERROR.format(task.name, result.stderr))
             self.assertIn(TEXT_WOULD_RUN, result.stdout, task.name)
+
+    def test_dry_run_accepts_workspace(self) -> None:
+        task = next((REPO_ROOT / TEXT_BENCHMARKS_TASKS).glob(TEXT_JSON))
+        result = subprocess.run(
+            [
+                KEY_BASH,
+                TEXT_BENCHMARKS_HARNESS_RUN_SH,
+                FLAG_ARM,
+                KEY_BASELINE,
+                FLAG_TASK,
+                str(task),
+                FLAG_WORKSPACE,
+                str(REPO_ROOT),
+                FLAG_DRY_RUN,
+            ],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=60,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(TEXT_WOULD_RUN, result.stdout)
+
+    def test_dry_run_accepts_optimized_workspace(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            agent = workspace / TEXT_OPENCODE_AGENTS_COORDINATOR_MD
+            agent.parent.mkdir(parents=True)
+            agent.write_text(EMPTY_STRING, encoding=TEXT_UTF_8)
+            config = workspace / TEXT_OPENCODE / TEXT_OPENCODE_JSONC
+            config.write_text(EMPTY_STRING, encoding=TEXT_UTF_8)
+            result = subprocess.run(
+                [
+                    KEY_BASH,
+                    TEXT_BENCHMARKS_HARNESS_RUN_SH,
+                    FLAG_ARM,
+                    KEY_OPTIMIZED,
+                    FLAG_TASK,
+                    TEXT_BENCHMARKS_REAL_HONO_SET_COOKIE,
+                    FLAG_WORKSPACE,
+                    str(workspace),
+                    FLAG_DRY_RUN,
+                ],
+                cwd=REPO_ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=60,
+            )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn(TEXT_WOULD_RUN, result.stdout)
 
     def test_dry_run_rejects_unknown_arm(self) -> None:
         task = next((REPO_ROOT / TEXT_BENCHMARKS_TASKS).glob(TEXT_JSON))

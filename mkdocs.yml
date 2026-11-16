@@ -102,6 +102,8 @@ nav:
       - Benchmark methodology: benchmarks/methodology.md
       - DeepSeek Flash results: benchmarks/results-deepseek-flash.md
       - Real Hono tool matrix: benchmarks/real-hono-tool-matrix.md
+      - Real Hono fixtures: benchmarks/real-hono-fixtures.md
+      - Cost and performance plan: plans/cost-performance-optimization.md
   - Research:
       - Baseline: research/baseline.md
       - Phase 1 report: research/phase1-research-report.md

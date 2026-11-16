@@ -721,7 +721,7 @@ This repository distinguishes **verified**, **documented**, and **not yet measur
 | Benchmarks | Two published result sets: DeepSeek Flash examples and a real Hono tool matrix; neither shows a cost win for the optimized configuration |
 | Real-repository pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
 | CI | Green on Ubuntu and macOS for run [43402329992](https://github.com/GabrielAlmeidaFlores/ToolWright/actions/runs/43402329992); nine jobs |
-| Repository tests | 305 unit and integration tests |
+| Repository tests | 307 unit and integration tests |
 | `toolwright` CLI | Install, uninstall, update check, rollback, doctor verified locally and in the `cli` job |
 | Profiles and catalog | Three manifests and 34 catalog entries verified locally and in CI |
 | Verification and governance | `toolwright verify` and `toolwright govern contracts` verified locally; CI runs both |

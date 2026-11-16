@@ -5,6 +5,7 @@ Side effects: none.
 """
 from __future__ import annotations
 from tests.constants import (
+    KEY_OPTIMIZED,
     FLAG_DRY_RUN,
     FLAG_ONLY,
     FLAG_TARGET,
@@ -21,8 +22,10 @@ from tests.constants import (
 
 FLAG_ARM = '--arm'
 FLAG_TASK = '--task'
+FLAG_WORKSPACE = '--workspace'
 KEY_PYTHON3 = 'python3'
 TEXT_BENCHMARKS_HARNESS_RUN_SH = 'benchmarks/harness/run.sh'
+TEXT_BENCHMARKS_REAL_HONO_SET_COOKIE = 'benchmarks/real/hono/tasks/set-cookie.json'
 TEXT_BENCHMARKS_TASKS = 'benchmarks/tasks'
 TEXT_CHECKED_D = 'checked: \\d+'
 TEXT_DEFAULT_MODE_MUST_NOT_CREATE_THE_TARGET = 'default mode must not create the target'
