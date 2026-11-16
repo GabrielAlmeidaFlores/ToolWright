@@ -1,0 +1,17 @@
+{
+  "run_id": "r3-baseline-request-id",
+  "repeat": 3,
+  "arm": "baseline",
+  "task_id": "request-id",
+  "template": "base",
+  "prompt": "Add a trustIncoming?: boolean option to Hono's requestId middleware. It must default to true to preserve existing behavior. When false, ignore any incoming request ID header and always use the configured generator while still exposing the generated value through c.get('requestId') and the response header. Add tests for both modes and run pnpm exec vp test --run src/middleware/request-id/index.test.ts.",
+  "agent": "build",
+  "model": "deepseek/deepseek-flash",
+  "opencode": "opencode v2.2.7",
+  "started_at": "2026-11-14T00:28:27Z",
+  "finished_at": "2026-11-14T00:28:43Z",
+  "wall_time_seconds": 16.2,
+  "run_exit": 0,
+  "verification_exit": 0,
+  "verification_seconds": 0.7
+}

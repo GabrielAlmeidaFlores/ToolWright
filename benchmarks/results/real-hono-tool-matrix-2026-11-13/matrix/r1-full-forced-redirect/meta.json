@@ -1,0 +1,17 @@
+{
+  "run_id": "r1-full-forced-redirect",
+  "repeat": 1,
+  "arm": "full-forced",
+  "task_id": "redirect",
+  "template": "minimal",
+  "prompt": "Fix the header injection risk in Hono's c.redirect. Percent-encode CR and LF in the Location header while preserving valid redirect responses. Add regression tests for raw CR/LF and percent-encoded inputs in src/context.test.ts. Run pnpm exec vp test --run src/context.test.ts.\n\nBefore editing, use Serena semantic tools to locate the relevant symbols. Use ast-grep from the shell for structural search. Load the systematic-debugging skill. After implementing, ask the code-reviewer subagent to review the diff. In your final response, list which tools and subagents you used.",
+  "agent": "coordinator",
+  "model": "deepseek/deepseek-flash",
+  "opencode": "opencode v2.2.7",
+  "started_at": "2026-11-14T00:08:29Z",
+  "finished_at": "2026-11-14T00:11:53Z",
+  "wall_time_seconds": 203.7,
+  "run_exit": 0,
+  "verification_exit": 0,
+  "verification_seconds": 0.7
+}

@@ -718,7 +718,7 @@ This repository distinguishes **verified**, **documented**, and **not yet measur
 | Command runtime | All eight commands verified on the TypeScript fixture through the reference adapter |
 | Skill runtime | All ten skills verified through the `skill` tool |
 | MCP startup overhead | Narrow `debug agents` measurement recorded |
-| Benchmarks | One published DeepSeek Flash result set on the OpenCode reference adapter; optimized configuration cost 14.2% more overall, with task-dependent wins and losses |
+| Benchmarks | Two published result sets: DeepSeek Flash examples and a real Hono tool matrix; neither shows a cost win for the optimized configuration |
 | Real-repository pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
 | CI | Green on Ubuntu and macOS for run [43402329992](https://github.com/GabrielAlmeidaFlores/ToolWright/actions/runs/43402329992); nine jobs |
 | Repository tests | 305 unit and integration tests |
@@ -831,10 +831,11 @@ See [testing the repository](docs/architecture/testing.md) and [CI diagnosis](do
 
 ## Benchmarks
 
-The benchmark harness is reproducible and the question is tool-neutral. The first result set uses `deepseek/deepseek-flash` on the OpenCode reference adapter: 30 isolated runs across five tasks and three repeats. The optimized configuration cost **14.2% more overall**; it was cheaper on two tasks and more expensive on three. This is not a Claude, Copilot, or Codex result. See the result and limitations before reusing the claim.
+The benchmark harness is reproducible and the question is tool-neutral. Two result sets are published: 30 example runs and 27 real-repository Hono runs, both on the OpenCode reference adapter with `deepseek/deepseek-flash`. The optimized configuration did not reduce cost in either set. The real-repository matrix also measures Serena, CodeGraph, ast-grep, skills, subagents, memory, commands, and Ralph. This is not a Claude, Copilot, or Codex result. See the results and limitations before reusing the claim.
 
 - [Methodology](docs/benchmarks/methodology.md)
 - [DeepSeek Flash results](docs/benchmarks/results-deepseek-flash.md)
+- [Real Hono tool matrix](docs/benchmarks/real-hono-tool-matrix.md)
 - [Tasks](benchmarks/tasks)
 - [Harness](benchmarks/harness)
 - [Result artifacts](benchmarks/results/deepseek-flash-2026-11-13)

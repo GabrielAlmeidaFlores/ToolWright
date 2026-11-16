@@ -157,7 +157,28 @@ This section separates three things that are often conflated: the tool under tes
 Two observations matter for quality and cost:
 
 - The optimized arm made **no `edit` or `write` tool calls**. It changed files through `shell` commands instead. That still passed verification, but shell edits are harder to audit from tool traces and may explain part of the extra shell activity.
-- Serena and CodeGraph were configured, but no named Serena or CodeGraph tool calls appear in these sessions. One Code Mode `execute` call appears in the refactor task. This benchmark therefore does **not** prove that those MCP servers improved retrieval or quality.
+- Serena and CodeGraph were configured, but no named Serena or CodeGraph tool calls appear in these sessions. One Code Mode `execute` call appears in the refactor task, and it only fetched Serena's `initial_instructions`; it did not perform semantic code retrieval. This benchmark therefore does **not** prove that those MCP servers improved retrieval or quality.
+
+### What was not exercised
+
+The next table separates **available in the repository** from **actually used in this run**. The **Tool or capability** column names the feature. The **Available in this run** column says whether the arm installed or configured it. The **Observed use** column says whether the session logs show it being invoked. The **Evidence** column explains the observation.
+
+| Tool or capability | Available in this run | Observed use | Evidence |
+|---|---|---|---|
+| OpenCode native `read`, `grep`, `glob`, `shell` | Both arms | Yes | Counted in the tool table above |
+| OpenCode native `edit`, `write` | Both arms | Baseline only | 40 edits and 18 writes in baseline; zero in optimized |
+| `todowrite` | Optimized | Yes | Five calls in optimized sessions |
+| `execute` Code Mode | Optimized | Once | Fetched Serena `initial_instructions` in one refactor run |
+| Serena MCP | Optimized, configured | Minimal | No semantic search calls; one initialization fetch |
+| CodeGraph MCP | Optimized, configured | No | No named CodeGraph calls and no Code Mode calls |
+| ast-grep | Not installed by the minimal profile | No | No tool calls or shell commands invoking it |
+| Ralph Orchestrator | Configured in the installed profile | No | The harness runs `opencode run`, not Ralph |
+| Memory plugin | Not installed by the minimal profile | No | No plugin loaded |
+| Commands | Optimized only | No explicit invocation | The coordinator was invoked directly; no command execution |
+| Skills | Optimized only | No `skill` tool calls | Skills may be present as instruction sources, but none were loaded through the skill tool |
+| Subagents | Optimized custom agents; baseline built-ins | No | Harness stats report zero subagents |
+
+This matters for interpretation. The published result measures **the coordinator/configuration overhead against stock OpenCode**, not the full ToolWright toolkit. It cannot show whether Ralph, Serena, CodeGraph, skills, commands, the memory plugin, or subagents improve cost or quality. Testing those requires separate arms that intentionally invoke each capability.
 
 ## Experiment setup
 

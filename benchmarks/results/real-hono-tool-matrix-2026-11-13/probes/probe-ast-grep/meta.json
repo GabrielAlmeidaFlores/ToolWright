@@ -1,0 +1,13 @@
+{
+  "run_id": "probe-ast-grep",
+  "probe": "ast-grep",
+  "template": "minimal",
+  "prompt": "Use ast-grep from the shell to find every place in Hono that reads or writes a Set-Cookie header. Do not edit files. Return the matching files, line numbers, and the exact ast-grep command you ran.",
+  "agent": "coordinator",
+  "model": "deepseek/deepseek-flash",
+  "started_at": "2026-11-14T00:34:39Z",
+  "finished_at": "2026-11-14T00:35:50Z",
+  "wall_time_seconds": 71.4,
+  "run_exit": 0,
+  "verification_exit": 0
+}

@@ -1,0 +1,13 @@
+{
+  "run_id": "probe-skill",
+  "probe": "skill",
+  "template": "minimal",
+  "prompt": "Load the systematic-debugging skill and apply it to this question: how should an engineer debug the Hono Set-Cookie merge bug? Do not edit files. Return the workflow steps and state that you loaded the skill.",
+  "agent": "coordinator",
+  "model": "deepseek/deepseek-flash",
+  "started_at": "2026-11-14T00:35:55Z",
+  "finished_at": "2026-11-14T00:36:22Z",
+  "wall_time_seconds": 27.0,
+  "run_exit": 0,
+  "verification_exit": 0
+}

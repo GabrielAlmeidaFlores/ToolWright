@@ -2,6 +2,8 @@
 
 The first published result set is [`deepseek-flash-2026-11-13/`](deepseek-flash-2026-11-13/), summarized in the [DeepSeek Flash results](../../docs/benchmarks/results-deepseek-flash.md).
 
+The real-repository tool matrix is [`real-hono-tool-matrix-2026-11-13/`](real-hono-tool-matrix-2026-11-13/), summarized in the [Real Hono tool matrix](../../docs/benchmarks/real-hono-tool-matrix.md).
+
 A result is accepted only if it includes:
 
 - `meta.json` with commit, model ID and variant, arm, and task

@@ -1,0 +1,13 @@
+{
+  "run_id": "probe-todowrite",
+  "probe": "todowrite",
+  "template": "minimal",
+  "prompt": "Use the todowrite tool to create a two-item checklist: inspect Context.res and inspect context tests. Do not edit files. Report the checklist items.",
+  "agent": "coordinator",
+  "model": "deepseek/deepseek-flash",
+  "started_at": "2026-11-14T00:38:34Z",
+  "finished_at": "2026-11-14T00:38:39Z",
+  "wall_time_seconds": 4.6,
+  "run_exit": 0,
+  "verification_exit": 0
+}

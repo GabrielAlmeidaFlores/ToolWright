@@ -1,0 +1,17 @@
+{
+  "run_id": "r1-baseline-redirect",
+  "repeat": 1,
+  "arm": "baseline",
+  "task_id": "redirect",
+  "template": "base",
+  "prompt": "Fix the header injection risk in Hono's c.redirect. Percent-encode CR and LF in the Location header while preserving valid redirect responses. Add regression tests for raw CR/LF and percent-encoded inputs in src/context.test.ts. Run pnpm exec vp test --run src/context.test.ts.",
+  "agent": "build",
+  "model": "deepseek/deepseek-flash",
+  "opencode": "opencode v2.2.7",
+  "started_at": "2026-11-14T00:06:59Z",
+  "finished_at": "2026-11-14T00:07:41Z",
+  "wall_time_seconds": 42.0,
+  "run_exit": 0,
+  "verification_exit": 0,
+  "verification_seconds": 0.7
+}

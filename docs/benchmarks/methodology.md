@@ -92,6 +92,8 @@ Place results in `benchmarks/results/<run-id>/` with:
 
 The first result set is published at [`docs/benchmarks/results-deepseek-flash.md`](results-deepseek-flash.md). It reports 30 isolated runs across 5 tasks, 2 arms, and 3 repeats with `deepseek/deepseek-flash`.
 
+The real-repository tool matrix is published at [`docs/benchmarks/real-hono-tool-matrix.md`](real-hono-tool-matrix.md): 27 Hono runs, 9 tool probes, and one Ralph research run.
+
 The optimized configuration did not reduce cost overall in that OpenCode result set, although it was cheaper on two of five tasks. Do not generalize that mixed result to other models, tools, adapters, or task sizes without running the appropriate harness.
 
 ## Correctness and rework rubric

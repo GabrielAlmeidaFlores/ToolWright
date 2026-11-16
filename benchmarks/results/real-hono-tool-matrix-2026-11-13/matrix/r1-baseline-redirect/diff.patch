@@ -1,0 +1,44 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..28dcc9e 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -115,6 +115,25 @@ describe('Context', () => {
+     )
+   })
+ 
++  it('c.redirect() percent-encodes raw CR and LF', async () => {
++    let res = c.redirect('/destination\r\nSet-Cookie: injected=true')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0D%0ASet-Cookie: injected=true')
++
++    res = c.redirect('/destination\r')
++    expect(res.headers.get('Location')).toBe('/destination%0D')
++
++    res = c.redirect('/destination\n')
++    expect(res.headers.get('Location')).toBe('/destination%0A')
++  })
++
++  it('c.redirect() preserves percent-encoded CR and LF', async () => {
++    const urlString = 'https://example.com/?next=%0D%0ASet-Cookie:%20injected=true'
++    const res = c.redirect(urlString)
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe(urlString)
++  })
++
+   const unchangedURLString = [
+     'https://example.com/%hello', // invalid ASCII chars
+     'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF?abc',
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..79fa939 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -770,6 +770,9 @@ export class Context<
+     status?: T
+   ): Response & TypedResponse<undefined, T, 'redirect'> => {
+     const locationString = String(location)
++      // Percent-encode CR and LF to prevent header injection
++      .replace(/\r/g, '%0D')
++      .replace(/\n/g, '%0A')
+     this.header(
+       'Location',
+       // Multibytes should be encoded

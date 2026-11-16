@@ -6,6 +6,10 @@ All notable changes to this repository are documented here.
 
 ## [Unreleased]
 
+### Added
+
+- Real-repository tool matrix on `honojs/hono`: 27 code-change runs, 9 capability probes, and one Ralph research run, with per-tool coverage and limitations.
+
 ### Fixed
 
 - Benchmark runs now write `run-stats.json` from each `session.jsonl`, so cost and token totals no longer reuse cumulative `opencode stats --project .` output.

@@ -1,0 +1,13 @@
+{
+  "run_id": "probe-memory",
+  "probe": "memory",
+  "template": "memory",
+  "prompt": "Do not perform any work. Return the exact title of the project memory entry about the benchmark.",
+  "agent": "coordinator",
+  "model": "deepseek/deepseek-flash",
+  "started_at": "2026-11-14T00:38:13Z",
+  "finished_at": "2026-11-14T00:38:17Z",
+  "wall_time_seconds": 3.5,
+  "run_exit": 0,
+  "verification_exit": 0
+}

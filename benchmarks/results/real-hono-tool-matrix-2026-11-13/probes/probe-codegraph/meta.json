@@ -1,0 +1,13 @@
+{
+  "run_id": "probe-codegraph",
+  "probe": "codegraph",
+  "template": "minimal",
+  "prompt": "Use CodeGraph to explore Hono's Context class, its callers, and the test files affected by changing Context.res. Do not edit files. Return the symbol names, affected test files, and the CodeGraph tool you used.",
+  "agent": "coordinator",
+  "model": "deepseek/deepseek-flash",
+  "started_at": "2026-11-14T00:34:11Z",
+  "finished_at": "2026-11-14T00:34:33Z",
+  "wall_time_seconds": 22.6,
+  "run_exit": 0,
+  "verification_exit": 0
+}

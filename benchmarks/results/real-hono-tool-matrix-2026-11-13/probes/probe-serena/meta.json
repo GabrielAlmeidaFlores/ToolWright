@@ -1,0 +1,13 @@
+{
+  "run_id": "probe-serena",
+  "probe": "serena",
+  "template": "minimal",
+  "prompt": "Use Serena semantic tools to map the symbols involved in Hono Context.res and Set-Cookie merging. Do not edit files. Do not use shell grep. Return the symbol names and exact file locations. Use the Serena tools, not plain file reads.",
+  "agent": "coordinator",
+  "model": "deepseek/deepseek-flash",
+  "started_at": "2026-11-14T00:32:03Z",
+  "finished_at": "2026-11-14T00:34:05Z",
+  "wall_time_seconds": 122.0,
+  "run_exit": 0,
+  "verification_exit": 0
+}

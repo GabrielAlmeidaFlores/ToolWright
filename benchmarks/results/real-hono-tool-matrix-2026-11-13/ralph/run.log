@@ -1,0 +1,51 @@
+Preflight: ✓ config ✓ hooks ✓ backend ✓ telegram ⚠ git ✓ paths ✓ tools ✓ specs (1 warning)
+
+-- ralph loop primary-20261114-004124 · start · backend=opencode · prompt= · 0/5 --
+  events:     /private/tmp/bench-full/ralph-clean/.ralph/events-20261114-004124.jsonl
+  scratchpad: /private/tmp/bench-full/ralph-clean/.ralph/agent/scratchpad.md
+  tail:       ralph events --follow --loop-id primary-20261114-004124
+  resume:     ralph run --continue --loop-id primary-20261114-004124
+
+===============================================================================
+ ITERATION 1 | ? researcher | 0s elapsed | 1/5
+===============================================================================
+## How `Context.res` merges `Set-Cookie`
+
+- **Lazy `res` creation carries prepared headers**: `Context.res` getter returns `this.#res` or creates a `new Response(null, { headers: this.#preparedHeaders })`, so headers set before `c.res` is materialized (including appended cookies) become part of the response (`src/context.ts:403-407`, `519-532`).
+- **`res` setter merges old response headers into the newly assigned response**: when both `this.#res` and the assigned `_res` exist, it clones `_res` (`createResponseInstance(_res.body, _res)`) then copies headers from the old response into it (`src/context.ts:414-434`).
+  - Skips `content-type` (`418-420`).
+  - **`set-cookie` is merged by taking all cookies from the old response via `getSetCookie()`, deleting any existing `set-cookie` on the new response, then appending each old cookie** (`421-426`).
+  - All other headers are copied with `headers.set(k, v)` (`428`), so old-response values overwrite same-named headers on the incoming response.
+- **Response-building merge path (`#newResponse`) differs**: when constructing responses (`newResponse`/`body`/`json`/etc.), it seeds headers from current `c.res` or `#preparedHeaders`, merges headers from a `Response`/init arg (appending `set-cookie`, setting others), then applies explicit `headers` arg (`string` => `set`, array => delete+append each). This path can preserve/add cookies rather than replace them (`src/context.ts:609-657`).
+- **`c.header()` behavior**: writes to `c.res.headers` if present else `#preparedHeaders`; `append: true` uses `Headers.append` (used for cookies by helper), and if finalized it recreates the response before mutating when body not used (`src/context.ts:519-532`; cookie helper emits `c.header('Set-Cookie', cookie, { append: true })` at `src/helper/cookie/index.ts:101`).
+
+## Where the merge can lose cookies
+
+- **Reassigning `c.res` drops `Set-Cookie` values that exist only on the newly assigned response**: because the setter replaces the new response’s `set-cookie` entries with the old response’s cookies (`delete('set-cookie')` + append old cookies), any cookies set on the incoming `_res` but not present on the previous `this.#res` are lost (`src/context.ts:421-426`).
+- Evidence: `src/context.test.ts:430-444` (“Should set cookie headers when re-assigning Response to `c.res`”) assigns a response with two cookies, then reassigns a different response containing `foo3=bar3`; the final cookies equal only the original two (`expect(c.res.headers.getSetCookie().length).toBe(cookies.length)` and `.toEqual(cookies)`), showing the new response’s cookie is not retained.
+- By contrast, the `#newResponse`/helper flows tested do retain cookies when merging context/original-response inputs (`src/context.test.ts:447-454`, `578-592`), so loss is specific to the `c.res = ...` replacement/merge semantics above.
+
+## Tests covering this behavior
+
+- `src/context.test.ts:430-444` — reassigning `c.res` keeps prior cookies (demonstrates new response `set-cookie` not preserved by setter merge).
+- `src/context.test.ts:447-454` — previous/prepared cookies remain when building a JSON response (`setCookie` + pre-set header).
+- `src/context.test.ts:456-465` — multiple `set-cookie` values preserved when `c.res` is already defined.
+- `src/context.test.ts:578-592` — `c.body()` retains cookies from context and from an original `Response` argument.
+- `src/context.test.ts:148-155` — `c.header(..., { append: true })` appends values (generic header behavior relevant to cookie accumulation).
+- Related cookie/header usage in tests/helpers: `src/helper/cookie/index.test.ts` (multiple cases asserting `res.headers.get('Set-Cookie')`, e.g. `169`, `181`, `194`, `209`, etc.) and helper implementation `src/helper/cookie/index.ts:101`.
+
+**Scope note:** read-only research only; no source files were modified. I could not run `ralph tools task/*` or `ralph emit` / create `.eval-sandbox` artifacts in this environment because direct `shell` execution was permission-denied and no filesystem-write tool is available.
+[iter 1/5 done] dur=1m 25s total=1m 25s budget=20%
+
+===============================================================================
+ ITERATION 2 | ? synthesizer | 1m 31s elapsed | 2/5
+===============================================================================
+[iter 2/5 done] dur=1m 24s total=2m 55s budget=40%
+
++----------------------------------------------------------+
+| ? Loop terminated: Completion promise detected
++----------------------------------------------------------+
+|   Iterations:  2
+|   Elapsed:     176.2s
++----------------------------------------------------------+
+rc=0 wall=176

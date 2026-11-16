@@ -1,0 +1,56 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..00ee9d6 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -129,6 +129,35 @@ describe('Context', () => {
+     })
+   })
+ 
++  it('c.redirect() percent-encodes raw CR and LF in Location', () => {
++    const cases = [
++      ['/destination\r\nSet-Cookie: injected=1', '/destination%0D%0ASet-Cookie: injected=1'],
++      ['/destination\rSet-Cookie: injected=1', '/destination%0DSet-Cookie: injected=1'],
++      ['/destination\nSet-Cookie: injected=1', '/destination%0ASet-Cookie: injected=1'],
++    ]
++    cases.forEach(([location, expected]) => {
++      const res = c.redirect(location)
++      expect(res.status).toBe(302)
++      expect(res.headers.get('Location')).toBe(expected)
++      expect(res.headers.get('Set-Cookie')).toBeNull()
++    })
++  })
++
++  it('c.redirect() keeps the status code when encoding CR and LF', () => {
++    const res = c.redirect('/moved\r\n', 301)
++    expect(res.status).toBe(301)
++    expect(res.headers.get('Location')).toBe('/moved%0D%0A')
++    expect(res.headers.get('Set-Cookie')).toBeNull()
++  })
++
++  it('c.redirect() does not double-encode percent-encoded CR and LF', () => {
++    const urlString = 'https://example.com/?next=%0D%0ASet-Cookie: injected=1'
++    const res = c.redirect(urlString)
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe(urlString)
++    expect(res.headers.get('Set-Cookie')).toBeNull()
++  })
++
+   it('c.body() - Blob', async () => {
+     const res = c.body(new Blob(['Hi']))
+     expect(await res.text()).toBe('Hi')
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..892a520 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -774,7 +774,10 @@ export class Context<
+       'Location',
+       // Multibytes should be encoded
+       // eslint-disable-next-line no-control-regex
+-      !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
++      (!/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString))
++        // Percent-encode CR and LF to prevent header injection
++        .replace(/\r/g, '%0D')
++        .replace(/\n/g, '%0A')
+     )
+     return this.newResponse(null, status ?? 302) as any
+   }
