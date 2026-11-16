@@ -1,8 +1,8 @@
 # Benchmark Methodology
 
-> **Status:** Stable · **Last verified:** 2026-11-13 · **Evidence:** harness verified locally; one result set published
+> **Status:** Stable · **Last verified:** 2026-11-16 · **Evidence:** harness dry-run, timeout wrapper unit tests, stub-run artifact checks, and a 45-run A/B published
 
-Status: methodology, harness, and one published DeepSeek Flash result set.
+Status: methodology, harness, and three published result sets.
 
 ## Question
 
@@ -74,7 +74,9 @@ OPENCODE_BENCH_MODEL=provider/model ./benchmarks/harness/run.sh --arm baseline -
 OPENCODE_BENCH_MODEL=provider/model ./benchmarks/harness/run.sh --arm optimized --task benchmarks/tasks/ts-validation.json
 ```
 
-Real Hono fixtures are documented in [real Hono fixtures](real-hono-fixtures.md); the task files live under `benchmarks/real/hono/`. For a real repository, add `--workspace /path/to/checkout`. The harness runs `opencode --standalone` with a temporary `XDG_CONFIG_HOME`, so global MCP servers do not leak into the run. The target repository's commit is recorded as `target_commit`.
+Real Hono fixtures are documented in [real Hono fixtures](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/real-hono-fixtures.md); the task files live under `benchmarks/real/hono/`. Benchmark-only arm definitions are in [benchmark arms](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/arms). For a real repository, add `--workspace /path/to/checkout`. The harness runs `opencode --standalone` with a temporary `XDG_CONFIG_HOME`, so global MCP servers do not leak into the run. The target repository's commit is recorded as `target_commit`.
+
+The harness starts the run through [`scripts/benchmarking/run_with_timeout.py`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/benchmarking/run_with_timeout.py). That wrapper enforces the task's `max_wall_time_seconds`, reports exit `124` when the limit expires, and terminates the run's process group afterwards so MCP servers started by the session cannot outlive it and distort later runs. After the session ends, the harness records `git status --short` as `status.txt` and the workspace diff as `diff.patch` and `diff-stat.txt`, scoped to the task working directory. `diff.patch` contains tracked modifications only; files the agent creates appear in `status.txt` and are staged by no one.
 
 For an agent-assisted run, use the sourced `perf` command ([`commands/perf.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/commands/perf.md)) or run the harness directly.
 
@@ -90,11 +92,16 @@ Place results in `benchmarks/results/<run-id>/` with:
 - `run-stats.json` (per-run values derived from the session log)
 - `export.json`
 - `verification.log`
+- `status.txt`
+- `diff.patch`
+- `diff-stat.txt`
 - `notes.md`
 
-The first result set is published at [`docs/benchmarks/results-deepseek-flash.md`](results-deepseek-flash.md). It reports 30 isolated runs across 5 tasks, 2 arms, and 3 repeats with `deepseek/deepseek-flash`.
+The first result set is published at [`docs/benchmarks/results-deepseek-flash.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-deepseek-flash.md). It reports 30 isolated runs across 5 tasks, 2 arms, and 3 repeats with `deepseek/deepseek-flash`.
 
-The real-repository tool matrix is published at [`docs/benchmarks/real-hono-tool-matrix.md`](real-hono-tool-matrix.md): 27 Hono runs, 9 tool probes, and one Ralph research run.
+The real-repository tool matrix is published at [`docs/benchmarks/real-hono-tool-matrix.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/real-hono-tool-matrix.md): 27 Hono runs, 9 tool probes, and one Ralph research run.
+
+The benchmark-arm A/B is published at [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md): 45 Hono runs across five arms, all verified, with no cost win against the stock baseline.
 
 The optimized configuration did not reduce cost overall in that OpenCode result set, although it was cheaper on two of five tasks. Do not generalize that mixed result to other models, tools, adapters, or task sizes without running the appropriate harness.
 

@@ -1,6 +1,8 @@
 # Real Hono Benchmark Fixtures
 
-These tasks run against `honojs/hono` at `f6fbaf0299c48eea9e656e03e2ffe7ac755e8823`.
+These tasks run against [`honojs/hono`](https://github.com/honojs/hono) at commit `f6fbaf0299c48eea9e656e03e2ffe7ac755e8823`.
+
+Task prompts and acceptance criteria are derived from the Hono pilot findings in [`docs/pilots/results/code-round-hono.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/results/code-round-hono.md).
 
 Setup:
 
@@ -22,6 +24,4 @@ OPENCODE_BENCH_MODEL=deepseek/deepseek-flash \
   --workspace /tmp/toolwright-hono
 ```
 
-The harness accepts `--workspace`; do not install ToolWright into the Hono checkout for the baseline arm. Install the selected profile into the checkout before running an optimized arm.
-
-Task prompts and acceptance criteria are derived from the Hono pilot findings in `docs/pilots/results/code-round-hono.md`. The published fixture guide is [`docs/benchmarks/real-hono-fixtures.md`](../../../docs/benchmarks/real-hono-fixtures.md).
+The fixture guide is [`docs/benchmarks/real-hono-fixtures.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/real-hono-fixtures.md). Benchmark arm definitions are in [`benchmarks/arms/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/arms/README.md).

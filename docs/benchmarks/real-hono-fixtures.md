@@ -1,6 +1,6 @@
 # Real Hono Benchmark Fixtures
 
-> **Status:** Experimental · **Last verified:** 2026-11-16 · **Evidence:** fixtures exercised by one baseline smoke run and a dry-run harness check; full A/B pending
+> **Status:** Experimental · **Last verified:** 2026-11-16 · **Evidence:** 45-run A/B completed on these three fixtures; [results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md)
 
 These fixtures run against [`honojs/hono`](https://github.com/honojs/hono) at commit `f6fbaf0299c48eea9e656e03e2ffe7ac755e8823`. They are the first real-repository tasks for the cost/performance plan.
 
@@ -36,9 +36,22 @@ OPENCODE_BENCH_MODEL=deepseek/deepseek-flash \
   --workspace /tmp/toolwright-hono
 ```
 
-For an optimized arm, install the selected ToolWright profile into `/tmp/toolwright-hono` first. The harness reads the workspace config at `.opencode/opencode.jsonc` and checks for `.opencode/agents/coordinator.md`.
+For any ToolWright arm (`optimized`, `coordinator-slim`, `direct-slim`, `tools-on-demand`), install the selected profile into `/tmp/toolwright-hono` first. The harness reads the workspace config at `.opencode/opencode.jsonc` for `optimized` and checks for `.opencode/agents/<agent>.md` for every ToolWright arm. Because the harness overwrites `<workspace>/.opencode/opencode.jsonc` with the selected arm config, use a separate clean checkout for `baseline` and reinstall the profile before switching back to `optimized`.
+
+## Benchmark arms
+
+The benchmark-only arm definitions are in [benchmark arms](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/arms). They do not change production defaults. `coordinator-slim` and `direct-slim` share a config derived from `configs/opencode/minimal.jsonc` that declares no MCP servers and caps tool output at 400 lines; they differ in the agent the harness selects. `tools-on-demand` keeps the full MCP surface. The harness copies the arm config into the disposable workspace before it runs, so the same checkout can be reused between arms.
+
+```bash
+OPENCODE_BENCH_MODEL=deepseek/deepseek-flash \
+  ./benchmarks/harness/run.sh \
+  --arm coordinator-slim \
+  --task benchmarks/real/hono/tasks/set-cookie.json \
+  --workspace /tmp/toolwright-hono
+```
 
 ## Related
 
-- [Cost and performance plan](../plans/cost-performance-optimization.md)
-- [Benchmark methodology](methodology.md)
+- [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md)
+- [Cost and performance plan](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/plans/cost-performance-optimization.md)
+- [Benchmark methodology](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md)

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Name: Benchmark runner
-# Purpose: Runs one baseline or optimized benchmark arm, records session and statistics artifacts, and executes the task verification command.
-# Usage: ./benchmarks/harness/run.sh --arm baseline|optimized --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]
-# Arguments: --arm selects the configuration, --task selects the task definition, --workspace sets the target repository root, --run-id sets the output directory name, --dry-run prints the command.
+# Purpose: Runs one benchmark arm in a disposable workspace, records session, scope, and statistics artifacts, and executes the task verification command.
+# Usage: ./benchmarks/harness/run.sh --arm baseline|optimized|coordinator-slim|direct-slim|tools-on-demand --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]
+# Arguments: --arm selects the configuration and agent, --task selects the task definition, --workspace sets the target repository root, --run-id sets the output directory name, --dry-run prints the command.
 # Environment: Requires bash, python3, and git. opencode is required to execute a run but not for --dry-run. OPENCODE_BENCH_MODEL must be a provider/model#variant identifier for execution.
-# Outputs: Writes meta.json, session.jsonl, stats.json, run-stats.json, export.json, verification.log, and notes.md under benchmarks/results/<run-id>.
+# Outputs: Writes meta.json, session.jsonl, stats.json, run-stats.json, export.json, verification.log, status.txt, diff.patch, diff-stat.txt, and notes.md under benchmarks/results/<run-id>.
 # Side effects: Executes opencode with --auto in a non-interactive session; use a disposable checkout.
 # References: docs/benchmarks/methodology.md, benchmarks/tasks/*.json
 set -euo pipefail
@@ -13,6 +13,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 ARM=""
 TASK=""
 WORKSPACE=""
+CONFIG_COPY=0
 RUN_ID=""
 DRY=0
 
@@ -22,7 +23,7 @@ DRY=0
 # Returns: None.
 # Side effects: Writes to standard output.
 usage() {
-  echo "usage: $0 --arm baseline|optimized --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]"
+  echo "usage: $0 --arm baseline|optimized|coordinator-slim|direct-slim|tools-on-demand --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]"
   echo "environment: OPENCODE_BENCH_MODEL=provider/model#variant is required for execution"
 }
 
@@ -85,17 +86,41 @@ case "$ARM" in
   optimized)
     CONFIG="$WORKSPACE/.opencode/opencode.jsonc"
     AGENT="coordinator"
-    if [[ ! -f "$CONFIG" ]]; then
-      echo "optimized arm requires $CONFIG (run the installer)"
-      exit 2
-    fi
-    if [[ ! -f "$WORKSPACE/.opencode/agents/coordinator.md" ]]; then
-      echo "optimized arm requires $WORKSPACE/.opencode/agents/coordinator.md (run the installer)"
-      exit 2
-    fi
+    ;;
+  coordinator-slim)
+    CONFIG="$ROOT/benchmarks/arms/slim.jsonc"
+    CONFIG_COPY=1
+    AGENT="coordinator"
+    ;;
+  direct-slim)
+    CONFIG="$ROOT/benchmarks/arms/slim.jsonc"
+    CONFIG_COPY=1
+    AGENT="backend-developer"
+    ;;
+  tools-on-demand)
+    CONFIG="$ROOT/benchmarks/arms/tools-on-demand.jsonc"
+    CONFIG_COPY=1
+    AGENT="coordinator"
     ;;
   *) echo "unknown arm: $ARM"; exit 2 ;;
 esac
+
+if [[ "$ARM" != "baseline" ]]; then
+  if [[ ! -f "$CONFIG" ]]; then
+    echo "arm $ARM requires $CONFIG (run the installer or add the benchmark config)"
+    exit 2
+  fi
+  if [[ ! -f "$WORKSPACE/.opencode/agents/$AGENT.md" ]]; then
+    echo "arm $ARM requires $WORKSPACE/.opencode/agents/$AGENT.md (run the installer)"
+    exit 2
+  fi
+fi
+
+if [[ "$CONFIG_COPY" == "1" && "$DRY" != "1" ]]; then
+  mkdir -p "$WORKSPACE/.opencode"
+  cp "$CONFIG" "$WORKSPACE/.opencode/opencode.jsonc"
+  CONFIG="$WORKSPACE/.opencode/opencode.jsonc"
+fi
 
 COMMIT="$(git -C "$ROOT" rev-parse HEAD 2>/dev/null || echo unknown)"
 TARGET_COMMIT="$(git -C "$WORKSPACE" rev-parse HEAD 2>/dev/null || echo unknown)"
@@ -109,7 +134,10 @@ echo "arm=$ARM task=$TASK_ID run=$RUN_ID"
 echo "config=$CONFIG agent=$AGENT commit=$COMMIT workdir=$WORKDIR max_wall=${MAX_WALL}s"
 
 if [[ "$DRY" == "1" ]]; then
-  echo "would run: XDG_CONFIG_HOME=<temp> PWD=$PROJECT_DIR OPENCODE_CONFIG=$CONFIG opencode --standalone run --agent $AGENT --model ${MODEL:-<provider/model>} --auto --format json <prompt>"
+  if [[ "$CONFIG_COPY" == "1" ]]; then
+    echo "would copy: $CONFIG -> $WORKSPACE/.opencode/opencode.jsonc"
+  fi
+  echo "would run: XDG_CONFIG_HOME=<temp> OPENCODE_CONFIG=$CONFIG opencode --standalone run --agent $AGENT --model ${MODEL:-<provider/model>} --auto --format json <prompt> in $PROJECT_DIR"
   exit 0
 fi
 
@@ -152,13 +180,23 @@ PY
 
 cd "$PROJECT_DIR"
 
+export XDG_CONFIG_HOME
+export OPENCODE_CONFIG="$CONFIG"
+
 START=$(date +%s)
 set +e
-XDG_CONFIG_HOME="$XDG_CONFIG_HOME" PWD="$PROJECT_DIR" OPENCODE_CONFIG="$CONFIG" opencode --standalone run --agent "$AGENT" --model "$MODEL" --auto --format json "$PROMPT" \
+python3 "$ROOT/scripts/benchmarking/run_with_timeout.py" "$MAX_WALL" -- \
+  opencode --standalone run --agent "$AGENT" --model "$MODEL" --auto --format json "$PROMPT" \
   > "$OUT/session.jsonl" 2> "$OUT/session.err"
 RUN_RC=$?
 set -e
 END=$(date +%s)
+
+set +e
+git -C "$PROJECT_DIR" status --short --untracked-files=all -- . > "$OUT/status.txt" 2> "$OUT/status.err"
+git -C "$PROJECT_DIR" diff -- . > "$OUT/diff.patch" 2> "$OUT/diff.err"
+git -C "$PROJECT_DIR" diff --stat -- . > "$OUT/diff-stat.txt" 2>> "$OUT/diff.err"
+set -e
 
 set +e
 opencode stats --json --cost --project . > "$OUT/stats.json" 2> "$OUT/stats.err"
@@ -222,6 +260,7 @@ cat > "$OUT/notes.md" <<EOF
 - run exit: $RUN_RC
 - verification exit: $VERIFY_RC
 - wall time: $((END-START))s
+- wall limit: ${MAX_WALL}s
 
 ## Fill in
 

@@ -19,12 +19,16 @@ from tests.integration.test_entrypoints_strings import (
     KEY_AGENTS,
     KEY_BASELINE,
     KEY_BASH,
+    KEY_COORDINATOR_SLIM,
+    KEY_DIRECT_SLIM,
     KEY_NONSENSE,
     KEY_OPTIMIZED,
     KEY_PROJECT,
     KEY_PYTHON3,
+    KEY_TOOLS_ON_DEMAND,
     TEXT_BENCHMARKS_HARNESS_RUN_SH,
     TEXT_ADAPTER_DISCOVERY_HEADER,
+    TEXT_AGENT_FLAG,
     TEXT_BENCHMARKS_REAL_HONO_SET_COOKIE,
     TEXT_BENCHMARKS_TASKS,
     TEXT_CHECKED_D,
@@ -35,6 +39,7 @@ from tests.integration.test_entrypoints_strings import (
     TEXT_MISSING_JSON,
     TEXT_NO_BENCHMARK_TASKS_FOUND,
     TEXT_OK,
+    TEXT_OPENCODE_AGENTS_BACKEND_MD,
     TEXT_PATH,
     TEXT_SCRIPTS_INSTALLATION_INSTALL_SH,
     TEXT_SCRIPTS_VALIDATION_CHECK_ADAPTER_DISCOVERY_SH,
@@ -43,6 +48,7 @@ from tests.integration.test_entrypoints_strings import (
     TEXT_TASK_NOT_FOUND,
     TEXT_TOOLWRIGHT_INSTALL,
     TEXT_UNKNOWN_ARM,
+    TEXT_WOULD_COPY,
     TEXT_WOULD_RUN,
 )
 
@@ -52,7 +58,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tests.constants import EMPTY_STRING, TEXT_OPENCODE, TEXT_OPENCODE_AGENTS_COORDINATOR_MD, TEXT_OPENCODE_JSONC, TEXT_UTF_8
+from tests.constants import EMPTY_STRING, KEY_COORDINATOR, TEXT_BACKEND_DEVELOPER, TEXT_OPENCODE, TEXT_OPENCODE_AGENTS_COORDINATOR_MD, TEXT_OPENCODE_JSONC, TEXT_UTF_8
 
 from tests import support
 
@@ -150,6 +156,7 @@ class BenchmarkHarnessTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn(TEXT_WOULD_RUN, result.stdout)
+        self.assertNotIn(TEXT_WOULD_COPY, result.stdout)
 
     def test_dry_run_accepts_optimized_workspace(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -179,6 +186,43 @@ class BenchmarkHarnessTests(unittest.TestCase):
             )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn(TEXT_WOULD_RUN, result.stdout)
+
+    def test_dry_run_accepts_benchmark_arms(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            for agent in (TEXT_OPENCODE_AGENTS_COORDINATOR_MD, TEXT_OPENCODE_AGENTS_BACKEND_MD):
+                path = workspace / agent
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(EMPTY_STRING, encoding=TEXT_UTF_8)
+            expected_agents = {
+                KEY_COORDINATOR_SLIM: KEY_COORDINATOR,
+                KEY_DIRECT_SLIM: TEXT_BACKEND_DEVELOPER,
+                KEY_TOOLS_ON_DEMAND: KEY_COORDINATOR,
+            }
+            for arm, agent in expected_agents.items():
+                result = subprocess.run(
+                    [
+                        KEY_BASH,
+                        TEXT_BENCHMARKS_HARNESS_RUN_SH,
+                        FLAG_ARM,
+                        arm,
+                        FLAG_TASK,
+                        TEXT_BENCHMARKS_REAL_HONO_SET_COOKIE,
+                        FLAG_WORKSPACE,
+                        str(workspace),
+                        FLAG_DRY_RUN,
+                    ],
+                    cwd=REPO_ROOT,
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                    timeout=60,
+                )
+                self.assertEqual(result.returncode, 0, arm + result.stderr)
+                self.assertIn(TEXT_WOULD_RUN, result.stdout)
+                self.assertIn(TEXT_WOULD_COPY, result.stdout)
+                self.assertIn(str(workspace / TEXT_OPENCODE / TEXT_OPENCODE_JSONC), result.stdout)
+                self.assertIn(TEXT_AGENT_FLAG + agent, result.stdout)
 
     def test_dry_run_rejects_unknown_arm(self) -> None:
         task = next((REPO_ROOT / TEXT_BENCHMARKS_TASKS).glob(TEXT_JSON))
