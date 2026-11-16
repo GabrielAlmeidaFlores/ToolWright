@@ -1,0 +1,63 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..de53ad2 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -120,6 +120,8 @@ describe('Context', () => {
+     'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF?abc',
+     'https://localhost/api?redirect_uri=https%3A%2F%2Fexample.com', // with ://
+     'https://localhost/api?redirect_uri=https%3A%2F%2Fexample.com&scope=email%20profile', // with spaces and ://
++    'https://example.com/%0D%0ASet-Cookie:injected=1', // percent-encoded CRLF
++    'https://example.com/%0d%0a', // percent-encoded CRLF in lowercase
+   ]
+ 
+   unchangedURLString.forEach((urlString) => {
+@@ -129,6 +131,33 @@ describe('Context', () => {
+     })
+   })
+ 
++  it('c.redirect() percent-encodes raw CR and LF in Location', () => {
++    const cases: [string, string][] = [
++      ['/destination\r\nSet-Cookie: injected=1', '/destination%0D%0ASet-Cookie: injected=1'],
++      ['/destination\r/next', '/destination%0D/next'],
++      ['/destination\n/next', '/destination%0A/next'],
++    ]
++    for (const [input, expected] of cases) {
++      const res = new Context(req).redirect(input)
++      expect(res.status).toBe(302)
++      expect(res.headers.get('Location')).toBe(expected)
++      // The injected header must not be present.
++      expect(res.headers.get('Set-Cookie')).toBeNull()
++    }
++  })
++
++  it('c.redirect() does not double-encode percent-encoded CR and LF', () => {
++    const cases = [
++      '/destination%0D%0Anext',
++      '/destination%0d%0anext',
++      'https://example.com/%0D%0ASet-Cookie:injected=1',
++    ]
++    for (const input of cases) {
++      const res = new Context(req).redirect(input)
++      expect(res.headers.get('Location')).toBe(input)
++    }
++  })
++
+   it('c.body() - Blob', async () => {
+     const res = c.body(new Blob(['Hi']))
+     expect(await res.text()).toBe('Hi')
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..75d9c1f 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -774,7 +774,10 @@ export class Context<
+       'Location',
+       // Multibytes should be encoded
+       // eslint-disable-next-line no-control-regex
+-      !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
++      !/[^\x00-\xFF]/.test(locationString)
++        ? // eslint-disable-next-line no-control-regex
++          locationString.replace(/[\r\n]/g, (char) => (char === '\r' ? '%0D' : '%0A'))
++        : encodeURI(locationString)
+     )
+     return this.newResponse(null, status ?? 302) as any
+   }

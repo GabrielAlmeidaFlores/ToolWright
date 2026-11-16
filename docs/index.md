@@ -1,6 +1,6 @@
 # ToolWright
 
-> **Status:** Stable · **Last verified:** 2026-11-13 · **Evidence:** verified locally; CI green on run 43402329992
+> **Status:** Stable · **Last verified:** 2026-11-16 · **Evidence:** `make ci` green locally with 676 static checks and 321 tests
 
 A provider-neutral multi-agent development toolkit with a fully verified OpenCode adapter and installer-generated adapters for GitHub Copilot, Claude Code, and OpenAI GPT/Codex. OpenCode is optional. It is built around four pillars:
 
@@ -23,24 +23,24 @@ toolwright doctor
 toolwright install --profile minimal --target /path/to/project --apply
 ```
 
-- [Compatibility overview](compatibility/README.md)
-- [OpenCode installation](installation/opencode.md)
-- [GitHub Copilot](compatibility/github-copilot.md)
-- [Claude Code](compatibility/claude.md)
-- [OpenAI GPT / Codex](compatibility/openai-gpt.md)
-- [Install the CLI](installation/toolwright-cli.md)
-- [CLI reference](cli/README.md)
-- [Profiles](profiles/README.md)
+- [Compatibility overview](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md)
+- [OpenCode installation](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/opencode.md)
+- [GitHub Copilot](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md)
+- [Claude Code](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md)
+- [OpenAI GPT / Codex](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md)
+- [Install the CLI](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/toolwright-cli.md)
+- [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md)
+- [Profiles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/profiles/README.md)
 
 ## What is verified
 
 | Area | State |
 |---|---|
-| Static validation | 287 checks, including provenance, permissions, comments, and docs status |
-| Test suite | 259 offline tests on Ubuntu and macOS |
+| Static validation | 676 checks, including provenance, permissions, comments, absolute links, and docs status |
+| Test suite | 321 offline tests on Ubuntu and macOS |
 | CLI | Wheel build, install lifecycle, profile/catalog verification, verification gates |
 | Catalog | 34 generated artifacts with drift enforcement |
-| Benchmarks | Deferred by decision; no published results |
+| Benchmarks | Three published result sets; the Hono cost A/B found no arm cheaper than stock |
 | Pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
 
 Claims link to local evidence or a CI run. Vendor claims are labelled; no benchmark result is published without correctness and rework data.
@@ -57,9 +57,9 @@ Full rules: [AGENTS.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/
 
 ## Project
 
-- [Architecture](architecture/overview.md)
-- [Security](security/README.md)
-- [Compatibility policy](compatibility/policy.md)
-- [Provenance](provenance/README.md)
-- [Release process](release/README.md)
-- [Troubleshooting](troubleshooting/README.md)
+- [Architecture](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/overview.md)
+- [Security](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/security/README.md)
+- [Compatibility policy](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/policy.md)
+- [Provenance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/README.md)
+- [Release process](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/release/README.md)
+- [Troubleshooting](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/README.md)

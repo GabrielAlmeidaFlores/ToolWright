@@ -1,0 +1,69 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..a71baf7 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -129,6 +129,41 @@ describe('Context', () => {
+     })
+   })
+ 
++  it('c.redirect() percent-encodes raw CR/LF to prevent header injection', () => {
++    let res = c.redirect('/destination\r\nSet-Cookie: injected=1')
++    expect(res.status).toBe(302)
++    const location = res.headers.get('Location')
++    expect(location).toBe('/destination%0D%0ASet-Cookie: injected=1')
++    expect(location).not.toMatch(/[\r\n]/)
++    expect(res.headers.get('Set-Cookie')).toBeNull()
++
++    res = c.redirect('/destination\r')
++    expect(res.headers.get('Location')).toBe('/destination%0D')
++
++    res = c.redirect('/destination\n')
++    expect(res.headers.get('Location')).toBe('/destination%0A')
++
++    res = c.redirect('/destination\r\n')
++    expect(res.headers.get('Location')).toBe('/destination%0D%0A')
++  })
++
++  it('c.redirect() percent-encodes raw CR/LF in multibyte locations', () => {
++    const res = c.redirect('https://example.com/こんにちは\r\nX-Injected: 1')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe(
++      'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%0D%0AX-Injected:%201'
++    )
++    expect(res.headers.get('X-Injected')).toBeNull()
++  })
++
++  it('c.redirect() preserves already percent-encoded CR/LF', () => {
++    const urlString = '/destination%0D%0ASet-Cookie:%20injected=1'
++    const res = c.redirect(urlString)
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe(urlString)
++    expect(res.headers.get('Set-Cookie')).toBeNull()
++  })
++
+   it('c.body() - Blob', async () => {
+     const res = c.body(new Blob(['Hi']))
+     expect(await res.text()).toBe('Hi')
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..e9caf6a 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -770,11 +770,15 @@ export class Context<
+     status?: T
+   ): Response & TypedResponse<undefined, T, 'redirect'> => {
+     const locationString = String(location)
++    // Multibytes should be encoded
++    // eslint-disable-next-line no-control-regex
++    const encodedLocation = !/[^\x00-\xFF]/.test(locationString)
++      ? locationString
++      : encodeURI(locationString)
+     this.header(
+       'Location',
+-      // Multibytes should be encoded
+-      // eslint-disable-next-line no-control-regex
+-      !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
++      // CR and LF must be percent-encoded to prevent header injection
++      encodedLocation.replace(/[\r\n]/g, (char) => (char === '\r' ? '%0D' : '%0A'))
+     )
+     return this.newResponse(null, status ?? 302) as any
+   }

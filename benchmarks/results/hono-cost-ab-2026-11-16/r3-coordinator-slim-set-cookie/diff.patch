@@ -1,0 +1,70 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..2f64672 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -440,8 +440,27 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie().length).toBe(cookies.length + newCookies.length)
++    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
++  })
++
++  it('Should keep cookies from both the current response and a newly assigned response', () => {
++    // Middleware sets a cookie on the current response.
++    c.res = new Response(null)
++    c.res.headers.append('set-cookie', 'middleware=1; Path=/')
++
++    // The handler returns a new Response with its own cookie.
++    const handlerResponse = new Response(null, {
++      headers: {
++        'set-cookie': 'handler=2; Path=/',
++      },
++    })
++    c.res = handlerResponse
++
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'middleware=1; Path=/',
++      'handler=2; Path=/',
++    ])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..1cd1c06 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -415,17 +415,22 @@ export class Context<
+     if (this.#res && _res) {
+       _res = createResponseInstance(_res.body, _res)
+       for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
++        // `content-type` and `set-cookie` need special handling and are
++        // processed separately below.
++        if (k === 'content-type' || k === 'set-cookie') {
+           continue
+         }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
+-            _res.headers.append('set-cookie', cookie)
+-          }
+-        } else {
+-          _res.headers.set(k, v)
++        _res.headers.set(k, v)
++      }
++      if (this.#res.headers.has('set-cookie')) {
++        // Both the existing response (e.g. set by middleware) and the new
++        // response may carry cookies. Keep all of them, with the existing
++        // cookies first so the new response's cookies take precedence.
++        const cookies = this.#res.headers.getSetCookie()
++        const newCookies = _res.headers.getSetCookie()
++        _res.headers.delete('set-cookie')
++        for (const cookie of [...cookies, ...newCookies]) {
++          _res.headers.append('set-cookie', cookie)
+         }
+       }
+     }

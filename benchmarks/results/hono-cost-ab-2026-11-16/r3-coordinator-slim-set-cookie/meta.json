@@ -1,0 +1,21 @@
+{
+  "run_id": "ab-r3-coordinator-slim-set-cookie",
+  "arm": "coordinator-slim",
+  "task_file": "/Users/gabrielflores/Documents/projects/production/ToolWright/benchmarks/real/hono/tasks/set-cookie.json",
+  "task_id": "hono-set-cookie",
+  "working_directory": ".",
+  "workspace": "/tmp/bench-full/ab-runs/ab-r3-coordinator-slim-set-cookie",
+  "commit": "7e44ca6db3b0ba3603163f3a347f0cd2263ef090",
+  "target_commit": "f6fbaf0299c48eea9e656e03e2ffe7ac755e8823",
+  "model": "deepseek/deepseek-flash",
+  "agent": "coordinator",
+  "max_wall_time_seconds": 900,
+  "started_at": "2026-11-16T14:45:49.752277+00:00",
+  "opencode_version": "opencode v2.2.7",
+  "run_exit": 0,
+  "stats_exit": 0,
+  "export_exit": 0,
+  "verification_exit": 0,
+  "wall_time_seconds": 59,
+  "finished_at": "2026-11-16T14:46:49.428078+00:00"
+}

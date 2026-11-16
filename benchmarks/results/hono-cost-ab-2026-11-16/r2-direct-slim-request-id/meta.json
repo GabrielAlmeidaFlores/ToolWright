@@ -1,0 +1,21 @@
+{
+  "run_id": "ab-r2-direct-slim-request-id",
+  "arm": "direct-slim",
+  "task_file": "/Users/gabrielflores/Documents/projects/production/ToolWright/benchmarks/real/hono/tasks/request-id.json",
+  "task_id": "hono-request-id",
+  "working_directory": ".",
+  "workspace": "/tmp/bench-full/ab-runs/ab-r2-direct-slim-request-id",
+  "commit": "7e44ca6db3b0ba3603163f3a347f0cd2263ef090",
+  "target_commit": "f6fbaf0299c48eea9e656e03e2ffe7ac755e8823",
+  "model": "deepseek/deepseek-flash",
+  "agent": "backend-developer",
+  "max_wall_time_seconds": 900,
+  "started_at": "2026-11-16T14:41:00.451782+00:00",
+  "opencode_version": "opencode v2.2.7",
+  "run_exit": 0,
+  "stats_exit": 0,
+  "export_exit": 0,
+  "verification_exit": 0,
+  "wall_time_seconds": 33,
+  "finished_at": "2026-11-16T14:41:34.395222+00:00"
+}

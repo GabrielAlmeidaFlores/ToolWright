@@ -1,0 +1,66 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..f44b244 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -129,6 +129,37 @@ describe('Context', () => {
+     })
+   })
+ 
++  it('c.redirect() percent-encodes raw CR/LF to prevent header injection', async () => {
++    const cases = [
++      { input: '/destination\rX-Injected: yes', expected: '/destination%0DX-Injected: yes' },
++      { input: '/destination\nX-Injected: yes', expected: '/destination%0AX-Injected: yes' },
++      { input: '/destination\r\nX-Injected: yes', expected: '/destination%0D%0AX-Injected: yes' },
++    ]
++    for (const { input, expected } of cases) {
++      const res = c.redirect(input)
++      expect(res.status).toBe(302)
++      expect(res.headers.get('Location')).toBe(expected)
++      expect(res.headers.get('X-Injected')).toBeNull()
++    }
++  })
++
++  it('c.redirect() preserves already percent-encoded CR/LF', async () => {
++    const location = '/destination%0D%0AX-Injected:%20yes'
++    const res = c.redirect(location)
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe(location)
++    expect(res.headers.get('X-Injected')).toBeNull()
++  })
++
++  it('c.redirect() encodes CR/LF alongside multibytes without double-encoding', async () => {
++    const res = c.redirect('https://example.com/こんにちは\r\nX-Injected: yes')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe(
++      'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%0D%0AX-Injected:%20yes'
++    )
++    expect(res.headers.get('X-Injected')).toBeNull()
++  })
++
+   it('c.body() - Blob', async () => {
+     const res = c.body(new Blob(['Hi']))
+     expect(await res.text()).toBe('Hi')
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..285684c 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -770,12 +770,17 @@ export class Context<
+     status?: T
+   ): Response & TypedResponse<undefined, T, 'redirect'> => {
+     const locationString = String(location)
+-    this.header(
+-      'Location',
++    // Percent-encode CR and LF to prevent header injection. Multibyte strings are
++    // handled by `encodeURI`, which already escapes CR/LF, so this only needs to
++    // run afterwards to catch raw control characters in the ASCII path.
++    const encodedLocation = (
+       // Multibytes should be encoded
+       // eslint-disable-next-line no-control-regex
+       !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
+     )
++      // eslint-disable-next-line no-control-regex
++      .replace(/[\r\n]/g, (char) => (char === '\r' ? '%0D' : '%0A'))
++    this.header('Location', encodedLocation)
+     return this.newResponse(null, status ?? 302) as any
+   }
+ 

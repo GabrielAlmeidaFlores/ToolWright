@@ -1,0 +1,77 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..fc619ed 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -440,8 +440,35 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie().length).toBe(cookies.length + newCookies.length)
++    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
++  })
++
++  it('Should keep cookies from both c.res and a newly assigned Response', () => {
++    // Middleware has already set a cookie on the context response.
++    c.res.headers.append('set-cookie', 'middleware=hello; Path=/')
++
++    // The handler returns a new Response with its own Set-Cookie header.
++    const handlerResponse = new Response('ok', {
++      headers: {
++        'set-cookie': 'handler=world; Path=/; HttpOnly',
++      },
++    })
++    c.res = handlerResponse
++
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'middleware=hello; Path=/',
++      'handler=world; Path=/; HttpOnly',
++    ])
++  })
++
++  it('Should not duplicate cookies when the new Response is derived from c.res', () => {
++    c.res.headers.append('set-cookie', 'session=abc; Path=/')
++
++    // `c.text()` copies the current response headers into the new Response.
++    c.res = c.text('ok')
++
++    expect(c.res.headers.getSetCookie()).toEqual(['session=abc; Path=/'])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..84c488a 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -414,18 +414,21 @@ export class Context<
+   set res(_res: Response | undefined) {
+     if (this.#res && _res) {
+       _res = createResponseInstance(_res.body, _res)
++      const contextCookies = this.#res.headers.getSetCookie()
++      const responseCookies = _res.headers.getSetCookie()
+       for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
++        if (k === 'content-type' || k === 'set-cookie') {
+           continue
+         }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
+-            _res.headers.append('set-cookie', cookie)
+-          }
+-        } else {
+-          _res.headers.set(k, v)
++        _res.headers.set(k, v)
++      }
++      if (contextCookies.length) {
++        // Keep cookies from both responses. A response created from `c.res`
++        // already contains the context's cookies, so deduplicate them instead
++        // of appending the same cookie twice.
++        _res.headers.delete('set-cookie')
++        for (const cookie of new Set([...contextCookies, ...responseCookies])) {
++          _res.headers.append('set-cookie', cookie)
+         }
+       }
+     }

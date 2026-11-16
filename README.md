@@ -17,7 +17,7 @@
 
 <p align="center">
   <img alt="CI green" src="https://img.shields.io/badge/CI-green-22C55E?style=flat-square">
-  <img alt="279 tests" src="https://img.shields.io/badge/tests-279-4F46E5?style=flat-square">
+  <img alt="321 tests" src="https://img.shields.io/badge/tests-321-4F46E5?style=flat-square">
   <img alt="12 agents" src="https://img.shields.io/badge/agents-12-06B6D4?style=flat-square">
   <img alt="10 skills" src="https://img.shields.io/badge/skills-10-D97757?style=flat-square">
   <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0F172A?style=flat-square">
@@ -144,7 +144,7 @@ Every diagram uses the same glass-neon pattern: a light translucent fill, a brig
 5. **You commit.** Agents leave changes unstaged; the human makes the final decision.
 
 > [!NOTE]
-> The OpenCode adapter is fully verified in CI. Claude Code, GitHub Copilot, and ChatGPT/Codex adapters are installer-generated. Their install, update, and uninstall paths are validated on a real repository; Copilot CLI and Codex CLI discovery checks passed, while Claude Code runtime discovery remains unverified. See [Platform compatibility](docs/compatibility/README.md) and the [adapter validation record](docs/installation/adapter-validation.md).
+> The OpenCode adapter is fully verified in CI. Claude Code, GitHub Copilot, and ChatGPT/Codex adapters are installer-generated. Their install, update, and uninstall paths are validated on a real repository; Copilot CLI and Codex CLI discovery checks passed, while Claude Code runtime discovery remains unverified. See [Platform compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md) and the [adapter validation record](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/adapter-validation.md).
 
 ## Platform compatibility
 
@@ -152,10 +152,10 @@ The table below shows what is verified, what is installer-generated, and where t
 
 | Platform | Support level | What ToolWright installs | Best entry point |
 |---|---|---|---|
-| **OpenCode 2.2.x** | Native adapter, CI-verified | Agents, commands, skills, MCP, Ralph | [OpenCode adapter](docs/compatibility/opencode.md) |
-| **GitHub Copilot** | Installer-generated adapter | Repository instructions, path instructions, skills, prompts, [`AGENTS.md`](AGENTS.md) | [Copilot guide](docs/compatibility/github-copilot.md) |
-| **Claude Code** | Installer-generated adapter | `CLAUDE.md`, `.claude/agents/`, commands, skills | [Claude guide](docs/compatibility/claude.md) |
-| **ChatGPT / Codex** | Installer-generated adapter | [`AGENTS.md`](AGENTS.md), `.codex/agents/*.toml`, ChatGPT instructions | [GPT/Codex guide](docs/compatibility/openai-gpt.md) |
+| **OpenCode 2.2.x** | Native adapter, CI-verified | Agents, commands, skills, MCP, Ralph | [OpenCode adapter](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/opencode.md) |
+| **GitHub Copilot** | Installer-generated adapter | Repository instructions, path instructions, skills, prompts, [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) | [Copilot guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md) |
+| **Claude Code** | Installer-generated adapter | `CLAUDE.md`, `.claude/agents/`, commands, skills | [Claude guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md) |
+| **ChatGPT / Codex** | Installer-generated adapter | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md), `.codex/agents/*.toml`, ChatGPT instructions | [GPT/Codex guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md) |
 
 The reusable content is the same everywhere. Only the adapter files and permission model change.
 
@@ -177,18 +177,18 @@ pie showData
 
 | Area | What it gives you | Start here |
 |---|---|---|
-| **Agent team** | 1 coordinator + 11 specialists with least-privilege permissions | [`agents/`](agents) |
-| **Skills** | 10 sourced workflows with references and assets | [`skills/`](skills) |
-| **Commands** | 8 repeatable entry points for common tasks | [`commands/`](commands) |
-| **Orchestration** | Optional Ralph loops with research, code, review, and debug hats | [`configs/ralph/`](configs/ralph) |
-| **Code intelligence** | ripgrep, ast-grep, Serena, CodeGraph | [`docs/code-intelligence/`](docs/code-intelligence) |
-| **Verification** | Deterministic checks with cache and failure classes | [`docs/verification/`](docs/verification) |
-| **Governance** | Contracts, budgets, loop detection, risk gates | [`docs/governance/`](docs/governance) |
-| **Memory and specs** | Durable decisions, constraints, conventions, and task contracts | [`docs/memory/`](docs/memory), [`docs/specs/`](docs/specs) |
-| **Cost visibility** | Token, cost, and tool-failure reporting | [`docs/cost-optimization/observability.md`](docs/cost-optimization/observability.md) |
-| **Pilots and benchmarks** | Isolated real-repository runs and a reproducible harness | [`docs/pilots/`](docs/pilots), [`benchmarks/`](benchmarks) |
-| **CLI** | Install, diagnose, update, roll back, verify, govern, and inspect | [`packages/toolwright_cli`](packages/toolwright_cli) |
-| **Task board** | Optional Markdown board with a WIP limit and worktrees | [`.toolwright/board/README.md`](.toolwright/board/README.md) |
+| **Agent team** | 1 coordinator + 11 specialists with least-privilege permissions | [`agents/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/agents) |
+| **Skills** | 10 sourced workflows with references and assets | [`skills/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/skills) |
+| **Commands** | 8 repeatable entry points for common tasks | [`commands/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/commands) |
+| **Orchestration** | Optional Ralph loops with research, code, review, and debug hats | [`configs/ralph/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/configs/ralph) |
+| **Code intelligence** | ripgrep, ast-grep, Serena, CodeGraph | [`docs/code-intelligence/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/code-intelligence) |
+| **Verification** | Deterministic checks with cache and failure classes | [`docs/verification/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/verification) |
+| **Governance** | Contracts, budgets, loop detection, risk gates | [`docs/governance/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/governance) |
+| **Memory and specs** | Durable decisions, constraints, conventions, and task contracts | [`docs/memory/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/memory), [`docs/specs/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/specs) |
+| **Cost visibility** | Token, cost, and tool-failure reporting | [`docs/cost-optimization/observability.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cost-optimization/observability.md) |
+| **Pilots and benchmarks** | Isolated real-repository runs and a reproducible harness | [`docs/pilots/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/pilots), [`benchmarks/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks) |
+| **CLI** | Install, diagnose, update, roll back, verify, govern, and inspect | [`packages/toolwright_cli`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/packages/toolwright_cli) |
+| **Task board** | Optional Markdown board with a WIP limit and worktrees | [`.toolwright/board/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/board/README.md) |
 
 ## Quick start
 
@@ -245,13 +245,13 @@ toolwright install --platform codex   --profile minimal --target /path/to/projec
 These adapters write native files and track them in `toolwright.lock.json`. Update with the same
 command and remove with `toolwright uninstall --target /path/to/project --apply --yes`.
 
-- [Claude Code](docs/compatibility/claude.md)
-- [GitHub Copilot](docs/compatibility/github-copilot.md)
-- [OpenAI GPT and Codex](docs/compatibility/openai-gpt.md)
-- [Adapter validation record](docs/installation/adapter-validation.md)
+- [Claude Code](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md)
+- [GitHub Copilot](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md)
+- [OpenAI GPT and Codex](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md)
+- [Adapter validation record](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/adapter-validation.md)
 
 > [!IMPORTANT]
-> Installation is verified for every adapter. Runtime discovery is verified for Copilot CLI and Codex [`AGENTS.md`](AGENTS.md); Claude Code runtime discovery is unverified. Do not claim support beyond the checks recorded in the validation document.
+> Installation is verified for every adapter. Runtime discovery is verified for Copilot CLI and Codex [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md); Claude Code runtime discovery is unverified. Do not claim support beyond the checks recorded in the validation document.
 
 ### 3. Add code intelligence
 
@@ -395,7 +395,7 @@ The table below is the quick reference for responsibilities and edit access.
 | `performance-analyst` | No | Baselines, profiles, measured regressions |
 | `documentation-engineer` | Docs only | Documentation that matches the code |
 
-Read the delegation rules in [Agent roles](docs/agents/roles.md).
+Read the delegation rules in [Agent roles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md).
 
 ## A typical task, step by step
 
@@ -482,22 +482,22 @@ ToolWright reduces cost by changing **where tokens are spent**, not by truncatin
 | **Deterministic checks** | Tests and linters prove correctness without an LLM call. |
 | **Memory and specs** | Decisions and task contracts survive across sessions instead of being re-discovered. |
 
-Read the full cost model in [Cost optimization](docs/cost-optimization/README.md).
+Read the full cost model in [Cost optimization](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cost-optimization/README.md).
 
 ## Configuration
 
-All OpenCode adapter configuration lives in [docs/configuration/opencode-v2.md](docs/configuration/opencode-v2.md).
+All OpenCode adapter configuration lives in [docs/configuration/opencode-v2.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/configuration/opencode-v2.md).
 
 | File | Purpose |
 |---|---|
-| [`configs/opencode/opencode.jsonc`](configs/opencode/opencode.jsonc) | Full profile: coordinator, permissions, MCP, compaction, output limits |
-| [`configs/opencode/minimal.jsonc`](configs/opencode/minimal.jsonc) | Native tools plus ripgrep and ast-grep, no MCP |
-| [`configs/opencode/model-routing.example.jsonc`](configs/opencode/model-routing.example.jsonc) | Optional per-agent model routing |
-| [`configs/ralph/ralph.yml`](configs/ralph/ralph.yml) | Ralph loop, backend, memory, tasks |
-| [`configs/ralph/hats/`](configs/ralph/hats) | Hat collections with agent routing |
-| [`agents/<role>/AGENT.md`](agents) | Agent prompts, mode, permissions |
-| [`commands/`](commands) | Slash commands |
-| [`skills/`](skills) | Skills and supporting files |
+| [`configs/opencode/opencode.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/opencode.jsonc) | Full profile: coordinator, permissions, MCP, compaction, output limits |
+| [`configs/opencode/minimal.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/minimal.jsonc) | Native tools plus ripgrep and ast-grep, no MCP |
+| [`configs/opencode/model-routing.example.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/model-routing.example.jsonc) | Optional per-agent model routing |
+| [`configs/ralph/ralph.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/ralph/ralph.yml) | Ralph loop, backend, memory, tasks |
+| [`configs/ralph/hats/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/configs/ralph/hats) | Hat collections with agent routing |
+| [`agents/<role>/AGENT.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/agents) | Agent prompts, mode, permissions |
+| [`commands/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/commands) | Slash commands |
+| [`skills/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/skills) | Skills and supporting files |
 
 Important defaults:
 
@@ -512,7 +512,7 @@ Important defaults:
 
 ### Model routing
 
-No model is hardcoded. The platform uses your selected model by default. To route different roles to different models, set the environment variables in [`model-routing.example.jsonc`](configs/opencode/model-routing.example.jsonc).
+No model is hardcoded. The platform uses your selected model by default. To route different roles to different models, set the environment variables in [`model-routing.example.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/model-routing.example.jsonc).
 
 | Work | Model class |
 |---|---|
@@ -608,7 +608,7 @@ Ralph collections:
 | `research` | researcher, synthesizer | Evidence gathering without code changes |
 | `debug` | investigator, tester, fixer, verifier | Reproduction, hypothesis, fix, verification |
 
-See [Ralph orchestration](docs/orchestration/ralph.md#git-safety).
+See [Ralph orchestration](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/orchestration/ralph.md#git-safety).
 
 ## Prompt patterns that work
 
@@ -678,7 +678,7 @@ codegraph init
 codegraph status
 ```
 
-Guides: [ripgrep](docs/code-intelligence/ripgrep.md), [ast-grep](docs/code-intelligence/ast-grep.md), [Serena](docs/code-intelligence/serena.md), [CodeGraph](docs/code-intelligence/codegraph.md), [optional tools](docs/code-intelligence/optional-tools.md).
+Guides: [ripgrep](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/ripgrep.md), [ast-grep](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/ast-grep.md), [Serena](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/serena.md), [CodeGraph](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/codegraph.md), [optional tools](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/optional-tools.md).
 
 ## Safety and provenance
 
@@ -690,7 +690,7 @@ ToolWright is deliberately strict about automation.
 - **Destructive commands are denied.** `sudo`, `rm -rf`, force-push, and destructive Git operations are blocked or require approval.
 - **Installer defaults to inspection.** `--check` and `--dry-run` are safe; `--apply` is explicit and creates a backup.
 
-Read [AGENTS.md](AGENTS.md) Sections 2A, 2B, and 2C for artifact and Git rules. Sections 17–23 define the change, changelog, release, benchmark, and documentation workflows.
+Read [AGENTS.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) Sections 2A, 2B, and 2C for artifact and Git rules. Sections 17–23 define the change, changelog, release, benchmark, and documentation workflows.
 
 ### Provenance
 
@@ -703,7 +703,7 @@ No skill or agent is original work. Each is adapted from a maintained MIT-licens
 | [obra/superpowers](https://github.com/obra/superpowers) | Jesse Vincent | TDD, debugging, planning, verification, review skills |
 | [mikeyobrien/ralph-orchestrator](https://github.com/mikeyobrien/ralph-orchestrator) | Ralph Orchestrator Contributors | Official hat presets |
 
-Every artifact records its source path, commit, license, author, and local modifications in [docs/provenance/registry.yml](docs/provenance/registry.yml). License texts are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Every artifact records its source path, commit, license, author, and local modifications in [docs/provenance/registry.yml](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml). License texts are in [THIRD_PARTY_NOTICES.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/THIRD_PARTY_NOTICES.md).
 
 ## Evidence status
 
@@ -712,16 +712,16 @@ This repository distinguishes **verified**, **documented**, and **not yet measur
 | Area | Status |
 |---|---|
 | Static validation | Verified, including links and provenance |
-| Agent discovery | Verified with the OpenCode 2.2.7 reference adapter; Copilot CLI discovers generated instructions and skills; Codex loads [`AGENTS.md`](AGENTS.md); Claude Code discovery unverified |
+| Agent discovery | Verified with the OpenCode 2.2.7 reference adapter; Copilot CLI discovers generated instructions and skills; Codex loads [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md); Claude Code discovery unverified |
 | TypeScript and C# examples | Verified |
-| Harness execution | 30 isolated DeepSeek Flash runs; published result set |
+| Harness execution | 102 isolated published runs across three result sets |
 | Command runtime | All eight commands verified on the TypeScript fixture through the reference adapter |
 | Skill runtime | All ten skills verified through the `skill` tool |
 | MCP startup overhead | Narrow `debug agents` measurement recorded |
-| Benchmarks | Two published result sets: DeepSeek Flash examples and a real Hono tool matrix; neither shows a cost win for the optimized configuration |
+| Benchmarks | Three published result sets: DeepSeek Flash examples, a real Hono tool matrix, and a 45-run Hono cost A/B; none shows a cost win for the optimized configuration, and stock was cheapest in the A/B |
 | Real-repository pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
 | CI | Green on Ubuntu and macOS for run [43402329992](https://github.com/GabrielAlmeidaFlores/ToolWright/actions/runs/43402329992); nine jobs |
-| Repository tests | 307 unit and integration tests |
+| Repository tests | 321 unit and integration tests |
 | `toolwright` CLI | Install, uninstall, update check, rollback, doctor verified locally and in the `cli` job |
 | Profiles and catalog | Three manifests and 34 catalog entries verified locally and in CI |
 | Verification and governance | `toolwright verify` and `toolwright govern contracts` verified locally; CI runs both |
@@ -762,16 +762,16 @@ Use this table as a map. Start with the compatibility guide or the CLI reference
 
 | Start with | Then explore |
 |---|---|
-| [Platform compatibility](docs/compatibility/README.md) | [OpenCode](docs/compatibility/opencode.md) · [Copilot](docs/compatibility/github-copilot.md) · [Claude](docs/compatibility/claude.md) · [GPT/Codex](docs/compatibility/openai-gpt.md) |
-| [Quick start](docs/installation/opencode.md) | [Code intelligence](docs/installation/code-intelligence.md) · [Ralph](docs/installation/ralph.md) |
-| [CLI reference](docs/cli/README.md) | [Profiles](docs/profiles/README.md) · [Catalog](docs/catalog/README.md) |
-| [Verification](docs/verification/README.md) | [Governance](docs/governance/README.md) · [Cost observability](docs/cost-optimization/observability.md) |
-| [Agent roles](docs/agents/roles.md) | [Skills](docs/agents/roles.md) · [Commands](docs/cli/README.md) |
-| [Memory](docs/memory/README.md) | [Specs](docs/specs/README.md) · [Task board](.toolwright/board/README.md) |
-| [Pilots](docs/pilots/README.md) | [Benchmark methodology](docs/benchmarks/methodology.md) |
-| [Architecture](docs/architecture/overview.md) | [Testing](docs/architecture/testing.md) · [Decisions](docs/decisions) |
-| [Baseline record](docs/research/baseline.md) | [Research report](docs/research/phase1-research-report.md) · [Orchestration comparison](docs/research/orchestration-comparison.md) |
-| [Security](docs/security/README.md) | [Provenance](docs/provenance/README.md) · [Release](docs/release/README.md) |
+| [Platform compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md) | [OpenCode](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/opencode.md) · [Copilot](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md) · [Claude](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md) · [GPT/Codex](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md) |
+| [Quick start](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/opencode.md) | [Code intelligence](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/code-intelligence.md) · [Ralph](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/ralph.md) |
+| [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md) | [Profiles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/profiles/README.md) · [Catalog](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/catalog/README.md) |
+| [Verification](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md) | [Governance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/governance/README.md) · [Cost observability](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cost-optimization/observability.md) |
+| [Agent roles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md) | [Skills](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md) · [Commands](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md) |
+| [Memory](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/memory/README.md) | [Specs](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/specs/README.md) · [Task board](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/board/README.md) |
+| [Pilots](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/README.md) | [Benchmark methodology](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md) |
+| [Architecture](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/overview.md) | [Testing](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md) · [Decisions](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/decisions) |
+| [Baseline record](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/baseline.md) | [Research report](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/phase1-research-report.md) · [Orchestration comparison](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/orchestration-comparison.md) |
+| [Security](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/security/README.md) | [Provenance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/README.md) · [Release](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/release/README.md) |
 
 ## Troubleshooting
 
@@ -786,9 +786,9 @@ The table below covers the most common symptoms. The full guide has the detailed
 | Ralph created a commit | Expected in 2.10.1; use a separate disposable clone |
 | Context overflows | Lower `tool_output`, keep compaction enabled |
 | Benchmark command fails | Check the task's `working_directory` and verification command |
-| Non-OpenCode adapter seems missing | Reinstall with `--platform claude`, `copilot`, or `codex`, then confirm the generated paths in [`docs/installation/toolwright-cli.md`](docs/installation/toolwright-cli.md) |
+| Non-OpenCode adapter seems missing | Reinstall with `--platform claude`, `copilot`, or `codex`, then confirm the generated paths in [`docs/installation/toolwright-cli.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/toolwright-cli.md) |
 
-Full guide: [docs/troubleshooting/README.md](docs/troubleshooting/README.md).
+Full guide: [docs/troubleshooting/README.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/README.md).
 
 ## FAQ
 
@@ -799,16 +799,16 @@ No. The OpenCode adapter targets V2.2.x. V2 does not run language servers, so Se
 No. OpenCode is the reference adapter and the only one verified end-to-end in CI. Claude Code, GitHub Copilot, and ChatGPT/Codex install generated native files and are validated at the installer level. Copilot and Codex have additional CLI discovery evidence; Claude Code runtime discovery is still unverified.
 
 **Do I need every MCP server?**  
-No. The default OpenCode profile enables Serena and CodeGraph. [`configs/opencode/minimal.jsonc`](configs/opencode/minimal.jsonc) disables MCP entirely. The `minimal` install profile currently installs the full config, so select the no-MCP config explicitly.
+No. The default OpenCode profile enables Serena and CodeGraph. [`configs/opencode/minimal.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/minimal.jsonc) disables MCP entirely. The `minimal` install profile currently installs the full config, so select the no-MCP config explicitly.
 
 **Will agents commit or stage my changes?**  
 No. Git write commands are denied and validated per agent. Ralph is the exception: 2.10.1 auto-commits on landing, so run it in a separate disposable clone.
 
 **Can I use my own models?**  
-Yes. Use the environment-driven overlay in [`model-routing.example.jsonc`](configs/opencode/model-routing.example.jsonc).
+Yes. Use the environment-driven overlay in [`model-routing.example.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/model-routing.example.jsonc).
 
 **Can I add my own agent, skill, or command?**  
-Yes, but follow the provenance rule in [AGENTS.md](AGENTS.md): source a maintained upstream artifact, pin the commit, attribute the author, and modify minimally.
+Yes, but follow the provenance rule in [AGENTS.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md): source a maintained upstream artifact, pin the commit, attribute the author, and modify minimally.
 
 ## Testing this repository
 
@@ -827,25 +827,27 @@ make toolwright ARGS="doctor"   # run the CLI from the checkout
 | Unit | Validator rules, fixtures, repository invariants, version file, docs status, CLI parser, lock file, installer plan |
 | Integration | Validation entry points, benchmark dry-run, installer safety, OpenCode discovery, `toolwright` install/update/uninstall lifecycle |
 
-See [testing the repository](docs/architecture/testing.md) and [CI diagnosis](docs/troubleshooting/ci.md).
+See [testing the repository](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md) and [CI diagnosis](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/ci.md).
 
 ## Benchmarks
 
-The benchmark harness is reproducible and the question is tool-neutral. Two result sets are published: 30 example runs and 27 real-repository Hono runs, both on the OpenCode reference adapter with `deepseek/deepseek-flash`. The optimized configuration did not reduce cost in either set. The real-repository matrix also measures Serena, CodeGraph, ast-grep, skills, subagents, memory, commands, and Ralph. This is not a Claude, Copilot, or Codex result. See the results and limitations before reusing the claim.
+The benchmark harness is reproducible and the question is tool-neutral. Three result sets are published: 30 example runs, 27 real-repository Hono matrix runs, and a 45-run Hono cost A/B, all on the OpenCode reference adapter with `deepseek/deepseek-flash`. The optimized configuration did not reduce cost in any set. In the A/B, the stock agent was cheapest and none of the three new arms met the 15% promotion bar. The real-repository matrix also measures Serena, CodeGraph, ast-grep, skills, subagents, memory, commands, and Ralph. This is not a Claude, Copilot, or Codex result. See the results and limitations before reusing the claim.
 
-- [Methodology](docs/benchmarks/methodology.md)
-- [DeepSeek Flash results](docs/benchmarks/results-deepseek-flash.md)
-- [Real Hono tool matrix](docs/benchmarks/real-hono-tool-matrix.md)
-- [Tasks](benchmarks/tasks)
-- [Harness](benchmarks/harness)
-- [Result artifacts](benchmarks/results/deepseek-flash-2026-11-13)
+- [Methodology](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md)
+- [DeepSeek Flash results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-deepseek-flash.md)
+- [Real Hono tool matrix](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/real-hono-tool-matrix.md)
+- [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md)
+- [Benchmark arms](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/arms/README.md)
+- [Tasks](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/tasks)
+- [Harness](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/harness)
+- [Result artifacts](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/results)
 
 ## Security, support, roadmap
 
-- [SECURITY.md](SECURITY.md) — supported versions and private reporting.
-- [SUPPORT.md](SUPPORT.md) — where to ask and what to include.
-- [ROADMAP.md](ROADMAP.md) — phase status and non-goals.
-- [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) — Contributor Covenant 2.1.
+- [SECURITY.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/SECURITY.md) — supported versions and private reporting.
+- [SUPPORT.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/SUPPORT.md) — where to ask and what to include.
+- [ROADMAP.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/ROADMAP.md) — phase status and non-goals.
+- [CODE_OF_CONDUCT.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/CODE_OF_CONDUCT.md) — Contributor Covenant 2.1.
 
 The following commands install the documentation builder, verify the site in strict mode, and serve it locally:
 
@@ -857,8 +859,8 @@ mkdocs serve
 
 ## Contributing
 
-Contributions must follow the provenance, Git safety, and documentation-comment rules in [AGENTS.md](AGENTS.md). See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and validation commands.
+Contributions must follow the provenance, Git safety, and documentation-comment rules in [AGENTS.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md). See [CONTRIBUTING.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/CONTRIBUTING.md) for the workflow and validation commands.
 
 ## License
 
-Repository content is MIT. Third-party artifacts keep their original licenses; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Serena is GPL-3.0-or-later and is installed as an external tool, not vendored here.
+Repository content is MIT. Third-party artifacts keep their original licenses; see [THIRD_PARTY_NOTICES.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/THIRD_PARTY_NOTICES.md). Serena is GPL-3.0-or-later and is installed as an external tool, not vendored here.

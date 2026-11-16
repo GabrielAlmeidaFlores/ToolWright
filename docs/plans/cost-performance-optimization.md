@@ -1,13 +1,14 @@
 # Cost and Performance Optimization Plan
 
-> **Status:** Planned · **Last verified:** 2026-11-16 · **Evidence:** Phase 0 harness isolation and Hono fixtures implemented; A/B pending
+> **Status:** Planned · **Last verified:** 2026-11-16 · **Evidence:** Phase 0 harness, arms, and a 45-run Hono A/B completed; no promotion, see [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md)
 
 ## Implementation progress
 
 - Phase 0 is implemented: the harness supports `--workspace`, isolated `XDG_CONFIG_HOME`, and `opencode --standalone`; real Hono fixtures live under `benchmarks/real/hono/`.
 - A baseline smoke run on Hono passed verification with no global MCP leakage.
-- Phase 1 benchmark-only routing arms are not implemented yet.
-- Production defaults, agent prompts, and profiles remain unchanged until the A/B result.
+- Phase 1 benchmark-only arms are implemented under `benchmarks/arms/`.
+- The initial A/B is complete: 45 isolated runs (5 arms, 3 Hono tasks, 3 repeats), all verified, all scope score 4. No arm met the promotion bar; stock `baseline` was cheapest. See [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md).
+- Production defaults, agent prompts, and profiles remain unchanged. The 125-run Phase 5 matrix is still required before any production change.
 
 ## 1. Purpose
 
@@ -295,7 +296,9 @@ Deliverables:
 - add a “cost per verified task” metric to benchmark analysis;
 - record cache hit rate, input/output/reasoning share, steps, tool calls, wall time;
 - document the clean isolated environment requirement (`XDG_CONFIG_HOME` empty, `opencode --standalone`);
-- confirm that global MCP servers are absent from benchmark runs.
+- confirm that global MCP servers are absent from benchmark runs;
+- enforce each task's `max_wall_time_seconds` and terminate the run process group so MCP servers cannot outlive a run;
+- record `status.txt`, `diff.patch`, and `diff-stat.txt` for scope analysis.
 
 Files:
 
@@ -307,8 +310,9 @@ Files:
 Acceptance:
 
 - all benchmark runs produce per-run `run-stats.json`;
-- no global MCP contamination;
-- cost per verified task is reported.
+- no global MCP contamination and no surviving MCP server after a run;
+- cost per verified task is reported;
+- every run records its changed files and diff.
 
 ### Phase 1 — Benchmark-only routing contract
 
@@ -322,6 +326,8 @@ Deliverables:
 - add stop conditions and output contracts to those variants;
 - add an explicit “do not delegate trivial tasks” rule to the benchmark variant;
 - document examples of direct vs coordinator routes.
+
+Status: the config-level variants and the route documentation are implemented. Stop conditions, output contracts, and the “do not delegate trivial tasks” rule change agent prompts, so they are deferred together with the production routing table until Phase 5 produces a result.
 
 Files:
 
@@ -343,6 +349,29 @@ Acceptance:
 - a reviewer can determine the intended route from the task description;
 - agent instructions never require the coordinator for a single-file edit;
 - no new agent is added.
+
+#### Implemented in Phase 1
+
+The routing decision is expressed only in benchmark configuration; no production agent prompt, default agent, permission, profile, or step budget changed.
+
+| Arm | Config | Agent | Difference from the current optimized arm |
+|---|---|---|---|
+| `coordinator-slim` | `benchmarks/arms/slim.jsonc` | `coordinator` | No MCP servers, 400-line tool output cap |
+| `direct-slim` | `benchmarks/arms/slim.jsonc` | `backend-developer` | No MCP servers, 400-line tool output cap, no coordinator hop |
+| `tools-on-demand` | `benchmarks/arms/tools-on-demand.jsonc` | `coordinator` | Full MCP surface, 400-line tool output cap |
+
+The harness assigns the config and agent per arm and copies non-workspace arm configs into the disposable checkout before the run, so one installed profile can serve every arm. The routing-table text in the coordinator and specialist prompts stays deferred until Phase 5 produces a result, because it changes production behavior.
+
+Verification of the arm contract:
+
+```bash
+python3 -m unittest tests.unit.test_benchmark_arms -v
+./benchmarks/harness/run.sh --arm direct-slim \
+  --task benchmarks/real/hono/tasks/set-cookie.json \
+  --workspace /tmp/toolwright-hono --dry-run
+```
+
+The unit test parses each arm config and asserts the MCP surface, tool output cap, default agent, and that no arm tries to override agent frontmatter. A config-level `agents` entry does not override an agent defined by a Markdown file, so a step budget in the arm would be silently ignored; step limits belong to Phase 3. The dry run proves the harness maps the arm to its config and agent without executing a model call.
 
 ### Phase 2 — Tool policy and profiles
 
@@ -477,6 +506,25 @@ Acceptance:
 
 If `coordinator-slim` does not win, keep the current behavior and document the negative result.
 
+#### Implemented: initial 3-task screen
+
+The first screen ran the three existing Hono fixtures with 3 repeats instead of the full 125-run matrix. Result:
+
+| Arm | Total cost | Cost per verified task | Median wall | Verified | Scope 4 |
+|---|---|---|---|---|---|
+| `baseline` | $0.0636 | $0.0071 | 39s | 9/9 | 9/9 |
+| `optimized` | $0.0872 | $0.0097 | 72s | 9/9 | 9/9 |
+| `coordinator-slim` | $0.0772 | $0.0086 | 59s | 9/9 | 9/9 |
+| `direct-slim` | $0.0765 | $0.0085 | 46s | 9/9 | 9/9 |
+| `tools-on-demand` | $0.0919 | $0.0102 | 55s | 9/9 | 9/9 |
+
+No arm met the 15% bar against both `baseline` and `optimized`. `coordinator-slim` and `direct-slim` were 11.5% and 12.3% cheaper than `optimized` but 20% above stock. Production behavior stays unchanged. The screen is published at [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md) with limitations.
+
+Two findings move to Phase 3 before another A/B run:
+
+1. Coordinator arms never call `edit`; they edit through `shell` and spend 114–132 shell calls per nine runs. This is a permission/contract problem, not a routing problem.
+2. The two no-MCP arms did not use any MCP tools, but they still cost more than baseline. MCP schema weight is not the dominant cost on these tasks.
+
 ### Phase 6 — Documentation and release
 
 Deliverables:
@@ -575,6 +623,6 @@ Every code or configuration change follows the repository contract:
 
 ## 13. Current recommendation
 
-Do not add a new tool yet.
+Do not add a new tool and do not promote an arm yet.
 
-Implement Phases 0–4 first, then run the A/B matrix. Add a deterministic router or repository map only if the benchmark shows that agent selection or repository orientation remains the bottleneck.
+The 45-run screen did not produce a cost win. The next useful change is the Phase 3 editing/permission work: give the coordinator path a native `edit` route or route edits to a specialist, then re-run the 3-task screen. Only if that closes the gap to baseline should the full 125-run matrix decide a production change. A deterministic router or repository map is not justified by this result.

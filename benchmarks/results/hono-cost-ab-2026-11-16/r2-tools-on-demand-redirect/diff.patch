@@ -1,0 +1,61 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..aaa469b 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -115,6 +115,34 @@ describe('Context', () => {
+     )
+   })
+ 
++  it('c.redirect() w/ raw CR and LF', async () => {
++    let res = c.redirect('/destination\r\nX-Injected: true')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0D%0AX-Injected: true')
++
++    res = c.redirect('/destination\rX-Injected: true')
++    expect(res.headers.get('Location')).toBe('/destination%0DX-Injected: true')
++
++    res = c.redirect('/destination\nX-Injected: true')
++    expect(res.headers.get('Location')).toBe('/destination%0AX-Injected: true')
++  })
++
++  it('c.redirect() w/ raw CR and LF alongside multibytes', async () => {
++    const res = c.redirect('https://example.com/こんにちは\r\nX-Injected: true')
++    expect(res.headers.get('Location')).toBe(
++      'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%0D%0AX-Injected:%20true'
++    )
++  })
++
++  it('c.redirect() w/ percent-encoded CR and LF', async () => {
++    let res = c.redirect('/destination%0D%0AX-Injected: true')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0D%0AX-Injected: true')
++
++    res = c.redirect('/destination%0d%0aX-Injected: true')
++    expect(res.headers.get('Location')).toBe('/destination%0d%0aX-Injected: true')
++  })
++
+   const unchangedURLString = [
+     'https://example.com/%hello', // invalid ASCII chars
+     'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF?abc',
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..2fa9db8 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -770,11 +770,14 @@ export class Context<
+     status?: T
+   ): Response & TypedResponse<undefined, T, 'redirect'> => {
+     const locationString = String(location)
++    // Multibytes should be encoded
++    // eslint-disable-next-line no-control-regex
++    const needsEncoding = /[^\x00-\xFF]/.test(locationString)
++    const encodedLocation = needsEncoding ? encodeURI(locationString) : locationString
+     this.header(
+       'Location',
+-      // Multibytes should be encoded
+-      // eslint-disable-next-line no-control-regex
+-      !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
++      // CR and LF must be percent-encoded to prevent header injection
++      encodedLocation.replace(/\r/g, '%0D').replace(/\n/g, '%0A')
+     )
+     return this.newResponse(null, status ?? 302) as any
+   }
