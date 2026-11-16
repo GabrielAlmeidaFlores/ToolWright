@@ -55,6 +55,7 @@ The table below maps every scored metric to the artifact that supplies it. Token
 | --- | --- |
 | Input/output tokens | `run-stats.json` derived from `session.jsonl` |
 | Cost | `run-stats.json` derived from `session.jsonl` |
+| Cache hit ratio | cache-read tokens divided by input plus cache-read tokens, from `run-stats.json` |
 | Model calls | session export |
 | Tool calls | session export |
 | Iterations | session export |

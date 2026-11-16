@@ -11,6 +11,7 @@ The table columns are the arm label, the config loaded by the harness, the prima
 | `coordinator-slim` | `benchmarks/arms/slim.jsonc` | `coordinator` | No MCP, 400-line tool output cap |
 | `direct-slim` | `benchmarks/arms/slim.jsonc` | `backend-developer` | No MCP, 400-line tool output cap, no coordinator hop |
 | `tools-on-demand` | `benchmarks/arms/tools-on-demand.jsonc` | `coordinator` | Full MCP surface, 400-line tool output cap |
+| `slim-uncapped` | `configs/opencode/minimal.jsonc` | `coordinator` | No MCP, default 2000-line tool output cap; completes the 2×2 MCP/cap matrix |
 
 Run one arm:
 
@@ -28,7 +29,7 @@ The copy overwrites `<workspace>/.opencode/opencode.jsonc`. Use a fresh checkout
 
 Every run is bounded by the task's `max_wall_time_seconds` and its process group is terminated afterwards, so MCP servers started by one arm cannot affect the next run.
 
-Each arm config is a copy of its source config with only `tool_output` changed: `slim.jsonc` from `configs/opencode/minimal.jsonc`, `tools-on-demand.jsonc` from `configs/opencode/opencode.jsonc`. `tests/unit/test_benchmark_arms.py` fails when an arm drifts from its source for any other key.
+Each arm config is a copy of its source config with only `tool_output` changed, except `slim-uncapped`, which uses `configs/opencode/minimal.jsonc` as-is to test the default cap: `slim.jsonc` from `configs/opencode/minimal.jsonc`, `tools-on-demand.jsonc` from `configs/opencode/opencode.jsonc`. `tests/unit/test_benchmark_arms.py` fails when a copied arm drifts from its source for any other key.
 
 Step budgets stay in the agent frontmatter. A config-level `agents` entry does not override an agent defined by a Markdown file, so the arms do not pretend to change it; step limits are a separate Phase 3 change.
 

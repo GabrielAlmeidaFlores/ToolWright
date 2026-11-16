@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Name: Benchmark runner
 # Purpose: Runs one benchmark arm in a disposable workspace, records session, scope, and statistics artifacts, and executes the task verification command.
-# Usage: ./benchmarks/harness/run.sh --arm baseline|optimized|coordinator-slim|direct-slim|tools-on-demand --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]
+# Usage: ./benchmarks/harness/run.sh --arm baseline|optimized|coordinator-slim|direct-slim|tools-on-demand|slim-uncapped --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]
 # Arguments: --arm selects the configuration and agent, --task selects the task definition, --workspace sets the target repository root, --run-id sets the output directory name, --dry-run prints the command.
 # Environment: Requires bash, python3, and git. opencode is required to execute a run but not for --dry-run. OPENCODE_BENCH_MODEL must be a provider/model#variant identifier for execution.
 # Outputs: Writes meta.json, session.jsonl, stats.json, run-stats.json, export.json, verification.log, status.txt, diff.patch, diff-stat.txt, and notes.md under benchmarks/results/<run-id>.
@@ -23,7 +23,7 @@ DRY=0
 # Returns: None.
 # Side effects: Writes to standard output.
 usage() {
-  echo "usage: $0 --arm baseline|optimized|coordinator-slim|direct-slim|tools-on-demand --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]"
+  echo "usage: $0 --arm baseline|optimized|coordinator-slim|direct-slim|tools-on-demand|slim-uncapped --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]"
   echo "environment: OPENCODE_BENCH_MODEL=provider/model#variant is required for execution"
 }
 
@@ -99,6 +99,11 @@ case "$ARM" in
     ;;
   tools-on-demand)
     CONFIG="$ROOT/benchmarks/arms/tools-on-demand.jsonc"
+    CONFIG_COPY=1
+    AGENT="coordinator"
+    ;;
+  slim-uncapped)
+    CONFIG="$ROOT/configs/opencode/minimal.jsonc"
     CONFIG_COPY=1
     AGENT="coordinator"
     ;;

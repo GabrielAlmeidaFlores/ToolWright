@@ -47,5 +47,6 @@ TEXT_OPENCODE_AGENTS_BACKEND_MD = '.opencode/agents/backend-developer.md'
 KEY_COORDINATOR_SLIM = 'coordinator-slim'
 KEY_DIRECT_SLIM = 'direct-slim'
 KEY_TOOLS_ON_DEMAND = 'tools-on-demand'
+KEY_SLIM_UNCAPPED = 'slim-uncapped'
 TEXT_PATH_SUFFIX = ':/usr/bin:/bin'
 from tests.constants import TEXT_TASK_ERROR

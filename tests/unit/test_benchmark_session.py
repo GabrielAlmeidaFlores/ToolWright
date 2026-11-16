@@ -27,6 +27,7 @@ from scripts.benchmarking.summarize_session import (
     EVENT_STEP_FINISH,
     EVENT_TOOL_USE,
     KEY_CACHE,
+    KEY_CACHE_HIT_RATIO,
     KEY_CALLS,
     KEY_COST,
     KEY_INPUT,
@@ -87,6 +88,7 @@ class SessionSummaryTests(unittest.TestCase):
         self.assertEqual(summary[KEY_TOKENS][KEY_OUTPUT], 50)
         self.assertEqual(summary[KEY_TOKENS][KEY_REASONING], 12)
         self.assertEqual(summary[KEY_TOKENS][KEY_CACHE][KEY_READ], 100)
+        self.assertAlmostEqual(summary[KEY_CACHE_HIT_RATIO], 0.25)
 
     def test_script_entrypoint_writes_summary(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

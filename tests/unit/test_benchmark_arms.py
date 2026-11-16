@@ -25,6 +25,7 @@ TEXT_CONFIGS = 'configs'
 TEXT_MINIMAL_JSONC = 'minimal.jsonc'
 TEXT_SLIM_JSONC = 'slim.jsonc'
 TEXT_TOOLS_ON_DEMAND_JSONC = 'tools-on-demand.jsonc'
+DEFAULT_TOOL_OUTPUT_LINES = 2000
 BENCHMARK_ARMS = support.REPO_ROOT / TEXT_BENCHMARKS / TEXT_ARMS
 MINIMAL_CONFIG = support.REPO_ROOT / TEXT_CONFIGS / KEY_OPENCODE / TEXT_MINIMAL_JSONC
 FULL_CONFIG = support.REPO_ROOT / TEXT_CONFIGS / KEY_OPENCODE / TEXT_OPENCODE_JSONC
@@ -74,6 +75,13 @@ class BenchmarkArmConfigTests(unittest.TestCase):
             arm_config.pop(KEY_TOOL_OUTPUT)
             source_config.pop(KEY_TOOL_OUTPUT)
             self.assertEqual(arm_config, source_config, arm)
+
+    def test_slim_uncapped_uses_default_output_cap(self) -> None:
+        config = json.loads(
+            support.load_validator().strip_jsonc(MINIMAL_CONFIG.read_text(encoding=TEXT_UTF_8))
+        )
+        self.assertEqual(config[KEY_MCP][KEY_SERVERS], {})
+        self.assertEqual(config[KEY_TOOL_OUTPUT][KEY_MAX_LINES], DEFAULT_TOOL_OUTPUT_LINES)
 
     def test_arms_do_not_override_agent_frontmatter(self) -> None:
         for name in (TEXT_SLIM_JSONC, TEXT_TOOLS_ON_DEMAND_JSONC):

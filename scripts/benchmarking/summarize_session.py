@@ -33,6 +33,7 @@ from scripts.lib.python_strings import (
     TEXT_UTF_8,
 )
 
+KEY_CACHE_HIT_RATIO = "cache_hit_ratio"
 EVENT_STEP_FINISH = "step_finish"
 EVENT_TOOL_USE = "tool_use"
 PROMPTS_PER_RUN = 1
@@ -70,12 +71,15 @@ def summarize(session_path: Path) -> dict[str, object]:
             tokens[KEY_CACHE][KEY_WRITE] += int(cache.get(KEY_WRITE, 0))
         elif event_type == EVENT_TOOL_USE:
             tool_calls += 1
+    prompt_tokens = tokens[KEY_INPUT] + tokens[KEY_CACHE][KEY_READ]
+    cache_hit_ratio = tokens[KEY_CACHE][KEY_READ] / prompt_tokens if prompt_tokens else 0.0
     return {
         KEY_STEPS: steps,
         KEY_TOKENS: tokens,
         KEY_COST: cost,
         KEY_TOOLS: {KEY_CALLS: tool_calls},
         KEY_PROMPTS: PROMPTS_PER_RUN,
+        KEY_CACHE_HIT_RATIO: round(cache_hit_ratio, 4),
     }
 
 
