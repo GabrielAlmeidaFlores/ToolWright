@@ -1,6 +1,6 @@
 # ToolWright
 
-> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** `make ci` green locally with 1216 static checks and 340 tests
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** `make ci` green locally with 1158 static checks and 340 tests
 
 A provider-neutral multi-agent development toolkit with a fully verified OpenCode adapter and installer-generated adapters for GitHub Copilot, Claude Code, and OpenAI GPT/Codex. OpenCode is optional. It is built around four pillars:
 
@@ -38,7 +38,7 @@ The table below summarizes what has been verified and which evidence supports it
 
 | Area | State |
 |---|---|
-| Static validation | 1216 checks, including provenance, permissions, comments, absolute links, and docs status |
+| Static validation | 1158 checks, including provenance, permissions, comments, absolute links, and docs status |
 | Test suite | 340 offline tests on Ubuntu and macOS |
 | CLI | Wheel build, install lifecycle, profile/catalog verification, verification gates |
 | Catalog | 34 generated artifacts with drift enforcement |

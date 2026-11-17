@@ -296,6 +296,115 @@ With another adapter, open the repository in that platform and invoke the genera
 > [!WARNING]
 > Ralph 2.10.1 commits its own changes during landing and has no switch to disable it. Run it only in a separate disposable clone. A linked worktree shares `.git` and is not sufficient.
 
+## Install, update, and remove
+
+`toolwright` owns the files it generates through `toolwright.lock.json`. It only updates or removes files recorded in that lock, and it plans before writing unless you pass `--apply`. Start every change with a dry run.
+
+### Install agents, commands, skills, and tools
+
+Choose an adapter and a profile, inspect the plan, then apply it:
+
+```bash
+toolwright install --platform opencode --profile minimal --target /path/to/project --dry-run
+toolwright install --platform opencode --profile minimal --target /path/to/project --apply
+```
+
+The profiles are cumulative:
+
+- `minimal` installs the OpenCode configuration, agents, commands, skills, and Ralph.
+- `standard` adds ast-grep for structural search.
+- `full` adds Serena, CodeGraph, and the opt-in memory plugin.
+
+To install selected artifacts instead of a profile, pass `--only` with one or more components:
+
+```bash
+toolwright install --platform claude --target /path/to/project \
+  --only agents,commands,skills --apply
+```
+
+The component names are `opencode`, `agents`, `commands`, `skills`, `ralph`, `plugin`,
+`ast-grep`, `serena`, and `codegraph`. Not every adapter generates every component. OpenCode
+supports the full set. Claude and Copilot generate instructions, agents, commands, and skills;
+Codex generates instructions and agent TOML files.
+
+The OpenCode shell installer remains available for the reference adapter:
+
+```bash
+./scripts/installation/install.sh --apply --only opencode,agents,commands,skills,ralph
+```
+
+The installed files are recorded in `toolwright.lock.json`. Commit that lock with the project so
+every teammate can see which artifacts are managed and can update or remove them safely.
+
+### Update the installed artifacts
+
+Update the ToolWright checkout and, when the CLI code changed, reinstall the CLI. Run these commands in the ToolWright checkout, not in the target project:
+
+```bash
+git pull
+uv tool install --force ./packages/toolwright_cli
+```
+
+Check whether the target differs from the current source:
+
+```bash
+toolwright update --check --target /path/to/project
+```
+
+Apply the update by rerunning the same install command with `--apply`:
+
+```bash
+toolwright install --platform claude --profile minimal --target /path/to/project --apply
+```
+
+An unchanged target reports `already up to date`. If you edited a managed file, the installer
+detects the difference and does not overwrite it by default. Review the diff first; use
+`--force` only when you intend to replace your edits. `--clean` backs up and replaces managed
+directories when a component needs a full refresh.
+
+### Remove the installation
+
+Preview the removal first:
+
+```bash
+toolwright uninstall --target /path/to/project --dry-run
+```
+
+Apply it only after checking the file list:
+
+```bash
+toolwright uninstall --target /path/to/project --apply --yes
+```
+
+Modified managed files are skipped by default; `--force` removes them as well. `--purge` also
+deletes the `.toolwright` state directory and the lock. That directory contains project memory
+and the local usage ledger, so export anything you want to keep first:
+
+```bash
+toolwright memory export --target /path/to/project > memory-backup.md
+toolwright uninstall --target /path/to/project --apply --yes --purge
+```
+
+Uninstall removes files recorded in `toolwright.lock.json`. It does not uninstall global binaries
+such as ast-grep, Serena, or CodeGraph that were installed outside the lock; remove those with
+their own package manager. Component-level removal is not supported: uninstall removes the
+managed set, and you can reinstall the subset you want afterward.
+
+### Remove or update code-intelligence tools
+
+The code-intelligence tools follow the same component lifecycle:
+
+```bash
+./scripts/installation/install.sh --apply --only ast-grep,serena
+codegraph init
+```
+
+Update them by rerunning the installer or your package manager, then rerun `codegraph init` if the
+project index is stale. The CLI uninstall removes generated configuration, not globally installed
+binaries. See the [code-intelligence guides](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/code-intelligence) for each tool's native removal command.
+
+The [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md) lists every install, update, uninstall, and profile flag.
+
 ## Choose the right workflow
 
 The decision tree below helps you pick an entry point from the kind of work you have. Follow one branch from the question at the top; each leaf names the workflow or agent set to use. The tree is a routing aid, not a permission model, so the detailed workflow pages remain authoritative. Read it when you are unsure whether to start with planning, implementation, or review.
