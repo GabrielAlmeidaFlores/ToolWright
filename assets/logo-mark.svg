@@ -1,10 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
-  <title id="title">ToolWright mark</title>
-  <desc id="desc">A flat retro-futuristic mark: a dark chamfered square with a cyan grid, a white T, a cyan check, and an amber spark.</desc>
-  <path d="M52 24 H108 L136 52 V108 L108 136 H52 L24 108 V52 Z" fill="#0B1220" stroke="#22D3EE" stroke-width="3"/>
-  <path d="M24 80 H136 M80 24 V136" stroke="#164E63" stroke-width="1"/>
-  <path d="M48 52 H104" fill="none" stroke="#F8FAFC" stroke-width="9" stroke-linecap="square"/>
-  <path d="M76 52 V104" fill="none" stroke="#F8FAFC" stroke-width="9" stroke-linecap="square"/>
-  <path d="M60 82 L74 96 L100 70" fill="none" stroke="#22D3EE" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter"/>
-  <path d="M108 34 C109.4 40.1 111.3 42 117.4 43.4 C111.3 44.8 109.4 46.7 108 52.8 C106.6 46.7 104.7 44.8 98.6 43.4 C104.7 42 106.6 40.1 108 34 Z" fill="#F59E0B"/>
+  <title id="title">ToolWright symbol</title>
+  <desc id="desc">A chamfered charcoal plate with a T-shaped keyway cut through it, inspired by machine sockets, punch cards, and early computer hardware.</desc>
+  <path fill="#1C1B18" fill-rule="evenodd" d="M48 16 H112 L144 48 V112 L112 144 H48 L16 112 V48 Z M52 56 H108 V76 H88 V116 H72 V76 H52 Z"/>
 </svg>
