@@ -1,6 +1,6 @@
 # Release Checklist
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 Use this checklist before tagging a release. A checked item must have reproducible evidence.
 

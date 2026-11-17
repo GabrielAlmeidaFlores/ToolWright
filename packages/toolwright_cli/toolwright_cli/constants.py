@@ -100,6 +100,7 @@ KEY_FAILED = "failed"
 
 KEY_MCP = 'mcp'
 KEY_TOOL = 'tool'
+KEY_TOOLS = 'tools'
 FLAG_TEXT = '---'
 KEY_APPROVED = 'approved'
 KEY_BY_STATUS = 'by_status'

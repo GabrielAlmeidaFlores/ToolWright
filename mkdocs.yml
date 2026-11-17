@@ -77,6 +77,7 @@ nav:
           - Claude Code: compatibility/claude.md
           - OpenAI GPT and Codex: compatibility/openai-gpt.md
           - Policy: compatibility/policy.md
+          - MCP by client: compatibility/mcp.md
       - Code intelligence:
           - Overview: code-intelligence/README.md
           - ripgrep: code-intelligence/ripgrep.md

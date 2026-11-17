@@ -8,11 +8,12 @@ import unittest
 from pathlib import Path
 
 from tests import support
-from tests.constants import KEY_AGENTS, KEY_CLAUDE, KEY_CODEX, KEY_COMMANDS, KEY_OPENCODE, KEY_TARGET, TEXT_MAIN, TEXT_SPACE, TEXT_TOOLWRIGHT_LOCK_JSON
+from tests.constants import KEY_AGENTS, KEY_CLAUDE, KEY_CODEX, KEY_COMMANDS, KEY_OPENCODE, KEY_TARGET, TEXT_COLON, TEXT_MAIN, TEXT_PERMISSION_DENIED, TEXT_SPACE, TEXT_TOOLWRIGHT_LOCK_JSON
 from tests.unit.test_toolwright_plugin_strings import KEY_PLUGIN
 from tests.integration.test_toolwright_commands_strings import TEXT_AGENTS_MD, TEXT_CLAUDE_MD
 
-from toolwright_cli.tui.services import PLUGIN_SENTINEL, SetupSelection, apply_selection, build_plan
+from toolwright_cli.tui.services import PLUGIN_SENTINEL, SetupSelection, apply_selection, build_plan, tool_outcome
+from toolwright_cli.tui.tools import TEXT_INSTALLED, TEXT_MANUAL, TOOL_AST_GREP, TOOL_CODEGRAPH, TOOL_SERENA
 
 
 class SetupServiceTests(unittest.TestCase):
@@ -34,6 +35,22 @@ class SetupServiceTests(unittest.TestCase):
             self.assertTrue((target / TEXT_AGENTS_MD).is_file())
             self.assertTrue((target / TEXT_TOOLWRIGHT_LOCK_JSON).is_file())
             self.assertEqual(Path(result[KEY_TARGET]), target)
+
+    def test_preview_lists_each_selected_tool_once(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory)
+            selection = SetupSelection(
+                support.REPO_ROOT, target, KEY_OPENCODE, (KEY_AGENTS,), (TOOL_AST_GREP,)
+            )
+            lines = build_plan(selection)
+            self.assertEqual(sum(1 for line in lines if line.startswith(TOOL_AST_GREP + TEXT_COLON)), 1)
+
+    def test_tool_outcome_separates_failures_and_manual_steps(self) -> None:
+        failures, manual = tool_outcome(
+            {TOOL_AST_GREP: TEXT_INSTALLED, TOOL_SERENA: TEXT_PERMISSION_DENIED, TOOL_CODEGRAPH: TEXT_MANUAL}
+        )
+        self.assertEqual(failures, [TOOL_SERENA])
+        self.assertEqual(manual, [TOOL_CODEGRAPH])
 
     def test_opencode_plugin_enables_its_sentinel(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

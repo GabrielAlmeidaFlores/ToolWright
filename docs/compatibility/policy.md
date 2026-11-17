@@ -10,7 +10,7 @@ The table below describes Supported targets. It has 8 rows and 3 columns: Target
 | OpenCode `1.x` | No | Configuration shape differs; migration only |
 | Ralph Orchestrator `2.10.x` | Native (OpenCode backend) | Auto-commit limitation documented |
 | GitHub Copilot | Installer-generated adapter | Instructions and skills discovered by Copilot CLI `1.0.105`; prompt files not inspected |
-| Claude Code | Installer-generated adapter | `claude doctor` passed on CLI `2.1.323`; no non-interactive discovery command, so runtime discovery unverified |
+| Claude Code | Installer-generated adapter | `claude doctor` passes on CLI `2.1.326`; no non-interactive discovery command, so runtime discovery unverified |
 | OpenAI GPT / Codex | Installer-generated adapter | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) loaded by Codex CLI `0.146.0`; custom agent discovery not runtime-tested |
 | Python | 3.11+ | CLI and validator |
 | macOS / Linux | Yes | Windows is not supported or validated |

@@ -7,7 +7,7 @@ Side effects: none.
 """
 from __future__ import annotations
 
-from ..constants import DEFAULT_ADAPTER, EMPTY_STRING, KEY_ADAPTER, KEY_AGENTS, KEY_COMMANDS, KEY_PLUGIN, KEY_RALPH, KEY_SKILLS, TEXT_TEXT_3
+from ..constants import DEFAULT_ADAPTER, EMPTY_STRING, KEY_ADAPTER, KEY_AGENTS, KEY_COMMANDS, KEY_PLUGIN, KEY_RALPH, KEY_SKILLS, TEXT_TEXT_3, TOOL_AST_GREP
 from ..compat_strings import TEXT_SKILLS as TEXT_SKILLS_LABEL
 from ..governance_strings import KEY_PRIMARY
 
@@ -52,3 +52,11 @@ TEXT_KEY_Q = "q"
 TEXT_ACTION_QUIT = "quit"
 TEXT_VARIANT_PRIMARY = KEY_PRIMARY
 TEXT_VARIANT_SUCCESS = "success"
+
+TEXT_EXTERNAL_TOOLS = "External tools"
+TEXT_AST_GREP_LABEL = TOOL_AST_GREP
+ID_TOOL_PREFIX = "#tool-"
+
+TEXT_APPLY_RUNNING = "Applying project files and tools..."
+TEXT_SETUP_PARTIAL = "Setup applied with {} tool failure(s). See the log."
+TEXT_SETUP_MANUAL = "Setup applied; {} tool(s) need a manual step."

@@ -66,10 +66,10 @@ The table below describes Native discovery checks. It has 4 rows and 4 columns: 
 
 | Client | Version | Command | Result |
 |---|---|---|---|
+| Claude Code | `2.1.326` | `claude doctor` | No installation issues found in an isolated installed project |
 | GitHub Copilot CLI | `1.0.105` | `copilot instruction list` | Found `.github/copilot-instructions.md` and all 12 `.github/instructions/*.instructions.md` files |
 | GitHub Copilot CLI | `1.0.105` | `copilot skill list` | Found all 10 generated project skills |
 | OpenAI Codex CLI | `0.146.0` | `codex debug prompt-input "Summarize the repository instructions."` | Resolved prompt input contained the generated [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) rules |
-| Claude Code CLI | `2.1.323` | `claude doctor` | Exit 0, no installation issues; the CLI has no non-interactive command that lists project agents, commands, or skills, so discovery is unverified |
 
 Observed limits:
 

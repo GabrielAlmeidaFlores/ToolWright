@@ -170,7 +170,7 @@ uv tool install 'toolwright-cli[tui]'
 toolwright setup --target /path/to/project
 ```
 
-Opens the interactive project setup screen. It selects the adapter and project components, previews the plan, applies it, and writes `toolwright.lock.json`. External client installation, credentials, and native MCP configuration remain outside the setup screen.
+Opens the interactive project setup screen. It selects the adapter, project components, and external tools, previews the plan, applies it, and writes `toolwright.lock.json`. ast-grep and Serena use available package managers; CodeGraph remains manual. Client installation, credentials, and native MCP configuration remain outside the setup screen.
 
 ## `toolwright doctor`
 

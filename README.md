@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/actions/workflows/validate.yml"><img alt="CI green" src="https://img.shields.io/badge/CI-green-22C55E?style=flat-square"></a>
-  <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md"><img alt="293 tests" src="https://img.shields.io/badge/tests-293-4F46E5?style=flat-square"></a>
+  <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md"><img alt="302 tests" src="https://img.shields.io/badge/tests-302-4F46E5?style=flat-square"></a>
   <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/agents"><img alt="12 agents" src="https://img.shields.io/badge/agents-12-06B6D4?style=flat-square"></a>
   <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/skills"><img alt="10 skills" src="https://img.shields.io/badge/skills-10-D97757?style=flat-square"></a>
   <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0F172A?style=flat-square"></a>
@@ -79,7 +79,7 @@ The optional `tui` extra enables the interactive setup screen. The CLI works wit
 toolwright setup --target /path/to/project
 ```
 
-The screen selects the project, adapter, and project components, previews the planned files, applies them, and writes the lock. It does not install client applications, credentials, or native MCP configuration.
+The screen selects the project, adapter, project components, and external tools, previews the planned actions, applies them, and writes the lock. ast-grep and Serena install through available package managers; CodeGraph remains a manual step. Client applications, credentials, and native MCP configuration stay outside the screen.
 
 **Or run the commands directly.** Expand the client you use:
 
@@ -228,17 +228,17 @@ toolwright uninstall --target /path/to/project --apply --yes
 
 The table below summarizes the supported adapters and their verification state. Read the support column as an evidence label, not a guarantee of every client feature.
 
-| Client | Support | Generated files |
-|---|---|---|
-| OpenCode 2.2.x | Verified reference adapter | `.opencode/`, memory plugin; Ralph optional |
-| Claude Code | Installer-generated, runtime discovery partly verified | `CLAUDE.md`, `.claude/agents/`, commands, skills |
-| GitHub Copilot | Installer-generated, CLI discovery verified | `.github/copilot-instructions.md`, instructions, prompts, skills, `AGENTS.md` |
-| OpenAI Codex | Installer-generated, [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) loading verified | `AGENTS.md`, `.codex/agents/*.toml` |
+| Client | Support |
+|---|---|
+| OpenCode 2.2.x | Verified reference adapter |
+| Claude Code | Installer-generated; doctor verified, subagent discovery unverified |
+| GitHub Copilot | Installer-generated; CLI discovery verified |
+| OpenAI Codex | Installer-generated; [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) loading verified |
 
 ## Limits
 
 - macOS and Linux are supported. Windows is not supported or validated for the full workflow.
-- MCP configuration is generated only for OpenCode. Claude Code, Copilot, and Codex require native MCP configuration.
+- [MCP configuration](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/mcp.md) is generated only for OpenCode. Claude Code, Copilot, and Codex use their native configuration; Copilot and Codex manage MCP at user scope.
 - Client login, billing, and model selection remain outside ToolWright.
 - ToolWright does not claim a cost, quality, or routing win.
 

@@ -95,7 +95,13 @@ else
 fi
 
 if command -v claude >/dev/null 2>&1; then
-  echo "$SH_ADAPTER_CLAUDE: $SH_ADAPTER_DISCOVERY_CLAUDE_SKIP"
+  install_adapter "$SH_ADAPTER_CLAUDE" "$TMP/$SH_ADAPTER_CLAUDE"
+  if (cd "$TMP/$SH_ADAPTER_CLAUDE" && claude "$SH_CLAUDE_DOCTOR") | grep -q "$SH_CLAUDE_DOCTOR_MARKER"; then
+    echo "$SH_ADAPTER_CLAUDE: $SH_CLAUDE_DOCTOR_OK"
+  else
+    echo "$SH_ADAPTER_CLAUDE: $SH_ADAPTER_DISCOVERY_FAIL"
+    failed=1
+  fi
 else
   echo "$SH_ADAPTER_CLAUDE: $SH_ADAPTER_DISCOVERY_SKIP"
 fi

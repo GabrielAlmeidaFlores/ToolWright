@@ -168,3 +168,6 @@ KEY_CONSTRAINT = 'constraint'
 TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD = '.toolwright/memory/catalog.md'
 
 TEXT_SPACE = ' '
+
+TEXT_COLON = ":"
+TEXT_PERMISSION_DENIED = "permission denied"

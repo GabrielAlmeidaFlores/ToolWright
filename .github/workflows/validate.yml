@@ -142,6 +142,32 @@ jobs:
         run: |
           python -m unittest tests.unit.test_tui_services tests.unit.test_tui_app -v
 
+  clean-machine:
+    timeout-minutes: 15
+    name: clean machine
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Build the wheel
+        run: python -m pip wheel ./packages/toolwright_cli --no-deps --wheel-dir dist
+      - name: Install from the wheel in a clean venv
+        run: |
+          python -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install dist/*.whl
+          "$RUNNER_TEMP/venv/bin/toolwright" --version
+      - name: Install every adapter from the installed wheel
+        env:
+          TOOLWRIGHT_REPO: ${{ github.workspace }}
+        run: |
+          for platform in opencode claude copilot codex; do
+            target="$RUNNER_TEMP/$platform"
+            "$RUNNER_TEMP/venv/bin/toolwright" install --platform "$platform" --profile minimal --target "$target" --apply
+            test -f "$target/toolwright.lock.json"
+          done
+
   docs:
     timeout-minutes: 10
     name: docs

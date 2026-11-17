@@ -1,6 +1,6 @@
 # ToolWright
 
-> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** `make ci` green locally with 656 static checks and 293 tests
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** `make ci` green locally with 663 static checks and 302 tests
 
 **A repeatable, safe, provider-neutral development environment for AI coding agents.**
 
@@ -44,8 +44,8 @@ The table below records the strongest evidence label for each capability area. R
 
 | Area | State |
 |---|---|
-| Static validation | 656 checks, including provenance, permissions, comments, links, and docs status |
-| Test suite | 293 offline tests on Ubuntu and macOS |
+| Static validation | 663 checks, including provenance, permissions, comments, links, and docs status |
+| Test suite | 302 offline tests on Ubuntu and macOS |
 | CLI | Wheel build, install lifecycle, profile and catalog checks, verification gates |
 | Adapters | OpenCode verified; Claude, Copilot, and Codex installer-generated and partly runtime-verified |
 

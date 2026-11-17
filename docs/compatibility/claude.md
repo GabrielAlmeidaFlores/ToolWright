@@ -1,6 +1,6 @@
 # Claude Code
 
-> **Status:** Experimental · **Last verified:** 2026-11-17 · **Evidence:** generated file formats checked against Claude documentation; Claude Code CLI 2.1.323 passed `claude doctor`; no non-interactive discovery command, so runtime discovery unverified
+> **Status:** Experimental · **Last verified:** 2026-11-17 · **Evidence:** Claude Code CLI `2.1.326` passed `claude doctor` in an isolated installed project; the CLI has no non-interactive command that lists project agents, commands, or skills, so runtime discovery remains unverified
 
 Claude Code reads project memory from `CLAUDE.md` and discovers project subagents in `.claude/agents/`. ToolWright generates those files directly from the shared agent, command, and skill sources.
 
@@ -95,7 +95,7 @@ The adapter copies [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWri
 
 - OpenCode permission expressions do not map one-to-one to Claude tool lists.
 - Ralph's OpenCode backend is not used by Claude Code.
-- The generated file layout matches the documented format. Claude Code CLI `2.1.323` passed `claude doctor`, but the CLI exposes no non-interactive command that lists project agents, commands, or skills. Runtime discovery therefore remains unverified without an interactive session or a model call.
+- The generated file layout matches the documented format. Claude Code CLI `2.1.326` passed `claude doctor`, but the CLI exposes no non-interactive command that lists project agents, commands, or skills. Runtime discovery therefore remains unverified without an interactive session or a model call.
 - The adapter does not set a Claude model name; model routing stays under Claude configuration.
 
 ## References

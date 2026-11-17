@@ -1,6 +1,6 @@
 # Ralph Orchestration
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 Ralph Orchestrator is an optional orchestration framework. When enabled, it owns the loop, retries, completion, gates, and persistent state. OpenCode remains the model and tool runtime.
 

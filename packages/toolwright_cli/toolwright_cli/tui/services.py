@@ -11,8 +11,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .. import installer
-from ..constants import DEFAULT_ADAPTER, KEY_AGENTS, KEY_COMMANDS, KEY_PLUGIN, KEY_RALPH, KEY_SKILLS, PLATFORM_CHOICES
+from ..constants import DEFAULT_ADAPTER, KEY_AGENTS, KEY_COMMANDS, KEY_PLUGIN, KEY_RALPH, KEY_SKILLS, KEY_TOOLS, PLATFORM_CHOICES
 from ..cli.cli_strings import TEMPLATE_TEMPLATE_3
+import shlex
+from .tools import TEXT_INSTALLED, TEXT_MANUAL, TOOL_SPECS, install_tools, plan_tool_install
 
 DEFAULT_PROFILE = "tui"
 PROJECT_COMPONENTS = (KEY_AGENTS, KEY_COMMANDS, KEY_SKILLS, KEY_RALPH, KEY_PLUGIN)
@@ -20,6 +22,21 @@ DEFAULT_COMPONENTS = (KEY_AGENTS, KEY_COMMANDS, KEY_SKILLS, KEY_PLUGIN)
 PLUGIN_SENTINEL = ".toolwright/memory/plugin.enabled"
 ADAPTERS = PLATFORM_CHOICES
 TEXT_PLAN_LINE = TEMPLATE_TEMPLATE_3
+
+
+def tool_outcome(results: dict[str, str]) -> tuple[list[str], list[str]]:
+    """
+    Split tool results into failures and manual steps.
+
+    Parameters:
+        results: mapping returned by :func:`install_tools`.
+
+    Returns:
+        ``(failures, manual)`` tool-name lists.
+    """
+    failures = [name for name, value in results.items() if value not in (TEXT_INSTALLED, TEXT_MANUAL)]
+    manual = [name for name, value in results.items() if value == TEXT_MANUAL]
+    return failures, manual
 
 
 @dataclass(frozen=True)
@@ -38,6 +55,7 @@ class SetupSelection:
     target: Path
     adapter: str
     components: tuple[str, ...]
+    tools: tuple[str, ...] = ()
 
 
 def build_plan(selection: SetupSelection) -> list[str]:
@@ -58,10 +76,19 @@ def build_plan(selection: SetupSelection) -> list[str]:
         list(selection.components),
         adapter=selection.adapter,
     )
-    return [
+    lines = [
         TEXT_PLAN_LINE.format(item.component, item.destination)
         for item in planned
     ]
+    for tool in selection.tools:
+        command = plan_tool_install(tool)
+        if command is None:
+            lines.append(TEXT_PLAN_LINE.format(tool, TEXT_MANUAL))
+        elif command:
+            lines.append(TEXT_PLAN_LINE.format(tool, shlex.join(command)))
+        else:
+            lines.append(TEXT_PLAN_LINE.format(tool, TEXT_INSTALLED))
+    return lines
 
 
 def apply_selection(selection: SetupSelection) -> dict:
@@ -88,4 +115,5 @@ def apply_selection(selection: SetupSelection) -> dict:
         sentinel = selection.target / PLUGIN_SENTINEL
         sentinel.parent.mkdir(parents=True, exist_ok=True)
         sentinel.touch()
+    result[KEY_TOOLS] = install_tools(selection.tools)
     return result
