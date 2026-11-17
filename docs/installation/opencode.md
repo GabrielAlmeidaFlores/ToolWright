@@ -2,13 +2,13 @@ Repository: https://github.com/GabrielAlmeidaFlores/ToolWright
 
 # OpenCode Adapter
 
-> **Status:** Stable · **Last verified:** 2026-11-13 · **Evidence:** verified locally and in CI
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally and in CI
 
 This is the OpenCode adapter guide. OpenCode is optional; the core agents and rules are provider-neutral. See [Platform Compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md) for the other adapters.
 
 ## Prerequisites
 
-- macOS or Linux (Windows best-effort)
+- macOS or Linux. Windows is not supported or validated.
 - `git`, `node` >= 20, `python3`
 - A provider credential configured with `opencode auth login` or an environment variable
 

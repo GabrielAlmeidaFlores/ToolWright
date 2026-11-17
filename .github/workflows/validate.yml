@@ -127,6 +127,21 @@ jobs:
           toolwright update --check --target "$target"
           toolwright uninstall --target "$target" --apply --yes
 
+  tui:
+    timeout-minutes: 10
+    name: tui
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install Textual
+        run: python -m pip install --quiet "textual>=0.89"
+      - name: Run headless TUI tests
+        run: |
+          python -m unittest tests.unit.test_tui_services tests.unit.test_tui_app -v
+
   docs:
     timeout-minutes: 10
     name: docs

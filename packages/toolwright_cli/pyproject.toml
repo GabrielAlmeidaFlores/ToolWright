@@ -22,6 +22,7 @@ classifiers = [
 
 [project.optional-dependencies]
 catalog = ["pyyaml>=6.0"]
+tui = ["textual>=0.89"]
 
 [project.urls]
 Homepage = "https://github.com/GabrielAlmeidaFlores/ToolWright"

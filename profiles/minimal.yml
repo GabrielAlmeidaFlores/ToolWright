@@ -5,10 +5,9 @@
 # References: docs/profiles/README.md, docs/cli/README.md
 
 name: minimal
-description: Configuration only: opencode, agents, commands, skills, and Ralph.
+description: Configuration only: opencode, agents, commands, and skills.
 components:
   - opencode
   - agents
   - commands
   - skills
-  - ralph

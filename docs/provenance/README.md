@@ -1,6 +1,6 @@
 # Provenance
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 This directory implements **AGENTS.md Section 2A**: no reusable artifact is authored from scratch when a maintained upstream exists.
 

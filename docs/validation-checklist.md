@@ -1,6 +1,6 @@
 # Validation Checklist
 
-> **Status:** Stable · **Last verified:** 2026-11-13 · **Evidence:** verified locally and in CI
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally and in CI
 
 Run the automated checks first:
 

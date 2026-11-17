@@ -1,6 +1,6 @@
 # GitHub Copilot
 
-> **Status:** Experimental · **Last verified:** 2026-11-13 · **Evidence:** Copilot CLI 1.0.105 discovered the generated repository instruction, 12 path instructions, and 10 project skills; prompt files and runtime behavior not inspected
+> **Status:** Experimental · **Last verified:** 2026-11-17 · **Evidence:** Copilot CLI 1.0.105 discovered the generated repository instruction, 12 path instructions, and 10 project skills; prompt files and runtime behavior not inspected
 
 GitHub Copilot reads repository instructions from `.github/copilot-instructions.md`, path-specific files under `.github/instructions/`, and the nearest [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md). ToolWright generates all three, plus skills and prompt files. Copilot does not use OpenCode agents or permissions, so the generated files carry guidance rather than an orchestration runtime.
 

@@ -1,8 +1,12 @@
 # ToolWright
 
 <p align="center">
+  <img src="assets/logo.svg" alt="ToolWright" width="420">
+</p>
+
+<p align="center">
   <img alt="CI green" src="https://img.shields.io/badge/CI-green-22C55E?style=flat-square">
-  <img alt="287 tests" src="https://img.shields.io/badge/tests-287-4F46E5?style=flat-square">
+  <img alt="292 tests" src="https://img.shields.io/badge/tests-292-4F46E5?style=flat-square">
   <img alt="12 agents" src="https://img.shields.io/badge/agents-12-06B6D4?style=flat-square">
   <img alt="10 skills" src="https://img.shields.io/badge/skills-10-D97757?style=flat-square">
   <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0F172A?style=flat-square">
@@ -51,6 +55,14 @@ The core is plain Markdown and configuration. OpenCode is the reference adapter,
 - A supported AI client and its credentials.
 - For the reference adapter: OpenCode 2.2.x.
 
+### Platform support
+
+macOS and Linux are supported. Windows is not supported for the full workflow: the shell installer, external tool commands, and client discovery are not validated there. Do not present Windows as a supported platform until a native path is tested.
+
+### MCP support
+
+MCP server configuration is generated only for OpenCode. Claude Code, GitHub Copilot, and OpenAI Codex installations do not write MCP server configuration; use each client's native configuration if you need Serena or CodeGraph there.
+
 ## One-time setup per project
 
 Install the CLI once on the machine:
@@ -65,8 +77,12 @@ Then run the setup once in each project folder. The generated files are read whe
 ```bash
 cd /path/to/project
 
-# OpenCode: configuration, agents, commands, skills, Ralph, memory plugin, and tools
-"$TOOLWRIGHT_REPO/scripts/installation/install.sh" --apply --all --target .
+# OpenCode: configuration, agents, commands, skills, memory plugin, and tools
+"$TOOLWRIGHT_REPO/scripts/installation/install.sh" --apply \
+  --only opencode,agents,commands,skills,plugin,ast-grep,serena,codegraph --target .
+
+# Optional: Ralph orchestration
+# "$TOOLWRIGHT_REPO/scripts/installation/install.sh" --apply --only ralph --target .
 touch .toolwright/memory/plugin.enabled
 if command -v codegraph >/dev/null; then codegraph init; fi
 
@@ -84,7 +100,7 @@ The `TOOLWRIGHT_REPO` export tells the installed CLI where the source artifacts 
 
 The generated files differ by client:
 
-- OpenCode uses `.opencode/`, `.ralph/`, and the memory plugin.
+- OpenCode uses `.opencode/` and the memory plugin. Ralph is an optional extra.
 - Claude Code uses `CLAUDE.md`, `.claude/agents/`, `.claude/commands/`, and `.claude/skills/`.
 - GitHub Copilot uses `.github/copilot-instructions.md`, `.github/instructions/`, `.github/prompts/`, `.github/skills/`, and `AGENTS.md`.
 - Codex uses `AGENTS.md` and `.codex/agents/*.toml`.
@@ -96,6 +112,17 @@ Commit `toolwright.lock.json` with the project so updates and removals remain sa
 ToolWright configures MCP servers for OpenCode. It does not currently generate MCP configuration for Claude Code, Copilot, or Codex. Those clients need native MCP configuration if you want Serena or CodeGraph there.
 
 The setup is project-local. Global client configuration is not modified, and model credentials are never stored.
+
+## Interactive setup
+
+Install the optional TUI dependency once:
+
+```bash
+uv tool install "$TOOLWRIGHT_REPO/packages/toolwright_cli[tui]"
+toolwright setup --target /path/to/project
+```
+
+The setup screen selects the project, adapter, and project components, previews the planned files, applies them, and reports the lock path. The TUI does not install client applications or model credentials.
 
 ## Daily use
 
@@ -189,7 +216,7 @@ The table below summarizes the supported adapters and their verification state. 
 
 | Client | Support | Generated files |
 |---|---|---|
-| OpenCode 2.2.x | Verified reference adapter | `.opencode/`, `.ralph/`, memory plugin |
+| OpenCode 2.2.x | Verified reference adapter | `.opencode/`, memory plugin; Ralph optional |
 | Claude Code | Installer-generated, runtime discovery partly verified | `CLAUDE.md`, `.claude/agents/`, commands, skills |
 | GitHub Copilot | Installer-generated, CLI discovery verified | `.github/copilot-instructions.md`, instructions, prompts, skills, `AGENTS.md` |
 | OpenAI Codex | Installer-generated, [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) loading verified | `AGENTS.md`, `.codex/agents/*.toml` |
@@ -202,7 +229,6 @@ The repository does not claim a cost or quality win from routing. No production 
 
 Other limits:
 
-- Windows is not yet validated for the full workflow.
 - MCP configuration is automatic only for OpenCode.
 - Client login, billing, and model selection remain outside ToolWright.
 

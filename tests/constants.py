@@ -166,3 +166,5 @@ KEY_OPTIMIZED = 'optimized'
 
 KEY_CONSTRAINT = 'constraint'
 TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD = '.toolwright/memory/catalog.md'
+
+TEXT_SPACE = ' '

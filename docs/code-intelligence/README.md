@@ -1,6 +1,6 @@
 # Code Intelligence
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 The default stack answers different questions with the cheapest sufficient tool. It has 5 rows and 2 columns: Question and Tool. Each row is one question, and the other column records Tool. Read it to compare rows or to find a specific question.
 

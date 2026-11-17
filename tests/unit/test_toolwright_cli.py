@@ -271,7 +271,7 @@ class ComponentTests(unittest.TestCase):
         from toolwright_cli.profiles import load_profiles
 
         profiles = load_profiles(support.REPO_ROOT)
-        self.assertEqual(list(profiles[KEY_MINIMAL].components), [KEY_OPENCODE, KEY_AGENTS, KEY_COMMANDS, KEY_SKILLS, KEY_RALPH])
+        self.assertEqual(list(profiles[KEY_MINIMAL].components), [KEY_OPENCODE, KEY_AGENTS, KEY_COMMANDS, KEY_SKILLS])
         self.assertIn(TEXT_AST_GREP, profiles[KEY_STANDARD].components)
         self.assertIn(KEY_SERENA, profiles[KEY_FULL].components)
 

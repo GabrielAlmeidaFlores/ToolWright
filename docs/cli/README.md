@@ -1,6 +1,6 @@
 # `toolwright` Command Line
 
-> **Status:** Stable · **Last verified:** 2026-11-13 · **Evidence:** verified locally on macOS and in CI; adapter install, update, and uninstall validated on a real repository
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** local CLI, adapter end-to-end setup, and headless TUI tests pass
 
 `toolwright` is the single entry point for installing and maintaining the profile. The OpenCode
 adapter delegates to the repository's shell installer. Claude, Copilot, and Codex generate native
@@ -28,9 +28,10 @@ The package requires Python 3.11 or newer and has no runtime dependencies.
 
 ## Command status
 
-The table below describes Command status. It has 17 rows and 3 columns: Command, Status, and Purpose. Each row is one command, and the other columns record Status and Purpose. Read it to compare rows or to find a specific command.
+The table below describes Command status. It has 15 rows and 3 columns: Command, Status, and Purpose. Each row is one command, and the other columns record Status and Purpose. Read it to compare rows or to find a specific command.
 |---|---|---|
 | `toolwright doctor` | Available | Repository, dependency, validator, lock, and MCP diagnostics |
+| `toolwright setup` | Available with the `tui` extra | Interactive project setup, preview, and apply |
 | `toolwright install` | Available | Plan an installation; `--apply` writes it |
 | `toolwright uninstall` | Available | Plan removal; `--apply --yes` removes managed files |
 | `toolwright update --check` | Available | Compare the lock with the current and remote source |
@@ -162,6 +163,15 @@ Runs deterministic checks for profiles, catalog, governance, and the validator. 
 See [`docs/evals/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/evals/README.md).
 
 
+## `toolwright setup`
+
+```bash
+uv tool install 'toolwright-cli[tui]'
+toolwright setup --target /path/to/project
+```
+
+Opens the interactive project setup screen. It selects the adapter and project components, previews the plan, applies it, and writes `toolwright.lock.json`. External client installation, credentials, and native MCP configuration remain outside the setup screen.
+
 ## `toolwright doctor`
 
 ```bash
@@ -199,7 +209,7 @@ Default behavior is a **plan**: it prints every destination path and writes noth
 | Flag | Effect |
 |---|---|
 | `--platform NAME` | Target adapter: `opencode` (default), `claude`, `copilot`, or `codex` |
-| `--profile minimal` | Config only: opencode, agents, commands, skills, Ralph |
+| `--profile minimal` | Config only: opencode, agents, commands, and skills |
 | `--profile standard` | Minimal plus ast-grep |
 | `--profile full` | Standard plus Serena and CodeGraph |
 | `--only LIST` | Explicit comma-separated components; overrides the profile |

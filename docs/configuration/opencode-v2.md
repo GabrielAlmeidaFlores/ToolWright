@@ -1,6 +1,6 @@
 # OpenCode V2 Configuration
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 This page explains the configuration in [`configs/opencode/opencode.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/opencode.jsonc).
 

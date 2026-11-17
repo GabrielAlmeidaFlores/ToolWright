@@ -2,7 +2,7 @@ Repository: https://github.com/GabrielAlmeidaFlores/ToolWright
 
 # Install Code Intelligence
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 Install in this order. Each step has a verification command.
 

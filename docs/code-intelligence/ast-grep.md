@@ -1,6 +1,6 @@
 # ast-grep
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 Structural search and rewrite over an abstract syntax tree. Use when the shape of the code matters more than the text.
 

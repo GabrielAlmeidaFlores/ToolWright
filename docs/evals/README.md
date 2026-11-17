@@ -1,6 +1,6 @@
 # Deterministic Evaluations
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally; CI runs `toolwright eval`
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally; CI runs `toolwright eval`
 
 `toolwright eval` runs repository invariants that must hold without a model. It is a regression net for the profile itself, not a model evaluation.
 

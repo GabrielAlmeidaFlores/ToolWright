@@ -40,7 +40,7 @@ class RepositoryProfileTests(unittest.TestCase):
     def test_manifests_load(self) -> None:
         profiles = load_profiles(support.REPO_ROOT)
         self.assertEqual(sorted(profiles), [KEY_FULL, KEY_MINIMAL, KEY_STANDARD])
-        self.assertEqual(len(profiles[KEY_MINIMAL].components), 5)
+        self.assertEqual(len(profiles[KEY_MINIMAL].components), 4)
         self.assertIn(TEXT_AST_GREP, profiles[KEY_STANDARD].components)
         self.assertIn(KEY_CODEGRAPH, profiles[KEY_FULL].components)
 

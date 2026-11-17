@@ -1,6 +1,6 @@
 # OpenCode Artifact Compatibility
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 This page records how the sourced artifacts behave in OpenCode 2.2.x. It separates static validation from runtime smoke tests so a passing check is not mistaken for a full evaluation. For GitHub Copilot, Claude Code, and OpenAI GPT/Codex mappings, see [Platform Compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md).
 
@@ -86,7 +86,7 @@ The table below describes MCP servers. It has 4 rows and 2 columns: Server and R
 1. Command runtime smoke tests were run on the TypeScript fixture; the results are recorded in the command table.
 2. Ralph `code-assist` needs a larger iteration budget and more stable event emission.
 3. MCP startup depends on local binaries and language servers.
-4. Windows is supported through WSL or Git Bash only.
+4. Windows is not supported or validated for the full workflow.
 
 ## Verification commands
 

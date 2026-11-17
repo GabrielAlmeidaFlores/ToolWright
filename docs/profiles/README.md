@@ -1,6 +1,6 @@
 # Profiles
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally and in CI run 43239159927
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally and in CI run 43239159927
 
 Profiles are declarative manifests under `profiles/`. They replace the provisional component lists that were embedded in the CLI.
 
@@ -8,7 +8,7 @@ Profiles are declarative manifests under `profiles/`. They replace the provision
 
 The table below describes Available profiles. It has 3 rows and 3 columns: Profile, Contents, and Use when. Each row is one profile, and the other columns record Contents and Use when. Read it to compare rows or to find a specific profile.
 |---|---|---|
-| `minimal` | OpenCode config, agents, commands, skills, Ralph | You want no global tool installation |
+| `minimal` | OpenCode config, agents, commands, skills | You want no global tool installation |
 | `standard` | Minimal plus `ast-grep` | Default; structural search is useful |
 | `full` | Standard plus Serena, CodeGraph, and the opt-in memory plugin | You want symbol navigation and dependency graphs |
 

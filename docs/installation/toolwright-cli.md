@@ -1,6 +1,6 @@
 # Install the `toolwright` CLI
 
-> **Status:** Stable · **Last verified:** 2026-11-13 · **Evidence:** verified locally on Python 3.14.7; adapter install, update, and uninstall validated on a real repository
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally on Python 3.14.7; adapter install, update, and uninstall validated on a real repository
 
 `toolwright` installs and maintains the profile. It requires Python 3.11 or newer and has no
 runtime dependencies.
@@ -60,14 +60,7 @@ toolwright install --platform copilot  --profile minimal --target /path/to/proje
 toolwright install --platform codex    --profile minimal --target /path/to/project --apply
 ```
 
-The table below describes Choose a platform adapter. It has 4 rows and 2 columns: Platform and Generated files. Each row is one platform, and the other column records Generated files. Read it to compare rows or to find a specific platform.
-
-| Platform | Generated files |
-|---|---|
-| `opencode` | `.opencode/`, `.ralph/`, and the selected tool components via the shell installer |
-| `claude` | `CLAUDE.md`, `.claude/agents/`, `.claude/commands/`, `.claude/skills/` |
-| `copilot` | `.github/copilot-instructions.md`, `.github/instructions/`, `.github/prompts/`, `.github/skills/`, [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) |
-| `codex` | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md), `.codex/agents/*.toml` |
+Platform-specific generated files and runtime verification are documented in the [compatibility overview](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md).
 
 All adapters write `toolwright.lock.json` and support `install --apply`, `update --check`, and
 `uninstall --apply --yes`. See `adapter-validation.md` for real-repository evidence and each

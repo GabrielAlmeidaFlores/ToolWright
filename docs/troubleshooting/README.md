@@ -1,6 +1,6 @@
 # Troubleshooting
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 ## OpenCode
 
@@ -90,7 +90,7 @@ The table below describes Repository tooling. It has 16 rows and 3 columns: Symp
 
 ## Windows
 
-OpenCode ships Windows binaries, but the scripts in this repository target POSIX shells. Use WSL or Git Bash. Paths in MCP commands and `external_directory` rules must use the platform's format.
+Windows is not supported or validated for the full workflow. The shell installer and external tool commands target POSIX systems. Do not treat WSL or Git Bash as a supported path without a native validation run.
 
 ## Getting help
 

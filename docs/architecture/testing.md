@@ -1,6 +1,6 @@
 # Testing the Repository
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 This page describes how the repository tests its own tooling. It does not describe how
 to test a user project; see the `test-engineer` agent and the `test-driven-development`

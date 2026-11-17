@@ -108,6 +108,7 @@ from tests.integration.test_toolwright_commands_strings import (
     KEY_SCHEMA_VERSION,
     KEY_SEARCH,
     KEY_SECURITY,
+    KEY_SETUP,
     KEY_SHA256,
     KEY_SHOW,
     KEY_SOURCE,
@@ -555,7 +556,7 @@ class CommandSurfaceTests(unittest.TestCase):
     def test_help_lists_commands(self) -> None:
         result = run_ote(FLAG_HELP)
         self.assertEqual(result.returncode, 0)
-        for command in (KEY_DOCTOR, KEY_INSTALL, KEY_UNINSTALL, KEY_UPDATE, KEY_ROLLBACK, KEY_CATALOG):
+        for command in (KEY_DOCTOR, KEY_INSTALL, KEY_UNINSTALL, KEY_UPDATE, KEY_ROLLBACK, KEY_CATALOG, KEY_SETUP):
             self.assertIn(command, result.stdout)
 
 

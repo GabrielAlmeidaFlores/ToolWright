@@ -14,6 +14,7 @@ from .cli_strings import (
     KEY_GOVERN,
     KEY_MEMORY,
     KEY_SPEC,
+    KEY_SETUP,
     KEY_TASK,
 )
 
@@ -33,6 +34,7 @@ from .commands.lifecycle import (
     _command_update,
 )
 from .commands.memory import _command_memory
+from .commands.setup import _command_setup
 from .commands.profiles import _command_catalog, _command_compat, _command_profile
 from .commands.specs import _command_spec
 from .commands.tasks import _command_task
@@ -55,6 +57,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         KEY_GOVERN: _command_govern,
         KEY_MEMORY: _command_memory,
         KEY_SPEC: _command_spec,
+        KEY_SETUP: _command_setup,
         KEY_EVAL: _command_eval,
         KEY_TASK: _command_task,
     }

@@ -11,5 +11,4 @@ components:
   - agents
   - commands
   - skills
-  - ralph
   - ast-grep

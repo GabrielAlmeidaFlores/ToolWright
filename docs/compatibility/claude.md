@@ -1,6 +1,6 @@
 # Claude Code
 
-> **Status:** Experimental · **Last verified:** 2026-11-13 · **Evidence:** generated file formats checked against Claude documentation; Claude Code CLI 2.1.323 passed `claude doctor`; no non-interactive discovery command, so runtime discovery unverified
+> **Status:** Experimental · **Last verified:** 2026-11-17 · **Evidence:** generated file formats checked against Claude documentation; Claude Code CLI 2.1.323 passed `claude doctor`; no non-interactive discovery command, so runtime discovery unverified
 
 Claude Code reads project memory from `CLAUDE.md` and discovers project subagents in `.claude/agents/`. ToolWright generates those files directly from the shared agent, command, and skill sources.
 

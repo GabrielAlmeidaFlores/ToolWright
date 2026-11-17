@@ -1,6 +1,6 @@
 # Real-Repository Adapter Validation: Hono
 
-> **Status:** Experimental · **Last verified:** 2026-11-13 · **Evidence:** deterministic install, update, and uninstall on a pinned clone; Copilot and Codex CLI discovery checks; no model calls
+> **Status:** Experimental · **Last verified:** 2026-11-17 · **Evidence:** deterministic install, update, and uninstall on a pinned clone; Copilot and Codex CLI discovery checks; no model calls
 
 This record validates installation mechanics on a real repository and documents which native clients were checked. It does not measure AI task quality, and it makes no cost or token claim.
 

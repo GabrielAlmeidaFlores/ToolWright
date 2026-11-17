@@ -1,6 +1,6 @@
 # Optional Tools
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally
 
 These are documented, not installed by default. Each adds a real cost; enable only with a specific need.
 

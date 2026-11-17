@@ -1,6 +1,6 @@
 # Verification Engine
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally and in CI run 43277080347
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally and in CI run 43277080347
 
 `toolwright verify` runs the repository's deterministic checks from [`.toolwright/config.toml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/config.toml) and treats exit codes as authoritative. It is the gate used by Ralph, CI, and local workflows.
 

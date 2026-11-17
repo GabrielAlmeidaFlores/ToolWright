@@ -1,6 +1,6 @@
 # Platform Compatibility
 
-> **Status:** Experimental · **Last verified:** 2026-11-13 · **Evidence:** installer-generated adapters validated on a real repository; OpenCode verified in CI; Copilot instruction and skill discovery plus Codex [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) loading checked with their CLIs; Claude Code doctor passed but runtime discovery unverified
+> **Status:** Experimental · **Last verified:** 2026-11-17 · **Evidence:** installer-generated adapters validated on a real repository; OpenCode verified in CI; Copilot instruction and skill discovery plus Codex [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) loading checked with their CLIs; Claude Code doctor passed but runtime discovery unverified
 
 ToolWright includes a fully verified OpenCode adapter. OpenCode is optional: the same agents, commands, skills, and project rules install as native files for GitHub Copilot, Claude Code, and OpenAI GPT/Codex.
 
@@ -40,7 +40,7 @@ Use `toolwright profile use <profile> --platform <name>` for the same behavior t
 - MCP server definitions, unless the target platform supports the same MCP transport.
 - Identical orchestration behavior across clients; the generated files carry instructions, not a shared runtime.
 
-The installer lock and uninstall lifecycle cover every adapter, but OpenCode still uses the shell installer while Claude, Copilot, and Codex write generated files directly.
+The installer lock and uninstall lifecycle cover every adapter, but OpenCode still uses the shell installer while Claude, Copilot, and Codex write generated files directly. MCP server configuration is generated only for OpenCode; the other adapters require native MCP setup.
 
 Do not claim a platform is verified just because its instruction file exists. Runtime behavior differs by client, model, and account plan.
 

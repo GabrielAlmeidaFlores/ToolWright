@@ -1,6 +1,6 @@
 # OpenAI GPT and Codex
 
-> **Status:** Experimental · **Last verified:** 2026-11-13 · **Evidence:** Codex CLI 0.146.0 loaded the generated [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) through `codex debug prompt-input`; custom agent TOML fields match the documented schema, discovery not runtime-tested
+> **Status:** Experimental · **Last verified:** 2026-11-17 · **Evidence:** Codex CLI 0.146.0 loaded the generated [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) through `codex debug prompt-input`; custom agent TOML fields match the documented schema, discovery not runtime-tested
 
 OpenAI Codex reads [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) files before working and supports project-scoped custom agents as TOML files. ChatGPT desktop and Codex can run subagent workflows; ChatGPT projects and custom instructions carry the same project rules in chat contexts.
 

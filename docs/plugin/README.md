@@ -1,6 +1,6 @@
 # Opt-in Memory Plugin
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** live OpenCode session with `PluginSmokeMemory`; disabled path verified
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** live OpenCode session with `PluginSmokeMemory`; disabled path verified
 
 This OpenCode V2 plugin injects the bounded memory preamble at the start of each model request. It is disabled by default and performs no network access or telemetry.
 

@@ -1,6 +1,6 @@
 # OpenCode
 
-> **Status:** Stable · **Last verified:** 2026-11-13 · **Evidence:** verified locally and in CI
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** verified locally and in CI
 
 OpenCode is the fully verified reference adapter and remains optional. ToolWright installs an OpenCode configuration, a custom primary agent, specialized subagents, commands, skills, and optional MCP servers. The same core artifacts install as native files for Claude, GitHub Copilot, and ChatGPT/Codex.
 
@@ -19,7 +19,7 @@ Profiles. It has 3 rows and 2 columns: Profile and Components. Each row is one p
 
 | Profile | Components |
 |---|---|
-| `minimal` | OpenCode configuration, agents, commands, skills, Ralph |
+| `minimal` | OpenCode configuration, agents, commands, and skills |
 | `standard` | Minimal plus ast-grep |
 | `full` | Standard plus Serena, CodeGraph, and the memory plugin |
 

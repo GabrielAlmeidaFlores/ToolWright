@@ -1,6 +1,6 @@
 # Compatibility Policy
 
-> **Status:** Stable · **Last verified:** 2026-11-13 · **Evidence:** matrix and CI checks verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** matrix and CI checks verified locally
 
 ## Supported targets
 
@@ -13,7 +13,7 @@ The table below describes Supported targets. It has 8 rows and 3 columns: Target
 | Claude Code | Installer-generated adapter | `claude doctor` passed on CLI `2.1.323`; no non-interactive discovery command, so runtime discovery unverified |
 | OpenAI GPT / Codex | Installer-generated adapter | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) loaded by Codex CLI `0.146.0`; custom agent discovery not runtime-tested |
 | Python | 3.11+ | CLI and validator |
-| macOS / Linux | Yes | Windows via WSL or Git Bash |
+| macOS / Linux | Yes | Windows is not supported or validated |
 
 Native means ToolWright ships the runtime configuration and verifies it. Installer-generated means ToolWright writes the platform's documented files, tracks them in the lock, and supports update and uninstall; runtime discovery is claimed only for the checks listed in the table.
 

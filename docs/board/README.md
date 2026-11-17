@@ -1,6 +1,6 @@
 # Task Board
 
-> **Status:** Experimental · **Last verified:** 2026-11-12 · **Evidence:** verified locally; opt-in
+> **Status:** Experimental · **Last verified:** 2026-11-17 · **Evidence:** verified locally; opt-in
 
 An optional Markdown task board for parallel work. It is never enabled by a default profile.
 

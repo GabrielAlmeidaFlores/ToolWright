@@ -74,6 +74,7 @@ from .cli_strings import (
     KEY_PRUNE,
     KEY_QUERY,
     KEY_RUN,
+    KEY_SETUP,
     KEY_SPEC,
     KEY_SPEC_COMMAND,
     KEY_TASK,
@@ -131,6 +132,7 @@ from .cli_strings import (
     TEXT_LIST_TASKS,
     TEXT_MANAGE_THE_OPTIONAL_MARKDOWN_TASK_BOARD,
     TEXT_MOVE_A_TASK_TO_A_STATUS,
+    TEXT_OPEN_THE_INTERACTIVE_SETUP_TUI,
     TEXT_OPENCODE_AGENT_FOR_THE_RUN,
     TEXT_PLAN_OR_APPLY_AN_INSTALLATION,
     TEXT_PLAN_OR_REMOVE_FILES_RECORDED_IN_TOOLWRIGHT_LOCK_JSON,
@@ -346,6 +348,10 @@ def build_argument_parser() -> argparse.ArgumentParser:
     spec_plan.add_argument(KEY_FEATURE)
     spec_verify = spec_commands.add_parser(COMMAND_VERIFY, parents=[common], help=TEXT_VERIFY_TASKS_AND_EVIDENCE)
     spec_verify.add_argument(KEY_FEATURE)
+
+    setup_parser = subparsers.add_parser(
+        KEY_SETUP, parents=[common], help=TEXT_OPEN_THE_INTERACTIVE_SETUP_TUI
+    )
 
     eval_parser = subparsers.add_parser(
         KEY_EVAL, parents=[common], help=TEXT_RUN_DETERMINISTIC_EVALUATION_CASES

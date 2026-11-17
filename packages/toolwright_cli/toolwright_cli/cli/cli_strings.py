@@ -57,6 +57,7 @@ from ..constants import KEY_REQUIRED
 from ..constants import KEY_RISK
 from ..constants import KEY_RUN
 from ..constants import KEY_SCOPE
+from ..constants import KEY_SETUP
 from ..constants import KEY_STDERR
 from ..constants import KEY_STDOUT
 from ..constants import KEY_STEPS
@@ -583,3 +584,5 @@ TEMPLATE_WORKTREE = '{} worktree: {}'
 TEMPLATE_WORKTREE_2 = 'worktree: {}'
 TEMPLATE_CHECK_LINE = '{:<4} {:<{}} {}'
 TEXT_TARGET_PLATFORM_ADAPTER = 'target platform adapter'
+
+TEXT_OPEN_THE_INTERACTIVE_SETUP_TUI = 'open the interactive project setup screen'
