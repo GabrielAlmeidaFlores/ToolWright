@@ -45,7 +45,7 @@ These findings were resolved before Phase 0 implementation; they are retained as
 
 7. **The plan document itself needs repository conventions.** Resolved: the plan page has a status block and MkDocs navigation. Agent modifications still require provenance registry updates.
 
-8. **The exact benchmark tasks are not yet defined as repository fixtures.** Phase 0 added the three existing Hono fixtures. The two additional fixtures must be added before the final A/B.
+8. **The exact benchmark tasks are now defined as repository fixtures.** Phase 0 added the three original Hono fixtures, and the multi-file JWT fixture and the read-only investigation fixture were added for the five-task matrix. Both new fixtures pass harness `--dry-run`; neither has been executed.
 
 9. **Tool coverage claims must stay honest.** `write` is unavailable to the coordinator in the current setup, and slash commands are not expanded by `opencode run`. The plan keeps those as unverified until a TUI/API test exists.
 
@@ -58,7 +58,7 @@ The recommendations were approved for staged implementation:
 1. **Routing:** benchmark-only arms first. Keep the current coordinator as the production default until the A/B result. Do not add a router agent or CLI wrapper yet.
 2. **MCP profiles:** use benchmark-only config variants. Do not change the installer or production profile semantics in Phase 1.
 3. **Reasoning/model:** select variants per benchmark run. Production uses provider/environment configuration after validation; no provider/model IDs are committed.
-4. **Tasks:** start with the three existing Hono tasks. Add the multi-file and investigation fixtures before the final five-task A/B.
+4. **Tasks:** the five-task set is now complete: `hono-set-cookie`, `hono-redirect`, `hono-request-id`, `hono-jwt-typ`, and `hono-context-investigation`. Running them remains gated on explicit budget approval.
 5. **Default agent:** keep `coordinator` until the A/B completes.
 6. **Edit permissions:** implementers keep `edit`/`write`; the coordinator remains read-only and must not use shell for edits.
 7. **Step budgets:** start in the 12–32 range, not 8–10; calibrate from the benchmark.
@@ -480,13 +480,24 @@ Arms. It has 5 rows and 2 columns: Arm and Description. Each row is one arm, and
 
 Tasks:
 
-- Hono `set-cookie`;
-- Hono `redirect`;
-- Hono `request-id`;
-- one multi-file Hono feature task;
-- one read-only investigation task.
+- `hono-set-cookie` — bug fix in `Context.res`;
+- `hono-redirect` — CR/LF encoding in `c.redirect`;
+- `hono-request-id` — `trustIncoming` option;
+- `hono-jwt-typ` — multi-file JWT `typ` verification feature;
+- `hono-context-investigation` — read-only investigation with a documentation artifact.
 
-Before running, add all five tasks as repository fixtures with exact prompts, acceptance criteria, verification commands, working directories, allowed files, and provenance. Do not leave them as prose placeholders.
+All five exist under [`benchmarks/real/hono/tasks/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/real/hono/tasks) with exact prompts, acceptance criteria, verification commands, working directories, and allowed files. The JWT fixture credits its upstream commit in the task metadata. The investigation fixture requires `INVESTIGATION.md` and rejects any tracked change under `src`.
+
+The matrix is prepared but not executed. A dry run per fixture and arm proves the harness mapping without a model call:
+
+```bash
+for task in benchmarks/real/hono/tasks/*.json; do
+  ./benchmarks/harness/run.sh --arm scoped-router --task "$task" \
+    --workspace /tmp/toolwright-hono --dry-run
+done
+```
+
+When benchmarks are authorized, the paid run is five repeats per fixture and arm. The scoped-router arm is added to the original five arms for a separate screen, not folded into the baseline comparison.
 
 Procedure:
 
@@ -545,7 +556,23 @@ The measurement support remains:
 - `run-stats.json` records `cache_hit_ratio`, which makes prompt-cache effectiveness visible per run;
 - the `slim-uncapped` arm uses `configs/opencode/minimal.jsonc` with the default 2,000-line cap, completing the MCP × output-cap 2×2 matrix.
 
-Still pending and requiring paid runs: a scoped delegation variant for multi-file tasks, the lean-prompt variant, model routing with escalation, and the five-task matrix.
+The scoped delegation variant is implemented as `scoped-router`: a benchmark-only coordinator that edits one known file directly and delegates multi-file or ambiguous work. It has passed unit and harness dry-run checks but has not been executed against a model.
+
+Still pending and requiring paid runs: the scoped-router screen, the lean-prompt variant, model routing with escalation, and the five-task matrix.
+
+#### Prepared: static route hypothesis
+
+Before any paid routing run, the five fixtures can be classified statically. The route below is a hypothesis to test, not a measured result, and no model call is needed to produce it. It records which path should be cheaper for each task shape so a later run can confirm or reject the expectation.
+
+| Fixture | Task signal | Expected route | Arm |
+|---|---|---|---|
+| `hono-set-cookie` | Two related source files and a regression test | Direct implementation with verification | `direct-slim` |
+| `hono-redirect` | One source file and one test file | Direct implementation with verification | `direct-slim` |
+| `hono-request-id` | Middleware implementation plus tests | Direct implementation with verification | `direct-slim` |
+| `hono-jwt-typ` | Three files across utilities and middleware | Scoped delegation to an implementer | `scoped-router` |
+| `hono-context-investigation` | Read-only investigation with no code change | Direct read-only investigation | `scoped-router` |
+
+The static hypothesis predicts that the three small code changes do not need a coordinator hop, while the JWT feature does. A paid run is the only way to test whether the prediction holds; record routing accuracy, cost, wall time, and correctness together.
 
 ### Phase 6 — Documentation and release
 

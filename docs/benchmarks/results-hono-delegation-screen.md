@@ -73,7 +73,7 @@ Reasons:
 - the best arm, `coordinator-slim`, only reached +1.8% cost and remained 2.6× slower;
 - the original three-repeat win was variance.
 
-The next useful experiment is a **scoped** delegation variant for multi-file or ambiguous work, tested on the five-task matrix. Full delegation on small tasks is not worth its overhead.
+The next useful experiment is a **scoped** delegation variant for multi-file or ambiguous work, tested on the five-task matrix. That variant now exists as the benchmark-only `scoped-router` arm under [`benchmarks/agents/scoped-router.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/agents/scoped-router.md); it has passed dry-run checks but has not been executed. Full delegation on small tasks is not worth its overhead.
 
 ## Limitations
 

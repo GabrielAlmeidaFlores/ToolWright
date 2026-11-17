@@ -12,7 +12,8 @@ All notable changes to this repository are documented here.
 - Cost and performance optimization plan covering task routing, direct-agent defaults, tool policies, reasoning/output budgets, selective verification gates, and an A/B validation matrix.
 - [Cost and performance optimization plan](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/plans/cost-performance-optimization.md).
 - Benchmark-only arms `coordinator-slim`, `direct-slim`, and `tools-on-demand` under [`benchmarks/arms/`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/arms/README.md), selected with `--arm` and copied into the disposable workspace by the harness.
-- Real Hono fixtures for cookie, redirect, and request-id tasks under [`benchmarks/real/hono/`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/real/hono/README.md).
+- Real Hono fixtures for cookie, redirect, and request-id tasks under [`benchmarks/real/hono/`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/real/hono/README.md), plus a multi-file JWT `typ` feature and a read-only investigation fixture that complete the five-task matrix.
+- Benchmark-only `scoped-router` arm and agent that edit a single known file directly and delegate multi-file work; no production profile, prompt, or default changed.
 - Every benchmark run now records `status.txt`, `diff.patch`, and `diff-stat.txt` for scope and correctness review.
 - `validate_config.py` rejects repository-relative Markdown links and points to the absolute GitHub URL convention, with code fences and inline code treated as examples.
 - Hono cost A/B result set: 45 isolated runs across five arms, all verified and fully scoped; no arm beat the stock baseline, so no configuration was promoted. Three cells were re-executed after review found agent access to the harness directory, and published artifacts are path-sanitized.

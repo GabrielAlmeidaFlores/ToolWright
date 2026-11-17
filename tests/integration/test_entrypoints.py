@@ -26,6 +26,7 @@ from tests.integration.test_entrypoints_strings import (
     KEY_PROJECT,
     KEY_PYTHON3,
     KEY_SLIM_UNCAPPED,
+    KEY_SCOPED_ROUTER,
     KEY_TOOLS_ON_DEMAND,
     TEXT_BENCHMARKS_HARNESS_RUN_SH,
     TEXT_ADAPTER_DISCOVERY_HEADER,
@@ -200,6 +201,7 @@ class BenchmarkHarnessTests(unittest.TestCase):
                 KEY_DIRECT_SLIM: TEXT_BACKEND_DEVELOPER,
                 KEY_TOOLS_ON_DEMAND: KEY_COORDINATOR,
                 KEY_SLIM_UNCAPPED: KEY_COORDINATOR,
+                KEY_SCOPED_ROUTER: KEY_SCOPED_ROUTER,
             }
             for arm, agent in expected_agents.items():
                 result = subprocess.run(

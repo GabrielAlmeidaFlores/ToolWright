@@ -4,7 +4,7 @@
 # Validation: scripts/validation/validate_config.py
 # References: AGENTS.md Section 2A, docs/provenance/README.md
 version: 1
-updated: "2026-11-12"
+updated: "2026-11-16"
 
 sources:
   volt:
@@ -385,9 +385,19 @@ hats:
 
 original_artifacts:
   - id: benchmark-harness
-    local: "benchmarks/harness/run.sh, benchmarks/tasks/*.json"
+    local: "benchmarks/harness/run.sh, benchmarks/tasks/*.json, benchmarks/real/hono/tasks/*.json"
     kind: "fixture"
-    justification: "Project-specific measurement harness and fixtures; no maintained upstream provides these exact tasks. Not reusable agents/skills."
+    justification: "Project-specific measurement harness and fixtures, including the Hono real-repository tasks; no maintained upstream provides these exact task wrappers. Not reusable agents or skills."
+  - id: benchmark-scoped-router
+    local: "benchmarks/agents/scoped-router.md"
+    kind: "fixture"
+    author: "Seth Hobson (upstream coordinator); ToolWright contributors (scoped adaptation)"
+    author_url: "https://github.com/wshobson"
+    source: "https://github.com/wshobson/agents"
+    upstream_path: "plugins/agent-teams/agents/team-lead.md"
+    upstream_commit: "9c61ab243def98f72da12abd41cfcf5bcd91af9d"
+    license: "MIT"
+    justification: "Benchmark-only variant of the coordinator that edits a single known file directly and delegates multi-file work. It is never installed by a profile and is not presented as a reusable production agent."
   - id: installation-and-validation
     local: "scripts/**, .github/workflows/**"
     kind: "glue"

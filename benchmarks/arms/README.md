@@ -2,7 +2,7 @@
 
 These configurations are benchmark-only. They do not change production profiles or defaults.
 
-The table columns are the arm label, the config loaded by the harness, the primary agent, and the purpose of that arm. It has 6 rows and 4 columns: Arm, Config, Agent, and Purpose. Each row is one arm, and the other columns record Config, Agent, and Purpose. Read it to compare rows or to find a specific arm.
+The table columns are the arm label, the config loaded by the harness, the primary agent, and the purpose of that arm. It has 7 rows and 4 columns: Arm, Config, Agent, and Purpose. Each row is one arm, and the other columns record Config, Agent, and Purpose. Read it to compare rows or to find a specific arm.
 
 | Arm | Config | Agent | Purpose |
 |---|---|---|---|
@@ -12,6 +12,7 @@ The table columns are the arm label, the config loaded by the harness, the prima
 | `direct-slim` | `benchmarks/arms/slim.jsonc` | `backend-developer` | No MCP, 400-line tool output cap, no coordinator hop |
 | `tools-on-demand` | `benchmarks/arms/tools-on-demand.jsonc` | `coordinator` | Full MCP surface, 400-line tool output cap |
 | `slim-uncapped` | `configs/opencode/minimal.jsonc` | `coordinator` | No MCP, default 2000-line tool output cap; completes the 2×2 MCP/cap matrix |
+| `scoped-router` | `benchmarks/arms/slim.jsonc` | `scoped-router` | Benchmark-only coordinator variant that edits a single known file directly and delegates multi-file or ambiguous work |
 
 Run one arm:
 

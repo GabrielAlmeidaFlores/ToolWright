@@ -17,7 +17,7 @@
 
 <p align="center">
   <img alt="CI green" src="https://img.shields.io/badge/CI-green-22C55E?style=flat-square">
-  <img alt="337 tests" src="https://img.shields.io/badge/tests-337-4F46E5?style=flat-square">
+  <img alt="338 tests" src="https://img.shields.io/badge/tests-338-4F46E5?style=flat-square">
   <img alt="12 agents" src="https://img.shields.io/badge/agents-12-06B6D4?style=flat-square">
   <img alt="10 skills" src="https://img.shields.io/badge/skills-10-D97757?style=flat-square">
   <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0F172A?style=flat-square">
@@ -721,7 +721,7 @@ This repository distinguishes **verified**, **documented**, and **not yet measur
 | Benchmarks | Four published result sets: DeepSeek Flash examples, a real Hono tool matrix, a 45-run cost A/B, and a 90-run delegation screen; no arm beat stock, and the delegation contract was reverted |
 | Real-repository pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
 | CI | Green on Ubuntu and macOS for run [43402329992](https://github.com/GabrielAlmeidaFlores/ToolWright/actions/runs/43402329992); nine jobs |
-| Repository tests | 337 unit and integration tests |
+| Repository tests | 338 unit and integration tests |
 | `toolwright` CLI | Install, uninstall, update check, rollback, doctor verified locally and in the `cli` job |
 | Profiles and catalog | Three manifests and 34 catalog entries verified locally and in CI |
 | Verification and governance | `toolwright verify` and `toolwright govern contracts` verified locally; CI runs both |

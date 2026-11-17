@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Name: Benchmark runner
 # Purpose: Runs one benchmark arm in a disposable workspace, records session, scope, and statistics artifacts, and executes the task verification command.
-# Usage: ./benchmarks/harness/run.sh --arm baseline|optimized|coordinator-slim|direct-slim|tools-on-demand|slim-uncapped --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]
+# Usage: ./benchmarks/harness/run.sh --arm baseline|optimized|coordinator-slim|direct-slim|tools-on-demand|slim-uncapped|scoped-router --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]
 # Arguments: --arm selects the configuration and agent, --task selects the task definition, --workspace sets the target repository root, --run-id sets the output directory name, --dry-run prints the command.
 # Environment: Requires bash, python3, and git. opencode is required to execute a run but not for --dry-run. OPENCODE_BENCH_MODEL must be a provider/model#variant identifier for execution.
 # Outputs: Writes meta.json, session.jsonl, stats.json, run-stats.json, export.json, verification.log, status.txt, diff.patch, diff-stat.txt, and notes.md under benchmarks/results/<run-id>.
@@ -14,6 +14,7 @@ ARM=""
 TASK=""
 WORKSPACE=""
 CONFIG_COPY=0
+AGENT_SOURCE=""
 RUN_ID=""
 DRY=0
 
@@ -23,7 +24,7 @@ DRY=0
 # Returns: None.
 # Side effects: Writes to standard output.
 usage() {
-  echo "usage: $0 --arm baseline|optimized|coordinator-slim|direct-slim|tools-on-demand|slim-uncapped --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]"
+  echo "usage: $0 --arm baseline|optimized|coordinator-slim|direct-slim|tools-on-demand|slim-uncapped|scoped-router --task <file.json> [--workspace DIR] [--run-id ID] [--dry-run]"
   echo "environment: OPENCODE_BENCH_MODEL=provider/model#variant is required for execution"
 }
 
@@ -107,6 +108,12 @@ case "$ARM" in
     CONFIG_COPY=1
     AGENT="coordinator"
     ;;
+  scoped-router)
+    CONFIG="$ROOT/benchmarks/arms/slim.jsonc"
+    CONFIG_COPY=1
+    AGENT="scoped-router"
+    AGENT_SOURCE="$ROOT/benchmarks/agents/scoped-router.md"
+    ;;
   *) echo "unknown arm: $ARM"; exit 2 ;;
 esac
 
@@ -115,7 +122,11 @@ if [[ "$ARM" != "baseline" ]]; then
     echo "arm $ARM requires $CONFIG (run the installer or add the benchmark config)"
     exit 2
   fi
-  if [[ ! -f "$WORKSPACE/.opencode/agents/$AGENT.md" ]]; then
+  if [[ -n "$AGENT_SOURCE" && ! -f "$AGENT_SOURCE" ]]; then
+    echo "arm $ARM requires $AGENT_SOURCE"
+    exit 2
+  fi
+  if [[ -z "$AGENT_SOURCE" && ! -f "$WORKSPACE/.opencode/agents/$AGENT.md" ]]; then
     echo "arm $ARM requires $WORKSPACE/.opencode/agents/$AGENT.md (run the installer)"
     exit 2
   fi
@@ -125,6 +136,11 @@ if [[ "$CONFIG_COPY" == "1" && "$DRY" != "1" ]]; then
   mkdir -p "$WORKSPACE/.opencode"
   cp "$CONFIG" "$WORKSPACE/.opencode/opencode.jsonc"
   CONFIG="$WORKSPACE/.opencode/opencode.jsonc"
+fi
+
+if [[ -n "$AGENT_SOURCE" && "$DRY" != "1" ]]; then
+  mkdir -p "$WORKSPACE/.opencode/agents"
+  cp "$AGENT_SOURCE" "$WORKSPACE/.opencode/agents/$AGENT.md"
 fi
 
 COMMIT="$(git -C "$ROOT" rev-parse HEAD 2>/dev/null || echo unknown)"
@@ -141,6 +157,9 @@ echo "config=$CONFIG agent=$AGENT commit=$COMMIT workdir=$WORKDIR max_wall=${MAX
 if [[ "$DRY" == "1" ]]; then
   if [[ "$CONFIG_COPY" == "1" ]]; then
     echo "would copy: $CONFIG -> $WORKSPACE/.opencode/opencode.jsonc"
+  fi
+  if [[ -n "$AGENT_SOURCE" ]]; then
+    echo "would copy agent: $AGENT_SOURCE -> $WORKSPACE/.opencode/agents/$AGENT.md"
   fi
   echo "would run: XDG_CONFIG_HOME=<temp> OPENCODE_CONFIG=$CONFIG opencode --standalone run --agent $AGENT --model ${MODEL:-<provider/model>} --auto --format json <prompt> in $PROJECT_DIR"
   exit 0

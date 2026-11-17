@@ -1,0 +1,17 @@
+{
+  "id": "hono-context-investigation",
+  "title": "Investigate Context.res header merging",
+  "commit": "f6fbaf0299c48eea9e656e03e2ffe7ac755e8823",
+  "prompt": "Read-only investigation. Do not modify any source or test file. Investigate how Hono's Context.res setter merges response headers, especially Set-Cookie, and write INVESTIGATION.md with: the call sites involved, the current merge order, the test coverage that exists, and the risks of changing the behavior. Cite file:line references. Do not run git add or git commit.",
+  "acceptance": [
+    "INVESTIGATION.md exists and is non-empty",
+    "It cites Context.res and Set-Cookie",
+    "No tracked file under src is modified"
+  ],
+  "verification": "test -s INVESTIGATION.md && grep -q 'Context.res' INVESTIGATION.md && grep -q 'Set-Cookie' INVESTIGATION.md && [ -z \"$(git status --porcelain -- src)\" ]",
+  "areas": ["INVESTIGATION.md"],
+  "max_wall_time_seconds": 600,
+  "working_directory": ".",
+  "source": "docs/pilots/results/code-round-hono.md",
+  "license": "MIT"
+}

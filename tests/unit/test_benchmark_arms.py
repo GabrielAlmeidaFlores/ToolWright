@@ -20,6 +20,11 @@ KEY_MCP = 'mcp'
 KEY_SERVERS = 'servers'
 KEY_TOOL_OUTPUT = 'tool_output'
 TEXT_ARMS = 'arms'
+TEXT_SCOPED_ROUTER_FILE = 'scoped-router.md'
+TEXT_SCOPED_ROUTER_DESCRIPTION = 'Benchmark-only scoped router'
+TEXT_ACTION_EDIT = 'action: edit'
+TEXT_EFFECT_ALLOW = 'effect: allow'
+TEXT_SCOPED_ROUTER_CONDITION = 'For a task confined to one known file'
 TEXT_BENCHMARKS = 'benchmarks'
 TEXT_CONFIGS = 'configs'
 TEXT_MINIMAL_JSONC = 'minimal.jsonc'
@@ -27,6 +32,7 @@ TEXT_SLIM_JSONC = 'slim.jsonc'
 TEXT_TOOLS_ON_DEMAND_JSONC = 'tools-on-demand.jsonc'
 DEFAULT_TOOL_OUTPUT_LINES = 2000
 BENCHMARK_ARMS = support.REPO_ROOT / TEXT_BENCHMARKS / TEXT_ARMS
+SCOPED_ROUTER_AGENT = support.REPO_ROOT / TEXT_BENCHMARKS / KEY_AGENTS / TEXT_SCOPED_ROUTER_FILE
 MINIMAL_CONFIG = support.REPO_ROOT / TEXT_CONFIGS / KEY_OPENCODE / TEXT_MINIMAL_JSONC
 FULL_CONFIG = support.REPO_ROOT / TEXT_CONFIGS / KEY_OPENCODE / TEXT_OPENCODE_JSONC
 LIMIT_TOOL_OUTPUT_LINES = 400
@@ -82,6 +88,13 @@ class BenchmarkArmConfigTests(unittest.TestCase):
         )
         self.assertEqual(config[KEY_MCP][KEY_SERVERS], {})
         self.assertEqual(config[KEY_TOOL_OUTPUT][KEY_MAX_LINES], DEFAULT_TOOL_OUTPUT_LINES)
+
+    def test_scoped_router_permits_direct_edit(self) -> None:
+        text = SCOPED_ROUTER_AGENT.read_text(encoding=TEXT_UTF_8)
+        self.assertIn(TEXT_SCOPED_ROUTER_DESCRIPTION, text)
+        self.assertIn(TEXT_ACTION_EDIT, text)
+        self.assertIn(TEXT_EFFECT_ALLOW, text)
+        self.assertIn(TEXT_SCOPED_ROUTER_CONDITION, text)
 
     def test_arms_do_not_override_agent_frontmatter(self) -> None:
         for name in (TEXT_SLIM_JSONC, TEXT_TOOLS_ON_DEMAND_JSONC):
