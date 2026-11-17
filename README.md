@@ -65,11 +65,12 @@ The table below summarizes the main building blocks. Each row links to the direc
 ### 1. Install the CLI
 
 ```bash
-export TOOLWRIGHT_REPO=/path/to/ToolWright
+git clone https://github.com/GabrielAlmeidaFlores/ToolWright.git
+export TOOLWRIGHT_REPO="$(cd ToolWright && pwd)"
 uv tool install "$TOOLWRIGHT_REPO/packages/toolwright_cli[tui]"
 ```
 
-The optional `tui` extra enables the interactive setup screen. The CLI works without it.
+If the repository is already cloned, run `export TOOLWRIGHT_REPO="$(pwd)"` from inside it instead. The `tui` extra enables the interactive setup screen; the CLI works without it.
 
 ### 2. Set up a project
 

@@ -9,8 +9,9 @@ ToolWright does not make the model cheaper or smarter. It makes the workflow aro
 ## Start here
 
 ```bash
-export TOOLWRIGHT_REPO=/path/to/ToolWright
-uv tool install "$TOOLWRIGHT_REPO/packages/toolwright_cli"
+git clone https://github.com/GabrielAlmeidaFlores/ToolWright.git
+export TOOLWRIGHT_REPO="$(cd ToolWright && pwd)"
+uv tool install "$TOOLWRIGHT_REPO/packages/toolwright_cli[tui]"
 toolwright doctor
 ```
 

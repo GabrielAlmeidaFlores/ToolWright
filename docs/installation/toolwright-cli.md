@@ -21,9 +21,11 @@ python3 --version
 
 ```bash
 git clone https://github.com/GabrielAlmeidaFlores/ToolWright.git
-cd ToolWright
-uv tool install ./packages/toolwright_cli
+export TOOLWRIGHT_REPO="$(cd ToolWright && pwd)"
+uv tool install "$TOOLWRIGHT_REPO/packages/toolwright_cli[tui]"
 ```
+
+If the checkout already exists, run `export TOOLWRIGHT_REPO="$(pwd)"` from inside it. The `tui` extra enables `toolwright setup`; the CLI works without it.
 
 Verify:
 
@@ -37,7 +39,7 @@ toolwright doctor
 ## Install with pipx
 
 ```bash
-pipx install ./packages/toolwright_cli
+pipx install "$TOOLWRIGHT_REPO/packages/toolwright_cli[tui]"
 ```
 
 ## Run without installing
