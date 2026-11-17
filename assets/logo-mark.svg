@@ -1,16 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
   <title id="title">ToolWright mark</title>
-  <desc id="desc">A rounded indigo-to-cyan square containing a white T, a check, and a small spark.</desc>
-  <defs>
-    <linearGradient id="mark" x1="24" y1="24" x2="136" y2="136" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#4338CA"/>
-      <stop offset="1" stop-color="#06B6D4"/>
-    </linearGradient>
-  </defs>
-  <rect x="24" y="24" width="112" height="112" rx="30" fill="url(#mark)"/>
-  <rect x="25" y="25" width="110" height="110" rx="29" fill="none" stroke="#FFFFFF" stroke-opacity="0.18"/>
-  <path d="M48 54 H104" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
-  <path d="M76 54 V106" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
-  <path d="M62 82 L76 96 L100 70" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.92"/>
-  <path d="M108 36 C109.4 42.1 111.3 44 117.4 45.4 C111.3 46.8 109.4 48.7 108 54.8 C106.6 48.7 104.7 46.8 98.6 45.4 C104.7 44 106.6 42.1 108 36 Z" fill="#FFFFFF"/>
+  <desc id="desc">A flat retro-futuristic mark: a dark chamfered square with a cyan grid, a white T, a cyan check, and an amber spark.</desc>
+  <path d="M52 24 H108 L136 52 V108 L108 136 H52 L24 108 V52 Z" fill="#0B1220" stroke="#22D3EE" stroke-width="3"/>
+  <path d="M24 80 H136 M80 24 V136" stroke="#164E63" stroke-width="1"/>
+  <path d="M48 52 H104" fill="none" stroke="#F8FAFC" stroke-width="9" stroke-linecap="square"/>
+  <path d="M76 52 V104" fill="none" stroke="#F8FAFC" stroke-width="9" stroke-linecap="square"/>
+  <path d="M60 82 L74 96 L100 70" fill="none" stroke="#22D3EE" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M108 34 C109.4 40.1 111.3 42 117.4 43.4 C111.3 44.8 109.4 46.7 108 52.8 C106.6 46.7 104.7 44.8 98.6 43.4 C104.7 42 106.6 40.1 108 34 Z" fill="#F59E0B"/>
 </svg>

@@ -1,23 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" role="img" aria-labelledby="title desc">
   <title id="title">ToolWright</title>
-  <desc id="desc">A rounded indigo-to-cyan mark containing a white T and check, followed by the ToolWright wordmark and the tagline AI workflow environment.</desc>
-  <defs>
-    <linearGradient id="mark" x1="28" y1="28" x2="140" y2="140" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#4338CA"/>
-      <stop offset="1" stop-color="#06B6D4"/>
-    </linearGradient>
-    <linearGradient id="rule" x1="190" y1="132" x2="330" y2="132" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#4338CA"/>
-      <stop offset="1" stop-color="#06B6D4"/>
-    </linearGradient>
-  </defs>
-  <rect x="28" y="28" width="112" height="112" rx="30" fill="url(#mark)"/>
-  <rect x="29" y="29" width="110" height="110" rx="29" fill="none" stroke="#FFFFFF" stroke-opacity="0.18"/>
-  <path d="M52 58 H108" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
-  <path d="M80 58 V110" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round"/>
-  <path d="M66 86 L80 100 L104 74" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.92"/>
-  <path d="M112 40 C113.4 46.1 115.3 48 121.4 49.4 C115.3 50.8 113.4 52.7 112 58.8 C110.6 52.7 108.7 50.8 102.6 49.4 C108.7 48 110.6 46.1 112 40 Z" fill="#FFFFFF"/>
-  <text x="190" y="86" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="46" font-weight="700" letter-spacing="-1.2" fill="#0B1220">Tool<tspan fill="#4338CA">Wright</tspan></text>
-  <text x="192" y="114" font-family="Inter, 'Segoe UI', system-ui, -apple-system, sans-serif" font-size="12.5" font-weight="600" letter-spacing="3.2" fill="#64748B">AI WORKFLOW ENVIRONMENT</text>
-  <rect x="192" y="130" width="138" height="4" rx="2" fill="url(#rule)"/>
+  <desc id="desc">A flat retro-futuristic mark: a dark chamfered square with a cyan grid, a white T, a cyan check, and an amber spark.</desc>
+  <path d="M52 28 H116 L140 52 V116 L116 140 H52 L28 116 V52 Z" fill="#0B1220" stroke="#22D3EE" stroke-width="3"/>
+  <path d="M28 84 H140 M84 28 V140" stroke="#164E63" stroke-width="1"/>
+  <path d="M52 56 H108" fill="none" stroke="#F8FAFC" stroke-width="9" stroke-linecap="square"/>
+  <path d="M80 56 V108" fill="none" stroke="#F8FAFC" stroke-width="9" stroke-linecap="square"/>
+  <path d="M64 86 L78 100 L104 74" fill="none" stroke="#22D3EE" stroke-width="7" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M112 38 C113.4 44.1 115.3 46 121.4 47.4 C115.3 48.8 113.4 50.7 112 56.8 C110.6 50.7 108.7 48.8 102.6 47.4 C108.7 46 110.6 44.1 112 38 Z" fill="#F59E0B"/>
+  <text x="190" y="86" font-family="'IBM Plex Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="44" font-weight="700" letter-spacing="-1.4" fill="#0B1220">ToolWright<tspan fill="#0891B2">_</tspan></text>
+  <text x="192" y="114" font-family="'IBM Plex Mono', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="600" letter-spacing="3.2" fill="#475569">AI WORKFLOW ENVIRONMENT</text>
+  <rect x="192" y="130" width="138" height="3" fill="#22D3EE"/>
+  <rect x="334" y="126" width="10" height="10" fill="#F59E0B"/>
 </svg>
