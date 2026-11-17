@@ -5,6 +5,18 @@ The tests execute the real CLI as a subprocess against temporary targets. They
 require no network access and never write inside the repository.
 """
 from __future__ import annotations
+
+import hashlib
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+from tests import support
 from tests.constants import TEXT_OPENCODE
 from tests.integration.test_toolwright_commands_strings import (
     FLAG_APPLY,
@@ -18,28 +30,19 @@ from tests.integration.test_toolwright_commands_strings import (
     FLAG_JSON,
     FLAG_NO_MCP,
     FLAG_ONLY,
-    FLAG_PROFILE,
     FLAG_PLATFORM,
-    KEY_CLAUDE,
-    KEY_CODEX,
-    KEY_COPILOT,
-    TEXT_AGENTS_MD,
-    TEXT_CLAUDE_AGENTS_COORDINATOR_MD,
-    TEXT_CLAUDE_MD,
-    TEXT_CODEX_AGENTS_COORDINATOR,
-    TEXT_COPILOT_AGENTS_COORDINATOR,
-    TEXT_COPILOT_INSTRUCTIONS,
+    FLAG_PROFILE,
     FLAG_RECORD,
-    FLAG_SOURCE,
     FLAG_RESULTS,
     FLAG_RISK,
+    FLAG_SOURCE,
     FLAG_TARGET,
     FLAG_TYPE,
     FLAG_YES,
     KEY_A,
-    KEY_ADD,
     KEY_ADAPTER,
     KEY_ADAPTERS,
+    KEY_ADD,
     KEY_AGENT,
     KEY_ALLOWED,
     KEY_ARM,
@@ -47,13 +50,16 @@ from tests.integration.test_toolwright_commands_strings import (
     KEY_CATALOG,
     KEY_CHECK,
     KEY_CHECKS,
+    KEY_CLAUDE,
+    KEY_CODEX,
     KEY_COMMIT,
     KEY_COMPAT,
     KEY_COMPONENT,
     KEY_COMPONENTS,
-    KEY_CONTRACTS,
     KEY_CONSTRAINT,
+    KEY_CONTRACTS,
     KEY_COORDINATOR,
+    KEY_COPILOT,
     KEY_COST,
     KEY_DECISION,
     KEY_DIGEST,
@@ -114,8 +120,8 @@ from tests.integration.test_toolwright_commands_strings import (
     KEY_STEP_FINISH,
     KEY_SUMMARY,
     KEY_TASK,
-    KEY_TASKS,
     KEY_TASK_ID,
+    KEY_TASKS,
     KEY_TOKENS,
     KEY_TOOL,
     KEY_TOOLWRIGHT_CLI,
@@ -131,16 +137,23 @@ from tests.integration.test_toolwright_commands_strings import (
     TEXT_0_1,
     TEXT_0_FAILURE_S,
     TEXT_100,
+    TEXT_AGENTS_MD,
     TEXT_ALREADY_UP_TO_DATE,
     TEXT_AST_GREP,
     TEXT_BUDGET_EXCEEDED,
     TEXT_CHECKOUT_DETACH,
+    TEXT_CLAUDE_AGENTS_COORDINATOR_MD,
+    TEXT_CLAUDE_MD,
+    TEXT_CODEX_AGENTS_COORDINATOR,
     TEXT_CONFIG_TOML,
+    TEXT_COPILOT_AGENTS_COORDINATOR,
+    TEXT_COPILOT_INSTRUCTIONS,
     TEXT_EXPECTED_A_CLI_BACKUP_DIRECTORY,
     TEXT_GLOBAL_CONFIG_TAR_GZ,
     TEXT_HEAD,
     TEXT_M,
     TEXT_MAIN,
+    TEXT_MEMORY_TARGET_NOTE,
     TEXT_META_JSON,
     TEXT_NO_BACKUPS,
     TEXT_OK,
@@ -148,8 +161,6 @@ from tests.integration.test_toolwright_commands_strings import (
     TEXT_OPENCODE_BINARY_IS_NOT_INSTALLED,
     TEXT_OPENCODE_COPY,
     TEXT_PLAN_ONLY,
-    TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD,
-    TEXT_MEMORY_TARGET_NOTE,
     TEXT_PROJECT_MEMORY,
     TEXT_PROJECT_OPENCODE_TAR_GZ,
     TEXT_PROVIDER_MODEL,
@@ -166,21 +177,10 @@ from tests.integration.test_toolwright_commands_strings import (
     TEXT_TOOLWRIGHT_BACKUPS,
     TEXT_TOOLWRIGHT_CLI,
     TEXT_TOOLWRIGHT_LOCK_JSON,
+    TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD,
     TEXT_TOOLWRIGHT_STATE_JSON,
     TEXT_UTF_8,
 )
-
-import hashlib
-import json
-import os
-import shutil
-import subprocess
-import sys
-import tempfile
-import unittest
-from pathlib import Path
-
-from tests import support
 
 REPO_ROOT = support.REPO_ROOT
 
@@ -562,7 +562,7 @@ class PlatformAdapterInstallTests(unittest.TestCase):
 
     def test_codex_adapter_installs_without_opencode(self) -> None:
         result = self._install(KEY_CODEX)
-        self.assertEqual(result.returncode, 0, stdout := result.stdout + result.stderr)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertTrue((self.target / TEXT_CODEX_AGENTS_COORDINATOR).is_file())
         self.assertTrue((self.target / TEXT_AGENTS_MD).is_file())
         self.assertFalse((self.target / TEXT_OPENCODE).exists())

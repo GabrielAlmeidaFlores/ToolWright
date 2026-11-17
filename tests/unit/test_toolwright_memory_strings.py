@@ -4,11 +4,11 @@ String constants for tests/unit/test_toolwright_memory.py.
 Side effects: none.
 """
 from __future__ import annotations
-from tests.constants import (
-    KEY_CONSTRAINT,
-    TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD,
+
+from tests.constants import (  # noqa: F401 - re-exported test constants
     KEY_A,
     KEY_B,
+    KEY_CONSTRAINT,
     KEY_DECISION,
     KEY_ENTRIES,
     KEY_JSON,
@@ -22,6 +22,7 @@ from tests.constants import (
     TEXT_MAIN,
     TEXT_MD,
     TEXT_TEXT_2,
+    TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD,
     TEXT_UTF_8,
 )
 
@@ -58,7 +59,8 @@ TEXT_QUESTION = 'Question'
 TEXT_ROW_LEVEL = 'row-level'
 TEXT_SAME = 'Same'
 TEXT_SHARED_ENTRY = 'Shared entry'
-from tests.constants import TEXT_INDENT as TEXT_TEXT
+from tests.constants import TEXT_INDENT as TEXT_TEXT  # noqa: F401 - re-exported test constant
+
 TEXT_TOOLWRIGHT_MEMORY_PROJECT = '.toolwright/memory/project'
 TEXT_USER_ENTRY = 'User entry'
 TEXT_USER_NOTE = 'user note'

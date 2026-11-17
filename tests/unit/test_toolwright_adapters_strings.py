@@ -4,11 +4,13 @@ String constants for tests/unit/test_toolwright_adapters.py.
 Side effects: none.
 """
 from __future__ import annotations
-from tests.constants import KEY_CODEX, KEY_COPILOT
-from tests.constants import (
+
+from tests.constants import (  # noqa: F401 - re-exported test constants
     KEY_AGENTS,
     KEY_CLAUDE,
+    KEY_CODEX,
     KEY_COMMANDS,
+    KEY_COPILOT,
     KEY_OPENCODE,
     KEY_RALPH,
     KEY_SKILLS,

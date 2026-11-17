@@ -4,19 +4,17 @@ String constants for tests/integration/test_toolwright_commands.py.
 Side effects: none.
 """
 from __future__ import annotations
-from tests.constants import KEY_CLAUDE, KEY_CODEX, KEY_COPILOT, TEXT_OPENCODE
-from tests.constants import (
+
+from tests.constants import (  # noqa: F401 - re-exported test constants
     FLAG_APPLY,
     FLAG_CHECK,
     FLAG_DRY_RUN,
     FLAG_ONLY,
     FLAG_TARGET,
     KEY_A,
-    TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD,
-    KEY_ADD,
-    KEY_CONSTRAINT,
     KEY_ADAPTER,
     KEY_ADAPTERS,
+    KEY_ADD,
     KEY_AGENT,
     KEY_ALLOWED,
     KEY_ARM,
@@ -24,9 +22,13 @@ from tests.constants import (
     KEY_CATALOG,
     KEY_CHECK,
     KEY_CHECKS,
+    KEY_CLAUDE,
+    KEY_CODEX,
     KEY_COMMIT,
     KEY_COMPONENTS,
+    KEY_CONSTRAINT,
     KEY_COORDINATOR,
+    KEY_COPILOT,
     KEY_COST,
     KEY_DECISION,
     KEY_ENTRIES,
@@ -71,8 +73,8 @@ from tests.constants import (
     KEY_STEP_FINISH,
     KEY_SUMMARY,
     KEY_TASK,
-    KEY_TASKS,
     KEY_TASK_ID,
+    KEY_TASKS,
     KEY_TOKENS,
     KEY_TOOL,
     KEY_TOOLWRIGHT_CLI,
@@ -88,6 +90,7 @@ from tests.constants import (
     TEXT_MAIN,
     TEXT_META_JSON,
     TEXT_OK,
+    TEXT_OPENCODE,
     TEXT_OPENCODE_AGENTS_COORDINATOR_MD,
     TEXT_OPENCODE_BINARY_IS_NOT_INSTALLED,
     TEXT_OPENCODE_COPY,
@@ -98,6 +101,7 @@ from tests.constants import (
     TEXT_TEXT,
     TEXT_TOOLWRIGHT_BACKUPS,
     TEXT_TOOLWRIGHT_LOCK_JSON,
+    TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD,
     TEXT_UTF_8,
 )
 

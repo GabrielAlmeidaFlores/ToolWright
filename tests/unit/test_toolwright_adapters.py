@@ -2,13 +2,24 @@
 Unit tests for the adapter registry and planned-file hashing.
 """
 from __future__ import annotations
+
+import hashlib
+import tempfile
+import unittest
+from pathlib import Path
+
+from toolwright_cli import adapters
+from toolwright_cli.locking import PlannedFile, planned_sha256
+from toolwright_cli.paths import ToolWrightError
+
+from tests import support
 from tests.constants import EMPTY_STRING
 from tests.unit.test_toolwright_adapters_strings import (
     KEY_AGENTS,
     KEY_CLAUDE,
     KEY_CODEX,
-    KEY_COPILOT,
     KEY_COMMANDS,
+    KEY_COPILOT,
     KEY_GENERATED,
     KEY_OPENCODE,
     KEY_RALPH,
@@ -19,27 +30,16 @@ from tests.unit.test_toolwright_adapters_strings import (
     TEXT_CLAUDE_AGENT,
     TEXT_CODEX_BACKEND_TOML,
     TEXT_CODEX_PLANNER_TOML,
-    TEXT_SANDBOX_READ_ONLY,
     TEXT_MAIN,
     TEXT_MEMORY_ADD_COMMAND,
     TEXT_OPENCODE_COPY,
     TEXT_PROJECT_MEMORY_HEADING,
+    TEXT_SANDBOX_READ_ONLY,
     TEXT_SOURCE_MD,
     TEXT_TARGET_MD,
     TEXT_UTF_8,
 )
-
-import hashlib
-import tempfile
-import unittest
-from pathlib import Path
-
-from tests import support
 from tests.unit.test_toolwright_memory_strings import TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD
-
-from toolwright_cli import adapters
-from toolwright_cli.locking import PlannedFile, planned_sha256
-from toolwright_cli.paths import ToolWrightError
 
 
 class RegistryTests(unittest.TestCase):

@@ -6,7 +6,25 @@ Public API: :func:`_command_memory`.
 Side effects: delegates to the memory module.
 """
 from __future__ import annotations
-from ..cli_strings import TEMPLATE_8_10, TEMPLATE_ADDED, TEMPLATE_EXPIRED_ENTR, TEMPLATE_MATCH_ES, TEMPLATE_TEMPLATE_4
+
+import argparse
+
+from ... import memory as memory_module
+from ...cli_constants import (
+    COMMAND_ADD,
+    COMMAND_SEARCH,
+    EMPTY_STRING,
+    FORMAT_JSON,
+)
+from ...constants import (
+    KEY_APPLIED,
+    KEY_ID,
+    KEY_PATH,
+    KEY_TITLE,
+    KEY_TYPE,
+    NEWLINE,
+)
+from ...paths import ToolWrightError, resolve_target
 from ..cli_strings import (
     KEY_ENTRIES,
     KEY_EXPIRED,
@@ -16,22 +34,17 @@ from ..cli_strings import (
     KEY_PRUNE,
     KEY_SCOPE,
     KEY_Y,
+    TEMPLATE_8_10,
+    TEMPLATE_ADDED,
+    TEMPLATE_EXPIRED_ENTR,
+    TEMPLATE_MATCH_ES,
+    TEMPLATE_TEMPLATE_4,
     TEXT_EXPIRED,
     TEXT_PLAN_ONLY_RE_RUN_WITH_APPLY_YES_TO_DELETE,
     TEXT_REFUSING_TO_DELETE_MEMORY_WITHOUT_YES,
 )
-
-import argparse
-
 from ..common import emit_payload
-from ...constants import (
-    KEY_APPLIED, KEY_ID, KEY_PATH, KEY_TITLE, KEY_TYPE, NEWLINE,
-)
-from ...cli_constants import (
-    COMMAND_ADD, COMMAND_SEARCH, EMPTY_STRING, FORMAT_JSON,
-)
-from ... import memory as memory_module
-from ...paths import ToolWrightError, resolve_target
+
 
 def _command_memory(args: argparse.Namespace) -> int:
     root = resolve_target(args.target)
