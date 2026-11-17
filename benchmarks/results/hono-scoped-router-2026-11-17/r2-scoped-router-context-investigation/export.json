@@ -1,0 +1,2328 @@
+{
+  "info": {
+    "id": "ses_e167eb120ffeawgbsAK3dhrJzJ",
+    "projectID": "8bbf308db2b4a27f72a69b74570538cfc8c125c3",
+    "agent": "scoped-router",
+    "model": {
+      "id": "deepseek-flash",
+      "providerID": "deepseek",
+      "variant": "default"
+    },
+    "cost": 0.022193712,
+    "tokens": {
+      "input": 42764,
+      "output": 10881,
+      "reasoning": 10894,
+      "cache": {
+        "read": 904704,
+        "write": 0
+      }
+    },
+    "outcome": "succeeded",
+    "time": {
+      "created": 1794918928237,
+      "updated": 1794919070858,
+      "busy": 1794918928833,
+      "idle": 1794919070860
+    },
+    "title": "[redacted:session-title:ses_e167eb120ffeawgbsAK3dhrJzJ]",
+    "location": {
+      "directory": "/[redacted:session-directory:ses_e167eb120ffeawgbsAK3dhrJzJ]"
+    }
+  },
+  "messages": [
+    {
+      "id": "msg_1e9814fa50018p6IJWclcT9bBY",
+      "time": {
+        "created": 1794918928293
+      },
+      "type": "agent-switched",
+      "agent": "scoped-router",
+      "previous": "scoped-router"
+    },
+    {
+      "id": "msg_1e9814f9e001zt70Tmi4Y7mwdp",
+      "time": {
+        "created": 1794918928838
+      },
+      "text": "[redacted:text:msg_1e9814f9e001zt70Tmi4Y7mwdp]",
+      "files": [],
+      "type": "user"
+    },
+    {
+      "id": "msg_1e98151ce001vFg2YR57i22tcr",
+      "time": {
+        "created": 1794918928848,
+        "streamed": 1794918930731,
+        "completed": 1794918930775
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "[redacted:text:msg_1e98151ce001vFg2YR57i22tcr]"
+        },
+        {
+          "type": "tool",
+          "id": "call_00_ET_6EEv1QN8U07kWzGekzNz5388",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e98151ce001vFg2YR57i22tcr"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e98151ce001vFg2YR57i22tcr]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e98151ce001vFg2YR57i22tcr"
+            }
+          },
+          "time": {
+            "created": 1794918930522,
+            "ran": 1794918930726,
+            "completed": 1794918930760
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_ET_eebwEn465WPX5FPb2Xpm0402",
+          "name": "glob",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e98151ce001vFg2YR57i22tcr"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e98151ce001vFg2YR57i22tcr]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e98151ce001vFg2YR57i22tcr"
+            }
+          },
+          "time": {
+            "created": 1794918930627,
+            "ran": 1794918930729,
+            "completed": 1794918930763
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0007565159999999999,
+      "tokens": {
+        "input": 4542,
+        "output": 110,
+        "reasoning": 0,
+        "cache": {
+          "read": 3072,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e981595c0011tPHfTWBb9wAMD",
+      "time": {
+        "created": 1794918930781,
+        "streamed": 1794918931814,
+        "completed": 1794918931826
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e981595c0011tPHfTWBb9wAMD]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e981595c0011tPHfTWBb9wAMD"
+          },
+          "time": {
+            "created": 1794918931510,
+            "completed": 1794918931812
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_aTn1TQM2j4yo8yPEdgQV9923",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981595c0011tPHfTWBb9wAMD"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981595c0011tPHfTWBb9wAMD]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981595c0011tPHfTWBb9wAMD"
+            }
+          },
+          "time": {
+            "created": 1794918931632,
+            "ran": 1794918931813,
+            "completed": 1794918931816
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00041484,
+      "tokens": {
+        "input": 2244,
+        "output": 75,
+        "reasoning": 17,
+        "cache": {
+          "read": 7680,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9815d7500185O96pxkKTFoiT",
+      "time": {
+        "created": 1794918931831,
+        "streamed": 1794918934741,
+        "completed": 1794918934780
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9815d7500185O96pxkKTFoiT]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9815d7500185O96pxkKTFoiT"
+          },
+          "time": {
+            "created": 1794918933335,
+            "completed": 1794918934725
+          }
+        },
+        {
+          "type": "text",
+          "text": "[redacted:text:msg_1e9815d7500185O96pxkKTFoiT]"
+        },
+        {
+          "type": "tool",
+          "id": "call_00_ZPgpkvW7Cg7BG5mNHfys5050",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "error",
+            "input": {
+              "redacted": "tool-input:msg_1e9815d7500185O96pxkKTFoiT"
+            },
+            "error": {
+              "type": "tool.execution",
+              "message": "Invalid regex pattern: rg: regex parse error:\n    (?:\\.res\\s*=(?!=))\n                ^^^\nerror: look-around, including look-ahead and look-behind, is not supported\n\nConsider enabling PCRE2 with the --pcre2 flag, which can handle backreferences\nand look-around."
+            }
+          },
+          "time": {
+            "created": 1794918933936,
+            "ran": 1794918934730,
+            "completed": 1794918934755
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_WAQJ2JzArwjNHCGF8aiY1567",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9815d7500185O96pxkKTFoiT"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9815d7500185O96pxkKTFoiT]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9815d7500185O96pxkKTFoiT"
+            }
+          },
+          "time": {
+            "created": 1794918934290,
+            "ran": 1794918934734,
+            "completed": 1794918934768
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_02_VRk1AWv1CAM6VYklPaJg6726",
+          "name": "glob",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9815d7500185O96pxkKTFoiT"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9815d7500185O96pxkKTFoiT]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9815d7500185O96pxkKTFoiT"
+            }
+          },
+          "time": {
+            "created": 1794918934615,
+            "ran": 1794918934738,
+            "completed": 1794918934760
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0014288519999999998,
+      "tokens": {
+        "input": 7854,
+        "output": 304,
+        "reasoning": 64,
+        "cache": {
+          "read": 9984,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9816900001WBGwPUSwlI3R0n",
+      "time": {
+        "created": 1794918934786,
+        "streamed": 1794918937327,
+        "completed": 1794918937384
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9816900001WBGwPUSwlI3R0n]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9816900001WBGwPUSwlI3R0n"
+          },
+          "time": {
+            "created": 1794918936187,
+            "completed": 1794918937322
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_MlYeBrN92wtf7tRhivuM7400",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9816900001WBGwPUSwlI3R0n"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9816900001WBGwPUSwlI3R0n]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9816900001WBGwPUSwlI3R0n"
+            }
+          },
+          "time": {
+            "created": 1794918936741,
+            "ran": 1794918937325,
+            "completed": 1794918937356
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_fIWRDEwO66J7mWQNkOyx2135",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9816900001WBGwPUSwlI3R0n"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9816900001WBGwPUSwlI3R0n]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9816900001WBGwPUSwlI3R0n"
+            }
+          },
+          "time": {
+            "created": 1794918936999,
+            "ran": 1794918937326,
+            "completed": 1794918937372
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00038437800000000005,
+      "tokens": {
+        "input": 1051,
+        "output": 222,
+        "reasoning": 65,
+        "cache": {
+          "read": 18176,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e981732c0018o4lF9foXlchvX",
+      "time": {
+        "created": 1794918937390,
+        "streamed": 1794918939891,
+        "completed": 1794918939911
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e981732c0018o4lF9foXlchvX]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e981732c0018o4lF9foXlchvX"
+          },
+          "time": {
+            "created": 1794918938238,
+            "completed": 1794918939884
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_2mwFFtV14bwhmUkxmX4C8237",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981732c0018o4lF9foXlchvX"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981732c0018o4lF9foXlchvX]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981732c0018o4lF9foXlchvX"
+            }
+          },
+          "time": {
+            "created": 1794918939014,
+            "ran": 1794918939886,
+            "completed": 1794918939896
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_FPIXJTQ2MbLcG4Zd9xyu7539",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981732c0018o4lF9foXlchvX"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981732c0018o4lF9foXlchvX]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981732c0018o4lF9foXlchvX"
+            }
+          },
+          "time": {
+            "created": 1794918939298,
+            "ran": 1794918939887,
+            "completed": 1794918939899
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_02_HYdsa3bisFShGZOA7beM6842",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981732c0018o4lF9foXlchvX"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981732c0018o4lF9foXlchvX]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981732c0018o4lF9foXlchvX"
+            }
+          },
+          "time": {
+            "created": 1794918939620,
+            "ran": 1794918939890,
+            "completed": 1794918939897
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0008487179999999999,
+      "tokens": {
+        "input": 3537,
+        "output": 325,
+        "reasoning": 108,
+        "cache": {
+          "read": 19456,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9817d0b001FeazvYLgp5qCTS",
+      "time": {
+        "created": 1794918939917,
+        "streamed": 1794918942534,
+        "completed": 1794918942557
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9817d0b001FeazvYLgp5qCTS]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9817d0b001FeazvYLgp5qCTS"
+          },
+          "time": {
+            "created": 1794918941485,
+            "completed": 1794918942525
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_53OL5wTEMAtEdqFXZZTg3600",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9817d0b001FeazvYLgp5qCTS"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9817d0b001FeazvYLgp5qCTS]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9817d0b001FeazvYLgp5qCTS"
+            }
+          },
+          "time": {
+            "created": 1794918941783,
+            "ran": 1794918942528,
+            "completed": 1794918942538
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_cZU5oRNsvBWTjckepNFj2166",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9817d0b001FeazvYLgp5qCTS"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9817d0b001FeazvYLgp5qCTS]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9817d0b001FeazvYLgp5qCTS"
+            }
+          },
+          "time": {
+            "created": 1794918941987,
+            "ran": 1794918942529,
+            "completed": 1794918942540
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_02_WM4UrCYbohm0ftNLn5rc1123",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9817d0b001FeazvYLgp5qCTS"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9817d0b001FeazvYLgp5qCTS]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9817d0b001FeazvYLgp5qCTS"
+            }
+          },
+          "time": {
+            "created": 1794918942251,
+            "ran": 1794918942532,
+            "completed": 1794918942541
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000492072,
+      "tokens": {
+        "input": 1572,
+        "output": 282,
+        "reasoning": 28,
+        "cache": {
+          "read": 23424,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9818761001jMWgOxcZcjnhv5",
+      "time": {
+        "created": 1794918942563,
+        "streamed": 1794918945622,
+        "completed": 1794918945644
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9818761001jMWgOxcZcjnhv5]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9818761001jMWgOxcZcjnhv5"
+          },
+          "time": {
+            "created": 1794918943698,
+            "completed": 1794918945617
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_CQ3hlAJUpnKPmqPbKoqe5052",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9818761001jMWgOxcZcjnhv5"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9818761001jMWgOxcZcjnhv5]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9818761001jMWgOxcZcjnhv5"
+            }
+          },
+          "time": {
+            "created": 1794918944652,
+            "ran": 1794918945619,
+            "completed": 1794918945626
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_jqhah9ZcVS5mtDoCfF6c6736",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9818761001jMWgOxcZcjnhv5"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9818761001jMWgOxcZcjnhv5]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9818761001jMWgOxcZcjnhv5"
+            }
+          },
+          "time": {
+            "created": 1794918944957,
+            "ran": 1794918945620,
+            "completed": 1794918945632
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_02_88cL7L4th3btbk3hcuaW6212",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9818761001jMWgOxcZcjnhv5"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9818761001jMWgOxcZcjnhv5]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9818761001jMWgOxcZcjnhv5"
+            }
+          },
+          "time": {
+            "created": 1794918945265,
+            "ran": 1794918945622,
+            "completed": 1794918945633
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000616848,
+      "tokens": {
+        "input": 1668,
+        "output": 349,
+        "reasoning": 136,
+        "cache": {
+          "read": 25216,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9819373001zPX3vauHj5Lcb0",
+      "time": {
+        "created": 1794918945652,
+        "streamed": 1794918955824,
+        "completed": 1794918955847
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9819373001zPX3vauHj5Lcb0]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9819373001zPX3vauHj5Lcb0"
+          },
+          "time": {
+            "created": 1794918946745,
+            "completed": 1794918955819
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_OsuWenkrsYAc4Zg6Zduh9819",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9819373001zPX3vauHj5Lcb0"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9819373001zPX3vauHj5Lcb0]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9819373001zPX3vauHj5Lcb0"
+            }
+          },
+          "time": {
+            "created": 1794918955044,
+            "ran": 1794918955820,
+            "completed": 1794918955832
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_WFPpzohil2xlSqXoRXTy2814",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9819373001zPX3vauHj5Lcb0"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9819373001zPX3vauHj5Lcb0]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9819373001zPX3vauHj5Lcb0"
+            }
+          },
+          "time": {
+            "created": 1794918955298,
+            "ran": 1794918955820,
+            "completed": 1794918955833
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_02_5Gm3r1hROybLX55Db1F30378",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9819373001zPX3vauHj5Lcb0"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9819373001zPX3vauHj5Lcb0]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9819373001zPX3vauHj5Lcb0"
+            }
+          },
+          "time": {
+            "created": 1794918955552,
+            "ran": 1794918955823,
+            "completed": 1794918955834
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.001359042,
+      "tokens": {
+        "input": 1955,
+        "output": 306,
+        "reasoning": 1334,
+        "cache": {
+          "read": 27264,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e981bb4d001Q5j3TOppNDz5DZ",
+      "time": {
+        "created": 1794918955855,
+        "streamed": 1794918958725,
+        "completed": 1794918958752
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e981bb4d001Q5j3TOppNDz5DZ]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e981bb4d001Q5j3TOppNDz5DZ"
+          },
+          "time": {
+            "created": 1794918956951,
+            "completed": 1794918958720
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_zQ5sfkXiBSBHpTR68ahz4162",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981bb4d001Q5j3TOppNDz5DZ"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981bb4d001Q5j3TOppNDz5DZ]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981bb4d001Q5j3TOppNDz5DZ"
+            }
+          },
+          "time": {
+            "created": 1794918957798,
+            "ran": 1794918958722,
+            "completed": 1794918958738
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_chqQPN2OgmUxVwoaoFQo4815",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981bb4d001Q5j3TOppNDz5DZ"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981bb4d001Q5j3TOppNDz5DZ]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981bb4d001Q5j3TOppNDz5DZ"
+            }
+          },
+          "time": {
+            "created": 1794918958127,
+            "ran": 1794918958723,
+            "completed": 1794918958729
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_02_WhvC6lcmg7GcmxcmXIc72129",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981bb4d001Q5j3TOppNDz5DZ"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981bb4d001Q5j3TOppNDz5DZ]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981bb4d001Q5j3TOppNDz5DZ"
+            }
+          },
+          "time": {
+            "created": 1794918958369,
+            "ran": 1794918958724,
+            "completed": 1794918958743
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0007591439999999999,
+      "tokens": {
+        "input": 2416,
+        "output": 355,
+        "reasoning": 152,
+        "cache": {
+          "read": 30848,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e981c6a300185M3tP5C56i4Tw",
+      "time": {
+        "created": 1794918958757,
+        "streamed": 1794918962080,
+        "completed": 1794918962102
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e981c6a300185M3tP5C56i4Tw]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e981c6a300185M3tP5C56i4Tw"
+          },
+          "time": {
+            "created": 1794918960137,
+            "completed": 1794918962071
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_ntMUkBWM54FjxikROq0i6051",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981c6a300185M3tP5C56i4Tw"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981c6a300185M3tP5C56i4Tw]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981c6a300185M3tP5C56i4Tw"
+            }
+          },
+          "time": {
+            "created": 1794918961364,
+            "ran": 1794918962074,
+            "completed": 1794918962084
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_hIutc0s5I2LSo1CDDLIh6017",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981c6a300185M3tP5C56i4Tw"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981c6a300185M3tP5C56i4Tw]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981c6a300185M3tP5C56i4Tw"
+            }
+          },
+          "time": {
+            "created": 1794918961650,
+            "ran": 1794918962075,
+            "completed": 1794918962083
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_02_BRSqLiuvLTmYASskoduG0101",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981c6a300185M3tP5C56i4Tw"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981c6a300185M3tP5C56i4Tw]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981c6a300185M3tP5C56i4Tw"
+            }
+          },
+          "time": {
+            "created": 1794918961805,
+            "ran": 1794918962078,
+            "completed": 1794918962090
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000474942,
+      "tokens": {
+        "input": 641,
+        "output": 277,
+        "reasoning": 186,
+        "cache": {
+          "read": 33664,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e981d3bb001921Y15t5kqCCt7",
+      "time": {
+        "created": 1794918962108,
+        "streamed": 1794918965650,
+        "completed": 1794918965744
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e981d3bb001921Y15t5kqCCt7]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e981d3bb001921Y15t5kqCCt7"
+          },
+          "time": {
+            "created": 1794918963708,
+            "completed": 1794918965647
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_I4NRJjJ9bvU28mHQP7se4224",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981d3bb001921Y15t5kqCCt7"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981d3bb001921Y15t5kqCCt7]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981d3bb001921Y15t5kqCCt7"
+            }
+          },
+          "time": {
+            "created": 1794918965043,
+            "ran": 1794918965649,
+            "completed": 1794918965668
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_gDb7jcZzpA6ZvF6N8mVb7190",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981d3bb001921Y15t5kqCCt7"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981d3bb001921Y15t5kqCCt7]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981d3bb001921Y15t5kqCCt7"
+            }
+          },
+          "time": {
+            "created": 1794918965373,
+            "ran": 1794918965650,
+            "completed": 1794918965735
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0009803639999999998,
+      "tokens": {
+        "input": 4178,
+        "output": 228,
+        "reasoning": 188,
+        "cache": {
+          "read": 34688,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e981e1f4001OgsEfDNd15YxES",
+      "time": {
+        "created": 1794918965750,
+        "streamed": 1794918968703,
+        "completed": 1794918968729
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e981e1f4001OgsEfDNd15YxES]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e981e1f4001OgsEfDNd15YxES"
+          },
+          "time": {
+            "created": 1794918966627,
+            "completed": 1794918968700
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_sJgM3K7b1oqQCkZAZUJM1466",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981e1f4001OgsEfDNd15YxES"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981e1f4001OgsEfDNd15YxES]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981e1f4001OgsEfDNd15YxES"
+            }
+          },
+          "time": {
+            "created": 1794918968152,
+            "ran": 1794918968702,
+            "completed": 1794918968716
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_M5eUAXy1pxwpOT1fn7cl7283",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981e1f4001OgsEfDNd15YxES"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981e1f4001OgsEfDNd15YxES]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981e1f4001OgsEfDNd15YxES"
+            }
+          },
+          "time": {
+            "created": 1794918968405,
+            "ran": 1794918968703,
+            "completed": 1794918968718
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000641304,
+      "tokens": {
+        "input": 1640,
+        "output": 241,
+        "reasoning": 222,
+        "cache": {
+          "read": 39168,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e981ed9d001CH7Y13ZIJJal12",
+      "time": {
+        "created": 1794918968735,
+        "streamed": 1794918986016,
+        "completed": 1794918986040
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e981ed9d001CH7Y13ZIJJal12]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e981ed9d001CH7Y13ZIJJal12"
+          },
+          "time": {
+            "created": 1794918970266,
+            "completed": 1794918985999
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_U4PTKNBKqqT5b6Wm7EvB7110",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981ed9d001CH7Y13ZIJJal12"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981ed9d001CH7Y13ZIJJal12]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981ed9d001CH7Y13ZIJJal12"
+            }
+          },
+          "time": {
+            "created": 1794918985207,
+            "ran": 1794918986003,
+            "completed": 1794918986024
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_Ym6ePaMlmxFNXSAs8Knp9602",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981ed9d001CH7Y13ZIJJal12"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981ed9d001CH7Y13ZIJJal12]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981ed9d001CH7Y13ZIJJal12"
+            }
+          },
+          "time": {
+            "created": 1794918985480,
+            "ran": 1794918986006,
+            "completed": 1794918986025
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_02_8ZhGivwnW9n6j1XZyey50933",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e981ed9d001CH7Y13ZIJJal12"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e981ed9d001CH7Y13ZIJJal12]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e981ed9d001CH7Y13ZIJJal12"
+            }
+          },
+          "time": {
+            "created": 1794918985737,
+            "ran": 1794918986011,
+            "completed": 1794918986025
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.002131248,
+      "tokens": {
+        "input": 2364,
+        "output": 308,
+        "reasoning": 2447,
+        "cache": {
+          "read": 41216,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e982313f001MEPxRrGVtlyMzL",
+      "time": {
+        "created": 1794918986050,
+        "streamed": 1794918988500,
+        "completed": 1794918988543
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e982313f001MEPxRrGVtlyMzL]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e982313f001MEPxRrGVtlyMzL"
+          },
+          "time": {
+            "created": 1794918987203,
+            "completed": 1794918988493
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_wwUPC0nL7UBWgNYQD54K7502",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e982313f001MEPxRrGVtlyMzL"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e982313f001MEPxRrGVtlyMzL]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e982313f001MEPxRrGVtlyMzL"
+            }
+          },
+          "time": {
+            "created": 1794918987817,
+            "ran": 1794918988498,
+            "completed": 1794918988523
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_KXxYG7whrhwkiWQYMcOm6444",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e982313f001MEPxRrGVtlyMzL"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e982313f001MEPxRrGVtlyMzL]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e982313f001MEPxRrGVtlyMzL"
+            }
+          },
+          "time": {
+            "created": 1794918988230,
+            "ran": 1794918988499,
+            "completed": 1794918988507
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0006147240000000001,
+      "tokens": {
+        "input": 1878,
+        "output": 238,
+        "reasoning": 86,
+        "cache": {
+          "read": 46208,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9823b05001fdclbh0tL2gJ2P",
+      "time": {
+        "created": 1794918988551,
+        "streamed": 1794918990629,
+        "completed": 1794918990657
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9823b05001fdclbh0tL2gJ2P]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9823b05001fdclbh0tL2gJ2P"
+          },
+          "time": {
+            "created": 1794918989689,
+            "completed": 1794918990624
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_yebmSiBgKZAkB7gRItfh2134",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9823b05001fdclbh0tL2gJ2P"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9823b05001fdclbh0tL2gJ2P]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9823b05001fdclbh0tL2gJ2P"
+            }
+          },
+          "time": {
+            "created": 1794918990299,
+            "ran": 1794918990628,
+            "completed": 1794918990639
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000310602,
+      "tokens": {
+        "input": 399,
+        "output": 137,
+        "reasoning": 39,
+        "cache": {
+          "read": 48384,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e98243460017TTlzxf3paFHH7",
+      "time": {
+        "created": 1794918990665,
+        "streamed": 1794918993743,
+        "completed": 1794918993800
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e98243460017TTlzxf3paFHH7]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e98243460017TTlzxf3paFHH7"
+          },
+          "time": {
+            "created": 1794918992062,
+            "completed": 1794918993741
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_xwPhE2ourOXOdrsLHntv9221",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e98243460017TTlzxf3paFHH7"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e98243460017TTlzxf3paFHH7]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e98243460017TTlzxf3paFHH7"
+            }
+          },
+          "time": {
+            "created": 1794918993404,
+            "ran": 1794918993742,
+            "completed": 1794918993789
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000364188,
+      "tokens": {
+        "input": 134,
+        "output": 132,
+        "reasoning": 197,
+        "cache": {
+          "read": 48896,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9824f8c001oouKaNdQ0SsTGr",
+      "time": {
+        "created": 1794918993806,
+        "streamed": 1794919007291,
+        "completed": 1794919007323
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9824f8c001oouKaNdQ0SsTGr]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9824f8c001oouKaNdQ0SsTGr"
+          },
+          "time": {
+            "created": 1794918995034,
+            "completed": 1794919007289
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_x5qRu7X2kAl34UTrHaP27990",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9824f8c001oouKaNdQ0SsTGr"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9824f8c001oouKaNdQ0SsTGr]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9824f8c001oouKaNdQ0SsTGr"
+            }
+          },
+          "time": {
+            "created": 1794919006565,
+            "ran": 1794919007290,
+            "completed": 1794919007312
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_7JEHsKONOWfMOXaevgp43788",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9824f8c001oouKaNdQ0SsTGr"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9824f8c001oouKaNdQ0SsTGr]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9824f8c001oouKaNdQ0SsTGr"
+            }
+          },
+          "time": {
+            "created": 1794919006926,
+            "ran": 1794919007291,
+            "completed": 1794919007311
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00155394,
+      "tokens": {
+        "input": 166,
+        "output": 269,
+        "reasoning": 2033,
+        "cache": {
+          "read": 49280,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9828461001mr6ClZf3issGp0",
+      "time": {
+        "created": 1794919007331,
+        "streamed": 1794919009431,
+        "completed": 1794919009444
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9828461001mr6ClZf3issGp0]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9828461001mr6ClZf3issGp0"
+          },
+          "time": {
+            "created": 1794919008564,
+            "completed": 1794919009429
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_DB3THAR646DsqbLvOIC80171",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9828461001mr6ClZf3issGp0"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9828461001mr6ClZf3issGp0]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9828461001mr6ClZf3issGp0"
+            }
+          },
+          "time": {
+            "created": 1794919009175,
+            "ran": 1794919009431,
+            "completed": 1794919009433
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000539736,
+      "tokens": {
+        "input": 1776,
+        "output": 112,
+        "reasoning": 85,
+        "cache": {
+          "read": 51712,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9828ca7001StxK3CMKCg9bcf",
+      "time": {
+        "created": 1794919009449,
+        "streamed": 1794919011215,
+        "completed": 1794919011240
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9828ca7001StxK3CMKCg9bcf]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9828ca7001StxK3CMKCg9bcf"
+          },
+          "time": {
+            "created": 1794919010694,
+            "completed": 1794919011209
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_eG3sWpgaS08HjTTFzrab8703",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9828ca7001StxK3CMKCg9bcf"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9828ca7001StxK3CMKCg9bcf]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9828ca7001StxK3CMKCg9bcf"
+            }
+          },
+          "time": {
+            "created": 1794919010931,
+            "ran": 1794919011214,
+            "completed": 1794919011230
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00035454600000000007,
+      "tokens": {
+        "input": 743,
+        "output": 113,
+        "reasoning": 24,
+        "cache": {
+          "read": 53632,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e98293ac001O29CEpqgtIbccP",
+      "time": {
+        "created": 1794919011245,
+        "streamed": 1794919013312,
+        "completed": 1794919013334
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "tool",
+          "id": "call_00_ET_86adVoBD7gxJgvymzCnD7638",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e98293ac001O29CEpqgtIbccP"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e98293ac001O29CEpqgtIbccP]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e98293ac001O29CEpqgtIbccP"
+            }
+          },
+          "time": {
+            "created": 1794919013008,
+            "ran": 1794919013311,
+            "completed": 1794919013320
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00028635000000000005,
+      "tokens": {
+        "input": 373,
+        "output": 112,
+        "reasoning": 0,
+        "cache": {
+          "read": 54400,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9829be1001on0IIzrNp2KMxc",
+      "time": {
+        "created": 1794919013351,
+        "streamed": 1794919015639,
+        "completed": 1794919015661
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9829be1001on0IIzrNp2KMxc]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9829be1001on0IIzrNp2KMxc"
+          },
+          "time": {
+            "created": 1794919014226,
+            "completed": 1794919015638
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_cc62pNifqNsWl9bNeBEJ8177",
+          "name": "grep",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9829be1001on0IIzrNp2KMxc"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9829be1001on0IIzrNp2KMxc]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9829be1001on0IIzrNp2KMxc"
+            }
+          },
+          "time": {
+            "created": 1794919015351,
+            "ran": 1794919015639,
+            "completed": 1794919015649
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000393702,
+      "tokens": {
+        "input": 453,
+        "output": 107,
+        "reasoning": 162,
+        "cache": {
+          "read": 54784,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e982a4f2001Xti6E5Z1O76zRj",
+      "time": {
+        "created": 1794919015671,
+        "streamed": 1794919061135,
+        "completed": 1794919061183
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e982a4f2001Xti6E5Z1O76zRj]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e982a4f2001Xti6E5Z1O76zRj"
+          },
+          "time": {
+            "created": 1794919016849,
+            "completed": 1794919061127
+          }
+        },
+        {
+          "type": "text",
+          "text": "[redacted:text:msg_1e982a4f2001Xti6E5Z1O76zRj]"
+        },
+        {
+          "type": "tool",
+          "id": "call_00_QRt2RsZSSjXRZsTMWCWE0475",
+          "name": "write",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e982a4f2001Xti6E5Z1O76zRj"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e982a4f2001Xti6E5Z1O76zRj]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e982a4f2001Xti6E5Z1O76zRj"
+            }
+          },
+          "time": {
+            "created": 1794919036691,
+            "ran": 1794919061133,
+            "completed": 1794919061140
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "a49f77a03fa8becc3d8164254d601f80c85197c7",
+        "files": [
+          "INVESTIGATION.md"
+        ]
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.005240837999999999,
+      "tokens": {
+        "input": 225,
+        "output": 5315,
+        "reasoning": 3087,
+        "cache": {
+          "read": 55296,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e98356c5001JhMjAvhP75zjET",
+      "time": {
+        "created": 1794919061191,
+        "streamed": 1794919064377,
+        "completed": 1794919064412
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e98356c5001JhMjAvhP75zjET]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e98356c5001JhMjAvhP75zjET"
+          },
+          "time": {
+            "created": 1794919063262,
+            "completed": 1794919064373
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_ER1gnJpbS5rL7w7lQHP57741",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e98356c5001JhMjAvhP75zjET"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e98356c5001JhMjAvhP75zjET]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e98356c5001JhMjAvhP75zjET"
+            }
+          },
+          "time": {
+            "created": 1794919063861,
+            "ran": 1794919064376,
+            "completed": 1794919064403
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_01_N9rG2mmb3af0JtyvUjKH9286",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e98356c5001JhMjAvhP75zjET"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e98356c5001JhMjAvhP75zjET]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e98356c5001JhMjAvhP75zjET"
+            }
+          },
+          "time": {
+            "created": 1794919064102,
+            "ran": 1794919064377,
+            "completed": 1794919064384
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "a49f77a03fa8becc3d8164254d601f80c85197c7",
+        "end": "a49f77a03fa8becc3d8164254d601f80c85197c7",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000398082,
+      "tokens": {
+        "input": 199,
+        "output": 207,
+        "reasoning": 88,
+        "cache": {
+          "read": 63744,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9836360001RO29wDKOeAhEYz",
+      "time": {
+        "created": 1794919064417,
+        "streamed": 1794919070848,
+        "completed": 1794919070858
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9836360001RO29wDKOeAhEYz]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9836360001RO29wDKOeAhEYz"
+          },
+          "time": {
+            "created": 1794919066197,
+            "completed": 1794919070847
+          }
+        },
+        {
+          "type": "text",
+          "text": "[redacted:text:msg_1e9836360001RO29wDKOeAhEYz]"
+        }
+      ],
+      "snapshot": {
+        "start": "a49f77a03fa8becc3d8164254d601f80c85197c7",
+        "end": "a49f77a03fa8becc3d8164254d601f80c85197c7",
+        "files": []
+      },
+      "finish": "stop",
+      "rawFinish": "stop",
+      "cost": 0.0008235839999999999,
+      "tokens": {
+        "input": 620,
+        "output": 751,
+        "reasoning": 146,
+        "cache": {
+          "read": 64128,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9837c8c001Bp1bM73z2SLGCV",
+      "time": {
+        "created": 1794919070860
+      },
+      "type": "idle",
+      "outcome": "succeeded"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "run_id": "hono-scoped-router-2026-11-17/r3-optimized-set-cookie",
+  "arm": "optimized",
+  "task_file": "<repo>/benchmarks/real/hono/tasks/set-cookie.json",
+  "task_id": "hono-set-cookie",
+  "working_directory": ".",
+  "workspace": "<workspace>",
+  "commit": "fdb758407aafccb54243a0d22831b169c4df99c3",
+  "target_commit": "f6fbaf0299c48eea9e656e03e2ffe7ac755e8823",
+  "model": "deepseek/deepseek-flash",
+  "agent": "coordinator",
+  "max_wall_time_seconds": 900,
+  "started_at": "2026-11-17T12:49:29.526563+00:00",
+  "opencode_version": "opencode v2.2.7",
+  "run_exit": 0,
+  "stats_exit": 0,
+  "export_exit": 0,
+  "verification_exit": 0,
+  "wall_time_seconds": 95,
+  "finished_at": "2026-11-17T12:51:05.705462+00:00"
+}

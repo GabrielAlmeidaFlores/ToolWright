@@ -1,0 +1,21 @@
+{
+  "run_id": "hono-scoped-router-2026-11-17/r1-optimized-jwt-typ",
+  "arm": "optimized",
+  "task_file": "<repo>/benchmarks/real/hono/tasks/jwt-typ.json",
+  "task_id": "hono-jwt-typ",
+  "working_directory": ".",
+  "workspace": "<workspace>",
+  "commit": "994a3b4a7f3c2ea3cd7e069ec7d5f709df6cc864",
+  "target_commit": "f6fbaf0299c48eea9e656e03e2ffe7ac755e8823",
+  "model": "deepseek/deepseek-flash",
+  "agent": "coordinator",
+  "max_wall_time_seconds": 900,
+  "started_at": "2026-11-17T11:57:05.999740+00:00",
+  "opencode_version": "opencode v2.2.7",
+  "run_exit": 0,
+  "stats_exit": 0,
+  "export_exit": 0,
+  "verification_exit": 0,
+  "wall_time_seconds": 191,
+  "finished_at": "2026-11-17T12:00:21.383696+00:00"
+}

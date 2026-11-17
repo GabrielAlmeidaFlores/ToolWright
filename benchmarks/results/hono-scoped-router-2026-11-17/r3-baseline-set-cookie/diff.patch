@@ -1,0 +1,78 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..cfc58b8 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -440,8 +440,21 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie().length).toBe(3)
++    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
++  })
++
++  it('Should keep cookies from both the existing and new Response when assigning c.res', () => {
++    c.res.headers.append('set-cookie', 'middleware=1; Path=/')
++    const res = new Response(null)
++    res.headers.append('set-cookie', 'handler=1; Path=/; HttpOnly')
++
++    c.res = res
++
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'middleware=1; Path=/',
++      'handler=1; Path=/; HttpOnly',
++    ])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..1f37080 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -412,20 +412,34 @@ export class Context<
+    * @param _res - The Response object to set.
+    */
+   set res(_res: Response | undefined) {
+-    if (this.#res && _res) {
+-      _res = createResponseInstance(_res.body, _res)
+-      for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
+-          continue
+-        }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
++    if (_res) {
++      const contextHeaders = this.#res?.headers ?? this.#preparedHeaders
++      const contextCookies = contextHeaders?.getSetCookie() ?? []
++      if (this.#res || contextCookies.length > 0) {
++        _res = createResponseInstance(_res.body, _res)
++
++        // Preserve cookies from both the context and the new Response.
++        if (contextCookies.length > 0) {
++          const contextCookieSet = new Set(contextCookies)
++          const responseCookies = _res.headers.getSetCookie()
+           _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
++          for (const cookie of contextCookies) {
+             _res.headers.append('set-cookie', cookie)
+           }
+-        } else {
+-          _res.headers.set(k, v)
++          for (const cookie of responseCookies) {
++            if (!contextCookieSet.has(cookie)) {
++              _res.headers.append('set-cookie', cookie)
++            }
++          }
++        }
++
++        if (this.#res) {
++          for (const [k, v] of this.#res.headers.entries()) {
++            if (k === 'content-type' || k === 'set-cookie') {
++              continue
++            }
++            _res.headers.set(k, v)
++          }
+         }
+       }
+     }

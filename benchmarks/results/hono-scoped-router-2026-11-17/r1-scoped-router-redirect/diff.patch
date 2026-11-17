@@ -1,0 +1,75 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..b5540e0 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -129,6 +129,47 @@ describe('Context', () => {
+     })
+   })
+ 
++  it('c.redirect() percent-encodes CRLF to prevent header injection', () => {
++    const res = c.redirect('/destination\r\nX-Injected: https://evil.example')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0D%0AX-Injected: https://evil.example')
++    expect(res.headers.get('X-Injected')).toBe(null)
++  })
++
++  it('c.redirect() percent-encodes a lone CR', () => {
++    const res = c.redirect('/destination\rX-Injected: https://evil.example')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0DX-Injected: https://evil.example')
++    expect(res.headers.get('X-Injected')).toBe(null)
++  })
++
++  it('c.redirect() percent-encodes a lone LF', () => {
++    const res = c.redirect('/destination\nX-Injected: https://evil.example')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0AX-Injected: https://evil.example')
++    expect(res.headers.get('X-Injected')).toBe(null)
++  })
++
++  it('c.redirect() percent-encodes CRLF while keeping the status code', () => {
++    const res = c.redirect('/destination\r\n', 301)
++    expect(res.status).toBe(301)
++    expect(res.headers.get('Location')).toBe('/destination%0D%0A')
++  })
++
++  const percentEncodedURLString = [
++    'https://example.com/%0D%0ALocation%3A%20https%3A%2F%2Fevil.example',
++    'https://example.com/%0d%0aLocation%3a%20https%3a%2f%2fevil.example',
++    'https://example.com/?next=%0A%0D',
++  ]
++
++  percentEncodedURLString.forEach((urlString) => {
++    it(`c.redirect() does not double-encode ${urlString}`, () => {
++      const res = c.redirect(urlString)
++      expect(res.status).toBe(302)
++      expect(res.headers.get('Location')).toBe(urlString)
++    })
++  })
++
+   it('c.body() - Blob', async () => {
+     const res = c.body(new Blob(['Hi']))
+     expect(await res.text()).toBe('Hi')
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..d69d8d5 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -770,11 +770,15 @@ export class Context<
+     status?: T
+   ): Response & TypedResponse<undefined, T, 'redirect'> => {
+     const locationString = String(location)
++    // Multibytes should be encoded
++    // eslint-disable-next-line no-control-regex
++    const encodedLocation = !/[^\x00-\xFF]/.test(locationString)
++      ? locationString
++      : encodeURI(locationString)
+     this.header(
+       'Location',
+-      // Multibytes should be encoded
+-      // eslint-disable-next-line no-control-regex
+-      !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
++      // CR and LF must be percent-encoded to prevent response splitting (header injection)
++      encodedLocation.replace(/[\r\n]/g, (char) => (char === '\r' ? '%0D' : '%0A'))
+     )
+     return this.newResponse(null, status ?? 302) as any
+   }

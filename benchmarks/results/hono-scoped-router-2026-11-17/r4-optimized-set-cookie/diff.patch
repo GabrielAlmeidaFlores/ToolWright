@@ -1,0 +1,56 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..d2e78fa 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -440,8 +440,21 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie().length).toBe(3)
++    expect(c.res.headers.getSetCookie()).toEqual([...newCookies, ...cookies])
++  })
++
++  it('Should preserve both existing and new Set-Cookie headers when re-assigning a Response', () => {
++    c.res = new Response('middleware')
++    setCookie(c, 'middleware', 'cookie', { path: '/' })
++    const newResponse = new Response('ok', {
++      headers: { 'Set-Cookie': 'handler=cookie; Path=/' },
++    })
++    c.res = newResponse
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'handler=cookie; Path=/',
++      'middleware=cookie; Path=/',
++    ])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..685451a 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -415,18 +415,13 @@ export class Context<
+     if (this.#res && _res) {
+       _res = createResponseInstance(_res.body, _res)
+       for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
++        if (k === 'content-type' || k === 'set-cookie') {
+           continue
+         }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
+-            _res.headers.append('set-cookie', cookie)
+-          }
+-        } else {
+-          _res.headers.set(k, v)
+-        }
++        _res.headers.set(k, v)
++      }
++      for (const cookie of this.#res.headers.getSetCookie()) {
++        _res.headers.append('set-cookie', cookie)
+       }
+     }
+     this.#res = _res

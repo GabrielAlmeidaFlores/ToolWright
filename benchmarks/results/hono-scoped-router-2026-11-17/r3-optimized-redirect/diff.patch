@@ -1,0 +1,58 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..1a77b5b 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -129,6 +129,34 @@ describe('Context', () => {
+     })
+   })
+ 
++  it('c.redirect() percent-encodes raw CR/LF', () => {
++    const cases: [string, string][] = [
++      ['https://example.com/\rfoo', 'https://example.com/%0Dfoo'],
++      ['https://example.com/\nfoo', 'https://example.com/%0Afoo'],
++      ['https://example.com/\r\nfoo', 'https://example.com/%0D%0Afoo'],
++    ]
++    for (const [input, expected] of cases) {
++      const res = new Context(req).redirect(input)
++      expect(res.status).toBe(302)
++      expect(res.headers.get('Location')).toBe(expected)
++    }
++  })
++
++  it('c.redirect() prevents header injection via CR/LF', () => {
++    const res = new Context(req).redirect('https://example.com/\r\nSet-Cookie: injected=1')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe(
++      'https://example.com/%0D%0ASet-Cookie: injected=1'
++    )
++    expect(res.headers.get('Set-Cookie')).toBeNull()
++  })
++
++  it('c.redirect() preserves percent-encoded CR/LF input', () => {
++    const res = new Context(req).redirect('https://example.com/%0D%0Afoo')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('https://example.com/%0D%0Afoo')
++  })
++
+   it('c.body() - Blob', async () => {
+     const res = c.body(new Blob(['Hi']))
+     expect(await res.text()).toBe('Hi')
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..c72f128 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -772,9 +772,12 @@ export class Context<
+     const locationString = String(location)
+     this.header(
+       'Location',
+-      // Multibytes should be encoded
++      // Multibytes should be encoded, and CR/LF must be percent-encoded to
++      // prevent header injection.
+       // eslint-disable-next-line no-control-regex
+-      !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
++      !/[^\x00-\xFF]/.test(locationString)
++        ? locationString.replace(/[\r\n]/g, encodeURIComponent)
++        : encodeURI(locationString)
+     )
+     return this.newResponse(null, status ?? 302) as any
+   }

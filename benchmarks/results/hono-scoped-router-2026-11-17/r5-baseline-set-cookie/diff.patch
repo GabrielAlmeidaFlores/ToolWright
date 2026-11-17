@@ -1,0 +1,103 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..f9ad587 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -440,8 +440,37 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    // Cookies from both sides survive: dropping either one silently loses a
++    // `Set-Cookie` the application explicitly asked for.
++    expect(c.res.headers.getSetCookie().length).toBe(cookies.length + newCookies.length)
++    expect(c.res.headers.getSetCookie()).toEqual([...cookies, ...newCookies])
++  })
++
++  it('Should merge Set-Cookie from the existing response and a newly assigned response', () => {
++    c.res.headers.append('set-cookie', 'middleware=1; Path=/')
++
++    const handlerResponse = new Response('ok', {
++      headers: { 'Set-Cookie': 'handler=2; Path=/' },
++    })
++    c.res = handlerResponse
++
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'middleware=1; Path=/',
++      'handler=2; Path=/',
++    ])
++  })
++
++  it('Should keep cookies staged with c.header() when assigning a new response', () => {
++    setCookie(c, 'middleware', '1', { path: '/' })
++
++    const handlerResponse = new Response('ok')
++    handlerResponse.headers.append('set-cookie', 'handler=2; Path=/')
++    c.res = handlerResponse
++
++    expect(c.res.headers.getSetCookie()).toEqual([
++      'middleware=1; Path=/',
++      'handler=2; Path=/',
++    ])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..dfdad38 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -412,22 +412,42 @@ export class Context<
+    * @param _res - The Response object to set.
+    */
+   set res(_res: Response | undefined) {
+-    if (this.#res && _res) {
++    // Headers staged by `c.header()` live in `#preparedHeaders` until something
++    // reads `c.res` and materializes it. Falling back to them keeps those
++    // headers from being dropped when nothing has read `c.res` yet.
++    const preparedHeaders = this.#res ? this.#res.headers : this.#preparedHeaders
++    if (preparedHeaders && _res) {
+       _res = createResponseInstance(_res.body, _res)
+-      for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
+-          continue
+-        }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
+-            _res.headers.append('set-cookie', cookie)
+-          }
+-        } else {
++      // `Set-Cookie` is handled after the loop rather than inside it: it is the
++      // only header that may legitimately appear more than once, so `entries()`
++      // yields it once per occurrence and would re-merge values it just wrote.
++      // Captured before the merge below deletes them from `_res`.
++      const incomingCookies = _res.headers.getSetCookie()
++      const preparedCookies = preparedHeaders.getSetCookie()
++
++      for (const [k, v] of preparedHeaders.entries()) {
++        if (k !== 'content-type' && k !== 'set-cookie') {
+           _res.headers.set(k, v)
+         }
+       }
++
++      if (preparedCookies.length > 0) {
++        _res.headers.delete('set-cookie')
++        for (const cookie of preparedCookies) {
++          _res.headers.append('set-cookie', cookie)
++        }
++        // Cookies carried by the response being assigned must survive too;
++        // dropping them silently loses a `Set-Cookie` the app asked for.
++        for (const cookie of incomingCookies) {
++          _res.headers.append('set-cookie', cookie)
++        }
++      }
++    }
++    if (!_res) {
++      // `c.res = undefined` discards the response built so far, so the staged
++      // headers go with it. Without this they would be re-applied to whatever
++      // response is assigned next.
++      this.#preparedHeaders = undefined
+     }
+     this.#res = _res
+     this.finalized = true

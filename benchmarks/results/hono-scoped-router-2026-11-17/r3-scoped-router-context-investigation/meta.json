@@ -1,0 +1,21 @@
+{
+  "run_id": "hono-scoped-router-2026-11-17/r3-scoped-router-context-investigation",
+  "arm": "scoped-router",
+  "task_file": "<repo>/benchmarks/real/hono/tasks/context-investigation.json",
+  "task_id": "hono-context-investigation",
+  "working_directory": ".",
+  "workspace": "<workspace>",
+  "commit": "fdb758407aafccb54243a0d22831b169c4df99c3",
+  "target_commit": "f6fbaf0299c48eea9e656e03e2ffe7ac755e8823",
+  "model": "deepseek/deepseek-flash",
+  "agent": "scoped-router",
+  "max_wall_time_seconds": 600,
+  "started_at": "2026-11-17T13:13:15.345363+00:00",
+  "opencode_version": "opencode v2.2.7",
+  "run_exit": 0,
+  "stats_exit": 0,
+  "export_exit": 0,
+  "verification_exit": 0,
+  "wall_time_seconds": 141,
+  "finished_at": "2026-11-17T13:15:37.080149+00:00"
+}

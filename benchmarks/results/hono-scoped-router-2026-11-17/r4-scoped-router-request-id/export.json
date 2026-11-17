@@ -1,0 +1,852 @@
+{
+  "info": {
+    "id": "ses_e16526e66ffemRD0wccDdwWzgQ",
+    "projectID": "8bbf308db2b4a27f72a69b74570538cfc8c125c3",
+    "agent": "scoped-router",
+    "model": {
+      "id": "deepseek-flash",
+      "providerID": "deepseek",
+      "variant": "default"
+    },
+    "cost": 0.003943068,
+    "tokens": {
+      "input": 11526,
+      "output": 2828,
+      "reasoning": 205,
+      "cache": {
+        "read": 131456,
+        "write": 0
+      }
+    },
+    "outcome": "succeeded",
+    "time": {
+      "created": 1794921828765,
+      "updated": 1794921854405,
+      "busy": 1794921829556,
+      "idle": 1794921854408
+    },
+    "title": "[redacted:session-title:ses_e16526e66ffemRD0wccDdwWzgQ]",
+    "location": {
+      "directory": "/[redacted:session-directory:ses_e16526e66ffemRD0wccDdwWzgQ]"
+    }
+  },
+  "messages": [
+    {
+      "id": "msg_1e9ad927b001G7oI0A8nI6Y2Kz",
+      "time": {
+        "created": 1794921828987
+      },
+      "type": "agent-switched",
+      "agent": "scoped-router",
+      "previous": "scoped-router"
+    },
+    {
+      "id": "msg_1e9ad926d0010UoGG8tNpy5m2u",
+      "time": {
+        "created": 1794921829561
+      },
+      "text": "[redacted:text:msg_1e9ad926d0010UoGG8tNpy5m2u]",
+      "files": [],
+      "type": "user"
+    },
+    {
+      "id": "msg_1e9ad94bf001kNi8AQVtECPuNj",
+      "time": {
+        "created": 1794921829569,
+        "streamed": 1794921830897,
+        "completed": 1794921830926
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9ad94bf001kNi8AQVtECPuNj]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9ad94bf001kNi8AQVtECPuNj"
+          },
+          "time": {
+            "created": 1794921830630,
+            "completed": 1794921830894
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_UmTv0YNg3UpKSxpIuDQv6438",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9ad94bf001kNi8AQVtECPuNj"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9ad94bf001kNi8AQVtECPuNj]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9ad94bf001kNi8AQVtECPuNj"
+            }
+          },
+          "time": {
+            "created": 1794921830766,
+            "ran": 1794921830896,
+            "completed": 1794921830915
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000732666,
+      "tokens": {
+        "input": 4543,
+        "output": 63,
+        "reasoning": 7,
+        "cache": {
+          "read": 3072,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9ad9a12001bLxqczd47SpcID",
+      "time": {
+        "created": 1794921830932,
+        "streamed": 1794921831971,
+        "completed": 1794921831994
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9ad9a12001bLxqczd47SpcID]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9ad9a12001bLxqczd47SpcID"
+          },
+          "time": {
+            "created": 1794921831712,
+            "completed": 1794921831967
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_SxiWGtzJlNMhcCuMTe3C7971",
+          "name": "read",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9ad9a12001bLxqczd47SpcID"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9ad9a12001bLxqczd47SpcID]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9ad9a12001bLxqczd47SpcID"
+            }
+          },
+          "time": {
+            "created": 1794921831848,
+            "ran": 1794921831970,
+            "completed": 1794921831976
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000383106,
+      "tokens": {
+        "input": 2031,
+        "output": 80,
+        "reasoning": 13,
+        "cache": {
+          "read": 7552,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9ad9e3f001m6geNcAJ2RPm0d",
+      "time": {
+        "created": 1794921832000,
+        "streamed": 1794921833503,
+        "completed": 1794921833566
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9ad9e3f001m6geNcAJ2RPm0d]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9ad9e3f001m6geNcAJ2RPm0d"
+          },
+          "time": {
+            "created": 1794921832940,
+            "completed": 1794921833493
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_dhLyaPUA52x1IqkNmNwp6770",
+          "name": "edit",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9ad9e3f001m6geNcAJ2RPm0d"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9ad9e3f001m6geNcAJ2RPm0d]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9ad9e3f001m6geNcAJ2RPm0d"
+            }
+          },
+          "time": {
+            "created": 1794921833187,
+            "ran": 1794921833500,
+            "completed": 1794921833511
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "1c68cfded5d7bd0b3aa9690fb9d5383b16daf97a",
+        "end": "b46171ffb898e95ccaa8657069879797559635b8",
+        "files": [
+          "src/middleware/request-id/request-id.ts"
+        ]
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00026790000000000006,
+      "tokens": {
+        "input": 718,
+        "output": 179,
+        "reasoning": 40,
+        "cache": {
+          "read": 9600,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9ada463001ba6qTkS8rKN4z5",
+      "time": {
+        "created": 1794921833572,
+        "streamed": 1794921835445,
+        "completed": 1794921835516
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "tool",
+          "id": "call_00_ET_ANPjKu0ktWSV5VpxNHqq8926",
+          "name": "edit",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9ada463001ba6qTkS8rKN4z5"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9ada463001ba6qTkS8rKN4z5]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9ada463001ba6qTkS8rKN4z5"
+            }
+          },
+          "time": {
+            "created": 1794921834959,
+            "ran": 1794921835443,
+            "completed": 1794921835451
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "b46171ffb898e95ccaa8657069879797559635b8",
+        "end": "75c23fbdce62a0c0488cf12776b50244235e9689",
+        "files": [
+          "src/middleware/request-id/request-id.ts"
+        ]
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000176904,
+      "tokens": {
+        "input": 196,
+        "output": 194,
+        "reasoning": 0,
+        "cache": {
+          "read": 10368,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9adac01001yPLW3NGuQBbm5f",
+      "time": {
+        "created": 1794921835523,
+        "streamed": 1794921837423,
+        "completed": 1794921837484
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "tool",
+          "id": "call_00_ET_4SBt0yNHct81NkY8Hrm95114",
+          "name": "edit",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9adac01001yPLW3NGuQBbm5f"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9adac01001yPLW3NGuQBbm5f]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9adac01001yPLW3NGuQBbm5f"
+            }
+          },
+          "time": {
+            "created": 1794921836770,
+            "ran": 1794921837421,
+            "completed": 1794921837430
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "75c23fbdce62a0c0488cf12776b50244235e9689",
+        "end": "4609ac4c230a73e93557675bb0f7ca28a036be8b",
+        "files": [
+          "src/middleware/request-id/request-id.ts"
+        ]
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00021142200000000004,
+      "tokens": {
+        "input": 161,
+        "output": 259,
+        "reasoning": 0,
+        "cache": {
+          "read": 10624,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9adb3b0001Z3w6erVHIgpkB7",
+      "time": {
+        "created": 1794921837490,
+        "streamed": 1794921838703,
+        "completed": 1794921838763
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9adb3b0001Z3w6erVHIgpkB7]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9adb3b0001Z3w6erVHIgpkB7"
+          },
+          "time": {
+            "created": 1794921838228,
+            "completed": 1794921838697
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_fDOmtKzUb91WC0BsDPgI7510",
+          "name": "edit",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9adb3b0001Z3w6erVHIgpkB7"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9adb3b0001Z3w6erVHIgpkB7]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9adb3b0001Z3w6erVHIgpkB7"
+            }
+          },
+          "time": {
+            "created": 1794921838423,
+            "ran": 1794921838701,
+            "completed": 1794921838708
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "4609ac4c230a73e93557675bb0f7ca28a036be8b",
+        "end": "907ea49889de3244fb2be999f9d4f1849672910b",
+        "files": [
+          "src/middleware/request-id/index.test.ts"
+        ]
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00016749,
+      "tokens": {
+        "input": 191,
+        "output": 145,
+        "reasoning": 32,
+        "cache": {
+          "read": 10880,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9adb8af00180MSykTKRdCOff",
+      "time": {
+        "created": 1794921838769,
+        "streamed": 1794921842421,
+        "completed": 1794921842447
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9adb8af00180MSykTKRdCOff]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9adb8af00180MSykTKRdCOff"
+          },
+          "time": {
+            "created": 1794921840162,
+            "completed": 1794921842413
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_qug6kFs6xGB8uyQSfTwg2131",
+          "name": "edit",
+          "executed": false,
+          "state": {
+            "status": "error",
+            "input": {
+              "redacted": "tool-input:msg_1e9adb8af00180MSykTKRdCOff"
+            },
+            "error": {
+              "type": "tool.execution",
+              "message": "Invalid arguments for tool \"edit\":\n- path: Missing key\n\nArguments provided:\n{\n  \"newString\": \"describe('Request ID Middleware with trustIncoming', () => {\\n  function generateWord() {\\n    return 'HonoIsWebFramework'\\n  }\\n  const app = new Hono()\\n  app.use('/trusted', requestId())\\n  app.use('/untrusted', requestId({ trustIncoming: false, generator: generateWord }))\\n  app.use('/explicitTrusted', requestId({ trustIncoming: true, generator: generateWord }))\\n  app.get('/trusted', (c) => c.text(c.get('requestId') ?? 'No Request ID'))\\n  app.get('/untrusted', (c) => c.text(c.get('requestId') ?? 'No Request ID'))\\n  app.get('/explicitTrusted', (c) => c.text(c.get('requestId') ?? 'No Request ID'))\\n\\n  it('Should use the incoming request id header by default', async () => {\\n    const res = await app.request('http://localhost/trusted', {\\n      headers: {\\n        'X-Request-Id': 'incoming-id',\\n      },\\n    })\\n    expect(res).not.toBeNull()\\n    expect(res.status).toBe(200)\\n    expect(res.headers.get('X-Request-Id')).toBe('incoming-id')\\n    expect(await res.text()).toBe('incoming-id')\\n  })\\n\\n  it('Should use the incoming request id header when trustIncoming is true', async () => {\\n    const res = await app.request('http://localhost/explicitTrusted', {\\n      headers: {\\n        'X-Request-Id': 'incoming-id',\\n      },\\n    })\\n    expect(res).not.toBeNull()\\n    expect(res.status).toBe(200)\\n    expect(res.headers.get('X-Request-Id')).toBe('incoming-id')\\n    expect(await res.text()).toBe('incoming-id')\\n  })\\n\\n  it('Should ignore the incoming request id header when trustIncoming is false', async () => {\\n    const res = await app.request('http://localhost/untrusted', {\\n      headers: {\\n        'X-Request-Id': 'incoming-id',\\n      },\\n    })\\n    expect(res).not.toBeNull()\\n    expect(res.status).toBe(200)\\n    expect(res.headers.get('X-Request-Id')).toBe('HonoIsWebFramework')\\n    expect(await res.text()).toBe('HonoIsWebFramework')\\n  })\\n\\n  it('Should expose the generated id without a request header when trustIncoming is false', async () => {\\n    const res = await app.request('http://localhost/untrusted')\\n    expect(res).not.toBeNull()\\n    expect(res.status).toBe(200)\\n    expect(res.headers.get('X-Request-Id')).toBe('HonoIsWebFramework')\\n    expect(await res.text()).toBe('HonoIsWebFramework')\\n  })\\n})\\n\\ndescribe('Request ID Middleware with custom header', () => {\\n  const app = new Hono()\",\n  \"oldString\": \"describe('Request ID Middleware with custom header', () => {\"\n}\n\nUpdate the arguments and call the tool again."
+            }
+          },
+          "time": {
+            "created": 1794921840446,
+            "ran": 1794921842417,
+            "completed": 1794921842424
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "907ea49889de3244fb2be999f9d4f1849672910b",
+        "end": "907ea49889de3244fb2be999f9d4f1849672910b",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0005055239999999999,
+      "tokens": {
+        "input": 266,
+        "output": 683,
+        "reasoning": 38,
+        "cache": {
+          "read": 11008,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9adc717001cXpjYzekKgZkht",
+      "time": {
+        "created": 1794921842457,
+        "streamed": 1794921844660,
+        "completed": 1794921844708
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9adc717001cXpjYzekKgZkht]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9adc717001cXpjYzekKgZkht"
+          },
+          "time": {
+            "created": 1794921843268,
+            "completed": 1794921844656
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_nOll4Ba87dCh8VySHoQZ9109",
+          "name": "edit",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9adc717001cXpjYzekKgZkht"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9adc717001cXpjYzekKgZkht]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9adc717001cXpjYzekKgZkht"
+            }
+          },
+          "time": {
+            "created": 1794921843375,
+            "ran": 1794921844659,
+            "completed": 1794921844665
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "907ea49889de3244fb2be999f9d4f1849672910b",
+        "end": "98facd45701f2ce0526136c1abff53798c428c5c",
+        "files": [
+          "src/middleware/request-id/index.test.ts"
+        ]
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.0006419279999999999,
+      "tokens": {
+        "input": 1044,
+        "output": 741,
+        "reasoning": 9,
+        "cache": {
+          "read": 11776,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9adcfe8001wHruLos2iqZqeU",
+      "time": {
+        "created": 1794921844714,
+        "streamed": 1794921845735,
+        "completed": 1794921848144
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "tool",
+          "id": "call_00_ET_hUaXHVVqO8rJnoz093mr3549",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9adcfe8001wHruLos2iqZqeU"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9adcfe8001wHruLos2iqZqeU]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9adcfe8001wHruLos2iqZqeU"
+            }
+          },
+          "time": {
+            "created": 1794921845585,
+            "ran": 1794921845734,
+            "completed": 1794921848132
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "98facd45701f2ce0526136c1abff53798c428c5c",
+        "end": "98facd45701f2ce0526136c1abff53798c428c5c",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00011172,
+      "tokens": {
+        "input": 156,
+        "output": 80,
+        "reasoning": 0,
+        "cache": {
+          "read": 13440,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9addd55001b6QVl821UnUseS",
+      "time": {
+        "created": 1794921848151,
+        "streamed": 1794921849929,
+        "completed": 1794921850541
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9addd55001b6QVl821UnUseS]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9addd55001b6QVl821UnUseS"
+          },
+          "time": {
+            "created": 1794921849442,
+            "completed": 1794921849924
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_95JUiOodgcx1yP1F0OLx7505",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9addd55001b6QVl821UnUseS"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9addd55001b6QVl821UnUseS]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9addd55001b6QVl821UnUseS"
+            }
+          },
+          "time": {
+            "created": 1794921849678,
+            "ran": 1794921849928,
+            "completed": 1794921850530
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "98facd45701f2ce0526136c1abff53798c428c5c",
+        "end": "98facd45701f2ce0526136c1abff53798c428c5c",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.00029052,
+      "tokens": {
+        "input": 1208,
+        "output": 99,
+        "reasoning": 16,
+        "cache": {
+          "read": 13440,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9ade6b10011iWXMeDrGmA8LJ",
+      "time": {
+        "created": 1794921850547,
+        "streamed": 1794921852006,
+        "completed": 1794921852116
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "reasoning",
+          "text": "[redacted:reasoning:msg_1e9ade6b10011iWXMeDrGmA8LJ]",
+          "native": {
+            "redacted": "reasoning-native:msg_1e9ade6b10011iWXMeDrGmA8LJ"
+          },
+          "time": {
+            "created": 1794921851628,
+            "completed": 1794921852004
+          }
+        },
+        {
+          "type": "tool",
+          "id": "call_00_y4wsf7r9xuLqc41ASDSb4748",
+          "name": "shell",
+          "executed": false,
+          "state": {
+            "status": "completed",
+            "input": {
+              "redacted": "tool-input:msg_1e9ade6b10011iWXMeDrGmA8LJ"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "[redacted:tool-output:msg_1e9ade6b10011iWXMeDrGmA8LJ]"
+              }
+            ],
+            "metadata": {
+              "redacted": "tool-metadata:msg_1e9ade6b10011iWXMeDrGmA8LJ"
+            }
+          },
+          "time": {
+            "created": 1794921851997,
+            "ran": 1794921852005,
+            "completed": 1794921852107
+          }
+        }
+      ],
+      "snapshot": {
+        "start": "98facd45701f2ce0526136c1abff53798c428c5c",
+        "end": "98facd45701f2ce0526136c1abff53798c428c5c",
+        "files": []
+      },
+      "finish": "tool-calls",
+      "rawFinish": "tool_calls",
+      "cost": 0.000136026,
+      "tokens": {
+        "input": 199,
+        "output": 54,
+        "reasoning": 50,
+        "cache": {
+          "read": 14592,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9adecd7001br5E2fKHAfDks9",
+      "time": {
+        "created": 1794921852121,
+        "streamed": 1794921854380,
+        "completed": 1794921854405
+      },
+      "type": "assistant",
+      "agent": "scoped-router",
+      "model": {
+        "id": "deepseek-flash",
+        "providerID": "deepseek",
+        "variant": "default"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "[redacted:text:msg_1e9adecd7001br5E2fKHAfDks9]"
+        }
+      ],
+      "snapshot": {
+        "start": "98facd45701f2ce0526136c1abff53798c428c5c",
+        "end": "98facd45701f2ce0526136c1abff53798c428c5c",
+        "files": []
+      },
+      "finish": "stop",
+      "rawFinish": "stop",
+      "cost": 0.00029076,
+      "tokens": {
+        "input": 672,
+        "output": 243,
+        "reasoning": 0,
+        "cache": {
+          "read": 14720,
+          "write": 0
+        }
+      }
+    },
+    {
+      "id": "msg_1e9adf5c8001fBoXRMbGhcQz8r",
+      "time": {
+        "created": 1794921854408
+      },
+      "type": "idle",
+      "outcome": "succeeded"
+    }
+  ]
+}

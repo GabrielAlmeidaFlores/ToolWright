@@ -1,0 +1,21 @@
+{
+  "run_id": "hono-scoped-router-2026-11-17/r3-baseline-request-id",
+  "arm": "baseline",
+  "task_file": "<repo>/benchmarks/real/hono/tasks/request-id.json",
+  "task_id": "hono-request-id",
+  "working_directory": ".",
+  "workspace": "<workspace>",
+  "commit": "fdb758407aafccb54243a0d22831b169c4df99c3",
+  "target_commit": "f6fbaf0299c48eea9e656e03e2ffe7ac755e8823",
+  "model": "deepseek/deepseek-flash",
+  "agent": "build",
+  "max_wall_time_seconds": 900,
+  "started_at": "2026-11-17T12:56:25.699085+00:00",
+  "opencode_version": "opencode v2.2.7",
+  "run_exit": 0,
+  "stats_exit": 0,
+  "export_exit": 0,
+  "verification_exit": 0,
+  "wall_time_seconds": 25,
+  "finished_at": "2026-11-17T12:56:52.040065+00:00"
+}

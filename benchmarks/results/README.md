@@ -8,6 +8,8 @@ The benchmark-arm A/B is [`hono-cost-ab-2026-11-16/`](https://github.com/Gabriel
 
 The five-repeat confirmation is [`hono-cost-ab-5-repeat-2026-11-16/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/results/hono-cost-ab-5-repeat-2026-11-16), summarized in the [Hono delegation contract screen](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-delegation-screen.md).
 
+The scoped-router screen is [`hono-scoped-router-2026-11-17/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/results/hono-scoped-router-2026-11-17). It is a negative result: the arm was cheaper in total only because two investigation runs failed, and it never delegated the multi-file task.
+
 A result is accepted only if it includes:
 
 - `meta.json` with commit, model ID and variant, arm, and task

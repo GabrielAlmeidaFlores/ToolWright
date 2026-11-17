@@ -1,0 +1,66 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..ccbbcc5 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -115,6 +115,44 @@ describe('Context', () => {
+     )
+   })
+ 
++  it('c.redirect() percent-encodes raw CR and LF to prevent header injection', () => {
++    let res = c.redirect('/destination\rCR')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0DCR')
++
++    res = c.redirect('/destination\nLF')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0ALF')
++
++    res = c.redirect('/destination\r\nX-Injected: evil')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe('/destination%0D%0AX-Injected: evil')
++    expect(res.headers.get('X-Injected')).toBeNull()
++  })
++
++  it('c.redirect() encodes raw CR/LF when multibyte characters are present', () => {
++    const res = c.redirect('https://example.com/こんにちは\r\nX-Injected: evil')
++    expect(res.status).toBe(302)
++    expect(res.headers.get('Location')).toBe(
++      'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%0D%0AX-Injected:%20evil'
++    )
++    expect(res.headers.get('X-Injected')).toBeNull()
++  })
++
++  const encodedCRLFURLString = [
++    'https://example.com/path%0D%0ASet-Cookie:%20evil',
++    'https://example.com/path%0A%0Dnext',
++    'https://example.com/%0D%0A?redirect=%0D%0A',
++  ]
++
++  encodedCRLFURLString.forEach((urlString) => {
++    it(`c.redirect() leaves percent-encoded CR/LF untouched w/ ${urlString}`, () => {
++      const res = c.redirect(urlString)
++      expect(res.status).toBe(302)
++      expect(res.headers.get('Location')).toBe(urlString)
++    })
++  })
++
+   const unchangedURLString = [
+     'https://example.com/%hello', // invalid ASCII chars
+     'https://example.com/%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF?abc',
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..7ba67a5 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -774,7 +774,11 @@ export class Context<
+       'Location',
+       // Multibytes should be encoded
+       // eslint-disable-next-line no-control-regex
+-      !/[^\x00-\xFF]/.test(locationString) ? locationString : encodeURI(locationString)
++      !/[^\x00-\xFF]/.test(locationString)
++        ? // Raw CR and LF in a header value enable header injection. Percent-encode them
++          // while leaving already percent-encoded sequences (e.g. `%0D%0A`) untouched.
++          locationString.replace(/[\r\n]/g, (char) => (char === '\r' ? '%0D' : '%0A'))
++        : encodeURI(locationString)
+     )
+     return this.newResponse(null, status ?? 302) as any
+   }

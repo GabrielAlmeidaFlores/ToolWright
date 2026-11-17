@@ -1,0 +1,91 @@
+diff --git a/src/context.test.ts b/src/context.test.ts
+index 1fa06da..fb785e8 100644
+--- a/src/context.test.ts
++++ b/src/context.test.ts
+@@ -1,5 +1,6 @@
+ import { Context } from './context'
+ import { setCookie } from './helper/cookie'
++import { Hono } from './hono'
+ 
+ const makeResponseHeaderImmutable = (res: Response) => {
+   Object.defineProperty(res, 'headers', {
+@@ -440,8 +441,37 @@ describe('Context header', () => {
+     const newResponse = new Response(null)
+     newResponse.headers.append('set-cookie', newCookies[0])
+     c.res = newResponse
+-    expect(c.res.headers.getSetCookie().length).toBe(cookies.length)
+-    expect(c.res.headers.getSetCookie()).toEqual(cookies)
++    expect(c.res.headers.getSetCookie().length).toBe(cookies.length + newCookies.length)
++    expect(c.res.headers.getSetCookie()).toEqual([...newCookies, ...cookies])
++  })
++
++  it('Should preserve cookies from middleware and a returned Response', async () => {
++    const app = new Hono()
++    app.use('*', async (c, next) => {
++      c.res.headers.append('Set-Cookie', 'middleware=1; Path=/')
++      await next()
++    })
++    app.get(
++      '/',
++      () =>
++        new Response('ok', {
++          headers: { 'Set-Cookie': 'handler=2; Path=/' },
++        })
++    )
++
++    const res = await app.request('/')
++    const cookies = res.headers.getSetCookie()
++    expect(cookies).toHaveLength(2)
++    expect(cookies).toEqual(
++      expect.arrayContaining(['middleware=1; Path=/', 'handler=2; Path=/'])
++    )
++    expect(await res.text()).toBe('ok')
++  })
++
++  it('Should not duplicate cookies when re-assigning a Response derived from `c.res`', () => {
++    c.res.headers.append('set-cookie', 'a=1; Path=/')
++    c.res = new Response('ok', c.res)
++    expect(c.res.headers.getSetCookie()).toEqual(['a=1; Path=/'])
+   })
+ 
+   it('Should keep previous cookies in response headers', () => {
+diff --git a/src/context.ts b/src/context.ts
+index 6db8717..3ac5a70 100644
+--- a/src/context.ts
++++ b/src/context.ts
+@@ -415,17 +415,27 @@ export class Context<
+     if (this.#res && _res) {
+       _res = createResponseInstance(_res.body, _res)
+       for (const [k, v] of this.#res.headers.entries()) {
+-        if (k === 'content-type') {
++        if (k === 'content-type' || k === 'set-cookie') {
+           continue
+         }
+-        if (k === 'set-cookie') {
+-          const cookies = this.#res.headers.getSetCookie()
+-          _res.headers.delete('set-cookie')
+-          for (const cookie of cookies) {
+-            _res.headers.append('set-cookie', cookie)
++        _res.headers.set(k, v)
++      }
++
++      // `Set-Cookie` is a multi-value header. Keep the cookies from both the
++      // existing response and the newly assigned one, without duplicating
++      // cookies that are already present (e.g. when `_res` was derived from
++      // `this.#res`).
++      const contextCookies = this.#res.headers.getSetCookie()
++      if (contextCookies.length > 0) {
++        const cookies = _res.headers.getSetCookie()
++        for (const cookie of contextCookies) {
++          if (!cookies.includes(cookie)) {
++            cookies.push(cookie)
+           }
+-        } else {
+-          _res.headers.set(k, v)
++        }
++        _res.headers.delete('set-cookie')
++        for (const cookie of cookies) {
++          _res.headers.append('set-cookie', cookie)
+         }
+       }
+     }

@@ -1,0 +1,151 @@
+{
+  "group": "hono-scoped-router-2026-11-17",
+  "model": "deepseek/deepseek-flash",
+  "tasks": [
+    "set-cookie",
+    "redirect",
+    "request-id",
+    "jwt-typ",
+    "context-investigation"
+  ],
+  "arms": {
+    "baseline": {
+      "runs": 25,
+      "verified": 25,
+      "total_cost": 0.401576,
+      "cost_per_verified": 0.016063,
+      "median_wall_seconds": 62
+    },
+    "optimized": {
+      "runs": 25,
+      "verified": 25,
+      "total_cost": 0.399322,
+      "cost_per_verified": 0.015973,
+      "median_wall_seconds": 112
+    },
+    "scoped-router": {
+      "runs": 25,
+      "verified": 23,
+      "total_cost": 0.33607,
+      "cost_per_verified": 0.014612,
+      "median_wall_seconds": 63
+    }
+  },
+  "per_task": {
+    "set-cookie": {
+      "baseline": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.081924,
+        "median_wall_seconds": 144
+      },
+      "optimized": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.064664,
+        "median_wall_seconds": 106
+      },
+      "scoped-router": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.053296,
+        "median_wall_seconds": 48
+      }
+    },
+    "redirect": {
+      "baseline": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.035587,
+        "median_wall_seconds": 52
+      },
+      "optimized": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.048544,
+        "median_wall_seconds": 106
+      },
+      "scoped-router": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.033452,
+        "median_wall_seconds": 55
+      }
+    },
+    "request-id": {
+      "baseline": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.01722,
+        "median_wall_seconds": 25
+      },
+      "optimized": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.023568,
+        "median_wall_seconds": 59
+      },
+      "scoped-router": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.022013,
+        "median_wall_seconds": 27
+      }
+    },
+    "jwt-typ": {
+      "baseline": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.08119,
+        "median_wall_seconds": 56
+      },
+      "optimized": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.083121,
+        "median_wall_seconds": 125
+      },
+      "scoped-router": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.113524,
+        "median_wall_seconds": 93
+      }
+    },
+    "context-investigation": {
+      "baseline": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.185654,
+        "median_wall_seconds": 243
+      },
+      "optimized": {
+        "runs": 5,
+        "verified": 5,
+        "total_cost": 0.179425,
+        "median_wall_seconds": 341
+      },
+      "scoped-router": {
+        "runs": 5,
+        "verified": 3,
+        "total_cost": 0.113785,
+        "median_wall_seconds": 138
+      }
+    }
+  },
+  "valid_runs": 75,
+  "verification_failures": [
+    "r1-scoped-router-context-investigation",
+    "r5-scoped-router-context-investigation"
+  ],
+  "run_exit_failures": [],
+  "commits": [
+    "994a3b4a7f3c2ea3cd7e069ec7d5f709df6cc864",
+    "fdb758407aafccb54243a0d22831b169c4df99c3"
+  ],
+  "limitations": [
+    "scoped-router never used a subagent; the scoped delegation hypothesis was not exercised",
+    "two scoped-router investigation runs failed at the 30-step cap before writing INVESTIGATION.md",
+    "the run set spans two repository commits; the later commit changes memory, CLI, and docs, not the harness, tasks, agents, or templates"
+  ]
+}
