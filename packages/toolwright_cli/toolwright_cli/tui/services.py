@@ -11,11 +11,13 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .. import installer
-from ..constants import KEY_AGENTS, KEY_COMMANDS, KEY_PLUGIN, KEY_RALPH, KEY_SKILLS, PLATFORM_CHOICES
+from ..constants import DEFAULT_ADAPTER, KEY_AGENTS, KEY_COMMANDS, KEY_PLUGIN, KEY_RALPH, KEY_SKILLS, PLATFORM_CHOICES
 from ..cli.cli_strings import TEMPLATE_TEMPLATE_3
 
 DEFAULT_PROFILE = "tui"
 PROJECT_COMPONENTS = (KEY_AGENTS, KEY_COMMANDS, KEY_SKILLS, KEY_RALPH, KEY_PLUGIN)
+DEFAULT_COMPONENTS = (KEY_AGENTS, KEY_COMMANDS, KEY_SKILLS, KEY_PLUGIN)
+PLUGIN_SENTINEL = ".toolwright/memory/plugin.enabled"
 ADAPTERS = PLATFORM_CHOICES
 TEXT_PLAN_LINE = TEMPLATE_TEMPLATE_3
 
@@ -74,7 +76,7 @@ def apply_selection(selection: SetupSelection) -> dict:
 
     Side effects: writes generated files and the lock file.
     """
-    return installer.install(
+    result = installer.install(
         root=selection.root,
         target=selection.target,
         profile=DEFAULT_PROFILE,
@@ -82,3 +84,8 @@ def apply_selection(selection: SetupSelection) -> dict:
         apply=True,
         adapter=selection.adapter,
     )
+    if selection.adapter == DEFAULT_ADAPTER and KEY_PLUGIN in selection.components:
+        sentinel = selection.target / PLUGIN_SENTINEL
+        sentinel.parent.mkdir(parents=True, exist_ok=True)
+        sentinel.touch()
+    return result

@@ -8,140 +8,160 @@
 </p>
 
 <p align="center">
-  <img alt="CI green" src="https://img.shields.io/badge/CI-green-22C55E?style=flat-square">
-  <img alt="292 tests" src="https://img.shields.io/badge/tests-292-4F46E5?style=flat-square">
-  <img alt="12 agents" src="https://img.shields.io/badge/agents-12-06B6D4?style=flat-square">
-  <img alt="10 skills" src="https://img.shields.io/badge/skills-10-D97757?style=flat-square">
-  <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0F172A?style=flat-square">
+  <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/actions/workflows/validate.yml"><img alt="CI green" src="https://img.shields.io/badge/CI-green-22C55E?style=flat-square"></a>
+  <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md"><img alt="293 tests" src="https://img.shields.io/badge/tests-293-4F46E5?style=flat-square"></a>
+  <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/agents"><img alt="12 agents" src="https://img.shields.io/badge/agents-12-06B6D4?style=flat-square"></a>
+  <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/skills"><img alt="10 skills" src="https://img.shields.io/badge/skills-10-D97757?style=flat-square"></a>
+  <a href="https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0F172A?style=flat-square"></a>
 </p>
 
-**A repeatable, safe, provider-neutral development environment for AI coding agents.**
+<p align="center">
+  <strong>A repeatable, safe, provider-neutral development environment for AI coding agents.</strong>
+</p>
 
-ToolWright does not make the model cheaper or smarter. It makes the workflow around the model consistent, verifiable, and portable across repositories and clients.
+<p align="center">
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#what-you-get">What you get</a> ·
+  <a href="#daily-workflow">Daily workflow</a> ·
+  <a href="#compatibility">Compatibility</a> ·
+  <a href="#documentation">Documentation</a>
+</p>
 
-## What it is
+> **ToolWright does not make the model cheaper or smarter.**<br>
+> It makes the workflow around the model consistent, verifiable, and portable across repositories and clients.
 
-ToolWright installs and maintains the files an AI coding client needs:
+## Why ToolWright
 
-- specialized agents with least-privilege permissions
-- reusable commands and skills
-- project instructions and memory
-- deterministic verification gates
-- optional code-intelligence tools
-- native adapters for OpenCode, Claude Code, GitHub Copilot, and OpenAI Codex
-- a lock file, update path, uninstall path, and backups
+AI coding setups tend to drift: every project gets different instructions, different tools, and different rules. ToolWright turns that into a managed project environment.
 
-The core is plain Markdown and configuration. OpenCode is the reference adapter, but it is optional.
+The table below contrasts the usual ad hoc setup with the ToolWright approach. Read the rows as workflow outcomes, not benchmark claims.
 
-## What it is not
-
-- It is not a model provider and does not include credentials.
-- It is not a cost-optimization guarantee.
-- It is not a model-routing or performance guarantee.
-- It is not a global configuration manager. Setup is project-local by design.
+| Without a shared environment | With ToolWright |
+|---|---|
+| Rules live in someone’s head or a chat history | Instructions, agents, commands, and skills live in the repository |
+| Each client needs a different setup | Native adapters for OpenCode, Claude Code, GitHub Copilot, and OpenAI Codex |
+| Verification depends on memory | Deterministic tests, lint, typecheck, and acceptance commands |
+| Context is rediscovered every session | Project memory records durable decisions and constraints |
+| Tool sprawl and MCP overhead | A minimal default set with optional advanced tools |
+| Installations are hard to update or remove | Lock file, update check, rollback, and uninstall |
 
 ## What you get
 
-- **Agents:** a coordinator and eleven specialists with explicit permissions.
-- **Commands:** repeatable entry points such as `/implement`, `/review`, `/debug`, and `/security`.
-- **Skills:** sourced workflows for planning, TDD, debugging, review, API design, migrations, authentication, and changelogs.
-- **Memory:** project decisions, constraints, conventions, and failures in bounded Markdown.
-- **Verification:** tests, lint, typecheck, scope checks, and a single acceptance command per task.
-- **Code intelligence:** ripgrep, ast-grep, Serena, and optional CodeGraph.
-- **Lifecycle:** plan, install, update, uninstall, backup, and rollback through `toolwright`.
-- **Ralph:** optional orchestration loops, isolated from the main checkout.
+The table below summarizes the main building blocks. Each row links to the directory or guide that owns it.
 
-## Prerequisites
+| Building block | What it gives you |
+|---|---|
+| **[Agents](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/agents)** | A coordinator and eleven specialists with explicit permissions |
+| **[Commands](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/commands)** | Repeatable entry points such as `/implement`, `/review`, `/debug`, and `/security` |
+| **[Skills](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/skills)** | Sourced workflows for planning, TDD, debugging, review, API design, migrations, auth, and changelogs |
+| **[Memory](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/memory/README.md)** | Project decisions, constraints, conventions, and failures in bounded Markdown |
+| **[Verification](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md)** | Tests, lint, typecheck, scope checks, and one acceptance command per task |
+| **[Code intelligence](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/README.md)** | ripgrep, ast-grep, Serena, and optional CodeGraph |
+| **[Lifecycle](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md)** | Plan, install, update, uninstall, backup, and rollback through `toolwright` |
+| **[Ralph](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/orchestration/ralph.md)** | Optional orchestration loops, isolated from the main checkout |
 
-- macOS or Linux. Windows is not yet validated for the full workflow.
-- `git`, Node.js 20 or newer, Python 3.11 or newer, and `ripgrep`.
-- A supported AI client and its credentials.
-- For the reference adapter: OpenCode 2.2.x.
+## Quick start
 
-### Platform support
-
-macOS and Linux are supported. Windows is not supported for the full workflow: the shell installer, external tool commands, and client discovery are not validated there. Do not present Windows as a supported platform until a native path is tested.
-
-### MCP support
-
-MCP server configuration is generated only for OpenCode. Claude Code, GitHub Copilot, and OpenAI Codex installations do not write MCP server configuration; use each client's native configuration if you need Serena or CodeGraph there.
-
-## One-time setup per project
-
-Install the CLI once on the machine:
+### 1. Install the CLI
 
 ```bash
 export TOOLWRIGHT_REPO=/path/to/ToolWright
-uv tool install "$TOOLWRIGHT_REPO/packages/toolwright_cli"
-```
-
-Then run the setup once in each project folder. The generated files are read when the client opens that folder, so you do not repeat setup per session.
-
-```bash
-cd /path/to/project
-
-# OpenCode: configuration, agents, commands, skills, memory plugin, and tools
-"$TOOLWRIGHT_REPO/scripts/installation/install.sh" --apply \
-  --only opencode,agents,commands,skills,plugin,ast-grep,serena,codegraph --target .
-
-# Optional: Ralph orchestration
-# "$TOOLWRIGHT_REPO/scripts/installation/install.sh" --apply --only ralph --target .
-touch .toolwright/memory/plugin.enabled
-if command -v codegraph >/dev/null; then codegraph init; fi
-
-# Claude Code
-toolwright install --platform claude  --profile minimal --target . --apply
-
-# GitHub Copilot
-toolwright install --platform copilot --profile minimal --target . --apply
-
-# OpenAI Codex
-toolwright install --platform codex   --profile minimal --target . --apply
-```
-
-The `TOOLWRIGHT_REPO` export tells the installed CLI where the source artifacts live. Set it in your shell profile if you use the CLI across projects.
-
-The generated files differ by client:
-
-- OpenCode uses `.opencode/` and the memory plugin. Ralph is an optional extra.
-- Claude Code uses `CLAUDE.md`, `.claude/agents/`, `.claude/commands/`, and `.claude/skills/`.
-- GitHub Copilot uses `.github/copilot-instructions.md`, `.github/instructions/`, `.github/prompts/`, `.github/skills/`, and `AGENTS.md`.
-- Codex uses `AGENTS.md` and `.codex/agents/*.toml`.
-
-Commit `toolwright.lock.json` with the project so updates and removals remain safe.
-
-### Setup limits
-
-ToolWright configures MCP servers for OpenCode. It does not currently generate MCP configuration for Claude Code, Copilot, or Codex. Those clients need native MCP configuration if you want Serena or CodeGraph there.
-
-The setup is project-local. Global client configuration is not modified, and model credentials are never stored.
-
-## Interactive setup
-
-Install the optional TUI dependency once:
-
-```bash
 uv tool install "$TOOLWRIGHT_REPO/packages/toolwright_cli[tui]"
+```
+
+The optional `tui` extra enables the interactive setup screen. The CLI works without it.
+
+### 2. Set up a project
+
+**Recommended:** open the setup screen.
+
+```bash
 toolwright setup --target /path/to/project
 ```
 
-The setup screen selects the project, adapter, and project components, previews the planned files, applies them, and reports the lock path. The TUI does not install client applications or model credentials.
+The screen selects the project, adapter, and project components, previews the planned files, applies them, and writes the lock. It does not install client applications, credentials, or native MCP configuration.
 
-## Daily use
+**Or run the commands directly.** Expand the client you use:
+
+<details>
+<summary><strong>OpenCode</strong> — reference adapter</summary>
+
+```bash
+cd /path/to/project
+"$TOOLWRIGHT_REPO/scripts/installation/install.sh" --apply \
+  --only opencode,agents,commands,skills,plugin,ast-grep,serena,codegraph --target .
+touch .toolwright/memory/plugin.enabled
+if command -v codegraph >/dev/null; then codegraph init; fi
+```
+
+Add Ralph only when you want isolated orchestration loops:
+
+```bash
+"$TOOLWRIGHT_REPO/scripts/installation/install.sh" --apply --only ralph --target .
+```
+
+</details>
+
+<details>
+<summary><strong>Claude Code</strong></summary>
+
+```bash
+cd /path/to/project
+toolwright install --platform claude --profile minimal --target . --apply
+```
+
+</details>
+
+<details>
+<summary><strong>GitHub Copilot</strong></summary>
+
+```bash
+cd /path/to/project
+toolwright install --platform copilot --profile minimal --target . --apply
+```
+
+</details>
+
+<details>
+<summary><strong>OpenAI Codex</strong></summary>
+
+```bash
+cd /path/to/project
+toolwright install --platform codex --profile minimal --target . --apply
+```
+
+</details>
+
+Commit `toolwright.lock.json` with the project. It records what ToolWright owns and makes updates and removals safe.
+
+### 3. Verify
+
+```bash
+toolwright doctor
+```
+
+For the repository itself, run the full local gate:
+
+```bash
+make ci
+```
+
+## Daily workflow
 
 1. Open the project in your AI client.
-2. Start with the coordinator or a specialist, depending on the task.
-3. Ask for a plan before multi-file work.
-4. Use a command such as `/implement`, `/review`, or `/debug` when it fits.
-5. Run the acceptance command before accepting the result.
-6. Record durable findings in project memory.
-7. Leave commits to the human unless you explicitly request one.
+2. Ask for a plan before multi-file work.
+3. Use a command such as `/implement`, `/review`, or `/debug` when it fits.
+4. Run the acceptance command before accepting the result.
+5. Record durable findings in project memory.
+6. Leave commits to the human unless you explicitly request one.
 
 The repository’s operating rules are in [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md).
 
-## Memory
+## Core concepts
 
-Memory is plain Markdown under `.toolwright/memory/`:
+### Memory
+
+Memory is plain Markdown under `.toolwright/memory/`. It uses lexical search, expiry, and a bounded preamble instead of embeddings or a vector database.
 
 ```text
 .toolwright/memory/
@@ -160,24 +180,19 @@ toolwright memory search set-cookie
 toolwright memory preamble --budget 1500
 ```
 
-The generated instructions tell Claude, Copilot, and Codex to read the memory catalog. The OpenCode memory plugin injects the bounded preamble automatically after `.toolwright/memory/plugin.enabled` exists.
+The generated instructions tell Claude, Copilot, and Codex to read the memory catalog. The OpenCode plugin injects the bounded preamble after `.toolwright/memory/plugin.enabled` exists.
 
-See the [memory guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/memory/README.md).
-
-## Verification
+### Verification
 
 Verification is the core of the workflow. Every task should end with a deterministic command:
 
 ```bash
 toolwright verify
-make ci
 ```
 
-The repository uses tests, lint, docs checks, catalog drift checks, and a clean Git diff. The same pattern applies to a user project: one acceptance command per task, recorded with the result.
+The repository applies the same idea to itself through `make ci`: tests, lint, documentation checks, catalog drift, and a clean Git diff.
 
-See [verification](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md) and [governance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/governance/README.md).
-
-## Code intelligence
+### Code intelligence
 
 Start with the smallest useful set:
 
@@ -188,13 +203,9 @@ Start with the smallest useful set:
 
 Do not enable every MCP server by default. Each server adds schema and context overhead.
 
-See [code intelligence](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/README.md).
+### Ralph orchestration
 
-## Ralph orchestration (optional)
-
-Ralph is kept for multi-step loops with research, code-assist, review, and debug hats. Version 2.10.1 commits during landing and has no switch to disable it. Run it only in a separate disposable clone; a linked worktree shares `.git` and is not sufficient.
-
-See the [Ralph guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/orchestration/ralph.md).
+Ralph is optional. It is useful for long multi-step loops, but version 2.10.1 commits during landing and has no switch to disable it. Run it only in a separate disposable clone; a linked worktree shares `.git` and is not sufficient.
 
 ## Update and remove
 
@@ -204,7 +215,7 @@ Check for drift, then rerun the same install command with `--apply`:
 toolwright update --check --target /path/to/project
 ```
 
-Remove the managed files with:
+Remove managed files with:
 
 ```bash
 toolwright uninstall --target /path/to/project --dry-run
@@ -224,32 +235,27 @@ The table below summarizes the supported adapters and their verification state. 
 | GitHub Copilot | Installer-generated, CLI discovery verified | `.github/copilot-instructions.md`, instructions, prompts, skills, `AGENTS.md` |
 | OpenAI Codex | Installer-generated, [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) loading verified | `AGENTS.md`, `.codex/agents/*.toml` |
 
-See [platform compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md).
+## Limits
 
-## Evidence and limits
-
-The repository does not claim a cost or quality win from routing. No production default is based on such a claim.
-
-Other limits:
-
-- MCP configuration is automatic only for OpenCode.
+- macOS and Linux are supported. Windows is not supported or validated for the full workflow.
+- MCP configuration is generated only for OpenCode. Claude Code, Copilot, and Codex require native MCP configuration.
 - Client login, billing, and model selection remain outside ToolWright.
+- ToolWright does not claim a cost, quality, or routing win.
 
 ## Documentation
 
-- [Installation](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/toolwright-cli.md)
-- [Architecture](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/overview.md)
-- [Testing](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md)
-- [Agents and roles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md)
-- [Memory](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/memory/README.md)
-- [Verification](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md)
-- [Profiles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/profiles/README.md)
-- [Catalog and provenance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/catalog/README.md)
-- [Troubleshooting](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/README.md)
+The table below groups the detailed guides by task. Start with installation or compatibility, then follow the area you need.
 
-## Contributing
-
-Read [`CONTRIBUTING.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/CONTRIBUTING.md) and [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md). Do not stage or commit automatically; leave changes for human review.
+| I want to… | Read |
+|---|---|
+| Install and update the CLI | [Installation](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/toolwright-cli.md) · [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md) |
+| Use a specific client | [Compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md) |
+| Understand the design | [Architecture](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/overview.md) · [Agents](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md) |
+| Keep context across sessions | [Memory](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/memory/README.md) |
+| Add deterministic checks | [Verification](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md) · [Governance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/governance/README.md) |
+| Choose tools | [Code intelligence](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/README.md) · [Profiles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/profiles/README.md) |
+| Fix a problem | [Troubleshooting](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/README.md) |
+| Contribute | [Contributing](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/CONTRIBUTING.md) · [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) · [Provenance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/README.md) |
 
 ## License
 

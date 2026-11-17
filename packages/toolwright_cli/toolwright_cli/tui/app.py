@@ -13,7 +13,7 @@ from textual.app import App, ComposeResult
 from textual.containers import Vertical
 from textual.widgets import Button, Checkbox, Footer, Header, Input, Label, RichLog, Select, Static
 
-from .services import ADAPTERS, PROJECT_COMPONENTS, SetupSelection, apply_selection, build_plan
+from .services import ADAPTERS, DEFAULT_COMPONENTS, PROJECT_COMPONENTS, SetupSelection, apply_selection, build_plan
 from ..constants import KEY_LOCK, KEY_TARGET
 from .strings import (
     COMPONENT_LABELS,
@@ -85,7 +85,7 @@ class SetupApp(App):
             for component in PROJECT_COMPONENTS:
                 yield Checkbox(
                     COMPONENT_LABELS[component],
-                    value=True,
+                    value=component in DEFAULT_COMPONENTS,
                     id=f"{ID_COMPONENT_PREFIX.lstrip(TEXT_HASH)}{component}",
                 )
             yield Button(TEXT_PREVIEW, id=PID_PREVIEW, variant=TEXT_VARIANT_PRIMARY)
