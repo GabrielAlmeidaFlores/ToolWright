@@ -51,27 +51,22 @@ from ..constants import KEY_MEMORY
 from ..constants import KEY_MODE
 from ..constants import KEY_OPENCODE_EXIT
 from ..constants import KEY_PASSED
-from ..constants import KEY_PILOTS
 from ..constants import KEY_PROJECT
 from ..constants import KEY_READ_ONLY
 from ..constants import KEY_REQUIRED
 from ..constants import KEY_RISK
 from ..constants import KEY_RUN
 from ..constants import KEY_SCOPE
-from ..constants import KEY_STACK
 from ..constants import KEY_STDERR
 from ..constants import KEY_STDOUT
 from ..constants import KEY_STEPS
-from ..constants import KEY_SUCCESS
 from ..constants import KEY_TASK
 from ..constants import KEY_TASKS
 from ..constants import KEY_VALIDATOR_MODE
 from ..constants import KEY_VERIFICATION_EXIT
 from ..constants import KEY_VIOLATIONS
 from ..constants import KEY_WIP_LIMIT
-from ..constants import KEY_WORKSPACE
 from ..constants import TEXT_EXPIRED
-from ..constants import TEXT_OPENCODE_PILOT_MODEL
 
 from ..constants import (
     FLAG_PLATFORM,
@@ -252,7 +247,6 @@ KEY_NONE = 'none'
 
 
 
-KEY_PILOT_COMMAND = 'pilot_command'
 
 
 KEY_PREAMBLE = 'preamble'
@@ -280,7 +274,6 @@ KEY_SPEC = 'spec'
 KEY_SPEC_COMMAND = 'spec_command'
 
 
-KEY_STATS = 'stats'
 
 
 
@@ -325,7 +318,6 @@ TEXT_BACKUP_DIRECTORY_TO_RESTORE = 'backup directory to restore'
 
 TEXT_BACK_UP_AND_REPLACE_MANAGED_DIRECTORIES = 'back up and replace managed directories'
 
-TEXT_BENCHMARKS_RESULTS = 'benchmarks/results'
 
 TEXT_CACHED = ' (cached)'
 
@@ -398,13 +390,11 @@ TEXT_LIST_BACKUPS_DEFAULT = 'list backups (default)'
 
 TEXT_LIST_CATALOG_ENTRIES = 'list catalog entries'
 
-TEXT_LIST_CONFIGURED_PILOTS = 'list configured pilots'
 
 TEXT_LIST_OR_REMOVE_EXPIRED_ENTRIES = 'list or remove expired entries'
 
 TEXT_LIST_OR_RESTORE_CONFIGURATION_BACKUPS = 'list or restore configuration backups'
 
-TEXT_LIST_OR_RUN_REAL_REPOSITORY_PILOTS = 'list or run real-repository pilots'
 
 TEXT_LIST_SEARCH_VERIFY_OR_BUILD_THE_ARTIFACT_CATALOG = 'list, search, verify, or build the artifact catalog'
 
@@ -474,7 +464,6 @@ TEXT_RESULT_DIRECTORY_REPEATABLE = 'result directory; repeatable'
 
 TEXT_RUN_DETERMINISTIC_EVALUATION_CASES = 'run deterministic evaluation cases'
 
-TEXT_RUN_ONE_PILOT = 'run one pilot'
 
 TEXT_RUN_ONLY_THE_NAMED_CASE = 'run only the named case'
 
@@ -557,7 +546,6 @@ TEMPLATE_NO_BACKUPS_UNDER = 'no backups under {}'
 TEMPLATE_OPENCODE_EXIT = 'opencode exit: {}'
 TEMPLATE_PASSED_FAILED = '\n{} passed, {} failed'
 TEMPLATE_PATH = 'path:        {}'
-TEMPLATE_PILOT = 'pilot: {}'
 TEMPLATE_PROFILE = 'profile:  {}'
 TEMPLATE_RECORD_NOT_FOUND = 'record not found: {}'
 TEMPLATE_REMOVE = '  remove {}'

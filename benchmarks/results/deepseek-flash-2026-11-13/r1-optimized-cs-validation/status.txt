@@ -1,4 +1,0 @@
- M examples/csharp/AGENTS.md
- A examples/csharp/Example.Tests/EndpointTests.cs
- M examples/csharp/Example/Program.cs
- M examples/csharp/README.md

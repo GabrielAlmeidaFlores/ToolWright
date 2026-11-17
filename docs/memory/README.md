@@ -78,7 +78,7 @@ ttl_days = 30
 
 ## Automatic use by client
 
-The project [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) now contains a binding memory protocol: read `.toolwright/memory/catalog.md` before exploring code, verify any claim against its cited source, and record durable findings. The Claude, GitHub Copilot, and Codex adapters copy that file, and Cursor reads a repository-root `AGENTS.md`. No plugin or CLI invocation is required for those clients to receive the instruction.
+The project [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) now contains a binding memory protocol: read `.toolwright/memory/catalog.md` before exploring code, verify any claim against its cited source, and record durable findings. The Claude, GitHub Copilot, and Codex adapters copy that file. No plugin or CLI invocation is required for those clients to receive the instruction.
 
 OpenCode adds a stronger path: the opt-in plugin runs `toolwright memory preamble` and injects the bounded summary into each request, so the memory content is already in context. The CLI remains the stable interface for recording and searching entries:
 

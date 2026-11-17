@@ -1,181 +1,32 @@
-# CI Diagnosis and Fixes
+# CI Troubleshooting
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified against GitHub Actions logs
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** workflow definition and local `make ci`
 
-This page records real GitHub Actions failures, their root cause, and the fix. It is
-maintained so the same failure is not re-diagnosed twice.
+The CI workflow runs static validation, the offline test suite, the CLI lifecycle, strict documentation builds, example builds, and OpenCode profile discovery. It does not run paid model calls.
 
-## Failure: `harness dry-run` exits with code 2
+## Jobs
 
-Observed on run `43101433803`, job `harness dry-run`:
+The table below lists each CI job and what it checks. Read the job name in the failure notification, then run the matching local command before changing the workflow.
 
-```text
-opencode not found
-##[error]Process completed with exit code 2.
-```
-
-### Root cause
-
-[`benchmarks/harness/run.sh`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/harness/run.sh) required `opencode` and `python3` before evaluating `--dry-run`.
-The `harness` job installs neither, so the job could never pass. The dry-run only needs
-Python to read the task definition; it does not execute OpenCode.
-
-### Fix
-
-The OpenCode requirement now applies only to real runs:
-
-```bash
-if [[ "$DRY" != "1" ]]; then
-  command -v opencode >/dev/null || { echo "opencode not found"; exit 2; }
-fi
-```
-
-### Regression test
-
-`tests/integration/test_entrypoints.py::BenchmarkHarnessTests::test_every_task_supports_dry_run_without_opencode`
-runs every task with a `PATH` that cannot contain OpenCode and asserts exit code 0.
-
-### Verification
-
-```bash
-PATH=/usr/bin:/bin python3 -m unittest tests.integration.test_entrypoints -v
-```
-
-## Failure: workflow stuck in `queued`
-
-Run `43095734123` remained queued for more than sixteen hours.
-
-### Diagnosis order
-
-```bash
-gh run list --limit 10
-gh run view <run-id> --log-failed
-gh api /repos/<owner>/<repo>/actions/runs?per_page=5 \
-  --jq '.workflow_runs[] | {id,status,conclusion,created_at}'
-```
-
-Possible causes, in order of likelihood:
-
-1. Runner availability or a platform incident.
-2. A concurrency group holding the run behind another job.
-3. Repository or organization spending limits.
-4. A workflow that waits for a required check that never starts.
-
-### Mitigation applied
-
-- Added an explicit `concurrency` group with `cancel-in-progress: true` so a superseded
-  push cannot hold the queue.
-- Split the workflow into independent jobs with short timeouts, so one stuck job does not
-  block the others.
-- Added `timeout-minutes` to every job.
-
-### How to clear a stuck run
-
-```bash
-gh run cancel <run-id>
-```
-
-Cancelling a queued run is safe: it performs no repository writes. It is not a substitute
-for fixing the cause; record the cause here.
-
-## Risk: wrong OpenCode npm package name
-
-Not observed in a run. Verified locally before it could fail in CI. The package name matters:
-
-```text
-npm view opencode-ai version   -> 1.19.5
-npm view @opencode/cli version -> 2.2.7
-```
-
-Installing `opencode-ai` gives V1, which does not understand the V2 `mcp.servers` shape.
-The profile job pins `@opencode/cli@2.2.7` so a silent major-version change cannot alter
-discovery behaviour.
-
-## Failure: ShellCheck
-
-ShellCheck runs on Linux only, against `scripts/**`. Two common causes. It has 2 rows and 3 columns: Message, Cause, and Fix. Each row is one message, and the other columns record Cause and Fix. Read it to compare rows or to find a specific message.
-
-| Message | Cause | Fix |
+| Job | What it checks | Local equivalent |
 |---|---|---|
-| `SC2086` | Unquoted expansion | Quote the variable |
-| `SC2317` | Unreachable command | Remove dead code or document the branch |
+| `static` | Validator, catalog drift, version agreement, shell syntax, ShellCheck | `make validate` and `make lint` |
+| `test` | Offline unit and integration suite on Ubuntu and macOS | `make test` |
+| `cli` | Wheel build, doctor, profiles, catalog, verification, governance, install lifecycle | Build the wheel and run `toolwright doctor` |
+| `docs` | Strict MkDocs build | `mkdocs build --strict` |
+| `examples` | TypeScript and C# fixtures | `npm test` and `dotnet test` |
+| `opencode profile` | Agent discovery in a temporary installed profile | Install the profile and run `opencode debug agents` |
 
-Run locally before pushing:
+## Common failures
 
-```bash
-shellcheck scripts/**/*.sh benchmarks/harness/*.sh
-```
+- **Validator failure:** run `make validate` and fix the reported path, provenance field, comment, link, or documentation status.
+- **Test failure:** run the failing module with `python3 -m unittest <module> -v`.
+- **Catalog drift:** run `python3 scripts/catalog/build_catalog.py` and commit the generated catalog.
+- **Shell failure:** run `bash -n` on the reported script, then `make lint`.
+- **Docs failure:** run `mkdocs build --strict`; the error names the missing page or broken navigation entry.
+- **CLI failure:** reproduce the step locally with `PYTHONPATH=packages/toolwright_cli python3 -m toolwright_cli ...`.
+- **OpenCode discovery failure:** verify the installed profile contains `.opencode/agents/*.md` and that `opencode --version` is 2.2.x.
 
-## Failure: validation passes locally but fails in CI
+## Safety
 
-Common causes:
-
-1. **Python version.** CI uses 3.12; a newer local interpreter may accept syntax that 3.12
-   rejects.
-2. **PyYAML present locally but not in CI, or the reverse.** The validator falls back to
-   Ruby. Install PyYAML in CI explicitly.
-3. **Line endings.** A CRLF checkout changes file hashes and shell parsing.
-4. **Case-sensitive filesystem.** Linux treats `Agent.md` and `agent.md` as different.
-5. **Uncommitted files.** CI runs the commit, not the working tree.
-
-## Risk: managed service port conflict
-
-`opencode debug agents` talks to the managed background service by default. In a fresh
-`HOME` the service is started on demand; if another service already holds the chosen port,
-the command fails with `Managed service port ... is already in use`.
-
-CI and the test suite use `opencode --standalone debug agents`, which starts a private
-server for the command and avoids the shared-service port entirely. Use the same flag when
-reproducing discovery in a temporary `HOME`:
-
-```bash
-HOME="$(mktemp -d)" OPENCODE_CONFIG="/abs/path/.opencode/opencode.jsonc" \
-  opencode --standalone debug agents
-```
-
-## Confirmed green
-
-Run [`43277080347`](https://github.com/GabrielAlmeidaFlores/ToolWright/actions/runs/43277080347)
-completed on 2026-11-12 with every job successful. It has 8 rows and 2 columns: Job and Result. Each row is one job, and the other column records Result. Read it to compare rows or to find a specific job.
-
-| Job | Result |
-|---|---|
-| `static (ubuntu-latest)` | success |
-| `static (macos-latest)` | success |
-| `test (ubuntu-latest)` | success |
-| `test (macos-latest)` | success |
-| `examples` | success |
-| `cli` | success |
-| `opencode profile` | success |
-| `harness dry-run` | success |
-
-This confirms the harness fix, the offline suite on both operating systems without a local
-OpenCode binary, the CLI wheel build and install lifecycle, profile verification, catalog
-drift and tracked-file checks, verification gates, governance contracts, memory and spec smoke checks, OpenCode agent
-discovery with a pinned version, and benchmark dry-runs. Action majors are `checkout@v7`, `setup-python@v7`,
-`setup-node@v7`, and `setup-dotnet@v6`.
-
-## Scheduled and tag workflows
-
-The table below describes Scheduled and tag workflows. It has 2 rows and 3 columns: Workflow, Trigger, and Purpose. Each row is one workflow, and the other columns record Trigger and Purpose. Read it to compare rows or to find a specific workflow.
-|---|---|---|
-| `release` | `v*` tag | Verifies the tag, builds the wheel, writes `SHA256SUMS`, publishes the release |
-| `upstream-drift` | Weekly schedule, manual | Reports pinned provenance commits versus remote HEAD in the job summary |
-
-## Job map
-
-The table below describes Job map. It has 7 rows and 3 columns: Job, Purpose, and Needs. Each row is one job, and the other columns record Purpose and Needs. Read it to compare rows or to find a specific job.
-|---|---|---|
-| `static` | Validator, shell syntax, ShellCheck | Python, PyYAML |
-| `test` | Unit and integration suites | Python, PyYAML |
-| `examples` | TypeScript and C# builds | Node, .NET |
-| `opencode-profile` | Install profile and verify discovery | Node, OpenCode V2 |
-| `harness` | Benchmark dry-run for every task | Python |
-| `cli` | Builds the wheel, runs `toolwright doctor`, exercises install, update, and uninstall | Python, Node, OpenCode V2 |
-| `docs` | Builds the MkDocs site in strict mode | Python, MkDocs Material |
-
-## References
-
-- [`.github/workflows/validate.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.github/workflows/validate.yml)
-- [`docs/architecture/testing.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md)
-- [`docs/validation-checklist.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/validation-checklist.md)
+CI reads the repository and reports results. It never stages, commits, pushes, tags, or publishes a release.

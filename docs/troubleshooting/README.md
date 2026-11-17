@@ -65,11 +65,7 @@ The table below describes Repository tooling. It has 16 rows and 3 columns: Symp
 | `toolwright verify` runs a stale result | A passing cached result exists for unchanged inputs | Run with `--no-cache`, or change the declared inputs |
 | `toolwright govern contracts` fails | An agent's mode or edit permission violates its role | Fix `agents/<role>/AGENT.md`; rerun the validator |
 | `toolwright govern check` blocks a run | A budget, loop, or deadlock limit was exceeded | Inspect the violation kind and increase the limit only with justification |
-| `toolwright stats` shows no runs | The results directory has no `meta.json` runs | Run the harness or point `--results` at the right directory |
-| `toolwright stats --budget` exits 1 | Recorded cost exceeds the ceiling | Review the runs; the guard is post-run only |
 | `toolwright eval` fails | A profile, catalog, contract, or validator invariant broke | Fix the reported case; see [`docs/evals/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/evals/README.md) |
-| A pilot clone check out fails | The pinned commit is unavailable or the network is blocked | Verify the commit and access; rerun with `--dry-run` first |
-| A pilot verification fails | The task was not completed correctly | Keep the artifacts; record rework separately |
 
 | `toolwright task move` hits the WIP limit | Too many in-progress tasks | Finish or move one to review |
 | `toolwright task move done` is refused | Completion requires explicit approval | Re-run with `--approved` |

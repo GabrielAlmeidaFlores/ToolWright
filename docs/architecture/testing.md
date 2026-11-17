@@ -21,7 +21,6 @@ The table below describes Test layers. It has 5 rows and 5 columns: Layer, Locat
 | Integration | `tests/integration/` | Yes | No | No |
 | Runtime discovery | [`tests/integration/test_opencode_runtime.py`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/tests/integration/test_opencode_runtime.py) | Yes, when OpenCode is installed | No | No |
 | CLI lifecycle | `tests/integration/test_ote_commands.py` | Yes, in the `cli` job | No | No |
-| Benchmark execution | `benchmarks/harness/` | Dry-run only | No | Yes, for real runs |
 
 ## Running the suite
 
@@ -76,8 +75,6 @@ fixture can exercise one rule without satisfying the other eleven roles.
 | `config/commented-body.jsonc` | Section 2C inline-comment rule |
 | `config/missing-servers.jsonc` | V2 `mcp.servers` requirement |
 | `config/invalid.yml` | YAML parse errors |
-| `tasks/missing-field.json` | Required benchmark task fields |
-| `tasks/missing-workdir.json` | Task working directory exists |
 
 Fixtures are test inputs only. They are not reusable agents, skills, or commands and must
 never be installed.
@@ -87,7 +84,6 @@ never be installed.
 - [`scripts/validation/validate.sh`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/validation/validate.sh) exits zero on the repository.
 - The comment policy scans `scripts/`, `packages/`, `skills/`, and `tests/`, plus TypeScript and C# sources; Python docstrings are optional; when present they must use block form with the quotes on their own lines. Only `tests/fixtures/` is exempt because those files must contain prohibited patterns.
 - `validate_config.py` exits zero and prints a `checked:` count.
-- Every benchmark task dry-runs without an OpenCode binary and without a model.
 - The installer defaults to check-only and creates no files.
 - OpenCode discovers all twelve agents when the profile is installed into a temporary
   target, and the coordinator is `primary`.
@@ -99,8 +95,7 @@ never be installed.
 - Governance contracts, budgets, loop/deadlock limits, and risk gates are evaluated deterministically.
 - Memory scopes, deduplication, credential rejection, expiry, export, and preamble budgets are tested.
 - Spec creation, criterion/task mapping, and evidence verification are tested.
-- Stats parsing and rendering, deterministic eval cases, and pilot planning are tested.
-- The pilot runner is exercised end to end with a local mock: clone/fetch/checkout, install, agent run, verification, artifacts, and the dual-exit success rule.
+- Deterministic eval cases are tested.
 - Task board state, WIP limits, approval, and worktrees are tested; the plugin file is syntax-checked and its install plan is tested.
 
 The OpenCode checks skip cleanly when `opencode` is not on `PATH`, so contributors without
@@ -125,17 +120,14 @@ the binary still get a green suite.
 - ShellCheck on Linux;
 - example builds (TypeScript and C#);
 - OpenCode profile installation and discovery;
-- benchmark dry-run for every task;
 - the `cli` job: wheel build, `toolwright doctor`, verification gates, contracts, and the install/update/uninstall lifecycle;
 - the `docs` job: strict MkDocs build;
 - the `release` and `upstream-drift` workflows for tags and scheduled pin checks.
 
-Paid model calls are excluded from the default workflow. Real benchmark runs are explicit
-and require `OPENCODE_BENCH_MODEL`.
+Paid model calls are excluded from the default workflow.
 
 ## References
 
 - [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) Section 12
 - [`docs/validation-checklist.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/validation-checklist.md)
 - [`docs/troubleshooting/ci.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/ci.md)
-- [`docs/research/baseline.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/baseline.md)

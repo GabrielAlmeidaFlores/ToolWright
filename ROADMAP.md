@@ -1,33 +1,35 @@
 # Roadmap
 
-Status reflects the repository, not intentions. All planned phases are complete. It has 9 rows and 3 columns: Phase, Scope, and Status. Each row is one phase, and the other columns record Scope and Status. Read it to compare rows or to find a specific phase.
+ToolWright is a repeatable, safe, provider-neutral development environment for AI coding agents. The current surface is complete for macOS and Linux; the next work is portability, setup ergonomics, and deeper client integration.
 
-| Phase | Scope | Status |
-|---|---|---|
-| 0 | Baseline, version, docs status, decisions | Complete |
-| 1 | Green CI, offline test suite, harness fix | Complete |
-| 2 | `toolwright` CLI, lock file, install lifecycle | Complete |
-| 3 | Profiles, verified catalog, compatibility matrix | Complete |
-| 4 | Verification engine, governance, risk gates | Complete |
-| 5 | Markdown memory, spec workflow | Complete |
-| 6 | Stats, deterministic evals, pilot runner | Complete |
-| 7 | Docs site, security/support/roadmap, release automation, drift checks | Complete |
-| 8 | Optional Markdown task board and OpenCode plugin | Complete |
+## Current
 
-## Next after Phase 7
+- OpenCode reference adapter, installer, lock file, update check, rollback, and uninstall.
+- Installer-generated Claude Code, GitHub Copilot, and OpenAI Codex adapters.
+- Agents, commands, skills, profiles, catalog, provenance, and memory.
+- Deterministic verification, governance, specs, task board, and evals.
+- Optional Ralph orchestration in an isolated clone.
+- Minimal code-intelligence guidance: ripgrep, ast-grep, Serena, and optional CodeGraph.
 
-- Discovery round 1 is complete: 15/15. Code-change rounds: Hono 5/5 independently reviewed; CleanArchitecture 5/5 independently reviewed with build, unit, and SQL Server functional tests; turborepo 4/5 verified with one task rejected in review.
-- Evaluate optional task board and memory-injection plugin only after the CLI, memory, and observability are stable.
-- Keep benchmarks deferred until correctness and rework measurement is reproducible.
+## Next
+
+- `toolwright setup` TUI for project selection, tool selection, plan review, apply, and verification.
+- First-class Windows support for the installer and tool detection.
+- Native MCP configuration for Claude Code, GitHub Copilot, and OpenAI Codex.
+- Continue reducing setup steps without hiding manual or privileged actions.
+- Expand tests for adapter discovery and lifecycle behavior on macOS and Linux.
 
 ## Explicit non-goals
 
-- A large agent catalog; the project keeps twelve focused roles.
-- A vector database, daemon, A2A hub, or web UI.
+- A separate model-routing or cost-optimization program.
 - A second orchestrator beside Ralph.
+- A large agent catalog; the project keeps a focused set of roles.
+- A vector database, daemon, A2A hub, or web UI.
 - Automatic commits, staging, or merges.
 - Self-modifying or self-learning loops without evaluation.
 
-## Evidence
+## References
 
-Each phase is complete only when its acceptance criteria and CI checks pass. See [`docs/RELEASE_CHECKLIST.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/RELEASE_CHECKLIST.md), [`docs/validation-checklist.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/validation-checklist.md), and the CI runs linked from the README.
+- [`README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/README.md)
+- [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md)
+- [`docs/validation-checklist.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/validation-checklist.md)

@@ -77,7 +77,6 @@ from tests.integration.test_toolwright_commands_strings import (
     KEY_GIT,
     KEY_GOVERN,
     KEY_HIGH,
-    KEY_HONO,
     KEY_ID,
     KEY_INPUT,
     KEY_INSTALL,
@@ -95,7 +94,6 @@ from tests.integration.test_toolwright_commands_strings import (
     KEY_PART,
     KEY_PASS,
     KEY_PATH,
-    KEY_PILOT,
     KEY_PREAMBLE,
     KEY_PROFILE,
     KEY_PROFILES,
@@ -115,7 +113,6 @@ from tests.integration.test_toolwright_commands_strings import (
     KEY_SOURCE,
     KEY_SPEC,
     KEY_STANDARD,
-    KEY_STATS,
     KEY_STATUS,
     KEY_STEP_FINISH,
     KEY_SUMMARY,
@@ -441,57 +438,10 @@ class VerificationCommandTests(unittest.TestCase):
 
 class PhaseSixCommandTests(unittest.TestCase):
 
-    def _run(self, root: Path, name: str, cost: float) -> None:
-        run = root / name
-        run.mkdir(parents=True)
-        (run / TEXT_META_JSON).write_text(
-            json.dumps(
-                {
-                    KEY_RUN_ID: name,
-                    KEY_ARM: KEY_BASELINE,
-                    KEY_TASK_ID: KEY_TASK,
-                    KEY_MODEL: TEXT_PROVIDER_MODEL,
-                    KEY_AGENT: KEY_COORDINATOR,
-                    KEY_VERIFICATION_EXIT: 0,
-                }
-            ),
-            encoding=TEXT_UTF_8,
-        )
-        (run / TEXT_SESSION_JSONL).write_text(
-            json.dumps(
-                {
-                    KEY_TYPE: KEY_STEP_FINISH,
-                    KEY_PART: {KEY_COST: cost, KEY_TOKENS: {KEY_INPUT: 10, KEY_OUTPUT: 5}},
-                }
-            )
-            + TEXT_TEXT,
-            encoding=TEXT_UTF_8,
-        )
-
-    def test_stats_json_and_budget(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            self._run(root, KEY_RUN, 0.5)
-            result = run_ote(KEY_STATS, FLAG_RESULTS, str(root), FLAG_FORMAT, KEY_JSON)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertAlmostEqual(json.loads(result.stdout)[KEY_TOTALS][KEY_COST], 0.5)
-            over = run_ote(KEY_STATS, FLAG_RESULTS, str(root), FLAG_FORMAT, KEY_JSON, FLAG_BUDGET, TEXT_0_1)
-            self.assertEqual(over.returncode, 1)
-            self.assertIn(TEXT_BUDGET_EXCEEDED, over.stderr)
-
     def test_eval_profiles(self) -> None:
         result = run_ote(KEY_EVAL, FLAG_ONLY, KEY_PROFILES)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn(TEXT_OK, result.stdout)
-
-    def test_pilot_list_and_dry_run(self) -> None:
-        listed = run_ote(KEY_PILOT, KEY_LIST)
-        self.assertEqual(listed.returncode, 0, listed.stderr)
-        self.assertIn(KEY_HONO, listed.stdout)
-        planned = run_ote(KEY_PILOT, KEY_RUN, KEY_HONO, FLAG_DRY_RUN)
-        self.assertEqual(planned.returncode, 0, planned.stderr)
-        self.assertIn(TEXT_CHECKOUT_DETACH, planned.stdout)
-
 
 class MemoryAndSpecReadTests(unittest.TestCase):
 

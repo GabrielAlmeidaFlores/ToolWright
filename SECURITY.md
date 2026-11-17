@@ -19,7 +19,7 @@ Do not open a public issue for a suspected vulnerability. Include affected files
 
 ## Scope
 
-In scope: this repository's CLI, scripts, configuration, agent and skill content, catalog, memory store, and pilot runner.
+In scope: this repository's CLI, scripts, configuration, agent and skill content, catalog, memory store.
 
 Out of scope: OpenCode itself, model providers, and third-party MCP servers. Report those upstream.
 
@@ -30,6 +30,5 @@ Out of scope: OpenCode itself, model providers, and third-party MCP servers. Rep
 - Git write commands are denied for agents and validated.
 - Memory writes reject common credential patterns.
 - Optional MCP servers are disabled by default.
-- Pilots run in disposable clones.
 
 Full threat model and MCP trust levels: [`docs/security/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/security/README.md).

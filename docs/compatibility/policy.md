@@ -57,4 +57,3 @@ The table below describes Verification. It has 10 rows and 2 columns: Check and 
 - `claude.md`
 - `openai-gpt.md`
 - `../decisions/ADR-001-opencode-v2-baseline.md`
-- `../research/compatibility-matrix.md`

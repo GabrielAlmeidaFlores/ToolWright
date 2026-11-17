@@ -1,67 +1,71 @@
 # ToolWright
 
-> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** `make ci` green locally with 1158 static checks and 340 tests
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** `make ci` green locally with 640 static checks and 287 tests
 
-A provider-neutral multi-agent development toolkit with a fully verified OpenCode adapter and installer-generated adapters for GitHub Copilot, Claude Code, and OpenAI GPT/Codex. OpenCode is optional. It is built around four pillars:
+**A repeatable, safe, provider-neutral development environment for AI coding agents.**
 
-| Pillar | What it provides |
-|---|---|
-| Environment | OpenCode V2 configuration, agents, commands, skills, Ralph hats, installer, `toolwright` CLI, and installer-generated adapters for Copilot, Claude, and GPT |
-| Orchestration | Ralph as the loop owner, coordinator delegation, risk-based gates |
-| Intelligence | ripgrep, ast-grep, Serena, CodeGraph, Markdown memory, spec artifacts |
-| Optimization | Deterministic verification, governance budgets, cost/token reporting, evals |
+ToolWright does not make the model cheaper or smarter. It makes the workflow around the model consistent, verifiable, and portable.
 
 ## Start here
 
-The core agents, commands, skills, and rules are provider-neutral. The commands below install the OpenCode reference adapter; choose Claude, GitHub Copilot, or ChatGPT/Codex from the compatibility pages if you use a different platform.
-
 ```bash
-git clone https://github.com/GabrielAlmeidaFlores/ToolWright.git
-cd ToolWright
-uv tool install ./packages/toolwright_cli
+export TOOLWRIGHT_REPO=/path/to/ToolWright
+uv tool install "$TOOLWRIGHT_REPO/packages/toolwright_cli"
 toolwright doctor
-toolwright install --profile minimal --target /path/to/project --apply
 ```
 
-- [Compatibility overview](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md)
-- [OpenCode installation](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/opencode.md)
-- [GitHub Copilot](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md)
-- [Claude Code](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md)
-- [OpenAI GPT / Codex](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md)
-- [Install the CLI](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/toolwright-cli.md)
-- [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md)
-- [Profiles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/profiles/README.md)
+Then run the project setup once per folder:
+
+```bash
+cd /path/to/project
+"$TOOLWRIGHT_REPO/scripts/installation/install.sh" --apply --all --target .
+touch .toolwright/memory/plugin.enabled
+toolwright install --platform claude  --profile minimal --target . --apply
+toolwright install --platform copilot --profile minimal --target . --apply
+toolwright install --platform codex   --profile minimal --target . --apply
+```
+
+The generated files are loaded when the client opens the project. No per-session setup is required.
+
+## The four pillars
+
+The table below summarizes the parts of the environment that ToolWright owns. Read it as a map of responsibilities, not a feature comparison.
+
+| Pillar | What it provides |
+|---|---|
+| **Runtime** | Agents, commands, skills, permissions, OpenCode configuration, native adapters |
+| **Context** | Project memory, instructions, specs, code-intelligence guidance |
+| **Verification** | Tests, lint, typecheck, scope checks, governance, CI gates |
+| **Lifecycle** | Plan, install, update, uninstall, backups, lock file, provenance |
 
 ## What is verified
 
-The table below summarizes what has been verified and which evidence supports it. Each row is a capability area, and the state column records the strongest label the repository can currently claim. Read it as a confidence map rather than a feature list: a row marked verified has a command or run behind it, while an unverified row says so explicitly. The linked pages and result sets carry the underlying commands and artifacts.
+The table below records the strongest evidence label for each capability area. Read the label as a confidence statement: verified means a command or CI run exists, while unverified means the behavior is not proven.
 
 | Area | State |
 |---|---|
-| Static validation | 1158 checks, including provenance, permissions, comments, absolute links, and docs status |
-| Test suite | 340 offline tests on Ubuntu and macOS |
-| CLI | Wheel build, install lifecycle, profile/catalog verification, verification gates |
-| Catalog | 34 generated artifacts with drift enforcement |
-| Benchmarks | Four published result sets; no Hono arm beat stock, and the delegation contract was reverted |
-| Pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
-
-Claims link to local evidence or a CI run. Vendor claims are labelled; no benchmark result is published without correctness and rework data.
+| Static validation | 640 checks, including provenance, permissions, comments, links, and docs status |
+| Test suite | 287 offline tests on Ubuntu and macOS |
+| CLI | Wheel build, install lifecycle, profile and catalog checks, verification gates |
+| Adapters | OpenCode verified; Claude, Copilot, and Codex installer-generated and partly runtime-verified |
 
 ## Design rules
 
-1. Source and attribute every reusable artifact; do not invent agents, skills, or commands.
-2. Never stage or commit automatically; the human decides.
-3. Prefer descriptive names over comments; document only contracts.
+1. Source and attribute every reusable artifact.
+2. Never stage or commit automatically.
+3. Prefer descriptive names over explanatory comments.
 4. Treat deterministic tools as the source of truth for correctness.
-5. Keep the default profile minimal; enable optional tools explicitly.
+5. Keep the default profile minimal and make optional tools explicit.
 
-Full rules: [AGENTS.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md).
+Full rules: [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md).
 
-## Project
+## Documentation
 
+- [Installation](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/toolwright-cli.md)
 - [Architecture](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/overview.md)
+- [Compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md)
+- [Memory](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/memory/README.md)
+- [Verification](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md)
+- [Code intelligence](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/README.md)
+- [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md)
 - [Security](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/security/README.md)
-- [Compatibility policy](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/policy.md)
-- [Provenance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/README.md)
-- [Release process](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/release/README.md)
-- [Troubleshooting](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/README.md)

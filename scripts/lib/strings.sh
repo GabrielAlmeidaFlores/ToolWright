@@ -67,7 +67,7 @@ readonly SH_INSTALL_UV_FIRST_HTTPS_DOCS_ASTRAL_SH_UV_GETTING_S="  install uv fir
 readonly SH_MISS_10S_N="  MISS %-10s\n"
 readonly SH_NOTE_INSTALLER_DOWNLOADS_AND_EXECUTES_A_REMOTE_SCR="  note: installer downloads and executes a remote script; review it first."
 readonly SH_OK_10S_S_N="  ok   %-10s %s\n"
-readonly SH_OPENCODE_AGENTS_COMMANDS_SKILLS_RALPH_AST_GREP_SER="opencode,agents,commands,skills,ralph,ast-grep,serena,codegraph"
+readonly SH_OPENCODE_AGENTS_COMMANDS_SKILLS_RALPH_AST_GREP_SER="opencode,agents,commands,skills,ralph,plugin,ast-grep,serena,codegraph"
 readonly SH_OPENCODE_CONFIG="== opencode config =="
 readonly SH_RALPH_CONFIGS="== ralph configs =="
 readonly SH_SELECT_COMPONENTS_WITH_ALL_OR_ONLY_REFUSING_TO_GUE="Select components with --all or --only. Refusing to guess."

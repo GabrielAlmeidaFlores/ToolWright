@@ -6,7 +6,7 @@ This page records how the sourced artifacts behave in OpenCode 2.2.x. It separat
 
 ## Version matrix
 
-Run `toolwright compat` for the OpenCode V1/V2 feature matrix. Cells that were not verified are marked `not verified`. The matrix records supported features only; it is not a performance or benchmark result.
+Run `toolwright compat` for the OpenCode V1/V2 feature matrix. Cells that were not verified are marked `not verified`. The matrix records supported features only; it is not a performance or quality result.
 
 ## Agents
 
@@ -22,7 +22,7 @@ All twelve custom agents are discovered by `opencode debug agents`. The coordina
 | `frontend-developer` | subagent | allowed | Loaded and permission-validated |
 | `database-specialist` | subagent | allowed | Loaded and permission-validated |
 | `code-reviewer` | subagent | denied | Verified with `opencode run --agent code-reviewer` |
-| `test-engineer` | subagent | allowed | Used by Ralph validation and benchmark verification |
+| `test-engineer` | subagent | allowed | Used by Ralph validation |
 | `security-reviewer` | subagent | denied | Loaded and permission-validated |
 | `performance-analyst` | subagent | denied | Loaded and permission-validated |
 | `documentation-engineer` | subagent | documentation only | Loaded and permission-validated |
@@ -67,8 +67,8 @@ Runtime skill loading was verified for all ten skills: each smoke run called the
 
 The table below describes Ralph collections. It has 4 rows and 3 columns: Collection, Static validation, and Runtime. Each row is one collection, and the other columns record Static validation and Runtime. Read it to compare rows or to find a specific collection.
 | --- | --- | --- |
-| `research` | YAML valid, preflight pass | Completed in 2 iterations with `RESEARCH_COMPLETE` |
-| `code-assist` | YAML valid, preflight pass | Longer multi-wave flow; needs a larger iteration budget |
+| `research` | YAML valid, preflight pass | Available; run in an isolated clone |
+| `code-assist` | YAML valid, preflight pass | Available; set an iteration budget for the task |
 | `review` | YAML valid, preflight pass | Dry-run only |
 | `debug` | YAML valid, preflight pass | Dry-run only |
 
@@ -76,8 +76,8 @@ The table below describes Ralph collections. It has 4 rows and 3 columns: Collec
 
 The table below describes MCP servers. It has 4 rows and 2 columns: Server and Runtime status. Each row is one server, and the other column records Runtime status. Read it to compare rows or to find a specific server.
 | --- | --- |
-| `serena` | Connected in the test environment |
-| `codegraph` | Connected in the test environment after `codegraph init` |
+| `serena` | Configured; requires the local binary |
+| `codegraph` | Configured; requires the local binary and `codegraph init` |
 | `repomix` | Disabled by default |
 | `jcodemunch` | Disabled by default |
 

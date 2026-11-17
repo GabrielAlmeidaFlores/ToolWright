@@ -36,11 +36,10 @@ Every artifact records its author in three places:
 - retrieval date
 - modification summary
 
-`original_artifacts` records the only permitted local work: configuration composition, glue scripts, test/benchmark fixtures, and project documentation. Each entry states why no upstream artifact applies. It has 15 rows and 3 columns: ID, Kind, and Scope. Each row is one entry, and the other columns record Kind and Scope. Read it to compare rows or to find a specific entry.
+`original_artifacts` records the only permitted local work: configuration composition, glue scripts, test fixtures, and project documentation. Each entry states why no upstream artifact applies. It has 15 rows and 3 columns: ID, Kind, and Scope. Each row is one entry, and the other columns record Kind and Scope. Read it to compare rows or to find a specific entry.
 
 | ID | Kind | Scope |
 |---|---|---|
-| `benchmark-harness` | fixture | Measurement harness and task definitions |
 | `installation-and-validation` | glue | Installer, validator, CI workflows |
 | `examples` | fixture | Deliberately defective TypeScript and C# examples |
 | `opencode-config` | configuration-composition | V2 options only |
@@ -50,7 +49,7 @@ Every artifact records its author in three places:
 | `repository-tests` | fixture | Unit and integration tests, broken fixtures, build entry points |
 | `project-documentation` | original-documentation | ADRs, research, guides, and operating docs |
 | `task-board-and-plugin` | glue | Task board and opt-in memory plugin; original implementation |
-| `observability-evals-pilots` | glue | Stats, eval, and pilot runner; original implementation |
+| `observability-evals` | glue | Deterministic evaluation helpers; original implementation |
 | `memory-and-specs` | glue | Memory store and spec validator; original implementation |
 | `verification-and-governance` | glue | Verification engine and governance evaluator; original implementation |
 | `catalog-and-profiles` | glue | Catalog generator and profile loader; original implementation |
@@ -60,7 +59,7 @@ Every artifact records its author in three places:
 
 The table below describes Artifact mapping. It has 15 rows and 3 columns: Local, Upstream, and Modification. Each row is one local, and the other columns record Upstream and Modification. Read it to compare rows or to find a specific local.
 | --- | --- | --- |
-| `agents/coordinator` | `wshobson/plugins/agent-teams/agents/team-lead.md` | OpenCode frontmatter, permissions, local harness note |
+| `agents/coordinator` | `wshobson/plugins/agent-teams/agents/team-lead.md` | OpenCode frontmatter, permissions, local runtime note |
 | `agents/planner` | `volt/categories/08-business-product/project-manager.md` | OpenCode frontmatter, planning focus note |
 | `agents/researcher` | `volt/categories/10-research-analysis/research-analyst.md` | OpenCode frontmatter, evidence rules |
 | `agents/architect` | `wshobson/plugins/comprehensive-review/agents/architect-review.md` | OpenCode frontmatter |

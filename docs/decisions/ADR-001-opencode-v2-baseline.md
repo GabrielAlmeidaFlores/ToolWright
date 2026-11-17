@@ -21,8 +21,7 @@ V1 remains documented only as a migration reference. V2 reads supported V1 confi
 
 - Native LSP diagnostics and LSP navigation are unavailable. Serena, ast-grep, and project lint/typecheck commands cover the gap.
 - Configuration uses V2-native keys: `agents`, `permissions`, `mcp.servers`, `commands`, `skills`, `compaction`, `tool_output`.
-- V2 Code Mode is available for MCP servers and reduces tool-description overhead, which matters for the maximal toolset.
-- `opencode stats --cost --json` provides cost and token telemetry for the benchmark harness.
+- V2 Code Mode is available for MCP servers and reduces tool-description overhead, which matters for broad MCP tool surfaces.
 - Documentation must not present V1-only examples as current.
 
 ## Verification

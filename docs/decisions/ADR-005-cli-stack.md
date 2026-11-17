@@ -70,6 +70,5 @@ and CI keep working unchanged.
 
 ## References
 
-- [`docs/research/baseline.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/baseline.md)
 - [`scripts/validation/validate_config.py`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/validation/validate_config.py)
 - https://docs.astral.sh/uv/

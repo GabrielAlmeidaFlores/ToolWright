@@ -42,10 +42,7 @@ The table below describes Command status. It has 17 rows and 3 columns: Command,
 | `toolwright govern` | Available | Contracts, budgets, loop/deadlock detection, risk gates |
 | `toolwright memory` | Available | Markdown project memory |
 | `toolwright spec` | Available | Spec-driven development artifacts |
-| `toolwright stats` | Available | Cost, token, failure, and arm comparison reports |
-| `toolwright usage` | Available | Local session ledger and task-level usage reports |
 | `toolwright eval` | Available | Deterministic repository evaluations |
-| `toolwright pilot` | Available | Real-repository pilot runner |
 | `toolwright task` | Experimental | Optional Markdown task board and worktrees |
 
 Unknown commands are rejected by the argument parser with exit code 2.
@@ -91,7 +88,7 @@ toolwright compat --json
 ```
 
 Prints the OpenCode V1/V2 matrix. Cells that were not verified are marked `not verified` rather than
-guessed. This is a compatibility matrix, not a benchmark. See [`docs/agents/compatibility.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/compatibility.md) and
+guessed. This is a compatibility matrix, not a performance result. See [`docs/agents/compatibility.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/compatibility.md) and
 [`docs/decisions/ADR-001-opencode-v2-baseline.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/decisions/ADR-001-opencode-v2-baseline.md).
 
 ## `toolwright verify`
@@ -151,38 +148,7 @@ toolwright spec verify user-authentication
 
 Creates requirements, design, tasks, and evidence artifacts; `plan` and `verify` enforce criterion-to-task-to-evidence mapping. See [`docs/specs/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/specs/README.md).
 
-## `toolwright stats`
 
-```bash
-toolwright stats
-toolwright stats --format json
-toolwright stats --format csv
-toolwright stats --results /path/to/results
-toolwright stats --budget 5.00
-```
-
-Aggregates `meta.json` and `session.jsonl` artifacts by run, agent, model, and tool. `--budget`
-exits 1 when the recorded total exceeds the ceiling. See [`docs/cost-optimization/observability.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cost-optimization/observability.md).
-
-## `toolwright usage`
-
-```bash
-# Record a session captured with a provider's JSON output.
-toolwright usage record --task "fix login redirect" --session session.jsonl \
-  --agent coordinator --model provider/model --verify "npm test -- login"
-
-# Run a wrapper command and record it automatically.
-toolwright usage record --task "fix login redirect" --verify "npm test -- login" \
-  -- opencode run --format json "Fix the login redirect"
-
-toolwright usage report
-toolwright usage report --json
-toolwright usage prune --older-than-days 30 --apply --yes
-```
-
-The wrapped command must emit JSONL, for example with `--format json`; the recorder rejects output with no parseable JSON object. It writes `meta.json` and `session.jsonl` under `.toolwright/usage/<run-id>/` and reuses the
-same artifact schema as benchmark runs. It is local, has no telemetry, and is gitignored by default.
-`report` groups by task, agent, and model and shows runs, verified runs, cost, tokens, and rework. On Windows, the wrapper does not have POSIX process-group cleanup, so a command that spawns background children may leave them running; prefer `--session` capture or a wrapper that terminates its own children.
 
 ## `toolwright eval`
 
@@ -195,16 +161,6 @@ toolwright eval --json
 Runs deterministic checks for profiles, catalog, governance, and the validator. No model calls.
 See [`docs/evals/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/evals/README.md).
 
-## `toolwright pilot`
-
-```bash
-toolwright pilot list
-toolwright pilot run hono --dry-run
-OPENCODE_PILOT_MODEL=provider/model toolwright pilot run hono --prompt "..." --verify "npm test" --workspace /tmp/pilot
-```
-
-Clones a pinned repository into a disposable workspace, installs the profile, runs one prompt, and
-records verification, cost, and tokens. See [`docs/pilots/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/README.md).
 
 ## `toolwright doctor`
 

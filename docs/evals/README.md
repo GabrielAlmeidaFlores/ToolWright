@@ -2,7 +2,7 @@
 
 > **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally; CI runs `toolwright eval`
 
-`toolwright eval` runs repository invariants that must hold without a model. It is a regression net for the profile itself, not a model benchmark.
+`toolwright eval` runs repository invariants that must hold without a model. It is a regression net for the profile itself, not a model evaluation.
 
 ## Cases
 
@@ -34,7 +34,7 @@ Exit code 0 means every selected case passed; 1 means at least one failed; 2 mea
 
 ## Why no live model
 
-Live model evaluation requires a credential, a budget, and a stable fixture repository. It is deliberately excluded from the default suite and from CI. The three real-repository pilots provide the manual evidence path; see [`docs/pilots/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/README.md).
+Live model evaluation requires a credential, a budget, and a stable fixture repository. It is deliberately excluded from the default suite and from CI. Run it manually against a disposable checkout when you have budget approval.
 
 ## Relationship to `toolwright verify`
 
@@ -47,5 +47,4 @@ They are complementary: a project can pass its tests while the shipped catalog o
 
 - [`docs/verification/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md)
 - [`docs/catalog/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/catalog/README.md)
-- [`docs/pilots/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/README.md)
 - [`tests/evals/cases.json`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/tests/evals/cases.json)

@@ -12,7 +12,6 @@ from .constants import KEY_CONTRACTS as COMMAND_CONTRACTS
 from .constants import KEY_JSON as FORMAT_JSON
 from .constants import KEY_LIST as COMMAND_LIST
 from .constants import KEY_MARKDOWN as FORMAT_MARKDOWN
-from .constants import KEY_PILOT as COMMAND_PILOT
 from .constants import KEY_VERIFY as COMMAND_VERIFY
 from .constants import KEY_WORKTREE as COMMAND_WORKTREE
 from .constants import OPERATION_INSTALL as COMMAND_INSTALL

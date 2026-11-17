@@ -34,11 +34,11 @@ test:
 	python3 -m unittest discover -s tests -t . -v
 
 lint:
-	@for file in scripts/installation/*.sh scripts/maintenance/*.sh scripts/validation/*.sh scripts/benchmarking/*.sh benchmarks/harness/*.sh skills/*/*.sh; do \
+	@for file in scripts/installation/*.sh scripts/maintenance/*.sh scripts/validation/*.sh  skills/*/*.sh; do \
 		bash -n "$$file" || exit 1; \
 	done
 	@if command -v shellcheck >/dev/null 2>&1; then \
-		shellcheck scripts/*/*.sh benchmarks/harness/*.sh skills/*/*.sh; \
+		shellcheck scripts/*/*.sh skills/*/*.sh; \
 	else \
 		echo "shellcheck not installed; skipping"; \
 	fi

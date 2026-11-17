@@ -1,6 +1,6 @@
 # TypeScript Example
 
-A minimal repository used by the benchmark tasks. It contains deliberate weaknesses for the tasks to fix:
+A minimal repository fixture used by repository tests. It contains deliberate weaknesses for the tasks to fix:
 
 - duplicated pricing logic
 - an N+1 order loader

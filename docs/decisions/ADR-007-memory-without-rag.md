@@ -70,5 +70,4 @@ The table below describes Mitigations. It has 5 rows and 2 columns: Risk and Mit
 ## References
 
 - [`docs/decisions/ADR-005-cli-stack.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/decisions/ADR-005-cli-stack.md)
-- [`docs/cost-optimization/observability.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cost-optimization/observability.md)
 - https://github.com/mikeyobrien/ralph-orchestrator

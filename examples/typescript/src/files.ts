@@ -8,7 +8,7 @@ export const BASE_DIR = "/srv/user-files";
  *
  * @param name - User-supplied file name.
  * @returns The joined path.
- * @remarks Intentionally vulnerable to path traversal to support the security benchmark task.
+ * @remarks Intentionally vulnerable to path traversal to support the security test case.
  */
 export function resolveUserFile(name: string): string {
   return join(BASE_DIR, name);

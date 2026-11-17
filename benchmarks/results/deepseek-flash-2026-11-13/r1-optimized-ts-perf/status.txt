@@ -1,4 +1,0 @@
- M examples/typescript/AGENTS.md
- M examples/typescript/README.md
- M examples/typescript/src/app.test.ts
- M examples/typescript/src/repository.ts

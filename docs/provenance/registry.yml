@@ -384,20 +384,6 @@ hats:
     modified: "minimal adaptation for OpenCode/Ralph format; see file header"
 
 original_artifacts:
-  - id: benchmark-harness
-    local: "benchmarks/harness/run.sh, benchmarks/tasks/*.json, benchmarks/real/hono/tasks/*.json"
-    kind: "fixture"
-    justification: "Project-specific measurement harness and fixtures, including the Hono real-repository tasks; no maintained upstream provides these exact task wrappers. Not reusable agents or skills."
-  - id: benchmark-scoped-router
-    local: "benchmarks/agents/scoped-router.md"
-    kind: "fixture"
-    author: "Seth Hobson (upstream coordinator); ToolWright contributors (scoped adaptation)"
-    author_url: "https://github.com/wshobson"
-    source: "https://github.com/wshobson/agents"
-    upstream_path: "plugins/agent-teams/agents/team-lead.md"
-    upstream_commit: "9c61ab243def98f72da12abd41cfcf5bcd91af9d"
-    license: "MIT"
-    justification: "Benchmark-only variant of the coordinator that edits a single known file directly and delegates multi-file work. It is never installed by a profile and is not presented as a reusable production agent."
   - id: installation-and-validation
     local: "scripts/**, .github/workflows/**"
     kind: "glue"
@@ -405,7 +391,7 @@ original_artifacts:
   - id: examples
     local: "examples/typescript/**, examples/csharp/**"
     kind: "fixture"
-    justification: "Minimal fixtures used by the benchmark tasks; they contain deliberate defects. Not presented as reusable agents or skills."
+    justification: "Minimal fixtures with deliberate defects used by repository tests and component examples. Not presented as reusable agents or skills."
   - id: opencode-config
     local: "configs/opencode/**"
     kind: "configuration-composition"
@@ -420,11 +406,6 @@ original_artifacts:
     kind: "glue"
     author: "ToolWright contributors"
     justification: "Isolated runner required because Ralph 2.10.1 auto-commits during landing; keeps the main checkout untouched and exports an unstaged patch."
-  - id: cost-report
-    local: "scripts/benchmarking/report_costs.py"
-    kind: "glue"
-    author: "ToolWright contributors"
-    justification: "Aggregates harness session artifacts into a Markdown cost report; no upstream equivalent."
   - id: repository-tests
     local: "tests/**, VERSION, Makefile"
     kind: "fixture"
@@ -450,11 +431,6 @@ original_artifacts:
     kind: "glue"
     author: "ToolWright contributors"
     justification: "Markdown memory store and spec-workflow validator. The partition model follows operator-memory (BSD-3-Clause) and the SDD phase model follows nerv (Apache-2.0). No upstream code was copied; the implementation and templates are original."
-  - id: observability-evals-pilots
-    local: "packages/toolwright_cli/toolwright_cli/stats.py, packages/toolwright_cli/toolwright_cli/eval.py, packages/toolwright_cli/toolwright_cli/pilot.py, configs/pilots/pilots.toml"
-    kind: "glue"
-    author: "ToolWright contributors"
-    justification: "Local reporting, deterministic evaluation, and isolated pilot runner. Reporting categories follow agenttrace (MIT); worktree isolation follows vibe-kanban (Apache-2.0). No upstream code was copied; the implementation is original Python."
   - id: task-board-and-plugin
     local: "packages/toolwright_cli/toolwright_cli/board.py, configs/opencode/plugins/toolwright-memory.js, .toolwright/board/**"
     kind: "glue"

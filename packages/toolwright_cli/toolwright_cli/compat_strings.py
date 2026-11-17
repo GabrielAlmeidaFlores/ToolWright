@@ -44,7 +44,7 @@ TEXT_COMMAND_FILES_AND_AGENT_TARGETS_ARE_SUPPORTED_BY_BOTH = 'Command files and 
 
 TEXT_COMPACTION_CONTROLS = 'Compaction controls'
 
-TEXT_COMPATIBILITY_MATRIX_ONLY_IT_RECORDS_SUPPORTED_FEATURES_NOT_ = 'Compatibility matrix only; it records supported features, not performance or benchmark results.'
+TEXT_COMPATIBILITY_MATRIX_ONLY_IT_RECORDS_SUPPORTED_FEATURES_NOT_ = 'Compatibility matrix only; it records supported features, not performance or quality results.'
 
 TEXT_COST_STATISTICS_JSON = 'Cost statistics JSON'
 

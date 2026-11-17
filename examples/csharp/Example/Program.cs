@@ -42,7 +42,7 @@ public static class FileResolver
     /// <param name="baseDirectory">Directory containing user files.</param>
     /// <param name="name">User-supplied file name.</param>
     /// <returns>The combined path.</returns>
-    /// <remarks>Intentionally vulnerable to path traversal to support the security benchmark task.</remarks>
+    /// <remarks>Intentionally vulnerable to path traversal to support the security test case.</remarks>
     public static string Resolve(string baseDirectory, string name)
         => Path.Combine(baseDirectory, name);
 }

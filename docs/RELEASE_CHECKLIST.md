@@ -57,11 +57,9 @@ Use this checklist before tagging a release. A checked item must have reproducib
 - [ ] Governance limits and risk gates match the documented defaults.
 - [ ] Ralph `code-assist` finalizer references `toolwright verify`.
 
-## Stats, evals, and pilots
+## Evals
 
-- [ ] `toolwright stats` and `toolwright eval` pass.
-- [ ] Pilot dry-run works for all three repositories.
-- [ ] No pilot result is published without correctness and rework data.
+- [ ] `toolwright eval` passes.
 - [ ] Reporting artifacts contain no credentials.
 
 ## Memory and specs
@@ -89,15 +87,12 @@ Use this checklist before tagging a release. A checked item must have reproducib
 - [x] GitHub Actions is green on Linux (run 43277080347).
 - [x] ShellCheck passes on Linux.
 - [x] The OpenCode profile job discovers all twelve agents.
-- [x] Harness dry-runs pass for every task.
 
 ## Evidence
 
-- [ ] Benchmark results exist, or the README explicitly marks benchmarks as deferred.
-- [ ] Any cost or token claim links to a committed result.
-- [ ] Real-repository pilots are complete, or the README marks them as pending.
+- [ ] Any capability claim links to a command, test, or committed evidence.
 - [ ] Known limitations and unsupported cases are documented.
-- [ ] No vendor benchmark is presented as an independent result.
+- [ ] No vendor performance claim is presented as an independent result.
 
 ## Task board and plugin
 

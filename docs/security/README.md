@@ -66,7 +66,7 @@ The repository is MIT. Third-party artifacts keep their licenses; see [`THIRD_PA
 
 ## Scope
 
-In scope: this repository's scripts, CLI, configuration, agent and skill content, catalog, memory, and pilot runner.
+In scope: this repository's scripts, CLI, configuration, agent and skill content, catalog, and memory.
 
 Out of scope: the security of third-party agents, MCP servers, model providers, and OpenCode itself. Report those upstream.
 

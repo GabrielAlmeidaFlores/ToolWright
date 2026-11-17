@@ -2,7 +2,7 @@
 
 > **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
 
-Ralph Orchestrator is the primary orchestration framework. It owns the loop, retries, completion, gates, and persistent state. OpenCode remains the model and tool runtime.
+Ralph Orchestrator is an optional orchestration framework. When enabled, it owns the loop, retries, completion, gates, and persistent state. OpenCode remains the model and tool runtime.
 
 - Repository: https://github.com/mikeyobrien/ralph-orchestrator
 - Version used: 2.10.1
@@ -112,11 +112,6 @@ This is narrow: it does not allow arbitrary external paths. Destructive commands
 The `code-assist` collection sets `event_loop.required_events: ["review.passed"]`. Completion is gated on an approved review. The `critic` can reject with `review.rejected`; the `finalizer` checks acceptance criteria before emitting `LOOP_COMPLETE`.
 
 For deterministic gates, record the exact commands in [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md). Do not gate on prose.
-
-## Verified workflows
-
-- `research` completed in **2 iterations** with `RESEARCH_COMPLETE` in the test project.
-- `code-assist` is a longer multi-wave workflow. In the same test project it required more than 8 iterations for a small change; raise `--max-iterations` for real features, or use `research`/`review` for smaller scopes.
 
 ## Git safety
 

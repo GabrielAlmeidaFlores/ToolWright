@@ -1,6 +1,6 @@
 # Release Process
 
-> **Status:** Stable · **Last verified:** 2026-11-13 · **Evidence:** workflow and version check verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** workflow and version check verified locally
 
 ## Version sources
 
@@ -36,20 +36,6 @@ git push origin "v$(cat VERSION)"
 4. Creates a GitHub release with the wheel and checksum file.
 
 The workflow never stages or commits. It only publishes artifacts for the tag.
-
-## Release history
-
-The table below describes Release history. It has 7 rows and 4 columns: Version, Date, Assets, and Verification. Each row is one version, and the other columns record Date, Assets, and Verification. Read it to compare rows or to find a specific version.
-|---|---|---|---|
-| `v0.1.0` | 2026-11-12 | `ote_cli-0.1.0-py3-none-any.whl`, `SHA256SUMS` | Checksum verified; wheel installed in a clean venv and reports `0.1.0` |
-| `v0.1.1` | 2026-11-12 | `ote_cli-0.1.1-py3-none-any.whl`, `SHA256SUMS` | Checksum verified |
-| `v0.1.2` | 2026-11-12 | `ote_cli-0.1.2-py3-none-any.whl`, `SHA256SUMS` | Checksum verified |
-| `v0.2.0` | 2026-11-13 | `toolwright_cli-0.2.0-py3-none-any.whl`, `SHA256SUMS` | Checksum verified; released from commit `f978b46` |
-| `v0.3.0` | 2026-11-13 | `toolwright_cli-0.3.0-py3-none-any.whl`, `SHA256SUMS` | Checksum verified; wheel reports `0.3.0`; Codex adapter generated from the installed wheel; released from commit `5088ccf` |
-| `v0.3.1` | 2026-11-13 | `toolwright_cli-0.3.1-py3-none-any.whl`, `SHA256SUMS` | Checksum verified; wheel reports `0.3.1`; Copilot and Codex install followed by uninstall left no managed files or lock entries; released from commit `41b514e` |
-| `v0.4.0` | 2026-11-13 | `toolwright_cli-0.4.0-py3-none-any.whl`, `SHA256SUMS` | Checksum verified; wheel reports `0.4.0`; installed wheel generated `sandbox_mode = "read-only"` for the Codex planner and omitted it for the backend developer; released from commit `a7983f8` |
-
-Releases up to `v0.1.2` used the historical `ote-cli` package and `ote` command. `v0.2.0` is the first ToolWright-named release. `v0.3.0` is the first release with Claude, Copilot, and Codex adapters. `v0.3.1` fixes adapter uninstall for shared generated paths. `v0.4.0` adds Codex read-only sandbox enforcement and the optional adapter discovery check.
 
 ## Verify a release
 

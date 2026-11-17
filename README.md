@@ -1,978 +1,227 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.svg">
-    <img src="assets/logo.svg" alt="ToolWright" width="540">
-  </picture>
-</p>
-
-<h1 align="center">ToolWright</h1>
-
-<p align="center">
-  <strong>Build software with a team of specialized AI agents — on the platform you already use.</strong>
-</p>
-
-<p align="center">
-  A provider-neutral core for planning, implementation, review, and verification, with adapters for OpenCode, GitHub Copilot, Claude, and GPT.
-</p>
+# ToolWright
 
 <p align="center">
   <img alt="CI green" src="https://img.shields.io/badge/CI-green-22C55E?style=flat-square">
-  <img alt="340 tests" src="https://img.shields.io/badge/tests-340-4F46E5?style=flat-square">
+  <img alt="287 tests" src="https://img.shields.io/badge/tests-287-4F46E5?style=flat-square">
   <img alt="12 agents" src="https://img.shields.io/badge/agents-12-06B6D4?style=flat-square">
   <img alt="10 skills" src="https://img.shields.io/badge/skills-10-D97757?style=flat-square">
   <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0F172A?style=flat-square">
 </p>
 
-<p align="center">
-  <a href="#what-is-toolwright">What it is</a> ·
-  <a href="#how-it-works">How it works</a> ·
-  <a href="#quick-start">Quick start</a> ·
-  <a href="#daily-workflows">Workflows</a> ·
-  <a href="#evidence-status">Evidence</a> ·
-  <a href="#documentation-index">Docs</a> ·
-  <a href="#troubleshooting">Troubleshooting</a>
-</p>
+**A repeatable, safe, provider-neutral development environment for AI coding agents.**
 
----
+ToolWright does not make the model cheaper or smarter. It makes the workflow around the model consistent, verifiable, and portable across repositories and clients.
 
-> [!TIP]
-> **New here?** Read [What ToolWright is](#what-is-toolwright) and [How it works](#how-it-works), then follow the [Quick start](#quick-start). The short version: you get a coordinator that plans and delegates, specialists that do focused work, and deterministic checks that prove the result.
+## What it is
 
-## What is ToolWright?
+ToolWright installs and maintains the files an AI coding client needs:
 
-ToolWright is a **multi-agent development toolkit**. Instead of asking one general-purpose coding agent to do everything, it gives you a small team with clear roles:
+- specialized agents with least-privilege permissions
+- reusable commands and skills
+- project instructions and memory
+- deterministic verification gates
+- optional code-intelligence tools
+- native adapters for OpenCode, Claude Code, GitHub Copilot, and OpenAI Codex
+- a lock file, update path, uninstall path, and backups
 
-- a **coordinator** that plans, delegates, and verifies;
-- **specialists** for research, architecture, backend, frontend, databases, review, testing, security, performance, and documentation;
-- **skills** and **commands** that encode proven workflows;
-- **quality gates** that use tests, linters, and independent review instead of model claims;
-- **platform adapters** that map the same core roles onto OpenCode, Claude Code, GitHub Copilot, or ChatGPT/Codex.
+The core is plain Markdown and configuration. OpenCode is the reference adapter, but it is optional.
 
-The core is plain Markdown and configuration. It is not tied to one vendor, and **OpenCode is optional**.
+## What it is not
 
-### The idea in one sentence
-
-> Spend model tokens on judgment and implementation — not on re-discovering the same code, repeating the same plan, or trusting unverified claims.
-
-### Glossary
-
-The terms below are used throughout this README. It has 6 rows and 2 columns: Term and What it means here. Each row is one term, and the other column records What it means here. Read it to compare rows or to find a specific term.
-
-| Term | What it means here |
-|---|---|
-| **Agent** | A role with a system prompt, responsibilities, and tool permissions. |
-| **Subagent** | A specialist launched by the coordinator in a separate context. |
-| **Adapter** | A mapping from the provider-neutral core to one platform's file format. |
-| **Orchestrator** | A loop that runs multiple steps and gates, such as Ralph. |
-| **Quality gate** | A deterministic check that must pass before work is considered done. |
-| **Deterministic tool** | A tool that produces a repeatable result without an LLM call: tests, linters, type checkers, `ripgrep`, `ast-grep`. |
-
-## Why it exists
-
-A default coding agent is convenient, but on a real repository it tends to:
-
-- re-read the same files and repeat the same investigation;
-- edit before it understands the architecture;
-- produce a large diff without independent review;
-- claim success without running the relevant checks;
-- consume context on tool output instead of the actual task.
-
-ToolWright changes the operating model. It has 5 rows and 2 columns: Without a structured team and With ToolWright. Each row is one comparison, and the other column records With ToolWright. Read it to compare rows or to find a specific comparison.
-
-| Without a structured team | With ToolWright |
-|---|---|
-| One agent tries to plan, edit, and review | Coordinator plans and delegates; specialists own one job each |
-| Context fills with search results and logs | Targeted retrieval, bounded memory, and output caps |
-| “Looks good” is the finish line | Tests, review, and evidence are the finish line |
-| Every task starts from zero | Skills, commands, specs, and memory carry reusable knowledge |
-| The workflow is tied to one IDE | The core maps to four platforms through adapters |
-
-The goal is not the smallest prompt. The goal is the **lowest total cost for a correct result**.
-
-## How it works
-
-The diagram below follows one request from start to finish. It shows where your task enters, how the adapter hands it to the coordinator, which specialist groups do the work, and where the quality gates decide whether the result is ready. Read it from top to bottom: each arrow is a handoff, and each diamond is a decision that can send work back. The point is that no single agent owns the whole task.
-
-```mermaid
-%%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, system-ui, sans-serif","lineColor":"#06B6D4","edgeLabelBackground":"#E2E8F0"}}}%%
-flowchart TB
-    U([Your task or question]) --> A[Platform adapter<br/>OpenCode · Claude · Copilot · Codex]
-    A --> C{{Coordinator<br/>plans · delegates · verifies}}
-
-    C --> P[Planner]
-    C --> R[Researcher]
-    C --> DEV[Developer specialists]
-    C --> V[Review & test specialists]
-    C -. loads .-> K[(Skills · commands · memory)]
-
-    DEV --> Q{Quality gates}
-    V --> Q
-    Q -->|pass| DONE([Reviewed, unstaged change])
-
-    classDef human fill:#FEF3C7,fill-opacity:0.9,stroke:#F59E0B,stroke-width:3px,color:#78350F
-    classDef adapter fill:#CFFAFE,fill-opacity:0.9,stroke:#06B6D4,stroke-width:3px,color:#164E63
-    classDef coord fill:#EDE9FE,fill-opacity:0.9,stroke:#8B5CF6,stroke-width:3px,color:#4C1D95
-    classDef agent fill:#E0E7FF,fill-opacity:0.9,stroke:#6366F1,stroke-width:2.5px,color:#312E81
-    classDef resource fill:#DCFCE7,fill-opacity:0.9,stroke:#22C55E,stroke-width:2.5px,color:#14532D
-    classDef gate fill:#FCE7F3,fill-opacity:0.9,stroke:#EC4899,stroke-width:3px,color:#831843
-    classDef done fill:#ECFCCB,fill-opacity:0.9,stroke:#84CC16,stroke-width:3px,color:#365314
-    class U human
-    class A adapter
-    class C coord
-    class P,R,DEV,V agent
-    class K resource
-    class Q gate
-    class DONE done
-    linkStyle default stroke:#06B6D4,stroke-width:1.5px
-```
-
-Every diagram uses the same glass-neon pattern: a light translucent fill, a bright neon outline, and a dark readable label. The colors keep the same meaning everywhere. It has 6 rows and 2 columns: Colour and Meaning. Each row is one colour, and the other column records Meaning. Read it to compare rows or to find a specific colour.
-
-| Colour | Meaning |
-|---|---|
-| **Amber** | Your input, a start point, or a proposed change |
-| **Cyan** | Platform adapter, flow, or a normal step |
-| **Violet** | Coordinator or orchestration layer |
-| **Indigo** | Specialist agents and builders |
-| **Green** | Resources, verification, and a ready result |
-| **Magenta** | Decisions and quality gates |
-
-1. **Choose an adapter.** The same roles install as native files for your platform.
-2. **The coordinator takes the request.** It clarifies the outcome, picks the smallest capable specialist, and never edits files itself.
-3. **Specialists do focused work.** They follow the repository rules, use targeted retrieval, and return evidence.
-4. **Quality gates decide when work is done.** Tests, review, and security checks run before you see a change.
-5. **You commit.** Agents leave changes unstaged; the human makes the final decision.
-
-> [!NOTE]
-> The OpenCode adapter is fully verified in CI. Claude Code, GitHub Copilot, and ChatGPT/Codex adapters are installer-generated. Their install, update, and uninstall paths are validated on a real repository; Copilot CLI and Codex CLI discovery checks passed, while Claude Code runtime discovery remains unverified. See [Platform compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md) and the [adapter validation record](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/adapter-validation.md).
-
-## Platform compatibility
-
-The table below shows what is verified, what is installer-generated, and where to start on each platform. It has 4 rows and 4 columns: Platform, Support level, What ToolWright installs, and Best entry point. Each row is one platform, and the other columns record Support level, What ToolWright installs, and Best entry point. Read it to compare rows or to find a specific platform.
-
-| Platform | Support level | What ToolWright installs | Best entry point |
-|---|---|---|---|
-| **OpenCode 2.2.x** | Native adapter, CI-verified | Agents, commands, skills, MCP, Ralph | [OpenCode adapter](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/opencode.md) |
-| **GitHub Copilot** | Installer-generated adapter | Repository instructions, path instructions, skills, prompts, [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) | [Copilot guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md) |
-| **Claude Code** | Installer-generated adapter | `CLAUDE.md`, `.claude/agents/`, commands, skills | [Claude guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md) |
-| **ChatGPT / Codex** | Installer-generated adapter | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md), `.codex/agents/*.toml`, ChatGPT instructions | [GPT/Codex guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md) |
-
-The reusable content is the same everywhere. Only the adapter files and permission model change.
+- It is not a model provider and does not include credentials.
+- It is not a cost-optimization guarantee.
+- It is not a model-routing or performance guarantee.
+- It is not a global configuration manager. Setup is project-local by design.
 
 ## What you get
 
-The chart below shows the reusable artifact mix in the repository. It is a composition overview, not a performance metric: each slice counts files of one kind, and the labels report the totals. Read it to see how much of the toolkit is reusable across platforms versus adapter-specific. It does not imply that more artifacts are better.
+- **Agents:** a coordinator and eleven specialists with explicit permissions.
+- **Commands:** repeatable entry points such as `/implement`, `/review`, `/debug`, and `/security`.
+- **Skills:** sourced workflows for planning, TDD, debugging, review, API design, migrations, authentication, and changelogs.
+- **Memory:** project decisions, constraints, conventions, and failures in bounded Markdown.
+- **Verification:** tests, lint, typecheck, scope checks, and a single acceptance command per task.
+- **Code intelligence:** ripgrep, ast-grep, Serena, and optional CodeGraph.
+- **Lifecycle:** plan, install, update, uninstall, backup, and rollback through `toolwright`.
+- **Ralph:** optional orchestration loops, isolated from the main checkout.
 
-```mermaid
-%%{init: {"theme":"base","themeVariables":{"pie1":"#67E8F9","pie2":"#C4B5FD","pie3":"#F9A8D4","pie4":"#BEF264","pieTitleTextSize":"18px","pieTitleTextColor":"#64748B","pieSectionTextColor":"#0F172A","pieStrokeColor":"#FFFFFF","pieOuterStrokeColor":"#06B6D4","pieLegendTextColor":"#64748B"}}}%%
-pie showData
-    title Artifact portfolio
-    "Agents" : 12
-    "Skills" : 10
-    "Commands" : 8
-    "Ralph hat collections" : 4
-```
+## Prerequisites
 
-*Artifact counts, not a performance claim.* It has 12 rows and 3 columns: Area, What it gives you, and Start here. Each row is one area, and the other columns record What it gives you and Start here. Read it to compare rows or to find a specific area.
-
-| Area | What it gives you | Start here |
-|---|---|---|
-| **Agent team** | 1 coordinator + 11 specialists with least-privilege permissions | [`agents/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/agents) |
-| **Skills** | 10 sourced workflows with references and assets | [`skills/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/skills) |
-| **Commands** | 8 repeatable entry points for common tasks | [`commands/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/commands) |
-| **Orchestration** | Optional Ralph loops with research, code, review, and debug hats | [`configs/ralph/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/configs/ralph) |
-| **Code intelligence** | ripgrep, ast-grep, Serena, CodeGraph | [`docs/code-intelligence/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/code-intelligence) |
-| **Verification** | Deterministic checks with cache and failure classes | [`docs/verification/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/verification) |
-| **Governance** | Contracts, budgets, loop detection, risk gates | [`docs/governance/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/governance) |
-| **Memory and specs** | Durable decisions, constraints, conventions, and task contracts | [`docs/memory/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/memory), [`docs/specs/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/specs) |
-| **Cost visibility** | Token, cost, and tool-failure reporting | [`docs/cost-optimization/observability.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cost-optimization/observability.md) |
-| **Pilots and benchmarks** | Isolated real-repository runs and a reproducible harness | [`docs/pilots/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/pilots), [`benchmarks/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks) |
-| **CLI** | Install, diagnose, update, roll back, verify, govern, and inspect | [`packages/toolwright_cli`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/packages/toolwright_cli) |
-| **Task board** | Optional Markdown board with a WIP limit and worktrees | [`.toolwright/board/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/board/README.md) |
-
-## Quick start
-
-### 1. Check the basics
-
-You need:
-
-- macOS or Linux. Windows works best through WSL or Git Bash.
+- macOS or Linux. Windows is not yet validated for the full workflow.
 - `git`, Node.js 20 or newer, Python 3.11 or newer, and `ripgrep`.
-- A credential for the platform you choose. **OpenCode is not required.**
+- A supported AI client and its credentials.
+- For the reference adapter: OpenCode 2.2.x.
 
-Run the following commands to clone the repository and inspect what the installer would do. Nothing is written yet.
+## One-time setup per project
 
-```bash
-git clone https://github.com/GabrielAlmeidaFlores/ToolWright.git
-cd ToolWright
-
-./scripts/installation/install.sh --check
-./scripts/installation/install.sh --dry-run --all
-```
-
-The installer is safe by default: it checks first, prints every action, and never edits your global configuration.
-
-### 2. Choose an adapter
-
-**OpenCode — reference adapter, fully verified**
-
-The following command applies the OpenCode adapter and its supporting agents, commands, skills, and Ralph configuration.
+Install the CLI once on the machine:
 
 ```bash
-./scripts/installation/install.sh --apply --only opencode,agents,commands,skills,ralph
+export TOOLWRIGHT_REPO=/path/to/ToolWright
+uv tool install "$TOOLWRIGHT_REPO/packages/toolwright_cli"
 ```
 
-Or use the CLI, which plans first, writes a lock file, and supports rollback. The following commands install into a target project:
+Then run the setup once in each project folder. The generated files are read when the client opens that folder, so you do not repeat setup per session.
 
 ```bash
-uv tool install ./packages/toolwright_cli
-toolwright install --profile minimal --target /path/to/project --dry-run
-toolwright install --profile minimal --target /path/to/project --apply
+cd /path/to/project
+
+# OpenCode: configuration, agents, commands, skills, Ralph, memory plugin, and tools
+"$TOOLWRIGHT_REPO/scripts/installation/install.sh" --apply --all --target .
+touch .toolwright/memory/plugin.enabled
+if command -v codegraph >/dev/null; then codegraph init; fi
+
+# Claude Code
+toolwright install --platform claude  --profile minimal --target . --apply
+
+# GitHub Copilot
+toolwright install --platform copilot --profile minimal --target . --apply
+
+# OpenAI Codex
+toolwright install --platform codex   --profile minimal --target . --apply
 ```
 
-This writes `.opencode/`, `.ralph/`, and `toolwright.lock.json` into the target project.
+The `TOOLWRIGHT_REPO` export tells the installed CLI where the source artifacts live. Set it in your shell profile if you use the CLI across projects.
 
-**Claude Code, GitHub Copilot, or ChatGPT / Codex**
+The generated files differ by client:
 
-Select the platform adapter explicitly:
+- OpenCode uses `.opencode/`, `.ralph/`, and the memory plugin.
+- Claude Code uses `CLAUDE.md`, `.claude/agents/`, `.claude/commands/`, and `.claude/skills/`.
+- GitHub Copilot uses `.github/copilot-instructions.md`, `.github/instructions/`, `.github/prompts/`, `.github/skills/`, and `AGENTS.md`.
+- Codex uses `AGENTS.md` and `.codex/agents/*.toml`.
+
+Commit `toolwright.lock.json` with the project so updates and removals remain safe.
+
+### Setup limits
+
+ToolWright configures MCP servers for OpenCode. It does not currently generate MCP configuration for Claude Code, Copilot, or Codex. Those clients need native MCP configuration if you want Serena or CodeGraph there.
+
+The setup is project-local. Global client configuration is not modified, and model credentials are never stored.
+
+## Daily use
+
+1. Open the project in your AI client.
+2. Start with the coordinator or a specialist, depending on the task.
+3. Ask for a plan before multi-file work.
+4. Use a command such as `/implement`, `/review`, or `/debug` when it fits.
+5. Run the acceptance command before accepting the result.
+6. Record durable findings in project memory.
+7. Leave commits to the human unless you explicitly request one.
+
+The repository’s operating rules are in [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md).
+
+## Memory
+
+Memory is plain Markdown under `.toolwright/memory/`:
+
+```text
+.toolwright/memory/
+├── project/   tracked decisions, constraints, conventions
+├── shared/    tracked published knowledge
+├── user/      local preferences
+└── catalog.md generated index
+```
+
+Use it when a decision or failure should not be rediscovered:
 
 ```bash
-toolwright install --platform claude  --profile minimal --target /path/to/project --apply
-toolwright install --platform copilot --profile minimal --target /path/to/project --apply
-toolwright install --platform codex   --profile minimal --target /path/to/project --apply
+toolwright memory add "Set-Cookie merge keeps the old cookie and drops the new one" \
+  --type constraint --source src/context.ts
+toolwright memory search set-cookie
+toolwright memory preamble --budget 1500
 ```
 
-These adapters write native files and track them in `toolwright.lock.json`. Update with the same
-command and remove with `toolwright uninstall --target /path/to/project --apply --yes`.
+The generated instructions tell Claude, Copilot, and Codex to read the memory catalog. The OpenCode memory plugin injects the bounded preamble automatically after `.toolwright/memory/plugin.enabled` exists.
 
-- [Claude Code](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md)
-- [GitHub Copilot](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md)
-- [OpenAI GPT and Codex](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md)
-- [Adapter validation record](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/adapter-validation.md)
+See the [memory guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/memory/README.md).
 
-> [!IMPORTANT]
-> Installation is verified for every adapter. Runtime discovery is verified for Copilot CLI and Codex [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md); Claude Code runtime discovery is unverified. Do not claim support beyond the checks recorded in the validation document.
+## Verification
 
-### 3. Add code intelligence
-
-Install the deterministic retrieval tools with the following command. The full profile uses ast-grep and Serena; CodeGraph is indexed per project after installation.
+Verification is the core of the workflow. Every task should end with a deterministic command:
 
 ```bash
-./scripts/installation/install.sh --apply --only ast-grep,serena
+toolwright verify
+make ci
 ```
 
-Serena and ast-grep are installed by the script. CodeGraph uses its upstream installer and indexes each project with `codegraph init`. Optional Repomix and jCodeMunch servers are configured but disabled by default.
+The repository uses tests, lint, docs checks, catalog drift checks, and a clean Git diff. The same pattern applies to a user project: one acceptance command per task, recorded with the result.
 
-### 4. Verify the installation
+See [verification](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md) and [governance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/governance/README.md).
 
-Run these commands inside the OpenCode adapter to verify that it discovered the configuration, agents, and MCP servers:
+## Code intelligence
 
-```bash
-opencode --version
-opencode debug agents
-opencode mcp list
-```
+Start with the smallest useful set:
 
-Run the repository-level checks regardless of which adapter you use:
+- **ripgrep** for exact search.
+- **LSP or Serena** for symbols, definitions, and references.
+- **ast-grep** for structural search and codemods.
+- **CodeGraph** only when dependency questions dominate.
 
-```bash
-./scripts/validation/validate.sh
-make test
-toolwright doctor
-```
+Do not enable every MCP server by default. Each server adds schema and context overhead.
 
-For OpenCode, expect version 2.2.x, the `coordinator`, and eleven specialists. After installing Serena and CodeGraph, `opencode mcp list` should show both connected.
+See [code intelligence](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/README.md).
 
-### 5. Run your first task
+## Ralph orchestration (optional)
 
-The following command starts the OpenCode adapter with the coordinator and asks it to inspect the repository:
+Ralph is kept for multi-step loops with research, code-assist, review, and debug hats. Version 2.10.1 commits during landing and has no switch to disable it. Run it only in a separate disposable clone; a linked worktree shares `.git` and is not sufficient.
 
-```bash
-opencode run --agent coordinator "Summarize this repository and propose the next task"
-```
+See the [Ralph guide](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/orchestration/ralph.md).
 
-With another adapter, open the repository in that platform and invoke the generated coordinator instructions. See the platform guide for the exact file names.
+## Update and remove
 
-> [!WARNING]
-> Ralph 2.10.1 commits its own changes during landing and has no switch to disable it. Run it only in a separate disposable clone. A linked worktree shares `.git` and is not sufficient.
-
-## Install, update, and remove
-
-`toolwright` owns the files it generates through `toolwright.lock.json`. It only updates or removes files recorded in that lock, and it plans before writing unless you pass `--apply`. Start every change with a dry run.
-
-### Install agents, commands, skills, and tools
-
-Choose an adapter and a profile, inspect the plan, then apply it:
-
-```bash
-toolwright install --platform opencode --profile minimal --target /path/to/project --dry-run
-toolwright install --platform opencode --profile minimal --target /path/to/project --apply
-```
-
-The profiles are cumulative:
-
-- `minimal` installs the OpenCode configuration, agents, commands, skills, and Ralph.
-- `standard` adds ast-grep for structural search.
-- `full` adds Serena, CodeGraph, and the opt-in memory plugin.
-
-To install selected artifacts instead of a profile, pass `--only` with one or more components:
-
-```bash
-toolwright install --platform claude --target /path/to/project \
-  --only agents,commands,skills --apply
-```
-
-The component names are `opencode`, `agents`, `commands`, `skills`, `ralph`, `plugin`,
-`ast-grep`, `serena`, and `codegraph`. Not every adapter generates every component. OpenCode
-supports the full set. Claude and Copilot generate instructions, agents, commands, and skills;
-Codex generates instructions and agent TOML files.
-
-The OpenCode shell installer remains available for the reference adapter:
-
-```bash
-./scripts/installation/install.sh --apply --only opencode,agents,commands,skills,ralph
-```
-
-The installed files are recorded in `toolwright.lock.json`. Commit that lock with the project so
-every teammate can see which artifacts are managed and can update or remove them safely.
-
-### Update the installed artifacts
-
-Update the ToolWright checkout and, when the CLI code changed, reinstall the CLI. Run these commands in the ToolWright checkout, not in the target project:
-
-```bash
-git pull
-uv tool install --force ./packages/toolwright_cli
-```
-
-Check whether the target differs from the current source:
+Check for drift, then rerun the same install command with `--apply`:
 
 ```bash
 toolwright update --check --target /path/to/project
 ```
 
-Apply the update by rerunning the same install command with `--apply`:
-
-```bash
-toolwright install --platform claude --profile minimal --target /path/to/project --apply
-```
-
-An unchanged target reports `already up to date`. If you edited a managed file, the installer
-detects the difference and does not overwrite it by default. Review the diff first; use
-`--force` only when you intend to replace your edits. `--clean` backs up and replaces managed
-directories when a component needs a full refresh.
-
-### Remove the installation
-
-Preview the removal first:
+Remove the managed files with:
 
 ```bash
 toolwright uninstall --target /path/to/project --dry-run
-```
-
-Apply it only after checking the file list:
-
-```bash
 toolwright uninstall --target /path/to/project --apply --yes
 ```
 
-Modified managed files are skipped by default; `--force` removes them as well. `--purge` also
-deletes the `.toolwright` state directory and the lock. That directory contains project memory
-and the local usage ledger, so export anything you want to keep first:
+`--force` removes modified managed files. `--purge` also deletes `.toolwright/`, including project memory, so export anything you want to keep first. The full lifecycle is in the [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md).
 
-```bash
-toolwright memory export --target /path/to/project > memory-backup.md
-toolwright uninstall --target /path/to/project --apply --yes --purge
-```
+## Compatibility
 
-Uninstall removes files recorded in `toolwright.lock.json`. It does not uninstall global binaries
-such as ast-grep, Serena, or CodeGraph that were installed outside the lock; remove those with
-their own package manager. Component-level removal is not supported: uninstall removes the
-managed set, and you can reinstall the subset you want afterward.
+The table below summarizes the supported adapters and their verification state. Read the support column as an evidence label, not a guarantee of every client feature.
 
-### Remove or update code-intelligence tools
-
-The code-intelligence tools follow the same component lifecycle:
-
-```bash
-./scripts/installation/install.sh --apply --only ast-grep,serena
-codegraph init
-```
-
-Update them by rerunning the installer or your package manager, then rerun `codegraph init` if the
-project index is stale. The CLI uninstall removes generated configuration, not globally installed
-binaries. See the [code-intelligence guides](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/code-intelligence) for each tool's native removal command.
-
-The [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md) lists every install, update, uninstall, and profile flag.
-
-## Choose the right workflow
-
-The decision tree below helps you pick an entry point from the kind of work you have. Follow one branch from the question at the top; each leaf names the workflow or agent set to use. The tree is a routing aid, not a permission model, so the detailed workflow pages remain authoritative. Read it when you are unsure whether to start with planning, implementation, or review.
-
-```mermaid
-%%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, system-ui, sans-serif","lineColor":"#06B6D4","edgeLabelBackground":"#E2E8F0"}}}%%
-flowchart TD
-    S([What do you need?]) --> Q1{Understand or plan?}
-    Q1 -->|Understand the code| A1[Coordinator + code intelligence]
-    Q1 -->|Plan a change| A2[Coordinator → Planner]
-
-    S --> Q2{Build or change code?}
-    Q2 -->|Feature| B1["/implement"]
-    Q2 -->|Bug| B2["/debug"]
-    Q2 -->|Refactor| B3["/refactor"]
-    Q2 -->|Database| B4["/db"]
-
-    S --> Q3{Review or verify?}
-    Q3 -->|Code review| C1["/review"]
-    Q3 -->|Security| C2["/security"]
-    Q3 -->|Performance| C3["/perf"]
-
-    S --> Q4{Multi-step with gates?}
-    Q4 -->|Implementation| D1[Ralph code-assist]
-    Q4 -->|Research only| D2[Ralph research]
-
-    classDef start fill:#FEF3C7,fill-opacity:0.9,stroke:#F59E0B,stroke-width:3px,color:#78350F
-    classDef question fill:#FCE7F3,fill-opacity:0.9,stroke:#EC4899,stroke-width:3px,color:#831843
-    classDef action fill:#EDE9FE,fill-opacity:0.9,stroke:#8B5CF6,stroke-width:2.5px,color:#4C1D95
-    classDef command fill:#CCFBF1,fill-opacity:0.9,stroke:#14B8A6,stroke-width:2.5px,color:#134E4A
-    class S start
-    class Q1,Q2,Q3,Q4 question
-    class A1,A2,D1,D2 action
-    class B1,B2,B3,B4,C1,C2,C3 command
-    linkStyle default stroke:#06B6D4,stroke-width:1.5px
-```
-
-The detailed versions are in [Daily workflows](#daily-workflows).
-
-## Meet the agent team
-
-The diagram below is the team structure for one task. The coordinator delegates to a specialist group, and every branch returns evidence to the coordinator rather than editing outside its role. Read the labels as responsibilities, not as a reporting hierarchy: a specialist may be skipped when its expertise is not needed. The structure exists to keep context small and review independent.
-
-```mermaid
-%%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, system-ui, sans-serif","lineColor":"#06B6D4","edgeLabelBackground":"#E2E8F0"}}}%%
-flowchart LR
-    C{{Coordinator<br/>plans · delegates · verifies}}
-    C --> THINK[Think]
-    C --> BUILD[Build]
-    C --> VERIFY[Verify]
-    C --> DOC[Document]
-
-    THINK --> PL[Planner]
-    THINK --> RE[Researcher]
-    THINK --> AR[Architect]
-
-    BUILD --> BE[Backend developer]
-    BUILD --> FE[Frontend developer]
-    BUILD --> DB[Database specialist]
-
-    VERIFY --> CR[Code reviewer]
-    VERIFY --> TE[Test engineer]
-    VERIFY --> SR[Security reviewer]
-    VERIFY --> PA[Performance analyst]
-
-    DOC --> DE[Documentation engineer]
-
-    classDef coord fill:#EDE9FE,fill-opacity:0.9,stroke:#8B5CF6,stroke-width:3px,color:#4C1D95
-    classDef cat fill:#E0F2FE,fill-opacity:0.9,stroke:#0EA5E9,stroke-width:2.5px,color:#0C4A6E
-    classDef think fill:#FEF3C7,fill-opacity:0.9,stroke:#F59E0B,stroke-width:2.5px,color:#78350F
-    classDef build fill:#E0E7FF,fill-opacity:0.9,stroke:#6366F1,stroke-width:2.5px,color:#312E81
-    classDef verify fill:#DCFCE7,fill-opacity:0.9,stroke:#22C55E,stroke-width:2.5px,color:#14532D
-    classDef doc fill:#FCE7F3,fill-opacity:0.9,stroke:#EC4899,stroke-width:2.5px,color:#831843
-    class C coord
-    class THINK,BUILD,VERIFY,DOC cat
-    class PL,RE,AR think
-    class BE,FE,DB build
-    class CR,TE,SR,PA verify
-    class DE doc
-    linkStyle default stroke:#06B6D4,stroke-width:1.5px
-```
-
-The table below is the quick reference for responsibilities and edit access. It has 12 rows and 3 columns: Agent, Edits files?, and Responsibility. Each row is one agent, and the other columns record Edits files? and Responsibility. Read it to compare rows or to find a specific agent.
-
-| Agent | Edits files? | Responsibility |
+| Client | Support | Generated files |
 |---|---|---|
-| `coordinator` | No | Plans, delegates, enforces evidence, never edits |
-| `planner` | No | Ordered, verifiable tasks with acceptance criteria |
-| `researcher` | No | Repository and documentation evidence |
-| `architect` | No | Boundaries, contracts, architecture decisions |
-| `backend-developer` | Yes | Server, API, CLI, and business logic |
-| `frontend-developer` | Yes | UI, state, accessibility, visual consistency |
-| `database-specialist` | Yes | Schemas, queries, migrations, indexes |
-| `code-reviewer` | No | Independent defect and regression review |
-| `test-engineer` | Yes | Unit, integration, and end-to-end tests |
-| `security-reviewer` | No | Exploitable vulnerabilities and unsafe patterns |
-| `performance-analyst` | No | Baselines, profiles, measured regressions |
-| `documentation-engineer` | Docs only | Documentation that matches the code |
+| OpenCode 2.2.x | Verified reference adapter | `.opencode/`, `.ralph/`, memory plugin |
+| Claude Code | Installer-generated, runtime discovery partly verified | `CLAUDE.md`, `.claude/agents/`, commands, skills |
+| GitHub Copilot | Installer-generated, CLI discovery verified | `.github/copilot-instructions.md`, instructions, prompts, skills, `AGENTS.md` |
+| OpenAI Codex | Installer-generated, [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) loading verified | `AGENTS.md`, `.codex/agents/*.toml` |
 
-Read the delegation rules in [Agent roles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md).
+See [platform compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md).
 
-## A typical task, step by step
+## Evidence and limits
 
-The sequence diagram below shows the normal lifecycle of a task, including the specialist handoff, the narrow checks, the independent review, and the evidence you receive at the end. Time runs downward, and each arrow is a message or handoff between the human, the coordinator, and a specialist. The diagram is intentionally linear; real work may loop back when a gate fails. Read it to see where a human decision is required.
+The repository does not claim a cost or quality win from routing. No production default is based on such a claim.
 
-```mermaid
-%%{init: {"theme":"base","themeVariables":{"actorBkg":"#F5F3FF","actorBorder":"#8B5CF6","actorTextColor":"#4C1D95","signalColor":"#0891B2","signalTextColor":"#475569","labelBoxBkgColor":"#FDF2F8","labelBoxBorderColor":"#EC4899","labelTextColor":"#831843","loopTextColor":"#475569","noteBkgColor":"#FEF3C7","noteBorderColor":"#F59E0B","noteTextColor":"#78350F","activationBkgColor":"#CFFAFE","activationBorderColor":"#06B6D4"}}}%%
-sequenceDiagram
-    autonumber
-    actor H as You
-    participant C as Coordinator
-    participant S as Specialist
-    participant R as Independent reviewer
-    participant T as Tests and linters
+Other limits:
 
-    H->>C: Task + acceptance criteria
-    C->>C: Clarify scope, choose the smallest role
-    C->>S: Delegate with constraints and boundaries
-    S->>S: Inspect targeted code and existing patterns
-    S->>T: Run narrow checks
-    T-->>S: Pass or fail evidence
-    S-->>C: Diff + commands + results + risks
-    C->>R: Request independent review
-    R-->>C: Findings by severity
-    alt Blocking findings
-        C->>S: Fix and re-verify
-    else Ready for human review
-        C-->>H: Unstaged diff + evidence
-    end
-```
+- Windows is not yet validated for the full workflow.
+- MCP configuration is automatic only for OpenCode.
+- Client login, billing, and model selection remain outside ToolWright.
 
-You always get:
+## Documentation
 
-- the files that changed;
-- the exact commands that were run;
-- the observed result;
-- the remaining risks;
-- an unstaged diff that you decide whether to commit.
-
-## Quality gates
-
-The flowchart below shows the checks a change passes through before a human sees it. A failed gate returns the work for another attempt instead of being reported as success. Read the branches to see which failures are recoverable and which stop the change. The human still decides whether to commit; the gates only decide whether the result is ready to review.
-
-```mermaid
-%%{init: {"theme":"base","themeVariables":{"fontFamily":"Inter, system-ui, sans-serif","lineColor":"#06B6D4","edgeLabelBackground":"#E2E8F0"}}}%%
-flowchart LR
-    CHANGE([Change proposed]) --> L[Lint & typecheck]
-    L --> T[Targeted tests]
-    T --> F[Full suite]
-    F --> RV[Independent review]
-    RV --> RISK{Risky area?}
-    RISK -->|Yes| SEC[Security review]
-    RISK -->|No| EVIDENCE{Evidence complete?}
-    SEC --> EVIDENCE
-    EVIDENCE -->|Yes| HUMAN([Human reviews and commits])
-    EVIDENCE -->|No| CHANGE
-
-    classDef change fill:#FEF3C7,fill-opacity:0.9,stroke:#F59E0B,stroke-width:3px,color:#78350F
-    classDef step fill:#CFFAFE,fill-opacity:0.9,stroke:#06B6D4,stroke-width:2.5px,color:#164E63
-    classDef decision fill:#FCE7F3,fill-opacity:0.9,stroke:#EC4899,stroke-width:3px,color:#831843
-    classDef done fill:#ECFCCB,fill-opacity:0.9,stroke:#84CC16,stroke-width:3px,color:#365314
-    class CHANGE change
-    class L,T,F,RV,SEC step
-    class RISK,EVIDENCE decision
-    class HUMAN done
-    linkStyle default stroke:#06B6D4,stroke-width:1.5px
-```
-
-The gates are intentionally boring: run the checks, read the diff, and let a human decide. Boring is what makes the result trustworthy.
-
-## Cost optimization
-
-ToolWright reduces cost by changing **where tokens are spent**, not by truncating important context. It has 9 rows and 2 columns: Lever and What it does. Each row is one lever, and the other column records What it does. Read it to compare rows or to find a specific lever.
-
-| Lever | What it does |
-|---|---|
-| **Delegation** | The coordinator sends one focused job to one specialist instead of letting every agent explore everything. |
-| **Targeted retrieval** | `ripgrep`, `ast-grep`, Serena, and CodeGraph find symbols and structure without reading whole files. |
-| **Bounded context** | Compaction keeps a recent window and reserves headroom before overflow. |
-| **Output caps** | A noisy command cannot flood the context window. |
-| **No recursive fan-out** | Subagents cannot spawn more subagents. |
-| **Optional MCP** | The `configs/opencode/minimal.jsonc` config disables MCP when server startup costs more than it saves. The `minimal` install profile currently installs the full config, so select the no-MCP config explicitly. |
-| **Model routing** | Strong models plan; economical models handle routine work. |
-| **Deterministic checks** | Tests and linters prove correctness without an LLM call. |
-| **Memory and specs** | Decisions and task contracts survive across sessions instead of being re-discovered. |
-
-Read the full cost model in [Cost optimization](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cost-optimization/README.md).
-
-## Configuration
-
-All OpenCode adapter configuration lives in [docs/configuration/opencode-v2.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/configuration/opencode-v2.md). It has 8 rows and 2 columns: File and Purpose. Each row is one file, and the other column records Purpose. Read it to compare rows or to find a specific file.
-
-| File | Purpose |
-|---|---|
-| [`configs/opencode/opencode.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/opencode.jsonc) | Full profile: coordinator, permissions, MCP, compaction, output limits |
-| [`configs/opencode/minimal.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/minimal.jsonc) | Native tools plus ripgrep and ast-grep, no MCP |
-| [`configs/opencode/model-routing.example.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/model-routing.example.jsonc) | Optional per-agent model routing |
-| [`configs/ralph/ralph.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/ralph/ralph.yml) | Ralph loop, backend, memory, tasks |
-| [`configs/ralph/hats/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/configs/ralph/hats) | Hat collections with agent routing |
-| [`agents/<role>/AGENT.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/agents) | Agent prompts, mode, permissions |
-| [`commands/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/commands) | Slash commands |
-| [`skills/`](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/skills) | Skills and supporting files |
-
-Important defaults. It has 6 rows and 3 columns: Setting, Value, and Why. Each row is one setting, and the other columns record Value and Why. Read it to compare rows or to find a specific setting.
-
-| Setting | Value | Why |
-|---|---|---|
-| `default_agent` | `coordinator` | Do not rely on the platform's default general-purpose agent |
-| `permissions` | Ordered allow / ask / deny | Least privilege with hard Git denies |
-| `compaction.keep.tokens` | `12000` | Bounded recent context |
-| `compaction.buffer` | `15%` | Room before overflow |
-| `tool_output` | 2000 lines / 51200 bytes | One command cannot flood context |
-| `experimental.subagent_depth` | `1` | No recursive agent spawning |
-
-### Model routing
-
-No model is hardcoded. The platform uses your selected model by default. To route different roles to different models, set the environment variables in [`model-routing.example.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/model-routing.example.jsonc).
-
-| Work | Model class |
-|---|---|
-| Planning, architecture | Strongest reasoning |
-| Implementation | Balanced |
-| Review, security, performance | Reasoning-capable |
-| Documentation, mechanical work | Economical |
-
-## Daily workflows
-
-### Start a session
-
-Start an interactive session with the following command:
-
-```bash
-opencode
-```
-
-If you prefer a one-shot command, use the following form:
-
-```bash
-opencode run --agent coordinator "<task>"
-```
-
-The coordinator cannot edit files. It plans, delegates to the smallest capable specialist, and requires verification evidence.
-
-### Understand unfamiliar code
-
-Ask the coordinator to map the area before changing it. Use the following prompt as a template:
-
-```text
-Map how <feature> works. Identify the entry point, data flow, and tests.
-Use the cheapest retrieval tool first. Do not edit files.
-```
-
-The coordinator returns `file:line` evidence and open questions.
-
-### Plan a feature
-
-Use the following prompt to turn a feature request into an execution contract:
-
-```text
-Plan <feature>. Acceptance criteria: <criteria>.
-Break it into small, verifiable tasks with exact verification commands.
-Do not edit files.
-```
-
-The planner returns ordered tasks, assumptions, risks, and out-of-scope work. Treat that as the execution contract.
-
-### Implement a feature
-
-Use the following prompt to delegate implementation with explicit evidence requirements:
-
-```text
-Implement <task>. Follow existing patterns. Add tests for the new behavior.
-Run the narrow checks, then the full suite.
-Return changed files, exact commands, results, and remaining risks.
-```
-
-The coordinator delegates to a developer, then sends the diff to review and testing. Security review is added for authentication, input handling, files, network, or dependencies.
-
-### Review, debug, secure, refactor, document, measure
-
-The table below is the quick command picker for day-to-day work. It has 7 rows and 2 columns: Command and Use it for. Each row is one command, and the other column records Use it for. Read it to compare rows or to find a specific command.
-
-| Command | Use it for |
-|---|---|
-| `/review` | Independent review by severity with `file:line` references |
-| `/debug` | Reproduce → regression test → fix → verify |
-| `/security` | Input validation, authorization, injection, secrets, data exposure |
-| `/db` | Expand-and-contract migrations, lock time, rollback, production-like volume |
-| `/refactor` | Capture behavior with tests, then make one mechanical change at a time |
-| `/docs` | Documentation that is executed and verified before publication |
-| `/perf` | Baseline → profile → one change → re-measure p50/p95/p99 |
-
-### For a multi-step task with gates
-
-Use Ralph in a **separate disposable clone**. The following command starts the research collection and keeps its automatic commits outside your repository:
-
-```bash
-ralph run \
-  -c configs/ralph/ralph.yml \
-  -H configs/ralph/hats/research.yml \
-  -p "Research <question>"
-```
-
-Ralph collections. It has 4 rows and 3 columns: Collection, Hats, and Best for. Each row is one collection, and the other columns record Hats and Best for. Read it to compare rows or to find a specific collection.
-
-| Collection | Hats | Best for |
-|---|---|---|
-| `code-assist` | planner, builder, critic, finalizer | Multi-step implementation with review |
-| `review` | reviewer, analyzer, closer | Read-only multi-perspective review |
-| `research` | researcher, synthesizer | Evidence gathering without code changes |
-| `debug` | investigator, tester, fixer, verifier | Reproduction, hypothesis, fix, verification |
-
-See [Ralph orchestration](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/orchestration/ralph.md#git-safety).
-
-## Prompt patterns that work
-
-1. **State the outcome and acceptance criteria.** The coordinator cannot infer product intent.
-2. **Ask for the smallest change.** Prevent broad rewrites and unrelated formatting.
-3. **Demand evidence.** Require exact commands and results, not claims.
-4. **Use one specialist at a time.** Avoid duplicate investigation and conflicting edits.
-5. **Read the diff yourself.** Agents leave changes unstaged for a reason.
-6. **Prefer deterministic tools.** Tests, linters, type checkers, and AST queries are cheaper than reasoning.
-7. **Stop when the task is ambiguous.** Ask for a product decision instead of inventing one.
-8. **Keep context bounded.** Reference files and line ranges instead of pasting whole documents.
-
-## Skills, commands, and code intelligence
-
-### Skills
-
-The table below lists the sourced skills and what each one is best at. It has 10 rows and 3 columns: Skill, Author, and Use it for. Each row is one skill, and the other columns record Author and Use it for. Read it to compare rows or to find a specific skill.
-
-| Skill | Author | Use it for |
-|---|---|---|
-| `test-driven-development` | Jesse Vincent | Red-green-refactor with real failing tests |
-| `systematic-debugging` | Jesse Vincent | Hypotheses, reproduction, root-cause fixes |
-| `writing-plans` | Jesse Vincent | Plans a junior engineer can execute |
-| `verification-before-completion` | Jesse Vincent | Evidence before declaring done |
-| `requesting-code-review` | Jesse Vincent | Preparing work for independent review |
-| `api-design-principles` | Seth Hobson | REST and GraphQL contract design |
-| `database-migration` | Seth Hobson | Zero-downtime, reversible migrations |
-| `code-review-excellence` | Seth Hobson | Constructive, systematic review |
-| `auth-implementation-patterns` | Seth Hobson | JWT, OAuth2, sessions, RBAC |
-| `changelog-automation` | Seth Hobson | Release notes and versioning |
-
-### Commands
-
-The table below maps each command to the agent that owns it. It has 8 rows and 3 columns: Command, Agent, and Purpose. Each row is one command, and the other columns record Agent and Purpose. Read it to compare rows or to find a specific command.
-
-| Command | Agent | Purpose |
-|---|---|---|
-| `/implement` | `coordinator` | End-to-end feature development |
-| `/review` | `coordinator` | Multi-dimensional code review |
-| `/debug` | `coordinator` | Reproduce, localize, fix |
-| `/security` | `security-reviewer` | Static application security testing |
-| `/docs` | `documentation-engineer` | Generate and refresh documentation |
-| `/refactor` | `backend-developer` | Behavior-preserving cleanup |
-| `/db` | `database-specialist` | SQL migrations and zero-downtime changes |
-| `/perf` | `coordinator` | Profiling to monitoring |
-
-### Code intelligence
-
-The table below shows the retrieval tools, how they integrate, and whether they are enabled by default. It has 7 rows and 4 columns: Tool, Integration, Role, and Default. Each row is one tool, and the other columns record Integration, Role, and Default. Read it to compare rows or to find a specific tool.
-
-| Tool | Integration | Role | Default |
-|---|---|---|---|
-| Native `read`, `glob`, `grep` | Built-in | Targeted discovery | Yes |
-| ripgrep | CLI | Exact text and error search | Yes |
-| ast-grep | CLI | Structural search and rewrites | Yes |
-| Serena | MCP | Symbol navigation and refactoring | Yes |
-| CodeGraph | MCP | Cross-file dependencies and blast radius | Yes |
-| Repomix | MCP | Whole-repository snapshots | Optional |
-| jCodeMunch | MCP | Symbol retrieval; commercial license | Optional |
-
-Run these examples directly when you need exact text search, structural search, or a dependency map:
-
-```bash
-rg -n "validateCreateUser" --type ts
-ast-grep -p 'if ($COND) { $BODY }' -l ts examples/typescript/src/
-codegraph init
-codegraph status
-```
-
-Guides: [ripgrep](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/ripgrep.md), [ast-grep](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/ast-grep.md), [Serena](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/serena.md), [CodeGraph](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/codegraph.md), [optional tools](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/code-intelligence/optional-tools.md).
-
-## Safety and provenance
-
-ToolWright is deliberately strict about automation.
-
-- **No automatic staging or commits.** Agents leave changes unstaged and return the diff.
-- **No greenfield artifacts.** Agents, skills, commands, and hats are sourced, pinned, attributed, and modified minimally.
-- **Documentation comments only.** File headers and contract documentation; no inline comments or field-level configuration comments.
-- **Destructive commands are denied.** `sudo`, `rm -rf`, force-push, and destructive Git operations are blocked or require approval.
-- **Installer defaults to inspection.** `--check` and `--dry-run` are safe; `--apply` is explicit and creates a backup.
-
-Read [AGENTS.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) Sections 2A, 2B, and 2C for artifact and Git rules. Sections 17–23 define the change, changelog, release, benchmark, and documentation workflows.
-
-### Provenance
-
-No skill or agent is original work. Each is adapted from a maintained MIT-licensed collection. It has 4 rows and 3 columns: Source, Author, and Used for. Each row is one source, and the other columns record Author and Used for. Read it to compare rows or to find a specific source.
-
-| Source | Author | Used for |
-|---|---|---|
-| [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) | VoltAgent | Generic role agents |
-| [wshobson/agents](https://github.com/wshobson/agents) | Seth Hobson | Coordinator, architect, database, skills, commands |
-| [obra/superpowers](https://github.com/obra/superpowers) | Jesse Vincent | TDD, debugging, planning, verification, review skills |
-| [mikeyobrien/ralph-orchestrator](https://github.com/mikeyobrien/ralph-orchestrator) | Ralph Orchestrator Contributors | Official hat presets |
-
-Every artifact records its source path, commit, license, author, and local modifications in [docs/provenance/registry.yml](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml). License texts are in [THIRD_PARTY_NOTICES.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/THIRD_PARTY_NOTICES.md).
-
-## Evidence status
-
-This repository distinguishes **verified**, **documented**, and **not yet measured**. It has 15 rows and 2 columns: Area and Status. Each row is one area, and the other column records Status. Read it to compare rows or to find a specific area.
-
-| Area | Status |
-|---|---|
-| Static validation | Verified, including links and provenance |
-| Agent discovery | Verified with the OpenCode 2.2.7 reference adapter; Copilot CLI discovers generated instructions and skills; Codex loads [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md); Claude Code discovery unverified |
-| TypeScript and C# examples | Verified |
-| Harness execution | 102 isolated published runs across three result sets |
-| Command runtime | All eight commands verified on the TypeScript fixture through the reference adapter |
-| Skill runtime | All ten skills verified through the `skill` tool |
-| MCP startup overhead | Narrow `debug agents` measurement recorded |
-| Benchmarks | Four published result sets: DeepSeek Flash examples, a real Hono tool matrix, a 45-run cost A/B, and a 90-run delegation screen; no arm beat stock, and the delegation contract was reverted |
-| Real-repository pilots | Discovery 15/15; Hono 5/5, CleanArchitecture 5/5, turborepo 4/5 reviewed |
-| CI | Green on Ubuntu and macOS for run [43402329992](https://github.com/GabrielAlmeidaFlores/ToolWright/actions/runs/43402329992); nine jobs |
-| Repository tests | 340 unit and integration tests |
-| `toolwright` CLI | Install, uninstall, update check, rollback, doctor verified locally and in the `cli` job |
-| Profiles and catalog | Three manifests and 34 catalog entries verified locally and in CI |
-| Verification and governance | `toolwright verify` and `toolwright govern contracts` verified locally; CI runs both |
-| Task board and plugin | Board and worktree tests; plugin install, syntax, and live injection verified |
-
-Claims link to local evidence or a CI run. Vendor claims are labelled. No benchmark result is published without correctness and rework data.
-
-## Repository map
-
-The tree below shows the main directories and what each one owns. Start with the directory that matches your task rather than reading the whole repository.
-
-```text
-.
-├── assets/                         # logo and mark
-├── agents/<role>/AGENT.md          # provider-neutral agent definitions
-├── skills/<name>/SKILL.md          # sourced skills and supporting files
-├── commands/                       # sourced workflow commands
-├── configs/
-│   ├── opencode/                   # OpenCode adapter configuration
-│   └── ralph/                      # optional orchestration and hats
-├── docs/                           # guides, research, decisions, provenance
-├── examples/                       # TypeScript, C#, multi-agent fixtures
-├── benchmarks/                     # methodology, tasks, harness, results
-├── scripts/                        # install, validate, benchmark, maintain
-├── packages/toolwright_cli/        # the toolwright command line
-├── profiles/                       # install profile manifests
-├── catalog/                        # generated and verified artifact catalog
-├── tests/                          # unit, integration, and fixtures
-├── AGENTS.md                       # engineering rules
-├── VERSION                         # semantic version for releases
-├── THIRD_PARTY_NOTICES.md
-└── README.md
-```
-
-## Documentation index
-
-Use this table as a map. Start with the compatibility guide or the CLI reference, then go deeper into the area you need. It has 10 rows and 2 columns: Start with and Then explore. Each row is one entry, and the other column records Then explore. Read it to compare rows or to find a specific entry.
-
-| Start with | Then explore |
-|---|---|
-| [Platform compatibility](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/README.md) | [OpenCode](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/opencode.md) · [Copilot](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/github-copilot.md) · [Claude](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/claude.md) · [GPT/Codex](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/compatibility/openai-gpt.md) |
-| [Quick start](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/opencode.md) | [Code intelligence](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/code-intelligence.md) · [Ralph](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/ralph.md) |
-| [CLI reference](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md) | [Profiles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/profiles/README.md) · [Catalog](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/catalog/README.md) |
-| [Verification](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md) | [Governance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/governance/README.md) · [Cost observability](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cost-optimization/observability.md) |
-| [Agent roles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md) | [Skills](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md) · [Commands](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/cli/README.md) |
-| [Memory](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/memory/README.md) | [Specs](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/specs/README.md) · [Task board](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/board/README.md) |
-| [Pilots](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/README.md) | [Benchmark methodology](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md) |
-| [Architecture](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/overview.md) | [Testing](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md) · [Decisions](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/docs/decisions) |
-| [Baseline record](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/baseline.md) | [Research report](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/phase1-research-report.md) · [Orchestration comparison](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/orchestration-comparison.md) |
-| [Security](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/security/README.md) | [Provenance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/README.md) · [Release](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/release/README.md) |
-
-## Troubleshooting
-
-The table below covers the most common symptoms. The full guide has the detailed diagnosis paths. It has 8 rows and 2 columns: Symptom and Fix. Each row is one symptom, and the other column records Fix. Read it to compare rows or to find a specific symptom.
-
-| Symptom | Fix |
-|---|---|
-| `coordinator` not found | Install the adapter, then run `opencode debug agents` |
-| Agent ignores permissions | Last matching rule wins; inspect `opencode debug agents` |
-| MCP server disconnected | Check the binary path and raise the startup timeout |
-| `git add` or `git commit` blocked | Intended behavior; the human stages and commits |
-| Ralph created a commit | Expected in 2.10.1; use a separate disposable clone |
-| Context overflows | Lower `tool_output`, keep compaction enabled |
-| Benchmark command fails | Check the task's `working_directory` and verification command |
-| Non-OpenCode adapter seems missing | Reinstall with `--platform claude`, `copilot`, or `codex`, then confirm the generated paths in [`docs/installation/toolwright-cli.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/toolwright-cli.md) |
-
-Full guide: [docs/troubleshooting/README.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/README.md).
-
-## FAQ
-
-**Does this work with OpenCode V1?**  
-No. The OpenCode adapter targets V2.2.x. V2 does not run language servers, so Serena replaces native LSP.
-
-**Do I need OpenCode?**  
-No. OpenCode is the reference adapter and the only one verified end-to-end in CI. Claude Code, GitHub Copilot, and ChatGPT/Codex install generated native files and are validated at the installer level. Copilot and Codex have additional CLI discovery evidence; Claude Code runtime discovery is still unverified.
-
-**Do I need every MCP server?**  
-No. The default OpenCode profile enables Serena and CodeGraph. [`configs/opencode/minimal.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/minimal.jsonc) disables MCP entirely. The `minimal` install profile currently installs the full config, so select the no-MCP config explicitly.
-
-**Will agents commit or stage my changes?**  
-No. Git write commands are denied and validated per agent. Ralph is the exception: 2.10.1 auto-commits on landing, so run it in a separate disposable clone.
-
-**Can I use my own models?**  
-Yes. Use the environment-driven overlay in [`model-routing.example.jsonc`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/opencode/model-routing.example.jsonc).
-
-**Can I add my own agent, skill, or command?**  
-Yes, but follow the provenance rule in [AGENTS.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md): source a maintained upstream artifact, pin the commit, attribute the author, and modify minimally.
-
-## Testing this repository
-
-Run the following commands from the repository root to validate the tooling, run the tests, and try the CLI:
-
-```bash
-make test        # unit and integration suites
-make validate    # validator, frontmatter, provenance, permissions, docs status
-make lint        # shell syntax and ShellCheck when installed
-make ci          # validate + test, the default gate
-make toolwright ARGS="doctor"   # run the CLI from the checkout
-```
-
-The table below separates the two test layers so you know what each command protects. Unit tests cover fast invariants, parsers, fixtures, the lock file, and the installer plan. Integration tests execute the real CLI and shell entry points, including installer safety and adapter discovery. Run `make ci` to execute both layers; run `make test` when you only need the suites.
-
-| Layer | Covers |
-|---|---|
-| Unit | Validator rules, fixtures, repository invariants, version file, docs status, CLI parser, lock file, installer plan |
-| Integration | Validation entry points, benchmark dry-run, installer safety, OpenCode discovery, `toolwright` install/update/uninstall lifecycle |
-
-See [testing the repository](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md) and [CI diagnosis](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/ci.md).
-
-## Benchmarks
-
-The benchmark harness is reproducible and the question is tool-neutral. Four result sets are published: 30 example runs, 27 real-repository Hono matrix runs, a 45-run Hono cost A/B, and a 90-run delegation screen, all on the OpenCode reference adapter with `deepseek/deepseek-flash`. The optimized configuration did not reduce cost in any set. Stock was cheapest in the A/B, and the 90-run screen reverted the delegation contract after it raised cost and wall time. The real-repository matrix also measures Serena, CodeGraph, ast-grep, skills, subagents, memory, commands, and Ralph. This is not a Claude, Copilot, or Codex result. See the results and limitations before reusing the claim.
-
-- [Methodology](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md)
-- [DeepSeek Flash results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-deepseek-flash.md)
-- [Real Hono tool matrix](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/real-hono-tool-matrix.md)
-- [Hono cost A/B results](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-cost-ab.md)
-- [Hono delegation contract screen](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-delegation-screen.md)
-- [Benchmark arms](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/arms/README.md)
-- [Tasks](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/tasks)
-- [Harness](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/harness)
-- [Result artifacts](https://github.com/GabrielAlmeidaFlores/ToolWright/tree/main/benchmarks/results)
-
-## Security, support, roadmap
-
-- [SECURITY.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/SECURITY.md) — supported versions and private reporting.
-- [SUPPORT.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/SUPPORT.md) — where to ask and what to include.
-- [ROADMAP.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/ROADMAP.md) — phase status and non-goals.
-- [CODE_OF_CONDUCT.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/CODE_OF_CONDUCT.md) — Contributor Covenant 2.1.
-
-The following commands install the documentation builder, verify the site in strict mode, and serve it locally:
-
-```bash
-python3 -m pip install mkdocs-material==9.8.1
-mkdocs build --strict
-mkdocs serve
-```
+- [Installation](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/toolwright-cli.md)
+- [Architecture](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/overview.md)
+- [Testing](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/architecture/testing.md)
+- [Agents and roles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/agents/roles.md)
+- [Memory](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/memory/README.md)
+- [Verification](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/verification/README.md)
+- [Profiles](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/profiles/README.md)
+- [Catalog and provenance](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/catalog/README.md)
+- [Troubleshooting](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/troubleshooting/README.md)
 
 ## Contributing
 
-Contributions must follow the provenance, Git safety, and documentation-comment rules in [AGENTS.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md). See [CONTRIBUTING.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/CONTRIBUTING.md) for the workflow and validation commands.
+Read [`CONTRIBUTING.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/CONTRIBUTING.md) and [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md). Do not stage or commit automatically; leave changes for human review.
 
 ## License
 
-Repository content is MIT. Third-party artifacts keep their original licenses; see [THIRD_PARTY_NOTICES.md](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/THIRD_PARTY_NOTICES.md). Serena is GPL-3.0-or-later and is installed as an external tool, not vendored here.
+MIT. See [`LICENSE`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/LICENSE).

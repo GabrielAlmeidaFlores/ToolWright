@@ -14,7 +14,6 @@ from .cli_strings import (
     KEY_GOVERN,
     KEY_MEMORY,
     KEY_SPEC,
-    KEY_STATS,
     KEY_TASK,
 )
 
@@ -23,15 +22,12 @@ import sys
 from typing import Sequence
 
 from ..constants import EMPTY_STRING
-from ..usage_strings import KEY_USAGE
 from ..cli_constants import (
-    COMMAND_DOCTOR, COMMAND_INSTALL, COMMAND_PILOT, COMMAND_ROLLBACK,
+    COMMAND_DOCTOR, COMMAND_INSTALL, COMMAND_ROLLBACK,
     COMMAND_UNINSTALL, COMMAND_UPDATE, COMMAND_VERIFY, KEY_PROFILE,
 )
 from ..paths import ToolWrightError
 from .common import resolve_repository_root
-from .commands.analytics import _command_pilot, _command_stats
-from .commands.usage import _command_usage
 from .commands.lifecycle import (
     _command_doctor, _command_install, _command_rollback, _command_uninstall,
     _command_update,
@@ -59,11 +55,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         KEY_GOVERN: _command_govern,
         KEY_MEMORY: _command_memory,
         KEY_SPEC: _command_spec,
-        KEY_STATS: _command_stats,
         KEY_EVAL: _command_eval,
-        COMMAND_PILOT: _command_pilot,
         KEY_TASK: _command_task,
-        KEY_USAGE: _command_usage,
     }
     try:
         return handlers[args.command](args)

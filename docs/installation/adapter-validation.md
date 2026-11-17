@@ -88,10 +88,6 @@ The table below describes Not measured. It has 4 rows and 2 columns: Metric and 
 | Task correctness | No code-change task was executed. |
 | Rework and human interventions | No agent workflow was executed. |
 
-Those metrics require the funded pilot runner with `OPENCODE_PILOT_MODEL`. Do not treat this record as a benchmark result.
-
 ## References
 
-- [`docs/pilots/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/README.md)
-- [`docs/benchmarks/methodology.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/methodology.md)
 - [`docs/installation/toolwright-cli.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/installation/toolwright-cli.md)

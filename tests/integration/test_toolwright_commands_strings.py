@@ -40,7 +40,6 @@ from tests.constants import (  # noqa: F401 - re-exported test constants
     KEY_GENERATOR,
     KEY_GIT,
     KEY_HIGH,
-    KEY_HONO,
     KEY_ID,
     KEY_INPUT,
     KEY_INSTALL,
@@ -130,14 +129,12 @@ KEY_GATE = 'gate'
 KEY_GOVERN = 'govern'
 KEY_LIST = 'list'
 KEY_MEMORY = 'memory'
-KEY_PILOT = 'pilot'
 KEY_PREAMBLE = 'preamble'
 KEY_PYTHON = 'python'
 KEY_ROLLBACK = 'rollback'
 KEY_SEARCH = 'search'
 KEY_SHOW = 'show'
 KEY_SPEC = 'spec'
-KEY_STATS = 'stats'
 KEY_UNINSTALL = 'uninstall'
 KEY_UPDATE = 'update'
 KEY_USE = 'use'

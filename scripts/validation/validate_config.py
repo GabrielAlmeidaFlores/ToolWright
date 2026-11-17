@@ -98,9 +98,6 @@ TEXT_AUTH_IMPLEMENTATION_PATTERNS = 'auth-implementation-patterns'
 TEXT_A_Z0_9_A_Z0_9 = '^[a-z0-9]+(-[a-z0-9]+)*$'
 TEXT_A_ZA_Z0_9_S = '^([A-Za-z0-9_-]+):\\s*(.*)$'
 TEXT_BACKEND_DEVELOPER = 'backend-developer'
-TEXT_BENCHMARKS_HARNESS = 'benchmarks/harness'
-TEXT_BENCHMARKS_METHODOLOGY_README_MD = 'benchmarks/methodology/README.md'
-TEXT_BENCHMARKS_TASKS = 'benchmarks/tasks'
 TEXT_BLOCK_COMMENTS_ARE_PROHIBITED = '{}:{}: block comments are prohibited'
 TEXT_CANNOT_PARSE = '{}: cannot parse: {}'
 TEXT_CATALOG_SCHEMA_ENTRY_SCHEMA_JSON = 'catalog/schema/entry.schema.json'
@@ -111,7 +108,6 @@ TEXT_CODE_REVIEWER = 'code-reviewer'
 TEXT_CODE_REVIEW_EXCELLENCE = 'code-review-excellence'
 TEXT_CONFIGS_OPENCODE_MINIMAL_JSONC = 'configs/opencode/minimal.jsonc'
 TEXT_CONFIGS_OPENCODE_OPENCODE_JSONC = 'configs/opencode/opencode.jsonc'
-TEXT_CONFIGS_PILOTS_PILOTS_TOML = 'configs/pilots/pilots.toml'
 TEXT_CONFIGS_RALPH_HATS = 'configs/ralph/hats'
 TEXT_CONFIGS_RALPH_HATS_CODE_ASSIST_YML = 'configs/ralph/hats/code-assist.yml'
 TEXT_CONFIGS_RALPH_RALPH_YML = 'configs/ralph/ralph.yml'
@@ -132,7 +128,6 @@ TEXT_DOCS_GOVERNANCE_README_MD = 'docs/governance/README.md'
 TEXT_DOCS_MD = 'docs/**/*.md'
 TEXT_DOCS_MEMORY_README_MD = 'docs/memory/README.md'
 TEXT_DOCS_PROFILES_README_MD = 'docs/profiles/README.md'
-TEXT_DOCS_RESEARCH_BASELINE_MD = 'docs/research/baseline.md'
 TEXT_DOCS_SPECS_README_MD = 'docs/specs/README.md'
 TEXT_DOCS_VERIFICATION_README_MD = 'docs/verification/README.md'
 TEXT_DOCUMENTATION_ENGINEER = 'documentation-engineer'
@@ -315,7 +310,6 @@ REQUIRED = [
     TEXT_CONFIGS_RALPH_RALPH_YML,
     TEXT_CONFIGS_RALPH_HATS_CODE_ASSIST_YML,
     TEXT_DOCS_DECISIONS_ADR_001_OPENCODE_V2_BASELINE_MD,
-    TEXT_DOCS_RESEARCH_BASELINE_MD,
     TEXT_DOCS_ARCHITECTURE_TESTING_MD,
     TEXT_DOCS_CLI_README_MD,
     TEXT_DOCS_CATALOG_README_MD,
@@ -329,7 +323,6 @@ REQUIRED = [
     TEXT_DOCS_MEMORY_README_MD,
     TEXT_DOCS_SPECS_README_MD,
     TEXT_DOCS_EVALS_README_MD,
-    TEXT_CONFIGS_PILOTS_PILOTS_TOML,
     TEXT_TESTS_EVALS_CASES_JSON,
     TEXT_CATALOG_REGISTRY_JSON,
     TEXT_CATALOG_SCHEMA_ENTRY_SCHEMA_JSON,
@@ -337,7 +330,6 @@ REQUIRED = [
     TEXT_PROFILES_STANDARD_YML,
     TEXT_PROFILES_FULL_YML,
     TEXT_PACKAGES_TOOLWRIGHT_CLI_PYPROJECT_TOML,
-    TEXT_BENCHMARKS_METHODOLOGY_README_MD,
 ]
 
 AGENT_ROLES = [
@@ -461,25 +453,6 @@ def check_yaml(path: Path) -> None:
         yaml.safe_load(path.read_text(encoding=TEXT_UTF_8))
     except Exception as exc:  # noqa: BLE001 - report any parser failure as a validation error
         record_error(TEXT_INVALID_YAML.format(path.relative_to(ROOT), exc))
-
-
-def check_tasks() -> None:
-    global checked
-    for path in sorted((ROOT / TEXT_BENCHMARKS_TASKS).glob(TEXT_JSON)):
-        checked += 1
-        try:
-            task = json.loads(path.read_text(encoding=TEXT_UTF_8))
-        except Exception as exc:  # noqa: BLE001 - report any parser failure as a validation error
-            record_error(TEXT_INVALID_JSON.format(path.relative_to(ROOT), exc))
-            continue
-        for field in (KEY_ID, KEY_PROMPT, KEY_VERIFICATION, KEY_WORKING_DIRECTORY):
-            value = task.get(field)
-            if not isinstance(value, str) or not value.strip():
-                record_error(TEXT_MISSING_OR_EMPTY.format(path.relative_to(ROOT), field))
-        working_directory = task.get(KEY_WORKING_DIRECTORY)
-        if isinstance(working_directory, str) and working_directory.strip():
-            if not (ROOT / working_directory).is_dir():
-                record_error(TEXT_WORKING_DIRECTORY_DOES_NOT_EXIST.format(path.relative_to(ROOT), working_directory))
 
 
 def read_frontmatter(path: Path) -> dict[str, str]:
@@ -789,7 +762,7 @@ def check_comment_policy() -> None:
             if comment_line >= body_line:
                 record_error(TEXT_INLINE_JSONC_COMMENTS_ARE_PROHIBITED.format(path.relative_to(ROOT), comment_line))
 
-    for path in sorted((ROOT / KEY_SCRIPTS).rglob(TEXT_SH)) + sorted((ROOT / TEXT_BENCHMARKS_HARNESS).rglob(TEXT_SH)) + sorted((ROOT / KEY_SKILLS).rglob(TEXT_SH)):
+    for path in sorted((ROOT / KEY_SCRIPTS).rglob(TEXT_SH)) + sorted((ROOT / KEY_SKILLS).rglob(TEXT_SH)):
         checked += 1
         lines = path.read_text(encoding=TEXT_UTF_8).splitlines()
         header = TEXT_TEXT_5.join(lines[:12])
@@ -1122,7 +1095,6 @@ def main() -> int:
         check_yaml(path)
     for path in sorted((ROOT / TEXT_GITHUB_WORKFLOWS).glob(TEXT_YML)):
         check_yaml(path)
-    check_tasks()
 
     check_agents()
     check_skills()

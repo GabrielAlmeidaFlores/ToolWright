@@ -44,7 +44,6 @@ from tests.unit.test_validate_config_strings import (
     TEXT_AGENTS_GHOST_AGENT_MD,
     TEXT_AGENTS_PLANNER_AGENT_MD,
     TEXT_A_DEMO,
-    TEXT_BENCHMARKS_TASKS_DEMO_JSON,
     TEXT_BODY,
     TEXT_COMMANDS_BROKEN_MD,
     TEXT_COMMANDS_OK_MD,
@@ -474,29 +473,6 @@ class CommentPolicyTests(ValidatorTestCase):
         self.write(TEXT_SKILLS_DEMO_ASSET_PY, TEXT_MODULE_VALUE_1_NOTE)
         self.validator.check_comment_policy()
         self.assert_error(TEXT_NON_DOCUMENTATION_PYTHON_COMMENT)
-
-
-class TaskChecksTests(ValidatorTestCase):
-
-    def test_valid_task_passes(self) -> None:
-        self.write(
-            TEXT_BENCHMARKS_TASKS_DEMO_JSON,
-            TEXT_ID_DEMO_PROMPT_X_VERIFICATION_TRUE_WORKING_DIRECTORY,
-        )
-        self.validator.check_tasks()
-        self.assertEqual(self.validator.errors, [])
-
-    def test_missing_field_fails(self) -> None:
-        source = (support.FIXTURES / KEY_TASKS / TEXT_MISSING_FIELD_JSON).read_text(encoding=TEXT_UTF_8)
-        self.write(TEXT_BENCHMARKS_TASKS_DEMO_JSON, source)
-        self.validator.check_tasks()
-        self.assert_error(TEXT_MISSING_OR_EMPTY_VERIFICATION)
-
-    def test_missing_working_directory_fails(self) -> None:
-        source = (support.FIXTURES / KEY_TASKS / TEXT_MISSING_WORKDIR_JSON).read_text(encoding=TEXT_UTF_8)
-        self.write(TEXT_BENCHMARKS_TASKS_DEMO_JSON, source)
-        self.validator.check_tasks()
-        self.assert_error(TEXT_WORKING_DIRECTORY_DOES_NOT_EXIST)
 
 
 class DocsStatusTests(ValidatorTestCase):

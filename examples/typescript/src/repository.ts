@@ -22,7 +22,7 @@ export interface OrderStore {
  * @param ids - Order identifiers in the desired output order.
  * @returns The resolved orders.
  * @throws Error when an identifier does not resolve.
- * @remarks Intentionally performs one lookup per identifier to support the performance benchmark task.
+ * @remarks Intentionally performs one lookup per identifier to support the performance test case.
  */
 export async function loadOrders(store: OrderStore, ids: string[]): Promise<Order[]> {
   const orders: Order[] = [];

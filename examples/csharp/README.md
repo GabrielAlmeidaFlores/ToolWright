@@ -1,6 +1,6 @@
 # C# Example
 
-A minimal .NET 8 example used by the benchmark tasks.
+A minimal .NET 8 example fixture used by repository tests.
 
 ## Run
 

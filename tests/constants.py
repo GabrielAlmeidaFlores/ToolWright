@@ -79,7 +79,6 @@ TEXT_USER_EMAIL = 'user.email'
 TEXT_USER_NAME = 'user.name'
 KEY_A = 'a'
 KEY_COST = 'cost'
-KEY_HONO = 'hono'
 KEY_INPUT = 'input'
 KEY_INSTALL = 'install'
 KEY_MINIMAL = 'minimal'
@@ -162,8 +161,6 @@ TEXT_OPENCODE = '.opencode'
 KEY_CODEX = 'codex'
 KEY_COPILOT = 'copilot'
 
-TEXT_RUN_STATS_JSON = 'run-stats.json'
-TEXT_SCRIPTS_BENCHMARKING_SUMMARIZE_SESSION_PY = 'scripts/benchmarking/summarize_session.py'
 
 KEY_OPTIMIZED = 'optimized'
 

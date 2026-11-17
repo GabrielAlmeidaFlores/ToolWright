@@ -1,5 +1,5 @@
 """
-Integration tests for validation entry points and the benchmark harness.
+Integration tests for validation entry points.
 
 These tests execute the real shell and Python entry points. They require no
 network access and no model credentials.
@@ -10,6 +10,7 @@ from tests.integration.test_entrypoints_strings import (
     TEXT_TASK_ERROR,
 )
 from tests.integration.test_entrypoints_strings import (
+    FLAG_ALL,
     FLAG_ARM,
     FLAG_DRY_RUN,
     FLAG_ONLY,
@@ -26,20 +27,15 @@ from tests.integration.test_entrypoints_strings import (
     KEY_PROJECT,
     KEY_PYTHON3,
     KEY_SLIM_UNCAPPED,
-    KEY_SCOPED_ROUTER,
     KEY_TOOLS_ON_DEMAND,
-    TEXT_BENCHMARKS_HARNESS_RUN_SH,
     TEXT_ADAPTER_DISCOVERY_HEADER,
     TEXT_AGENT_FLAG,
-    TEXT_BENCHMARKS_REAL_HONO_SET_COOKIE,
-    TEXT_BENCHMARKS_TASKS,
     TEXT_CHECKED_D,
     TEXT_DEFAULT_MODE_MUST_NOT_CREATE_THE_TARGET,
     TEXT_HOME,
     TEXT_JSON,
     TEXT_MAIN,
     TEXT_MISSING_JSON,
-    TEXT_NO_BENCHMARK_TASKS_FOUND,
     TEXT_OK,
     TEXT_OPENCODE_AGENTS_BACKEND_MD,
     TEXT_PATH,
@@ -63,6 +59,7 @@ from pathlib import Path
 from tests.constants import EMPTY_STRING, KEY_COORDINATOR, TEXT_BACKEND_DEVELOPER, TEXT_OPENCODE, TEXT_OPENCODE_AGENTS_COORDINATOR_MD, TEXT_OPENCODE_JSONC, TEXT_UTF_8
 
 from tests import support
+from tests.unit.test_toolwright_plugin_strings import TEXT_OPENCODE_PLUGINS_TOOLWRIGHT_MEMORY_JS
 
 REPO_ROOT = support.REPO_ROOT
 PYTHON_BIN = Path(sys.executable).parent
@@ -118,142 +115,6 @@ class ValidationEntryPointTests(unittest.TestCase):
         self.assertRegex(result.stdout, TEXT_CHECKED_D)
 
 
-class BenchmarkHarnessTests(unittest.TestCase):
-
-    def test_every_task_supports_dry_run_without_opencode(self) -> None:
-        tasks = sorted((REPO_ROOT / TEXT_BENCHMARKS_TASKS).glob(TEXT_JSON))
-        self.assertTrue(tasks, TEXT_NO_BENCHMARK_TASKS_FOUND)
-        for task in tasks:
-            result = subprocess.run(
-                [KEY_BASH, TEXT_BENCHMARKS_HARNESS_RUN_SH, FLAG_ARM, KEY_BASELINE, FLAG_TASK, str(task), FLAG_DRY_RUN],
-                cwd=REPO_ROOT,
-                capture_output=True,
-                text=True,
-                check=False,
-                timeout=60,
-                env={TEXT_PATH: SAFE_PATH, TEXT_HOME: str(REPO_ROOT)},
-            )
-            self.assertEqual(result.returncode, 0, TEXT_TASK_ERROR.format(task.name, result.stderr))
-            self.assertIn(TEXT_WOULD_RUN, result.stdout, task.name)
-
-    def test_dry_run_accepts_workspace(self) -> None:
-        task = next((REPO_ROOT / TEXT_BENCHMARKS_TASKS).glob(TEXT_JSON))
-        result = subprocess.run(
-            [
-                KEY_BASH,
-                TEXT_BENCHMARKS_HARNESS_RUN_SH,
-                FLAG_ARM,
-                KEY_BASELINE,
-                FLAG_TASK,
-                str(task),
-                FLAG_WORKSPACE,
-                str(REPO_ROOT),
-                FLAG_DRY_RUN,
-            ],
-            cwd=REPO_ROOT,
-            capture_output=True,
-            text=True,
-            check=False,
-            timeout=60,
-        )
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn(TEXT_WOULD_RUN, result.stdout)
-        self.assertNotIn(TEXT_WOULD_COPY, result.stdout)
-
-    def test_dry_run_accepts_optimized_workspace(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            workspace = Path(directory)
-            agent = workspace / TEXT_OPENCODE_AGENTS_COORDINATOR_MD
-            agent.parent.mkdir(parents=True)
-            agent.write_text(EMPTY_STRING, encoding=TEXT_UTF_8)
-            config = workspace / TEXT_OPENCODE / TEXT_OPENCODE_JSONC
-            config.write_text(EMPTY_STRING, encoding=TEXT_UTF_8)
-            result = subprocess.run(
-                [
-                    KEY_BASH,
-                    TEXT_BENCHMARKS_HARNESS_RUN_SH,
-                    FLAG_ARM,
-                    KEY_OPTIMIZED,
-                    FLAG_TASK,
-                    TEXT_BENCHMARKS_REAL_HONO_SET_COOKIE,
-                    FLAG_WORKSPACE,
-                    str(workspace),
-                    FLAG_DRY_RUN,
-                ],
-                cwd=REPO_ROOT,
-                capture_output=True,
-                text=True,
-                check=False,
-                timeout=60,
-            )
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn(TEXT_WOULD_RUN, result.stdout)
-
-    def test_dry_run_accepts_benchmark_arms(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            workspace = Path(directory)
-            for agent in (TEXT_OPENCODE_AGENTS_COORDINATOR_MD, TEXT_OPENCODE_AGENTS_BACKEND_MD):
-                path = workspace / agent
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(EMPTY_STRING, encoding=TEXT_UTF_8)
-            expected_agents = {
-                KEY_COORDINATOR_SLIM: KEY_COORDINATOR,
-                KEY_DIRECT_SLIM: TEXT_BACKEND_DEVELOPER,
-                KEY_TOOLS_ON_DEMAND: KEY_COORDINATOR,
-                KEY_SLIM_UNCAPPED: KEY_COORDINATOR,
-                KEY_SCOPED_ROUTER: KEY_SCOPED_ROUTER,
-            }
-            for arm, agent in expected_agents.items():
-                result = subprocess.run(
-                    [
-                        KEY_BASH,
-                        TEXT_BENCHMARKS_HARNESS_RUN_SH,
-                        FLAG_ARM,
-                        arm,
-                        FLAG_TASK,
-                        TEXT_BENCHMARKS_REAL_HONO_SET_COOKIE,
-                        FLAG_WORKSPACE,
-                        str(workspace),
-                        FLAG_DRY_RUN,
-                    ],
-                    cwd=REPO_ROOT,
-                    capture_output=True,
-                    text=True,
-                    check=False,
-                    timeout=60,
-                )
-                self.assertEqual(result.returncode, 0, arm + result.stderr)
-                self.assertIn(TEXT_WOULD_RUN, result.stdout)
-                self.assertIn(TEXT_WOULD_COPY, result.stdout)
-                self.assertIn(str(workspace / TEXT_OPENCODE / TEXT_OPENCODE_JSONC), result.stdout)
-                self.assertIn(TEXT_AGENT_FLAG + agent, result.stdout)
-
-    def test_dry_run_rejects_unknown_arm(self) -> None:
-        task = next((REPO_ROOT / TEXT_BENCHMARKS_TASKS).glob(TEXT_JSON))
-        result = subprocess.run(
-            [KEY_BASH, TEXT_BENCHMARKS_HARNESS_RUN_SH, FLAG_ARM, KEY_NONSENSE, FLAG_TASK, str(task), FLAG_DRY_RUN],
-            cwd=REPO_ROOT,
-            capture_output=True,
-            text=True,
-            check=False,
-            timeout=60,
-        )
-        self.assertEqual(result.returncode, 2)
-        self.assertIn(TEXT_UNKNOWN_ARM, result.stdout + result.stderr)
-
-    def test_dry_run_rejects_missing_task(self) -> None:
-        result = subprocess.run(
-            [KEY_BASH, TEXT_BENCHMARKS_HARNESS_RUN_SH, FLAG_ARM, KEY_BASELINE, FLAG_TASK, TEXT_MISSING_JSON, FLAG_DRY_RUN],
-            cwd=REPO_ROOT,
-            capture_output=True,
-            text=True,
-            check=False,
-            timeout=60,
-        )
-        self.assertEqual(result.returncode, 2)
-        self.assertIn(TEXT_TASK_NOT_FOUND, result.stdout + result.stderr)
-
-
 class InstallationDryRunTests(unittest.TestCase):
 
     def test_default_mode_is_check_only(self) -> None:
@@ -269,6 +130,20 @@ class InstallationDryRunTests(unittest.TestCase):
             )
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertFalse(target.exists(), TEXT_DEFAULT_MODE_MUST_NOT_CREATE_THE_TARGET)
+
+    def test_all_includes_the_memory_plugin(self) -> None:
+        with tempfile.TemporaryDirectory(prefix=TEXT_TOOLWRIGHT_INSTALL) as directory:
+            target = Path(directory) / KEY_PROJECT
+            result = subprocess.run(
+                [KEY_BASH, TEXT_SCRIPTS_INSTALLATION_INSTALL_SH, FLAG_DRY_RUN, FLAG_ALL, FLAG_TARGET, str(target)],
+                cwd=REPO_ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=60,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn(TEXT_OPENCODE_PLUGINS_TOOLWRIGHT_MEMORY_JS, result.stdout)
 
     def test_dry_run_lists_planned_actions(self) -> None:
         with tempfile.TemporaryDirectory(prefix=TEXT_TOOLWRIGHT_INSTALL) as directory:

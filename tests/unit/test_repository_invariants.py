@@ -34,7 +34,6 @@ from tests.unit.test_repository_invariants_strings import (
     TEXT_DOCS_ARCHITECTURE_TESTING_MD,
     TEXT_DOCS_DECISIONS,
     TEXT_DOCS_MD,
-    TEXT_DOCS_RESEARCH_BASELINE_MD,
     TEXT_D_D_D,
     TEXT_EVIDENCE,
     TEXT_EXPERIMENTAL,
@@ -162,9 +161,8 @@ class ArtifactInvariantTests(unittest.TestCase):
             self.assertIn(TEXT_AUTHOR, head, TEXT_MISSING_AUTHOR.format(path.name))
             self.assertIn(TEXT_UPSTREAM_COMMIT, head, TEXT_MISSING_COMMIT.format(path.name))
 
-    def test_readme_links_baseline_and_testing(self) -> None:
+    def test_readme_links_testing(self) -> None:
         readme = (REPO_ROOT / TEXT_README_MD).read_text(encoding=TEXT_UTF_8)
-        self.assertIn(TEXT_DOCS_RESEARCH_BASELINE_MD, readme)
         self.assertIn(TEXT_DOCS_ARCHITECTURE_TESTING_MD, readme)
 
 

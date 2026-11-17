@@ -17,7 +17,7 @@ These are documented, not installed by default. Each adds a real cost; enable on
 - https://github.com/jgravelle/jcodemunch-mcp
 - Symbol retrieval over MCP; tree-sitter indexing.
 - **License:** free for personal use; commercial use requires a paid license.
-- Vendor claim: 96.2% fewer tokens per lookup versus grep-and-read. This is a vendor benchmark and has not been independently reproduced here.
+- Vendor claim: 96.2% fewer tokens per lookup versus grep-and-read. This is a vendor claim and has not been independently reproduced here.
 - Use only if Serena/CodeGraph do not cover your language or workflow.
 
 ## Universal Ctags

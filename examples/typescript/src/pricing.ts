@@ -26,7 +26,7 @@ export function lineTotal(item: LineItem): number {
  *
  * @param items - Line items in the order.
  * @returns The sum of all line totals.
- * @remarks Intentionally duplicates the branch in {@link lineTotal} to support the refactor benchmark task.
+ * @remarks Intentionally duplicates the branch in {@link lineTotal} to support the refactor test case.
  */
 export function orderTotal(items: LineItem[]): number {
   let total = 0;

@@ -1,26 +1,25 @@
 # Architecture Overview
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** local validation and CLI lifecycle tests
 
-This page describes the OpenCode reference adapter. The provider-neutral core is under `agents/`, `commands/`, `skills/`, and [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md); the adapter mapping for Claude, GitHub Copilot, and ChatGPT/Codex is described in `docs/compatibility/`.
+ToolWright is a provider-neutral environment layer around an AI coding client. The client owns model access, tools, and conversation. ToolWright owns the project files that make the workflow consistent: instructions, agents, commands, skills, memory, verification, and lifecycle metadata.
 
 ## Layers
 
 ```text
 ┌──────────────────────────────────────────────────────────────┐
 │ Human                                                        │
-│ TUI, CLI, optional Telegram (Ralph RObot)                    │
+│ TUI or native client UI                                      │
 └───────────────────────────┬──────────────────────────────────┘
                             │
 ┌───────────────────────────▼──────────────────────────────────┐
-│ Orchestration: Ralph Orchestrator (primary)                  │
-│ hats · events · completion promise · backpressure · memories │
+│ AI coding client                                             │
+│ OpenCode · Claude Code · GitHub Copilot · OpenAI Codex       │
 └───────────────────────────┬──────────────────────────────────┘
-                            │ opencode run --agent <role>
+                            │ loads project files
 ┌───────────────────────────▼──────────────────────────────────┐
-│ OpenCode V2                                                  │
-│ primary agent (coordinator) · subagents · permissions · commands    │
-│ compaction · tool_output · skills · MCP clients              │
+│ ToolWright environment                                       │
+│ AGENTS.md · agents · commands · skills · memory · lock file  │
 └───────┬───────────────────────────┬──────────────────────────┘
         │                           │
 ┌───────▼──────────────┐  ┌─────────▼───────────────────────────┐
@@ -32,48 +31,47 @@ This page describes the OpenCode reference adapter. The provider-neutral core is
 
 ## Responsibilities
 
-The table below describes Responsibilities. It has 4 rows and 3 columns: Layer, Owns, and Does not own. Each row is one layer, and the other columns record Owns and Does not own. Read it to compare rows or to find a specific layer.
-| --- | --- | --- |
-| Ralph | Task loop, gates, iteration limits, memories, worktrees | Tool permissions, model credentials |
-| OpenCode | Agent prompts, permissions, tool execution, context compaction | Cross-session persistence |
+The table below describes each layer. Read the owns and does-not-own columns together so a failure is assigned to the right layer.
+
+| Layer | Owns | Does not own |
+|---|---|---|
+| AI coding client | Model access, tool execution, context window | Project conventions |
+| ToolWright environment | Project instructions, agents, commands, skills, memory, lock file | Model credentials or billing |
 | Deterministic tools | Correctness evidence | Reasoning about intent |
 | Code intelligence | Retrieval precision | Deciding what to change |
+| Ralph (optional) | Multi-step loops, gates, iteration limits | Tool permissions or model access |
 
 ## Request flow
 
-1. A human or script invokes `ralph run` with a prompt or spec.
-2. Ralph selects a hat and launches `opencode run --agent <role>`.
-3. OpenCode loads the agent, project config, skills, and MCP servers.
+1. A human opens the project in a supported client.
+2. The client loads `AGENTS.md`, native adapter files, and project memory.
+3. The agent chooses a command or a specialist role.
 4. The agent uses native tools, ripgrep, ast-grep, Serena, or CodeGraph as needed.
-5. The agent runs deterministic checks (tests, lint, typecheck).
-6. Ralph parses completion and gate outcomes. Incomplete work loops back.
-7. On success Ralph emits the collection completion promise and runs its landing sequence. Ralph 2.10.1 commits during landing; see the Git safety section in the Ralph guide.
+5. The agent runs the task’s deterministic verification command.
+6. Durable findings are recorded in project memory.
+7. The human reviews the diff and decides whether to commit.
+
+Ralph is an optional path for long multi-step loops. It runs only in a separate disposable clone because Ralph 2.10.1 commits during landing.
 
 ## Data and state
 
-The table below describes Data and state. It has 6 rows and 3 columns: State, Location, and Owner. Each row is one state, and the other columns record Location and Owner. Read it to compare rows or to find a specific state.
-| --- | --- | --- |
-| Ralph memories/tasks/scratchpad | `.agent/` (or configured `.ralph/agent/`) | Ralph |
-| Ralph specs | `.ralph/specs/` | Human/Ralph |
+The table below lists the persistent state owned by each component. Read the owner column before deleting or moving a directory.
+
+| State | Location | Owner |
+|---|---|---|
+| ToolWright lock and state | `toolwright.lock.json`, `.toolwright/state.json` | ToolWright CLI |
+| Project memory | `.toolwright/memory/` | ToolWright memory |
+| Capacity and usage state | `.toolwright/board/`, `.toolwright/config.toml` | ToolWright board and verification |
 | OpenCode sessions | OpenCode data directory | OpenCode |
+| Claude, Copilot, Codex files | `.claude/`, `.github/`, `.codex/`, `AGENTS.md` | The selected adapter |
 | CodeGraph index | `.codegraph/` | CodeGraph |
-| Serena memories | Serena project config | Serena |
-| Repository instructions | [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md), `.opencode/` | Human |
+| Serena project config | Serena project directory | Serena |
+| Ralph state (optional) | `.agent/` or configured `.ralph/agent/` | Ralph |
 
-## Cost boundaries
+## Design constraints
 
-- Ralph's memory injection has a token budget.
-- OpenCode compaction retains a bounded tail.
-- Tool output is capped by lines and bytes.
-- MCP servers are exposed through Code Mode and permission filtering.
-- Expensive checks run once per gate, not per iteration, where possible.
-
-## Failure modes
-
-The table below describes Failure modes. It has 5 rows and 3 columns: Failure, Detection, and Response. Each row is one failure, and the other columns record Detection and Response. Read it to compare rows or to find a specific failure.
-| --- | --- | --- |
-| Model loops without progress | Iteration limit | Stop, report, preserve state |
-| Tests fail | Non-zero exit | Gate blocks completion |
-| Serena unavailable | MCP startup timeout | Fall back to ripgrep/ast-grep |
-| CodeGraph stale | Auto-sync warning | Re-run `codegraph init` |
-| Context overflow | Compaction event | Preserve decisions, drop raw output |
+- The core is Markdown and configuration; the CLI owns lifecycle and validation.
+- OpenCode is the reference adapter, not a requirement.
+- MCP configuration is automatic only for OpenCode.
+- No component stages, commits, or merges automatically.
+- A failed external tool install leaves project files intact and reports a manual step.

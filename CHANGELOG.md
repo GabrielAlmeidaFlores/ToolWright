@@ -1,322 +1,35 @@
 # Changelog
 
-All notable changes to this repository are documented here.
-
-> Entries before `0.2.0` were originally written with the historical `ote` names. Command and path names are normalized in prose; historical release asset filenames are preserved exactly.
+All notable changes to ToolWright are documented here.
 
 ## [Unreleased]
 
 ### Added
 
-- The generated project instructions now include a binding memory protocol: Claude, GitHub Copilot, Codex, and Cursor are told to read `.toolwright/memory/catalog.md` before re-investigating a decision, verify entries against their cited source, and record durable findings. OpenCode continues to use the opt-in preamble plugin.
-- Real-repository tool matrix on `honojs/hono`: 27 code-change runs, 9 capability probes, and one Ralph research run, with per-tool coverage and limitations.
-- Cost and performance optimization plan covering task routing, direct-agent defaults, tool policies, reasoning/output budgets, selective verification gates, and an A/B validation matrix.
-- [Cost and performance optimization plan](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/plans/cost-performance-optimization.md).
-- Benchmark-only arms `coordinator-slim`, `direct-slim`, and `tools-on-demand` under [`benchmarks/arms/`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/arms/README.md), selected with `--arm` and copied into the disposable workspace by the harness.
-- Real Hono fixtures for cookie, redirect, and request-id tasks under [`benchmarks/real/hono/`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/benchmarks/real/hono/README.md), plus a multi-file JWT `typ` feature and a read-only investigation fixture that complete the five-task matrix.
-- Benchmark-only `scoped-router` arm and agent that edit a single known file directly and delegate multi-file work; no production profile, prompt, or default changed.
-- Every benchmark run now records `status.txt`, `diff.patch`, and `diff-stat.txt` for scope and correctness review.
-- `validate_config.py` rejects repository-relative Markdown links and points to the absolute GitHub URL convention, with code fences and inline code treated as examples.
-- Hono cost A/B result set: 45 isolated runs across five arms, all verified and fully scoped; no arm beat the stock baseline, so no configuration was promoted. Three cells were re-executed after review found agent access to the harness directory, and published artifacts are path-sanitized.
-- Benchmark summaries now record `cache_hit_ratio`, and the `slim-uncapped` arm completes the 2×2 MCP/tool-output matrix.
-- [Cost-reduction tool candidates](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/research/cost-tool-candidates.md): evaluated watchlist for routing, caching, output filtering, and AST navigation tools, with verdicts and experiment gates.
-- [Hono delegation contract screen](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/benchmarks/results-hono-delegation-screen.md): 90-run, five-repeat confirmation of the delegation prompt; no cost win, so the contract was reverted.
-- Local `toolwright usage` ledger: records one session into `.toolwright/usage/`, reports task-level cost, tokens, verification, and rework, and prunes old entries; no telemetry or database.
+- Binding project-memory protocol for Claude Code, GitHub Copilot, and OpenAI Codex. The generated instructions tell agents to read `.toolwright/memory/catalog.md`, verify entries against their source, and record durable findings. OpenCode uses the opt-in preamble plugin.
+- Per-project setup documentation for OpenCode, Claude Code, GitHub Copilot, and OpenAI Codex.
+
+### Changed
+
+- Refocused the repository on the repeatable, safe, provider-neutral environment objective. The README, documentation home, and operating contract now lead with setup, daily use, memory, verification, and lifecycle.
+- Reduced the tracked tree to the environment, adapters, agents, skills, memory, verification, governance, security, release process, and optional Ralph orchestration.
+- Documentation tables and diagrams require an explanatory paragraph before them.
+- Documentation links use absolute GitHub URLs.
 
 ### Removed
 
-- Removed the standalone complete-guide page; canonical documentation remains the source of truth.
+- Benchmark harness, tasks, fixtures, arms, result artifacts, and benchmark documentation.
+- Pilot runner, pilot configuration, and pilot reports.
+- Stats and usage commands, cost-optimization pages, and research/plan archives.
+- The scoped-router experiment and its benchmark arm.
+- Cursor from setup and memory documentation.
+- Generated caches, build outputs, and local tool configuration from the working tree.
 
 ### Fixed
 
-- `toolwright memory` commands now write to the selected project (current directory or `--target`) instead of resolving the ToolWright source checkout. This makes memory usable in an installed project, not only in the ToolWright repository. The generated instructions now tell Claude, Copilot, Codex, and Cursor to consult that project memory automatically.
-- Benchmark runs now write `run-stats.json` from each `session.jsonl`, so cost and token totals no longer reuse cumulative `opencode stats --project .` output.
-- Published DeepSeek Flash results were recomputed from per-run session events: the optimized arm cost 14.2% more overall, with wins on two tasks and losses on three.
-- Corrected the benchmark page to explain task-level differences instead of claiming a uniform cost increase.
+- `toolwright memory` commands write to the selected project instead of resolving the ToolWright source checkout.
+- `toolwright memory` is usable in an installed project, not only in the ToolWright repository.
 
-### Changed
+## Scope
 
-- Documentation tables and diagrams now have a complete explanatory paragraph before them across the repository; the validator rejects a heading or a single sentence as the only lead-in.
-
-- Documentation links now use absolute GitHub URLs in every Markdown file, including pages under `docs/`, instead of relative paths that break when a file moves or the page is read outside the repository.
-- Benchmark result charts and documentation now use per-run session metrics and state the aggregation limitation.
-- The harness enforces each task's `max_wall_time_seconds` through [`scripts/benchmarking/run_with_timeout.py`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/benchmarking/run_with_timeout.py) and terminates the run process group afterwards, so MCP servers cannot outlive a run. A timed-out run reports exit `124`.
-- Production profiles, defaults, and agent prompts remain unchanged after the A/B. A delegation/edit contract was tested in a 90-run screen and reverted: delegation worked, but cost rose about 31% and wall time about 2.8×.
-
-## [0.4.0] - 2026-11-13
-
-### Added
-
-- [`scripts/validation/check_adapter_discovery.sh`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/validation/check_adapter_discovery.sh), an optional no-model-call check for Copilot instruction and skill discovery plus Codex [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) loading.
-- Integration coverage for the adapter discovery entry point.
-
-### Changed
-
-- Codex adapters set `sandbox_mode = "read-only"` for coordinator, planner, researcher, architect, code-reviewer, security-reviewer, and performance-analyst roles.
-- Write-capable Codex roles omit `sandbox_mode` and inherit the parent sandbox.
-
-## [0.3.1] - 2026-11-13
-
-### Added
-
-- Real-repository adapter validation record for `honojs/hono`, covering Claude, Copilot, and Codex installs without model calls.
-
-### Fixed
-
-- Adapter uninstall deduplicates shared generated paths such as [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md), prunes lock entries for removed or missing files, and drops adapters that no longer own files.
-
-## [0.3.0] - 2026-11-13
-
-Native platform adapters. OpenCode remains the reference adapter.
-
-### Added
-
-- `--platform {opencode,claude,copilot,codex}` on `toolwright install` and `toolwright profile use`.
-- Claude Code adapter generating `.claude/agents/*.md`, `.claude/commands/*.md`, `.claude/skills/`, and `CLAUDE.md`.
-- GitHub Copilot adapter generating `.github/instructions/*.instructions.md`, `.github/prompts/*.prompt.md`, `.github/skills/`, `.github/copilot-instructions.md`, and [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md).
-- OpenAI Codex adapter generating `.codex/agents/*.toml` and [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md).
-- Direct generated-file installation, backup of overwritten destinations, and uninstall support for non-OpenCode adapters.
-- Adapter tests covering generated paths, agent metadata, and installation without an `.opencode` directory.
-
-### Changed
-
-- Lock schema v2 records the adapter, generator, and digest for every managed file.
-- Non-OpenCode adapters bypass the shell installer; OpenCode behavior is unchanged.
-
-## [0.2.0] - 2026-11-13
-
-Project renamed to ToolWright. This is a breaking CLI and path rename.
-
-### Changed
-
-- Repository and brand: `OPENCODE-TOOL-ENHANCER` is now ToolWright (`GabrielAlmeidaFlores/ToolWright`).
-- CLI command: `ote` is now `toolwright`.
-- Python distribution and module: `ote-cli`/`ote_cli` are now `toolwright-cli`/`toolwright_cli`.
-- State and lock paths: `.ote/` is now `.toolwright/`; `ote.lock.json` is now `toolwright.lock.json`.
-- Environment variables: `OTE_*` are now `TOOLWRIGHT_*`.
-- OpenCode memory plugin: `ote-memory.js` is now `toolwright-memory.js`.
-
-### Added
-
-- Platform compatibility guides for GitHub Copilot, Claude Code, and OpenAI GPT/Codex, with an explicit support-level policy and copyable mapping examples.
-- README compatibility summary and MkDocs navigation for the new guides.
-
-## [0.1.2] - 2026-11-12
-
-Pilot dependency setup, agent selection, Hono code-change round, and step-budget tuning.
-
-## [0.1.1] - 2026-11-12
-
-Pilot round 1 discovery results, funded reruns, plugin live verification, release and policy documentation, step-budget tuning, and pilot agent selection.
-
-### Added
-
-- Hono code-change pilot round: five tasks, targeted tests, two independent reviews; see [`docs/pilots/results/code-round-hono.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/results/code-round-hono.md).
-- CleanArchitecture code-change round: 5/5 with .NET 11 build, unit, and SQL Server functional verification, plus independent review and a secure HTTPS-redirect rerun; turborepo 4/5 verified, with the performance task rejected in review.
-- Pilot dependency setup via `--setup` and explicit agent selection via `--agent`.
-
-- Pilot round 1 discovery suite across Hono, CleanArchitecture, and turborepo: 6/15 structural tasks passed; failures and provider quota are recorded in [`docs/pilots/results/round-1.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/results/round-1.md).
-- Six generated pilot reports under `docs/pilots/results/` with file:line references.
-
-- Optional Markdown task board (`toolwright task`) with a WIP limit, approval gate, and one Git worktree per task.
-- Opt-in OpenCode memory plugin that injects the bounded preamble only when `.toolwright/memory/plugin.enabled` exists.
-- `plugin` component, included only in the explicit `full` profile.
-- Task-board and plugin documentation, CI smoke checks, and tests.
-- Memory plugin live-session verification: injected with the sentinel, inactive without it; status moved to Stable.
-
-- MkDocs Material site with navigation for every guide and a strict build in CI.
-- [`SECURITY.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/SECURITY.md), [`SUPPORT.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/SUPPORT.md), [`ROADMAP.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/ROADMAP.md), [`CODE_OF_CONDUCT.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/CODE_OF_CONDUCT.md), and a security threat model with MCP trust levels.
-- Compatibility policy and release process documentation.
-- Tag-driven release workflow that verifies [`VERSION`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/VERSION), builds the wheel, writes `SHA256SUMS`, and publishes the GitHub release.
-- Weekly upstream-drift workflow and `check_upstream_drift.py`.
-- `check_version.py`, `local_release_check.sh`, `make docs`, `make version-check`, `make drift-check`, and `make release-check`.
-- Actionlint workflow validation and a mocked end-to-end pilot-runner test.
-- A real Hono smoke run that exposed and fixed the runner's inherited-`PWD` bug; see [`docs/pilots/results/hono-smoke.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/pilots/results/hono-smoke.md).
-
-- `toolwright stats` with Markdown, JSON, and CSV reports; per-agent/model/tool aggregation; tool-error counts; baseline comparison; and a post-run budget guard.
-- `toolwright eval` with deterministic case definitions in [`tests/evals/cases.json`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/tests/evals/cases.json); no model calls.
-- `toolwright pilot list|run` with a disposable clone, pinned commit, profile installation, one prompt, verification, and local artifacts.
-- [`configs/pilots/pilots.toml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/configs/pilots/pilots.toml) for the three selected repositories.
-- CI smoke checks for stats, eval, pilot listing, and pilot dry-run.
-- Phase 6 tests for stats parsing/rendering/comparison, eval cases, and pilot planning/validation.
-
-- `toolwright memory add|search|prune|export|preamble` with three scopes, TTL, deduplication, credential rejection, catalog generation, and a bounded preamble.
-- `.toolwright/memory/` layout with tracked project/shared scopes and a gitignored user scope.
-- `toolwright spec new|list|plan|verify` with requirements, design, tasks, and evidence artifacts and criterion/task/evidence validation.
-- `specs/` workflow documentation and templates.
-- ADR-007 accepted with verification; [`.toolwright/config.toml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/config.toml) gains memory settings.
-- CI smoke checks for memory and spec commands.
-- Phase 5 tests for memory scopes, secrets, expiry, preamble, spec creation, planning, and evidence.
-
-- `toolwright verify` with [`.toolwright/config.toml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/config.toml), per-check timeouts, input-hash caching for passing checks, JSON output, and failure classification.
-- `toolwright govern contracts|gate|check` with contracts derived from agent permissions, budget and loop/deadlock evaluation, and risk-based gate selection.
-- [`.toolwright/config.toml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/config.toml) with repository checks and governance limits; `.toolwright/cache/` is gitignored.
-- Ralph `code-assist` finalizer now requires `toolwright verify` when the config exists.
-- CI runs `toolwright verify --only validate --only lint` and `toolwright govern contracts`.
-- ADR-008 records the TOML decision and supersedes the YAML filename in the plan.
-- Phase 4 tests for configuration, execution, classification, caching, contracts, budgets, and gates.
-
-- Declarative profiles under `profiles/` with a restricted-YAML loader and `toolwright profile list|show|verify|use`.
-- Generated, schema-validated artifact catalog under `catalog/` with `toolwright catalog list|search|verify|build`.
-- OpenCode V1/V2 compatibility matrix exposed by `toolwright compat`, with an explicit not-a-benchmark disclaimer.
-- Catalog drift checks in the `static` and `cli` CI jobs, a tracked-files guard, and a `make catalog-check` target.
-- Optional `catalog` extra (`pyyaml`) for CLI environments that build the catalog.
-- 34 catalog entries covering agents, skills, commands, and Ralph hats.
-- Phase 3 tests for profiles, catalog validation, catalog search, and the compatibility matrix.
-
-- `toolwright` command line in `packages/toolwright_cli`: `doctor`, `install`, `uninstall`, `update --check`, and `rollback`, with deferred commands registered for later phases.
-- `toolwright.lock.json` records the source commit, version, source digest, profile, components, and a SHA-256 digest per installed file.
-- `toolwright doctor` combines repository checks, dependency checks, the validator, lock drift, and MCP connectivity.
-- `toolwright install` plans by default, backs up before overwrite, delegates to the shell installer, and is idempotent.
-- `toolwright uninstall` only removes lock-listed files inside the target and preserves modified files unless `--force` is given.
-- `toolwright rollback` lists and restores CLI backups through the existing restore script.
-- [`Makefile`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/Makefile) targets `toolwright` and `build-cli`.
-- CI job `cli` builds the wheel, installs it, runs `toolwright doctor`, and exercises the install lifecycle.
-- [`VERSION`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/VERSION) file for release and update checks.
-- Phase 0 baseline record with frozen environment, versions, and validation output.
-- ADR-005 for the Python CLI stack, ADR-006 for a single catalog source of truth, and ADR-007 for Markdown memory without a vector store.
-- Status metadata on every documentation page: status, last verified date, and evidence class.
-- Unit and integration test suite under `tests/` using the standard library runner.
-- Test fixtures that exercise provenance, permissions, JSONC, YAML, skills, commands, and benchmark tasks.
-- [`Makefile`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/Makefile) targets `test`, `lint`, and `ci`.
-- Testing guide and CI diagnosis guide.
-- Validator check for workflow YAML and documentation status metadata.
-- Phase 1 research report with verified compatibility findings.
-- Architecture decision records for the OpenCode V2 baseline, Ralph orchestration, maximal code intelligence, and benchmark scope.
-- OpenCode V2 project configuration with cost and context controls.
-- Custom `coordinator` primary agent and eleven specialized subagents.
-- Ralph Orchestrator core configuration and hat collections.
-- Code-intelligence guides for ripgrep, ast-grep, Serena, and CodeGraph.
-- Code-development skills pack.
-- Installation, validation, benchmarking, and maintenance scripts.
-- TypeScript and C# examples.
-- Benchmark methodology and harness.
-
-### Verified
-
-- CI run `43277080347` is green across all nine job instances (static, test, examples, cli, docs, profile discovery, harness dry-run), including catalog drift, profile verification, verification gates, governance contracts, memory/spec smoke checks, stats/eval/pilot dry-runs, task-board/plugin smoke checks, and the strict MkDocs build.
-- OpenCode 2.2.7 keeps `run --agent`, `--model`, `--format json`, and `stats --cost --json`.
-- Ralph hats support `backend_args` (alias `args`), enabling per-hat OpenCode agent routing.
-- CodeGraph is MIT licensed and exposes `codegraph serve --mcp`.
-
-### Fixed
-
-- `toolwright doctor` now reports a missing OpenCode binary as a failed check instead of aborting; external command capture returns code 127 or 124 for missing executables and timeouts.
-- A no-op `toolwright install --apply` refreshes the recorded source commit, so `toolwright update --check` no longer stays non-zero after a non-artifact commit.
-- Installation backups archive only the target's `.opencode` and `.ralph`; the global `~/.config/opencode` is no longer copied into the project.
-- External command failures such as a failed backup now produce a clean error instead of a Python traceback.
-- `toolwright install --apply` prints the installer output and names tool components that may install globally.
-- Skill installation skips `__pycache__`, `.pyc`, `.DS_Store`, and `node_modules`.
-- Shell syntax and ShellCheck now cover `skills/**/*.sh`.
-- Bare `make` prints help via `.DEFAULT_GOAL`; run `make validate` for the previous behavior.
-
-### Changed
-
-- Adopted naming over comments: removed redundant one-line docstrings, made function/class docstrings optional, and kept module docstrings plus contract detail. The validator now enforces block form only when a docstring exists.
-
-- Normalized every repository file to AGENTS.md Section 2C: vendored skill assets now use docstrings and documented functions instead of inline comments, the provenance registry and [`.gitignore`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.gitignore) use standardized header blocks, and the validator scans `skills/` and `tests/` in addition to `scripts/` and `packages/`, rejects non-documentation TypeScript and C# comments, and requires block-form Python docstrings with the triple quotes on their own lines.
-- `tests/fixtures/` is the only documented exception, because those files must contain prohibited patterns to exercise the validator.
-
-### Fixed
-
-- Benchmark harness dry-run no longer requires the OpenCode binary; the CI `harness` job failed with exit code 2 because OpenCode was never installed there. Dry-run now validates task inputs only, and real runs still require both OpenCode and `OPENCODE_BENCH_MODEL`.
-- CI workflow now separates static checks, tests, examples, profile discovery, and harness dry-run into independent jobs with timeouts and a concurrency group.
-
-### Repository readiness (2026-11-11)
-
-- Expanded the README with installation references, configuration guidance, daily workflows, prompt patterns, cost optimization, FAQ, and a documentation index.
-- Added light, dark, and mark logo variants under `assets/`.
-
-- Updated all documentation with the public repository URL.
-- Copied complete skill directories, including references, assets, and supporting scripts.
-- Updated the installer to copy complete skill directories and back up existing skill trees.
-- Added `working_directory` to benchmark tasks and made the harness execute tasks from the correct project directory.
-- Added validation for benchmark task working directories and required task fields.
-- Fixed the C# benchmark verification command to target the test project explicitly.
-- Scoped `--clean` to the selected components and included `.ralph/hats`, while preserving `.ralph/agent` runtime state.
-- Made `OPENCODE_BENCH_MODEL` required and passed it explicitly to `opencode run`, so both arms use the same model and avoid provider-default incompatibilities.
-- Clarified completion promises for Ralph collections.
-- Updated ast-grep version references to the verified 0.51.1 environment.
-
-### Documentation comments (2026-11-11)
-
-- Added AGENTS.md Section 2C and engineering rule 17: comments are documentation only.
-- Standardized file headers for shell, Python, JSONC, YAML, agents, commands, and hats.
-- Added function documentation blocks for shell functions and docstrings for Python functions.
-- Added JSDoc for TypeScript exports and XML documentation for public C# types and members.
-- Removed inline and field-level comments from configuration files; explanations live in `docs/`.
-- Moved Ralph hat provenance and preset notes into a single standardized header block.
-
-### Observability and release readiness (2026-11-11)
-
-- Added [`scripts/benchmarking/report_costs.py`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/benchmarking/report_costs.py) to aggregate cost and token data from session artifacts.
-- Added cost observability and MCP overhead documentation.
-- Added the release checklist.
-- Added an evidence-status table to the README and downgraded the hero claim to “production-oriented”.
-- Adapted sourced commands to OpenCode subagent and question tools; all eight commands passed runtime smoke tests on the TypeScript fixture.
-- Verified all ten skills through the OpenCode `skill` tool.
-
-### Stabilization and validation (2026-11-11)
-
-- Added [`scripts/maintenance/run-ralph-isolated.sh`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/scripts/maintenance/run-ralph-isolated.sh) so Ralph runs in a separate clone and exports an unstaged patch.
-- Added a macOS/Linux CI matrix for static validation, examples, OpenCode agent discovery, and harness dry-runs.
-- Added the artifact compatibility matrix.
-- Added the real-repository pilot index with pinned repositories and acceptance criteria.
-- Extended command validation to require a valid target agent.
-
-### Git safety (2026-11-11)
-
-- Added AGENTS.md Section 2B: no automatic staging or commits by any agent, skill, command, hat, script, hook, orchestrator, or CI job.
-- OpenCode permissions now deny `git add`, `git stage`, and `git commit` for agents.
-- Every agent has an explicit local Git safety rule.
-- Documented Ralph 2.10.1's landing auto-commit limitation and the separate-clone workaround.
-- Removed the unimplemented `checkpoint_interval` key and documented the future default risk.
-- Fixed the installer so `--dry-run` does not create backup directories.
-- Ignored `.opencode-backup-*` directories in Git.
-- Added validator enforcement that every agent resolves `git add`, `git stage`, and `git commit` to `deny` as the last matching rule.
-- Extended deny patterns to `git -C`/`git -c` forms and to `git stash`, `git reset`, `git checkout`, and `git clean`.
-- Updated Ralph examples to run only inside a separate disposable clone; worktrees are explicitly rejected.
-
-### Author attribution (2026-11-11)
-
-- Every skill now records `metadata.author`, `metadata.author_url`, and `metadata.author_email` when published.
-- Every agent, command, and Ralph hat records `# author:`, `# author_url:`, and `# author_email:` in its provenance header.
-- [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml) records the author for every artifact and source.
-- The validator fails when author attribution is missing.
-- No skill or agent is presented as original work; all are adapted from public repositories.
-
-### Provenance remediation (2026-11-11)
-
-- Added AGENTS.md Section 2A and engineering rule 15: no greenfield agents, skills, commands, hats, prompts, templates, examples, or benchmark tasks when a maintained upstream exists.
-- Replaced all 12 locally authored agents with adapted agents from `VoltAgent/awesome-claude-code-subagents` and `wshobson/agents`.
-- Replaced all 10 locally authored skills with skills from `obra/superpowers` and `wshobson/agents`.
-- Replaced all 8 locally authored commands with commands from `wshobson/agents`.
-- Replaced all 4 hat collections with Ralph's official `code-assist`, `review`, `research`, and `debug` presets, adding only per-hat OpenCode routing.
-- Added [`docs/provenance/registry.yml`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/registry.yml), [`docs/provenance/README.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/provenance/README.md), and [`THIRD_PARTY_NOTICES.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/THIRD_PARTY_NOTICES.md).
-- Added validator enforcement for provenance headers, skill metadata, and registry paths.
-- Added `--clean` to the installer so removed artifacts do not linger in an existing installation.
-
-### End-to-end verification (2026-11-11)
-
-- OpenCode 2.2.7 loaded 19 agents in an isolated project (7 built-in + 12 custom).
-- Serena 2.1.0 and CodeGraph 1.6.2 connected over MCP.
-- TypeScript example: 7/7 tests pass.
-- C# example: 4/4 tests pass.
-- Ralph 2.10.1 completed the official `research` collection in 2 iterations with `RESEARCH_COMPLETE`.
-- The official `code-assist` collection requires a larger iteration budget for multi-wave work; this is documented instead of hidden.
-
-### Fixed during verification
-
-- Ralph event syntax is XML (`<event topic="...">`), not `EVENT: ...`.
-- Removed duplicate `default_publishes` from custom hats.
-- Replaced `build.done` with `build.ready` to avoid Ralph's backpressure gate.
-- Scoped `required_events` to the code-assist collection.
-- Allowed transient temp directories so Ralph can pass large prompts.
-- Coordinator may run shell commands for verification while remaining edit-denied.
-- Replaced locally authored artifacts with pinned upstream versions (see Provenance remediation above).
-
-### Known limitations
-
-- OpenCode V2 does not run language servers; Serena replaces native LSP.
-- No benchmark results are published; only methodology and harness.
-- Ralph's OpenCode backend is plain text, so gates depend on exit codes.
+ToolWright does not claim a cost, token, benchmark, or multi-agent performance win. Its value is a consistent, verifiable, portable workflow around the model.

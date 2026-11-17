@@ -51,15 +51,10 @@ Then complete the manual checks for your environment.
 - [ ] `toolwright install --platform codex --apply` writes [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) and read-only agent TOMLs with `sandbox_mode = "read-only"`.
 - [ ] `./scripts/validation/check_adapter_discovery.sh` exits 0 and skips unavailable CLIs.
 
-## Stats, evals, and pilots
+## Evals
 
-- [ ] `toolwright stats` renders Markdown, JSON, and CSV from result artifacts.
-- [ ] Baseline and optimized runs produce a comparison row.
-- [ ] `toolwright stats --budget` exits 1 when recorded cost exceeds the ceiling.
 - [ ] `toolwright eval` passes with no model call.
-- [ ] `toolwright pilot list` shows the three selected repositories.
-- [ ] `toolwright pilot run hono --dry-run` prints the planned commands and writes nothing.
-- [ ] A real pilot records verification, cost, tokens, and tool errors under `artifacts/`.
+- [ ] Reporting artifacts contain no credentials.
 
 ## Memory and specs
 
@@ -131,13 +126,11 @@ Then complete the manual checks for your environment.
 
 - [ ] `examples/typescript`: `npm install && npm test` passes.
 - [ ] `examples/csharp`: `dotnet test Example.Tests/Example.Tests.csproj` passes.
-- [ ] The multi-agent example documents the expected event flow.
 
 ## Runtime smoke
 
 - [ ] All eight commands respond on the TypeScript fixture.
 - [ ] All ten skills load through the `skill` tool.
-- [ ] `python3 scripts/benchmarking/report_costs.py` runs without error.
 - [ ] MCP overhead evidence is current.
 
 ## Task board and plugin
@@ -164,4 +157,3 @@ Then complete the manual checks for your environment.
 - [ ] Every command in the quick start was executed.
 - [ ] No V1-only command is presented as current.
 - [ ] Vendor claims are labelled as vendor claims.
-- [ ] No benchmark result is published without correctness data.

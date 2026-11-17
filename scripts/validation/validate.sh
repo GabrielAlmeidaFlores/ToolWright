@@ -36,7 +36,7 @@ else
 fi
 
 echo "${SH_SHELL_SYNTAX}"
-for f in scripts/installation/*.sh scripts/maintenance/*.sh scripts/benchmarking/*.sh benchmarks/harness/*.sh skills/*/*.sh; do
+for f in scripts/installation/*.sh scripts/maintenance/*.sh skills/*/*.sh; do
   [[ -f "$f" ]] || continue
   bash -n "$f"
 done
