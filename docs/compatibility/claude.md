@@ -81,7 +81,7 @@ Claude's `tools` field is an allowlist. It does not reproduce OpenCode's ordered
 
 ## Project memory
 
-Keep the Git-safety and verification rules from [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) in `CLAUDE.md`:
+The adapter copies [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) to `CLAUDE.md`, including the project-memory read protocol. Keep the Git-safety and verification rules from that file in `CLAUDE.md`:
 
 ```markdown
 # CLAUDE.md

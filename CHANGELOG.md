@@ -8,6 +8,7 @@ All notable changes to this repository are documented here.
 
 ### Added
 
+- The generated project instructions now include a binding memory protocol: Claude, GitHub Copilot, Codex, and Cursor are told to read `.toolwright/memory/catalog.md` before re-investigating a decision, verify entries against their cited source, and record durable findings. OpenCode continues to use the opt-in preamble plugin.
 - Real-repository tool matrix on `honojs/hono`: 27 code-change runs, 9 capability probes, and one Ralph research run, with per-tool coverage and limitations.
 - Cost and performance optimization plan covering task routing, direct-agent defaults, tool policies, reasoning/output budgets, selective verification gates, and an A/B validation matrix.
 - [Cost and performance optimization plan](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/docs/plans/cost-performance-optimization.md).
@@ -28,6 +29,7 @@ All notable changes to this repository are documented here.
 
 ### Fixed
 
+- `toolwright memory` commands now write to the selected project (current directory or `--target`) instead of resolving the ToolWright source checkout. This makes memory usable in an installed project, not only in the ToolWright repository. The generated instructions now tell Claude, Copilot, Codex, and Cursor to consult that project memory automatically.
 - Benchmark runs now write `run-stats.json` from each `session.jsonl`, so cost and token totals no longer reuse cumulative `opencode stats --project .` output.
 - Published DeepSeek Flash results were recomputed from per-run session events: the optimized arm cost 14.2% more overall, with wins on two tasks and losses on three.
 - Corrected the benchmark page to explain task-level differences instead of claiming a uniform cost increase.

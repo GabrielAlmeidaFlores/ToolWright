@@ -30,12 +30,14 @@ from tests.integration.test_toolwright_commands_strings import (
     TEXT_COPILOT_AGENTS_COORDINATOR,
     TEXT_COPILOT_INSTRUCTIONS,
     FLAG_RECORD,
+    FLAG_SOURCE,
     FLAG_RESULTS,
     FLAG_RISK,
     FLAG_TARGET,
     FLAG_TYPE,
     FLAG_YES,
     KEY_A,
+    KEY_ADD,
     KEY_ADAPTER,
     KEY_ADAPTERS,
     KEY_AGENT,
@@ -50,6 +52,7 @@ from tests.integration.test_toolwright_commands_strings import (
     KEY_COMPONENT,
     KEY_COMPONENTS,
     KEY_CONTRACTS,
+    KEY_CONSTRAINT,
     KEY_COORDINATOR,
     KEY_COST,
     KEY_DECISION,
@@ -145,6 +148,8 @@ from tests.integration.test_toolwright_commands_strings import (
     TEXT_OPENCODE_BINARY_IS_NOT_INSTALLED,
     TEXT_OPENCODE_COPY,
     TEXT_PLAN_ONLY,
+    TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD,
+    TEXT_MEMORY_TARGET_NOTE,
     TEXT_PROJECT_MEMORY,
     TEXT_PROJECT_OPENCODE_TAR_GZ,
     TEXT_PROVIDER_MODEL,
@@ -496,6 +501,23 @@ class MemoryAndSpecReadTests(unittest.TestCase):
         exported = run_ote(KEY_MEMORY, KEY_EXPORT, FLAG_FORMAT, KEY_JSON)
         self.assertEqual(exported.returncode, 0, exported.stderr)
         self.assertIn(KEY_ENTRIES, json.loads(exported.stdout))
+
+    def test_memory_add_writes_to_the_project_root(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result = run_ote(
+                KEY_MEMORY,
+                KEY_ADD,
+                TEXT_MEMORY_TARGET_NOTE,
+                FLAG_TYPE,
+                KEY_CONSTRAINT,
+                FLAG_SOURCE,
+                TEXT_AGENTS_MD,
+                cwd=Path(directory),
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            catalog = Path(directory) / TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD
+            self.assertTrue(catalog.is_file())
+            self.assertIn(TEXT_MEMORY_TARGET_NOTE, catalog.read_text(encoding=TEXT_UTF_8))
 
     def test_memory_preamble(self) -> None:
         result = run_ote(KEY_MEMORY, KEY_PREAMBLE, FLAG_BUDGET, TEXT_100)

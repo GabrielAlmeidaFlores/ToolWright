@@ -75,7 +75,7 @@ Return findings in severity order with file and line references. Do not edit fil
 
 The adapter generates the files. Edit installed files only when you need repository-specific guidance:
 
-1. Keep project-wide rules in `.github/copilot-instructions.md` or [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md).
+1. Keep project-wide rules in `.github/copilot-instructions.md` or [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md). The generated instructions include the project-memory read protocol, so Copilot is told to consult `.toolwright/memory/` before re-investigating a decision.
 2. Add path filters to `.github/instructions/*.instructions.md` when a role should apply only to matching files.
 3. Keep verification commands identical to the repository's [`Makefile`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/Makefile) or CI.
 

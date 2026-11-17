@@ -166,3 +166,6 @@ TEXT_RUN_STATS_JSON = 'run-stats.json'
 TEXT_SCRIPTS_BENCHMARKING_SUMMARIZE_SESSION_PY = 'scripts/benchmarking/summarize_session.py'
 
 KEY_OPTIMIZED = 'optimized'
+
+KEY_CONSTRAINT = 'constraint'
+TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD = '.toolwright/memory/catalog.md'

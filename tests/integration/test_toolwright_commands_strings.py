@@ -12,6 +12,9 @@ from tests.constants import (
     FLAG_ONLY,
     FLAG_TARGET,
     KEY_A,
+    TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD,
+    KEY_ADD,
+    KEY_CONSTRAINT,
     KEY_ADAPTER,
     KEY_ADAPTERS,
     KEY_AGENT,
@@ -110,6 +113,7 @@ FLAG_RECORD = '--record'
 FLAG_RESULTS = '--results'
 FLAG_RISK = '--risk'
 FLAG_TYPE = '--type'
+FLAG_SOURCE = '--source'
 FLAG_YES = '--yes'
 KEY_COMPAT = 'compat'
 KEY_COMPONENT = 'component'
@@ -145,6 +149,7 @@ TEXT_M = '-m'
 TEXT_NO_BACKUPS = 'no backups'
 TEXT_PLAN_ONLY = 'plan only'
 TEXT_PROJECT_MEMORY = '# Project Memory'
+TEXT_MEMORY_TARGET_NOTE = 'Project memory target check'
 TEXT_PYTHONPATH = 'PYTHONPATH'
 TEXT_RECORD_JSON = 'record.json'
 TEXT_REMOVE_OPENCODE_AGENTS_COORDINATOR_MD = 'remove .opencode/agents/coordinator.md'

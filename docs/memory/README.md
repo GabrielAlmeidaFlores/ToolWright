@@ -1,6 +1,6 @@
 # Project Memory
 
-> **Status:** Stable · **Last verified:** 2026-11-12 · **Evidence:** verified locally and in CI run 43277080347
+> **Status:** Stable · **Last verified:** 2026-11-17 · **Evidence:** `make ci` and adapter tests pass locally
 
 Memory is plain Markdown under `.toolwright/memory/`. There are no embeddings, no vector database, and no background service.
 
@@ -76,15 +76,17 @@ token_budget = 2000
 ttl_days = 30
 ```
 
-## Using memory with OpenCode
+## Automatic use by client
 
-Reference [`.toolwright/memory/catalog.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/.toolwright/memory/catalog.md) from the project [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md), or load the preamble on demand:
+The project [`AGENTS.md`](https://github.com/GabrielAlmeidaFlores/ToolWright/blob/main/AGENTS.md) now contains a binding memory protocol: read `.toolwright/memory/catalog.md` before exploring code, verify any claim against its cited source, and record durable findings. The Claude, GitHub Copilot, and Codex adapters copy that file, and Cursor reads a repository-root `AGENTS.md`. No plugin or CLI invocation is required for those clients to receive the instruction.
+
+OpenCode adds a stronger path: the opt-in plugin runs `toolwright memory preamble` and injects the bounded summary into each request, so the memory content is already in context. The CLI remains the stable interface for recording and searching entries:
 
 ```bash
 toolwright memory preamble
 ```
 
-Session-start injection through an OpenCode plugin is deferred to a later phase. The CLI is the stable interface.
+The protocol asks an agent to read the memory files with its file tools; it does not copy memory content into generated instruction files. That keeps one source of truth and avoids stale duplicated snapshots. If a client cannot read repository files, memory is not available to it.
 
 ## Design reference
 

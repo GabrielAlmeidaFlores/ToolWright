@@ -27,3 +27,6 @@ TEXT_CODEX_PLANNER_TOML = 'planner.toml'
 TEXT_SANDBOX_READ_ONLY = 'sandbox_mode = "read-only"'
 TEXT_SOURCE_MD = 'source.md'
 TEXT_TARGET_MD = 'target.md'
+
+TEXT_PROJECT_MEMORY_HEADING = '### Project memory'
+TEXT_MEMORY_ADD_COMMAND = 'toolwright memory add'

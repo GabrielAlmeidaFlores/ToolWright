@@ -14,6 +14,10 @@ This is not a theoretical documentation project. Every recommendation must be su
 
 Read this file before acting. The sections below are binding. When instructions conflict, prefer the stricter safety and evidence rule.
 
+### Project memory
+
+Before exploring code or re-deriving a decision, read `.toolwright/memory/catalog.md` when it exists. Open only the entries that match the task, taking them in the order `project/`, `user/`, and `shared/`. Treat an entry as context rather than proof: verify its claim against the cited `source` before relying on it, and ignore entries marked expired. When you learn a durable decision, constraint, convention, or failure, record it with `toolwright memory add` and cite a source. Never write credentials or secrets to memory. If the memory directory is absent, continue without it.
+
 ### Default loop
 
 1. Restate the requested outcome and identify whether it is research, implementation, documentation, release, benchmark, or maintenance.

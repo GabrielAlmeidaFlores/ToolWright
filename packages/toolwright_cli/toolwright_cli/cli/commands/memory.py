@@ -23,7 +23,7 @@ from ..cli_strings import (
 
 import argparse
 
-from ..common import emit_payload, resolve_repository_root
+from ..common import emit_payload
 from ...constants import (
     KEY_APPLIED, KEY_ID, KEY_PATH, KEY_TITLE, KEY_TYPE, NEWLINE,
 )
@@ -31,10 +31,10 @@ from ...cli_constants import (
     COMMAND_ADD, COMMAND_SEARCH, EMPTY_STRING, FORMAT_JSON,
 )
 from ... import memory as memory_module
-from ...paths import ToolWrightError
+from ...paths import ToolWrightError, resolve_target
 
 def _command_memory(args: argparse.Namespace) -> int:
-    root = resolve_repository_root(args)
+    root = resolve_target(args.target)
     action = args.memory_command
     if action == COMMAND_ADD:
         entry = memory_module.add_memory_entry(

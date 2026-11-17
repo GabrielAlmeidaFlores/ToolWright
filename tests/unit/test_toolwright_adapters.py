@@ -2,6 +2,7 @@
 Unit tests for the adapter registry and planned-file hashing.
 """
 from __future__ import annotations
+from tests.constants import EMPTY_STRING
 from tests.unit.test_toolwright_adapters_strings import (
     KEY_AGENTS,
     KEY_CLAUDE,
@@ -20,7 +21,9 @@ from tests.unit.test_toolwright_adapters_strings import (
     TEXT_CODEX_PLANNER_TOML,
     TEXT_SANDBOX_READ_ONLY,
     TEXT_MAIN,
+    TEXT_MEMORY_ADD_COMMAND,
     TEXT_OPENCODE_COPY,
+    TEXT_PROJECT_MEMORY_HEADING,
     TEXT_SOURCE_MD,
     TEXT_TARGET_MD,
     TEXT_UTF_8,
@@ -32,6 +35,7 @@ import unittest
 from pathlib import Path
 
 from tests import support
+from tests.unit.test_toolwright_memory_strings import TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD
 
 from toolwright_cli import adapters
 from toolwright_cli.locking import PlannedFile, planned_sha256
@@ -79,6 +83,15 @@ class PlatformAdapterTests(unittest.TestCase):
         planned = adapters.plan(KEY_CODEX, support.REPO_ROOT, support.REPO_ROOT / KEY_TARGET, [KEY_AGENTS])
         self.assertEqual(len(planned), 13)
         self.assertTrue(all(item.adapter == KEY_CODEX for item in planned))
+
+    def test_instruction_targets_require_project_memory(self) -> None:
+        for adapter in (KEY_CLAUDE, KEY_COPILOT, KEY_CODEX):
+            planned = adapters.plan(adapter, support.REPO_ROOT, support.REPO_ROOT / KEY_TARGET, [KEY_AGENTS])
+            contents = [item.content or EMPTY_STRING for item in planned]
+            combined = EMPTY_STRING.join(contents)
+            self.assertIn(TEXT_PROJECT_MEMORY_HEADING, combined, adapter)
+            self.assertIn(TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD, combined, adapter)
+            self.assertIn(TEXT_MEMORY_ADD_COMMAND, combined, adapter)
 
     def test_codex_read_only_roles_get_a_read_only_sandbox(self) -> None:
         planned = adapters.plan(

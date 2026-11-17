@@ -5,6 +5,8 @@ Side effects: none.
 """
 from __future__ import annotations
 from tests.constants import (
+    KEY_CONSTRAINT,
+    TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD,
     KEY_A,
     KEY_B,
     KEY_DECISION,
@@ -25,7 +27,6 @@ from tests.constants import (
 
 KEY_BODY = 'body'
 KEY_CONFIDENCE = 'confidence'
-KEY_CONSTRAINT = 'constraint'
 KEY_CREDENTIAL = 'credential'
 KEY_E = 'e'
 KEY_ENTRY_TYPE = 'entry_type'
@@ -58,7 +59,6 @@ TEXT_ROW_LEVEL = 'row-level'
 TEXT_SAME = 'Same'
 TEXT_SHARED_ENTRY = 'Shared entry'
 from tests.constants import TEXT_INDENT as TEXT_TEXT
-TEXT_TOOLWRIGHT_MEMORY_CATALOG_MD = '.toolwright/memory/catalog.md'
 TEXT_TOOLWRIGHT_MEMORY_PROJECT = '.toolwright/memory/project'
 TEXT_USER_ENTRY = 'User entry'
 TEXT_USER_NOTE = 'user note'
